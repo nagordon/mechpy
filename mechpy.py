@@ -767,7 +767,7 @@ def ode1():
         print(solver.t, solver.y, actual_solution(solver.t))
         solver.integrate(solver.t+dt)
 
-    
+
 
 if __name__ == '__main__':
     
