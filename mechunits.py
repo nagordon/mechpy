@@ -6,110 +6,101 @@ author: Neal Gordon
 Typical use of unitconvert are to find the equivalent of a unit at the command line
 without the need to be online
 
+scripts for use with engineering calculations
 
 """
-
-  
-''' Pint Uses
-    # General Use and syntax
-    from pint import UnitRegistry
-    ureg = UnitRegistry()
-    home = 25.4 * ureg.degC
-    print(home.to('degF'))
-    ft = 1 * ureg.feet
-    lb = 10 * ureg.pound_force
-    T = ft*lb  
-    print(T)
-    print(T.magnitude)
-    print(T.units)
-    print(T.dimensionality)
-    print(T.to_base_units())
-    ureg.newton * ureg.meter
-    print(repr(T))
-    T.to(ureg.inch * ureg.pound_force)
-    T.to(ureg.inch * ureg.pound_force)
-    T.to(ureg.meter * ureg.newton)
-    num = 1.0
-    x=num*ureg.lbf
-    print( x.to(ureg.newton) )
-    ureg.lbf.to(ureg.newton)        
-'''
-
-''' lb to kg example
-# equivalent of kg to lbf
-print('\nthe units of mass is ',units.mass)
-print('the units of force is ',units.mass*units.acceleration)
-m = 1 # kg
-a = 9.81 # acceleration at sea level on earth , kg/m*s^2
-F = m*a # newton , 1 kg = 9.81 newtons = 2.205 lbf
-numout = uc(F,'newton','pound')
-print('\n',m,'kilogram =', F, 'newtons =',numout , 'lbf')
-'''
-
-''' pint and units used together
-print( (units.psi*ureg.psi) / (units.pascal*ureg.pascal) )
-print(1.0 *  (units.inch*ureg.inch) / (units.miles*ureg.miles) )
-print(1.0* (units.inch*ureg.inch) / (units.millimeter*ureg.millimeter) )
-'''
     
-''' sympy
-from sympy.physics import units
-# ksi/MPa
-1.0 * (units.psi*1e3) / (units.pascal*1e6)
-# lb/N
-1.0 * units.pound / units.newton
-# km/mile
-1.0 * units.kilometer  / units.mile
-# mile/km
-1.0 * units.mile / ( 1.0* units.kilometer )
-# inch/mm
-print(1.0 * units.inch / units.millimeter)
-# lbs / kg
-1.0 *  units.pound / units.kilogram 
-# cc/cuin
-1.0 *  units.inch**3 / units.centimeter**3
-'''
+
 
 def uc1(numin,frm,to):
+    '''sympy
+    http://docs.sympy.org/dev/modules/physics/units.html
     # uses sympy module for unit conversion(uc)
-    # converts number 'num' from 'frm' units to 'to' units
-    ''' examples
-             from    to
-    uc(1.0,'pascal','psi')
-    uc(1.0,'psi','kPa')
-    uc(1.0,'atm','psi')
-    uc(1.0,'inch','mm')
-    uc(1.0,'kilometer','mile')
-    uc(1.0,'mile','kilometer')
-    uc(1.0,'newton','pound')
-    uc(1.0,'pound','newton')
+    # converts number 'num' from 'frm' units to 'to' units	
+    	
+    # examples
+    uc1(1.0,'pascal','psi')
+    uc1(1.0,'psi','kPa')
+    uc1(1.0,'atm','psi')
+    uc1(1.0,'inch','mm')
+    uc1(1.0,'kilometer','mile')
+    uc1(1.0,'mile','kilometer')
+    uc1(1.0,'newton','pound')
+    uc1(1.0,'pound','newton')
+    uc1(1.0,'joule','calorie')
+    uc1(1.0, 'radians','degrees')
+    
+
     '''
     from sympy.physics import units
+    
+    try:
+        eval('units.'+frm)   
+    except:
+        print('no unit %s found, did you mean...\n' % frm)
+        print(eval("units.find_unit('"+frm+"')"))
+        return
+     
+    try:
+        eval('units.'+to)   
+    except:
+        print('no unit %s found, did you mean...\n' % to)
+        print(eval("units.find_unit('"+to+"')"))
+        return
+        
     strin = 'numin * units.'+frm+'/units.'+to
     numout = float(eval(strin))
     #print(numin , frm , '=' , numout , to)
     print('%.2f %s = %.2f  %s '%(numin, frm, numout, to  ))
-    #return numout
-    
+    #return numout      
+
+        
 
 def uc2(num,frm,to):
+    ''' Pint
+    Pint is used to manipulate physical quanities
+    https://pint.readthedocs.org/en/0.6/tutorial.html   
+    
     # uses pint module for unit conversion
-    # converts number 'num' from 'frm' units to 'to' units
-    ''' examples
-    uc(17.5,'lbf','newton')
-    uc(1,'lbf','newton')
-    uc(300,'pascal','psi')
-    uc(1,'inch','mm')
-    uc(1,'kilometer','mile')
-    uc(1,'mile','kilometer')  
+    # converts number 'num' from 'frm' units to 'to' units    
+    uc2(17.5,'lbf','newton')
+    uc2(1,'lbf','newton')
+    uc2(300,'pascal','psi')
+    uc2(1,'inch','mm')
+    uc2(1,'kilometer','mile')
+    uc2(1,'mile','kilometer')  
     '''
-    from pint import UnitRegistry
+    try:
+        from pint import UnitRegistry
+    except:
+        print('pint is missing, install with $ pip install pint') 
     ureg = UnitRegistry()
     strin = 'num * ureg.'+frm+'.to(ureg.'+to+')'
     numout = eval(strin)
     print(num , frm , '=' ,numout )
     return numout
 
+def uc3(numin,frm,to):
+    '''quantities
+    https://github.com/python-quantities/python-quantities
+    '''
+    import quantities as pq
+    
+    try:
+        eval('pq.'+frm)   
+        eval('pq.'+to) 
+    except:
+        print('no unit found')
+        return
+        
+    numout = eval(str(numin)+"* pq."+frm)
+    numout.units = to 
+    numout = float(numout)
+    
+    #print(numin , frm , '=' , numout , to)
+    print('%.2f %s = %.2f  %s '%(numin, frm, numout, to  ))
+    #return numout      
+    
 
 def in_mm(n=16):
     # %pylab inline # command in ipython that imports sci modulues
@@ -118,3 +109,15 @@ def in_mm(n=16):
     for k in range(n+1):
         n = float(n)
         print(' %5s in - %.6f in - %.6f mm ' %  (sym.Rational(k,n) , k/n, 25.4*k/n ) )  
+
+
+if __name__ == '__main__':
+    
+    import sys
+    
+    numin = float(sys.argv[1])
+    frm = sys.argv[2]
+    to = sys.argv[3]
+    
+    uc3(numin,frm,to)
+    
