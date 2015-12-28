@@ -8,6 +8,17 @@ without the need to be online
 
 scripts for use with engineering calculations
 
+To Convert From:	To:	Multiply By:
+psi -> Pa
+g/cm3 	lb/ft3	62.427974
+lb/ft3	kg/m3	16.01846
+cm	mil	393.7
+MPa(m1/2)	psi(in1/2)	910.06
+BTU/(lb-°F)	J/(g-°C)	4.184
+cal (thermochemical)	joule (J)	4.184
+BTU (thermochemical)	joule	1054.35
+µin/(in-°F)	µm/(m-°C)	1.8
+
 """
     
 
