@@ -110,6 +110,24 @@ def in_mm(n=16):
         n = float(n)
         print(' %5s in - %.6f in - %.6f mm ' %  (sym.Rational(k,n) , k/n, 25.4*k/n ) )  
 
+def nas(n=16):
+    # %pylab inline # command in ipython that imports sci modulues
+    import sympy as sym
+    sym.init_printing()
+    for k in range(n+1):
+        n = float(n)
+        print('NAS63%02d = %s' %  ( k, sym.Rational(k,n) ) )  
+
+def hst(n=16):
+    # %pylab inline # command in ipython that imports sci modulues
+    import sympy as sym
+    sym.init_printing()
+    for k in range(n+1):
+        n = float(n)
+        print('HST63%02d = %s' %  ( k, sym.Rational(k,n*2) ) )  
+
+
+
 
 if __name__ == '__main__':
     
