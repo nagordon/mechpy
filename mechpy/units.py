@@ -8,23 +8,13 @@ without the need to be online
 
 scripts for use with engineering calculations
 
-To Convert From:	To:	Multiply By:
-psi -> Pa
-g/cm3 	lb/ft3	62.427974
-lb/ft3	kg/m3	16.01846
-cm	mil	393.7
-MPa(m1/2)	psi(in1/2)	910.06
-BTU/(lb-°F)	J/(g-°C)	4.184
-cal (thermochemical)	joule (J)	4.184
-BTU (thermochemical)	joule	1054.35
-µin/(in-°F)	µm/(m-°C)	1.8
-
 """
     
 
 
 def uc1(numin,frm,to):
     '''sympy
+    uc1 - unit convert 1
     http://docs.sympy.org/dev/modules/physics/units.html
     # uses sympy module for unit conversion(uc)
     # converts number 'num' from 'frm' units to 'to' units	
@@ -69,6 +59,7 @@ def uc1(numin,frm,to):
 
 def uc2(num,frm,to):
     ''' Pint
+    uc2 - unit convert 2
     Pint is used to manipulate physical quanities
     https://pint.readthedocs.org/en/0.6/tutorial.html   
     
@@ -93,9 +84,25 @@ def uc2(num,frm,to):
 
 def uc3(numin,frm,to):
     '''quantities
+    uc3 - unit convert 3
     https://github.com/python-quantities/python-quantities
+    https://pythonhosted.org/quantities/user/tutorial.html
+    
+    c3(1,'inch','ft')
+    
+    inch, ft, m, mil, mile, fathom, light_year, mm, 
+    Celsius, Fahrenheit, kelvin
+    pascal, psi
+    calorie, joule
+    watt, horsepower
+    
     '''
-    import quantities as pq
+    try:
+        import quantities as pq
+    except:
+        print('python-quantities not found, downloading and installing from github now...')
+        import os
+        os.system('pip install git+https://github.com/python-quantities/python-quantities.git')
     
     try:
         eval('pq.'+frm)   
@@ -141,7 +148,7 @@ def hst(n=16):
 
 
 if __name__ == '__main__':
-    
+    # executed when script is run alone
     import sys
     
     numin = float(sys.argv[1])

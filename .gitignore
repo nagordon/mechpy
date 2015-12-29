@@ -1,1 +1,3 @@
 .ipynb_checkpoints
+__pycache__
+mechpy/__pycache__

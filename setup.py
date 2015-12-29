@@ -1,6 +1,4 @@
-from setuptools import setup
-from distribute_setup import use_setuptools
-use_setuptools()
+from distutils.core import setup
 
 setup(
     name='mechpy',
@@ -22,6 +20,5 @@ setup(
       "Topic :: Scientific/Engineering",
       "Development Status :: 2 - Pre-Alpha"
     ],
-    install_requires=['numpy', 'matplotlib', 'scipy'],
-    zip_safe=True,
+    install_requires=['numpy', 'matplotlib', 'scipy','sympy','pint','python-quantities'],
 )
