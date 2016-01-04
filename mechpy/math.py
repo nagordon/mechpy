@@ -114,9 +114,104 @@ def ode1():
         solver.integrate(solver.t+dt)
 
 
+def fft_example():
+    from scipy import fft
+    from numpy import arange, cos, pi, random
+    from matplotlib.pyplot import subplot, plot, ylabel, xlabel, title, grid, xlim, show
+    
+    N = 2**9
+    F = 25
+    t = arange(N)/float(N)
+    x = cos(2*pi*t*F) + random.rand(len(t))*3
+    subplot(2,1,1)
+    plot(t,x)
+    ylabel('x []')
+    xlabel('t [seconds]')
+    title('A cosine wave')
+    grid()
+    
+    subplot(2,1,2)
+    f = t*N
+    xf = fft(x)
+    xf = xf[:N/2]
+    f = f[:N/2]
+    plot(f,abs(xf))
+    title('Fourier transform of a cosine wave')
+    xlabel('xf []')
+    ylabel('xf []')
+    xlim([0,N/2])
+    grid()
+    show()
+
+def fft_example2():
+    from numpy import sin, linspace, pi
+    from pylab import plot, show, title, xlabel, ylabel, subplot
+    from scipy import fft, arange
+ 
+    Fs = 150.0;  # sampling rate
+    Ts = 1.0/Fs; # sampling interval
+    t = arange(0,1,Ts) # time vector
+    
+    ff = 5;   # frequency of the signal
+    y = sin(2*pi*ff*t)
+    n = len(y) # length of the signal
+    k = arange(n)
+    T = n/Fs
+    frq = k/T # two sides frequency range
+    frq = frq[range(n//2)] # one side frequency range
+    Y = fft(y)/n # fft computing and normalization
+    Y = Y[range(n//2)]
+    
+    subplot(2,1,1)
+    plot(t,y)
+    xlabel('Time')
+    ylabel('Amplitude')
+    subplot(2,1,2)
+    plot(frq,abs(Y),'r') # plotting the spectrum
+    xlabel('Freq (Hz)')
+    ylabel('|Y(freq)|')
+    
+    show()        
+  
+def fft(y,Fs):
+    from numpy import sin, linspace, pi
+    from pylab import plot, show, title, xlabel, ylabel, subplot
+    from scipy import fft, arange
+ 
+    Ts = 1.0/Fs; # sampling interval
+    t = arange(0,1,Ts) # time vector
+    n = len(y) # length of the signal
+    k = arange(n)
+    T = n/Fs
+    frq = k/T # two sides frequency range
+    frq = frq[range(n//2)] # one side frequency range
+    Y = fft(y)/n # fft computing and normalization
+    Y = Y[range(n//2)]
+    
+    subplot(2,1,1)
+    plot(t,y)
+    xlabel('Time')
+    ylabel('Amplitude')
+    subplot(2,1,2)
+    plot(frq,abs(Y),'r') # plotting the spectrum
+    xlabel('Freq (Hz)')
+    ylabel('|Y(freq)|')
+    
+    show()   
+
+def cart2pol(x, y):
+    rho = np.sqrt(x**2 + y**2)
+    phi = np.arctan2(y, x)
+    return(rho, phi)
+
+def pol2cart(rho, phi):
+    x = rho * np.cos(phi)
+    y = rho * np.sin(phi)
+    return(x, y)
 
 if __name__ == '__main__':
     
+
     T3rot(45)
     
     T6rot(45,45,45)
