@@ -6,7 +6,7 @@ Module to be used for static analysis
 import numpy as np
 import sympy as sp
 import scipy
-import matplotlib.pyplot as mp
+import matplotlib.pyplot as plt
 from matplotlib import patches
 from mpl_toolkits.mplot3d import Axes3D
 
@@ -16,71 +16,85 @@ def simple_support():
     a = 3
     P = 10
     
-    mp.rcParams['figure.figsize'] = (12, 8)  # (width, height)
+    plt.rcParams['figure.figsize'] = (10, 8)  # (width, height)
     
-    fig1 = mp.figure()
+    fig1 = plt.figure()
     
-    #mp.subplot(3,1,1)
-    #ax = mp.gca()
+    #plt.subplot(3,1,1)
+    #ax = plt.gca()
     ax1 = fig1.add_subplot(311)#, aspect='equal')
     
     
-    mp.xlim([-1, L+1])
-    mp.ylim([-1, P*2])
+    plt.xlim([-1, L+1])
+    plt.ylim([-1, P*2])
     
     # add rigid ground
-    rectangle = mp.Rectangle((-1, -2), L+2, 2, hatch='//', fill=False)
+    rectangle = plt.Rectangle((-1, -2), L+2, 2, hatch='//', fill=False)
     ax1.add_patch(rectangle)
     
     # add rigid rollers
-    #circle = mp.Circle((0, 5), radius=1, fc='g')
+    #circle = plt.Circle((0, 5), radius=1, fc='g')
     #ax.add_patch(circle)
-    e1 = patches.Ellipse((0, 2), .5, 4, angle=0, linewidth=2, fill=False, zorder=2)
+    e1 = patches.Ellipse((0, 2), L/20, 4, angle=0, linewidth=2, fill=False, zorder=2)
     ax1.add_patch(e1)
     
-    points = [[10, 4], [9.75, 0], [10.25,0]]
-    polygon = mp.Polygon(points, fill=False)
+    # add triangle
+    points = [[L, 4], [L-L/40, 0], [L+L/40,0]]
+    polygon = plt.Polygon(points, fill=False)
     ax1.add_patch(polygon)
     
     # add beam
-    rectangle = mp.Rectangle((0, 4), L, 4, fill=False)
+    rectangle = plt.Rectangle((0, 4), L, 4, fill=False)
     ax1.add_patch(rectangle)
     
-    # add load
+    # add distributed load
     for k in np.linspace(0,L,20):
-        ax1.arrow(k, 12, 0, -3, head_width=L*.01, head_length=L*.1, fc='k', ec='k')
-    mp.title('Free Body Diagram')
-    mp.axis('off') # removes axis and labels
+        ax1.arrow(k, 11+L/10, 0, -3, head_width=L*0.01, head_length=L*0.1, fc='k', ec='k')
+    plt.title('Free Body Diagram')
+    plt.axis('off') # removes axis and labels
     #ax1.set_yticklabels('')
+
+#    # add point load
+#    F = 200
+#    xF = 7
+#    plt.annotate('F=%i'%F, ha = 'center', va = 'bottom',
+#                 xytext = (xF, 15), xy = (xF,7.5),
+#                arrowprops = { 'facecolor' : 'black', 'shrink' : 0.05 })    
+    
+#    # add point load
+#    ax1.arrow(3, 11+L/10, 0, -3, head_width=L*0.02, head_length=L*0.1, fc='k', ec='k')
+#    plt.title('Free Body Diagram')
+#    plt.axis('off') # removes axis and labels
+#    #ax1.set_yticklabels('')    
     
     x = [0,0,L,L]
     y = [0,5,-5,0]
-    mp.subplot(3,1,2)
-    mp.ylabel('Shear, V')
-    mp.title('Shear Diagram')
-    mp.fill(x, y, 'b', alpha=0.25)
-    mp.grid(True)
-    mp.xlim([-1, 11])
+    plt.subplot(3,1,2)
+    plt.ylabel('Shear, V')
+    plt.title('Shear Diagram')
+    plt.fill(x, y, 'b', alpha=0.25)
+    plt.grid(True)
+    plt.xlim([-1, L+1])
     
     x = np.linspace(-L/2,L/2,100)
     y = -(x**2)+(np.max(x**2))
     x = np.linspace(0,L,100)
-    mp.subplot(3,1,3)
-    mp.title('Bending Diagram')
-    mp.ylabel('Moment, M')
-    mp.fill(x, y, 'b', alpha=0.25)
-    mp.grid(True)
-    mp.xlim([-1, 11])
+    plt.subplot(3,1,3)
+    plt.title('Bending Diagram')
+    plt.ylabel('Moment, M')
+    plt.fill(x, y, 'b', alpha=0.25)
+    plt.grid(True)
+    plt.xlim([-1, L+1])
     
-    mp.tight_layout()
+    plt.tight_layout()
     
-    mp.show()
+    plt.show()
     
 def moment_calc():
 
-    fig = mp.figure()
+    fig = plt.figure()
     
-    ax = mp.axes(projection='3d')
+    ax = plt.axes(projection='3d')
     
     # bar
     x=[0,0,4,4]
@@ -106,7 +120,7 @@ def moment_calc():
     ax.set_ylim([min(Y)-5, max(Y) + 2])
     ax.set_zlim([min(Z)-2, max(Z) + 2])
     
-    #mp.tight_layout()
+    #plt.tight_layout()
     
     ax.quiver3D(X, Y, Z, U, V, W, pivot='tail');
     
@@ -132,4 +146,5 @@ def moment_calc():
     
 if __name__ == '__main__':
     # executed when script is run alone
-    moment_calc()
+    #moment_calc()
+    simple_support()

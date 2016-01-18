@@ -33,3 +33,6 @@ def gear():
     
     plt.plot(xcir,ycir,'--')
     plt.show()
+
+if __name__=='__main__':
+    gear()
