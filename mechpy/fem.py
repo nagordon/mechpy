@@ -1,10 +1,13 @@
 
-from numpy import array, zeros, linspace, arange
-from matplotlib.pyplot import *
+from numpy import array, matrix, zeros, linspace, arange
+#from matplotlib.pyplot import *
 import scipy.linalg
 import matplotlib.pyplot as plt
-
-def cst_fem(structure='4node'):
+from matplotlib.pyplot import plot, figure, xlim, ylim, title, xlabel, ylabel, show
+import numpy as np 
+plt.rcParams['figure.figsize'] = (10, 8)  # (width, height)
+    
+def cst_fem(structure='9node'):
     '''
     Gusset plate problem using 8 CST elemetnts. Uniform load across top edge
     is modeled with 2 concentrated forces    
@@ -40,7 +43,7 @@ def cst_fem(structure='4node'):
         ####          x  y  x  y  x  y
         ####          u1 u2 u# u# u# u#            
         elnodes = array([[0, 1, 2, 3, 6, 7],
-                         [6, 7, 2, 3, 4, 5]])   # 1 element per row, dofs labled CCW (arbitrary)
+                         [6, 7, 2, 3, 4, 5]])   # 1 element per row, dofs labled CCW (arbitrary)                       
     #==============================================================================
     elif structure == '9node':
         # 9 nodes
@@ -91,10 +94,9 @@ def cst_fem(structure='4node'):
         conmat = np.transpose(conmat)
         for i in range(len(conmat)):
             adj[conmat[i,0],conmat[i,1]] = 1
-     
-        
-        
-                 
+
+
+    #### Begin calculations
     nodex = list(nodexy[0::2])
     nodey = list(nodexy[1::2])
     ####nodexyplot = [nodex, nodey]
@@ -117,8 +119,8 @@ def cst_fem(structure='4node'):
     stress  = zeros((elements,3))     # Element(row) stress per node (column)
     pstress = 1 # pstress >0 plane stress pstress = 0 plane strain
     ## Load Vector
-    P[1] = -20000/2 # 10 kips load
-    P[3] = -20000/2 # 10 kips load
+    P[9] = -2e6 # 10 kips load
+    #P[3] = -20000/2 # 10 kips load
     ## Elasticity Matrix
     D[1,0] = poisson
     D[0,1] = poisson
@@ -253,7 +255,7 @@ def cst_fem(structure='4node'):
     #adj += adj.T      
                  
     # nodexy = array([ 0,  0, 10, 10, 20, 20,  0, 20])        
-    plotmag = 500
+    plotmag = 1
     nodexyu = nodexy+U.T[0]*plotmag
     nodexu = list(nodexyu[0::2])
     nodeyu = list(nodexyu[1::2])
@@ -273,24 +275,134 @@ def cst_fem(structure='4node'):
                 y = [nodexyuT[r][1], nodexyuT[c][1]]
                 plt.plot(x,y,'b--')  
     
-    xlim([np.min(nodex)-3, np.max(nodex)+3])
-    ylim([np.min(nodey)-3, np.max(nodey)+3])
+    plt.xlim([np.min(nodex)-3, np.max(nodex)+3])
+    plt.ylim([np.min(nodey)-3, np.max(nodey)+3])
     
     for i in range(nodes):
-        plt.text(nodex[i]+0.5, nodey[i], '$n_%i$' % (i+1))
+        plt.text(nodex[i]+0.5, nodey[i], '$n_%i$' % (i+1),fontsize=20)
     
     for i in range(elements):
         xtemp = nodexy[elnodes[i][0::2]]
         ytemp = nodexy[elnodes[i][1::2]]
         elnodesx = (max(xtemp) + min(xtemp)) / 2
         elnodesy = (max(ytemp) + min(ytemp)) / 2
-        plt.text(elnodesx, elnodesy, '$e_%i$' % (i+1))
-    
+        plt.text(elnodesx, elnodesy, '$e_%i$' % (i+1),fontsize=20)
     plt.plot(nodex, nodey, 'o')
     plt.plot(nodexu, nodeyu, '*')
 
+    # plot stress
+    elnodeslist = []
+    for e in elnodes:
+        tmpnodex = list(nodexy[e[0::2]])
+        tmpnodey = list(nodexy[e[1::2]])
+        elnodeslist.append(list(zip(tmpnodex, tmpnodey)))
+    plot_contour(elnodeslist,stress, '$\sigma$')
+    #plot_contour(elnodeslist,strain,'$\epsilon$')
+
+def gplot(adj,xy):
+    '''
+    # for a 2 element triangle
+    xy = [(0, 0), (10, 10), (20, 20), (0, 20)]
+    adj = [[0, 1, 0, 1],
+                 [0, 0, 1, 1], 
+                 [0, 0, 0, 1],
+                 [0, 0, 0, 0]]
+    gplot(adj,xy)
+    
+    # simple truss
+    xy =[(0, 0),
+         (1, 0),
+         (2, 0),
+         (3, 0),
+         (4, 0),
+         (5, 0),
+         (5, 1),
+         (4, 1),
+         (3, 1),
+         (2, 1),
+         (1, 1),
+         (0, 1)]  
+    adj = [[ 0.,  1.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.],
+           [ 0.,  0.,  1.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.,  1.],
+           [ 0.,  0.,  0.,  1.,  0.,  0.,  0.,  0.,  0.,  1.,  1.,  0.],
+           [ 0.,  0.,  0.,  0.,  1.,  0.,  0.,  0.,  1.,  1.,  0.,  0.],
+           [ 0.,  0.,  0.,  0.,  0.,  1.,  0.,  1.,  1.,  0.,  0.,  0.],
+           [ 0.,  0.,  0.,  0.,  0.,  0.,  1.,  1.,  0.,  0.,  0.,  0.],
+           [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.,  0.,  0.,  0.],
+           [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.,  0.,  0.],
+           [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.,  0.],
+           [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.],
+           [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.],
+           [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.]]
+    gplot(adj,xy)
+    '''
+   
+    adj = np.array(adj)    
+    rlen, clen = adj.shape
+    nodex = [k[0] for k in xy]
+    nodey = [k[1] for k in xy]
+    
+    xtemp = [] ; ytemp = []
+    for r in range(rlen):
+        for c in range(clen):
+            if adj[r,c] == 1:
+                x = [xy[r][0], xy[c][0]]
+                y = [xy[r][1], xy[c][1]]
+                plt.plot(x,y,'b') 
+                #plt.plot(x,y,'b--') 
+                xlim([np.min(nodex)-3, np.max(nodex)+3])
+                ylim([np.min(nodey)-3, np.max(nodey)+3])     
+                plt.plot(nodex, nodey, 'o')
+        
+def plot_contour(xynodes, stress, mytitle='contour plot'):
+    """
+    Simple demo of the fill function.
+    xynodes = [[(0, 0), (10, 10), (0, 20)], [(10, 10), (20, 20), (0, 20)]]
+    stress = [[-300,-100,-700],[300,350,-350]]
+    plot_stress(xynodes, stress)
+    """
+  
+    
+    stress = np.array(stress)
+    fig2 = plt.figure()
+
+    fig2 = plt.figure()
+    sigma1 = stress[:,0]
+    sigma2 = stress[:,1]
+    sigma12 = stress[:,2]   
+    vonmises = np.sqrt(sigma1**2 - sigma1*sigma2+sigma2**2+3*sigma12**2) 
+    prins1 = (sigma1 + sigma2) / 2 + np.sqrt( ((sigma1-sigma2)/2)**2 + sigma12**2 )
+    prins2 = (sigma1 + sigma2) / 2 - np.sqrt( ((sigma1-sigma2)/2)**2 + sigma12**2 )
+    
+    sigma1norm     = sigma1/np.max(np.abs(sigma1))
+    sigma2norm     = sigma2/np.max(np.abs(sigma2))
+    sigma12norm   = sigma12/np.max(np.abs(sigma12))
+    vonmisesnorm = vonmises/np.max(np.abs(vonmises))
+    prins1norm   = prins1/np.max(np.abs(prins1))
+    prins2norm = prins2/np.max(np.abs(prins2))
+    
+    pltsigma = sigma1norm
+    for i, xy in enumerate(xynodes):
+        x = [k[0] for k in xy]
+        y = [k[1] for k in xy]       
+        # red for tension, blue for compression        
+        pltcolor = 'r' if pltsigma[i] >= 0 else 'b'
+        sigmavalnorm = pltsigma[i] if pltsigma[i] > 0 else pltsigma[i]*-1
+        plt.fill(x,y,pltcolor, alpha=sigmavalnorm)  
+        plt.plot(x,y,'k') 
+
+    title(mytitle)
+    tmpx = [x[0] for k in xynodes for x in k]
+    tmpy = [x[1] for k in xynodes for x in k]
+    plt.xlim([np.min(tmpx)-3, np.max(tmpx)+3])
+    plt.ylim([np.min(tmpy)-3, np.max(tmpy)+3])          
+    plt.show()    
+
+
+    
 
 if __name__ == '__main__':
     
-
+    # 4node, 9node, truss
     cst_fem('9node')
+    #plot_stress()
