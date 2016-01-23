@@ -8,8 +8,19 @@ without the need to be online
 
 scripts for use with engineering calculations
 
-"""
+NOTE - if you want to use this in a windows command line anywhere 
+        in the system, 
+        follow these instrcutions
+
+    Copy the units.py file to a static location. If using Anaconda
+    this is a great place because it will already have been added to the user path
+     C:\Users\Neal\Anaconda3\Scripts
     
+    ready to go!
+    > units 1 inch foot
+    1.00 foot = 12.00 inch
+
+"""
 
 
 def uc1(numin,frm,to):

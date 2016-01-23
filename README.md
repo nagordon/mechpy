@@ -1,6 +1,6 @@
 mechpy - a mechanical engineer's python toolbox
 
-Tutorials - see the [nbviewer for mechpy](#http://nbviewer.jupyter.org/github/nagordon/mechpy/blob/master/mechpy.ipynb)
+Tutorials - see the [nbviewer for mechpy](http://nbviewer.jupyter.org/github/nagordon/mechpy/blob/master/mechpy.ipynb)
 
 Mechpy was created for two reasons. 
  * To provide the practicing engineer with applications to quickly replicate and solve real-world systems common in mechanical engineering
