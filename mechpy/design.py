@@ -3,7 +3,10 @@
 scripts and boilerplate code to use for mechanical engineering design tasks
 '''
 
-
+import pandas as pd
+import numpy as np
+from numpy import pi, array
+import matplotlib.pyplot as plt
 
 def gear():
     '''
@@ -11,8 +14,7 @@ def gear():
     design (adapated from http://www.arc.id.au/GearDrawing.html)    
     Transcendental Parametric function describing the contour of the gear face
     '''    
-    import numpy as np
-    import matplotlib.pylab as plt
+
     th1 = np.pi/4
     th2 = np.pi/3
     thcir = np.linspace(-np.pi,np.pi,100)
@@ -33,6 +35,43 @@ def gear():
     
     plt.plot(xcir,ycir,'--')
     plt.show()
+
+
+def fastened_joint(fx, fy, P, l):
+    '''computes stressed in fastened joints with bolts or rivets
+    INCOMPLETE
+    
+    # fastener location
+    fx = array([0,1,2,3,0,1,2,3])
+    fy = array([0,0,0,0,1,1,1,1])
+    # Force(x,y)
+    P = array([-300,-500])
+    l = [2,1]
+    
+    '''
+    
+    fn = range(len(fx))
+    
+    df = pd.DataFrame()
+    
+    Pnorm = P/np.max(np.abs(P))  # for plotting
+    # Location of Force P, x,y
+    
+    d = array(5/16*np.ones(len(fn)))
+    
+    A = array([pi*d1**2/4 for d1 in d])
+    
+    fn = range(len(fx))
+    
+    df = pd.DataFrame({ 'Fastener' : fn,
+                         'x' : fx,
+                         'y' : fy}, index=fn)
+                  
+    df['x^2'] = df.x**2
+    df['y^2'] = df.y**2
+    df['xbar'] = np.sum(A*fx)/np.sum(A)
+    df['ybar'] = np.sum(A*fy)/np.sum(A)    
+    return df
 
 if __name__=='__main__':
     gear()
