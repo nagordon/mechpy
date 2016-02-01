@@ -253,13 +253,13 @@ def composite_plate():
     # The custom function laminate_gen generates the properties of a laminate
     # ith the following parameters.
     
-    epsxapp = 10e-4 #10e-4
-    Nxapp = 0
+    epsxapp = 0#10e-4 #10e-4
+    Nxapp = 10e10
     
     # properties per ply
     #ang = [90, 0, 90, 0, 0, 90, 0, 90]  # degrees
     #ang = [90, 0, 90, 0, 0, 90, 0, 90]
-    ang = [0, 90,90,0]
+    ang = [0, 90,90,45]
     lamang = ang
     
     
@@ -637,7 +637,7 @@ def composite_plate():
     u = epsx*Xplt  # pg 451 hyer
     fig = plt.figure('plate-warpage')
     ax = fig.gca(projection='3d')
-    ax.plot_surface(Xplt, Yplt, w, cmap=cm.jet, alpha=0.3)
+    ax.plot_surface(Xplt, Yplt, w+zmid[0], cmap=cm.jet, alpha=0.3)
     ###ax.auto_scale_xyz([-(W/2)*1.1, (W/2)*1.1], [(L/2)*1.1, (L/2)*1.1], [-1e10, 1e10])
     ax.set_xlabel('plate width,y-direction,mm')
     ax.set_ylabel('plate length,x-direction, mm')

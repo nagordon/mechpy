@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 '''
 
+http://nbviewer.jupyter.org/github/pydy/pydy/blob/master/examples/mass_spring_damper/mass_spring_damper.ipynb
+
 '''
 
 def double_pendulumn():

@@ -20,7 +20,19 @@ Other neat engineering python modules
  * [pyndamics]() with [example](http://nbviewer.ipython.org/gist/bblais/7321928)
  * [control-systems](https://github.com/python-control/python-control)
  * [grid solvers](http://pyamg.org/) with [example)[https://code.google.com/p/pyamg/wiki/Examples]
+ * [python dynamics](http://www.pydy.org/),(https://pypi.python.org/pypi/pydy/), [examples](#http://nbviewer.jupyter.org/github/pydy/pydy-tutorial-human-standing/tree/online-read/notebooks/)
+ * [sympy classical mechanics](http://docs.sympy.org/latest/modules/physics/mechanics/index.html)
 
+ http://docs.sympy.org/latest/modules/physics/mechanics/index.html
+ https://github.com/cdsousa/sympybotics
+https://pypi.python.org/pypi/Hamilton
+https://pypi.python.org/pypi/arboris
+https://pypi.python.org/pypi/PyODE
+https://pypi.python.org/pypi/odeViz
+https://pypi.python.org/pypi/ARS
+https://pypi.python.org/pypi/pymunk
+ http://scipy.github.io/old-wiki/pages/NumPy_for_Matlab_Users.html
+ 
 TODO
  - [ ] Add OOP model to generate Free Body Diagrams
  - [ ] add shear-bending diagrams 

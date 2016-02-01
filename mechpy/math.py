@@ -13,6 +13,8 @@ from pprint import pprint
 #np.set_printoptions(edgeitems=3,linewidth=75, precision=5, suppress=False, threshold=1000)
 #get_ipython().magic('matplotlib inline')
 
+def T2rot(th):
+    return np.array([[np.cos(th), -np.sin(th)],[np.sin(th), np.cos(th)]])
 
 # %load T3r.py
 def T3rot(th):

@@ -73,5 +73,11 @@ def fastened_joint(fx, fy, P, l):
     df['ybar'] = np.sum(A*fy)/np.sum(A)    
     return df
 
+
+def mohr(s):
+    pass
+
+    
+
 if __name__=='__main__':
     gear()
