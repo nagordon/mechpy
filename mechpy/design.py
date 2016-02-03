@@ -77,7 +77,7 @@ def fastened_joint(fx, fy, P, l):
 def mohr(s):
     pass
 
-    
+
 
 if __name__=='__main__':
-    gear()
+    shear_bending()

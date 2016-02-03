@@ -176,8 +176,126 @@ def moment_calc():
     print('angles at which the moments react')
     print(np.rad2deg(np.arccos(u)))
     
+def point_ss_shear_bending(L,Pin,ain):
+    '''
+    Shear Bending plot of point loads of a simply supported beam
+    L = 4 # total length of beam
+    Pin = [5]  # point load
+    ain = [2]  # location of point load
+
+    # or more multiple points    
+    L = 10
+    Pin = [3,15]
+    ain = [2,6]
+    '''
+
+    import numpy as np
+    import matplotlib.pyplot as plt
     
+    x = np.arange(0,L,L*0.02)
+    V = np.zeros(len(x))
+    M = np.zeros(len(x))
+    
+    for a, P in zip(ain, Pin):
+        V[x<=a] += P*(1-a/L)
+        V[x>a] += -P*a/L
+        M[x<=a] += P*(1-a/L)*x[x<=a]
+        M[x>a] += -P*a*(x[x>a]/L-1)    
+    
+    plt.subplot(2,1,1)    
+    plt.stem(x,V)
+    plt.ylabel('V,shear')
+    plt.subplot(2,1,2)
+    plt.stem(x,M)
+    plt.ylabel('M,moment')
+    
+def moment_ss_shear_bending(L,Pin,ain):
+    '''
+    Shear Bending plot of moment loads of a simply supported beam
+    L = 4 # total length of beam
+    Pin = [5]  # point moment load
+    ain = [2]  # location of point load
+
+    # or more multiple point moments
+    L = 10
+    Pin = [3,-15]
+    ain = [2,6]
+    '''
+
+    import numpy as np
+    import matplotlib.pyplot as plt
+    
+    x = np.arange(0,L,L*0.02)
+    V = np.zeros(len(x))
+    M = np.zeros(len(x))
+    
+    for a, P in zip(ain, Pin):
+        V += -P/L
+        M[x<=a] += -P*x[x<=a]/L
+        M[x>a] += P*(1-x[x>a]/L)    
+    
+    plt.figure()
+    plt.title('Point Moment Loads')
+    plt.subplot(2,1,1)    
+    plt.stem(x,V)
+    plt.ylabel('V,shear')
+    plt.subplot(2,1,2)
+    plt.stem(x,M)
+    plt.ylabel('M,moment')    
+
+def dist_ss_shear_bending(L, win, ain):
+    '''
+    Shear Bending plot of distributed loads of a simply supported beam
+    L = 10 # total length of beam
+    win = [5]  # distributed load
+    ain = [[3,4]]  # location of point load
+
+    # or more multiple point moments
+    L = 10
+    win = [3,6]
+    ain = [[0,3],[4,6]]
+    '''
+
+    import numpy as np
+    import matplotlib.pyplot as plt
+    
+    
+    x = np.arange(0,L,L*0.02)
+    V = np.zeros(len(x))
+    M = np.zeros(len(x))
+    
+    for a, w in zip(ain, win):
+        #a = ain[0]
+        P = w*(a[1]-a[0])  # convert distributed load to point load
+        l = (a[1]+a[0])/2
+        
+        i = [x<a[0]] 
+        V[i] += P*(1-l/L)
+        M[i] += x[i]*P*(1-l/L)
+        
+        i = [x>a[1]] 
+        V[i] += -P*l/L
+        M[i] += x[i]*-P*l/L + P*l         
+        
+        i = [ (a[0]<=x) & (x<=a[1]) ] 
+        V[i] += P*(1-l/L) - w*(x[i]-a[0])
+        M[i] += (P*(1-l/L) - w*(x[i]-a[0]))*x[i] + w*(x[i]-a[0])*(a[0]+x[i])/2
+        #V[i] += P*(1-l/L)-P*x[i]
+        #M[i] += P/2*(L*x[i] - x[i]**2)
+        #M[i] += x[i]*P*(1-l/L) - (P*x[i]**2)/2
+                
+
+    
+    plt.figure()
+    plt.title('Point Moment Loads')
+    plt.subplot(2,1,1)    
+    plt.stem(x,V)
+    plt.ylabel('V,shear')
+    plt.subplot(2,1,2)
+    plt.stem(x,M)
+    plt.ylabel('M,moment') 
+
 if __name__ == '__main__':
     # executed when script is run alone
     #moment_calc()
-    simple_support()
+    dist_ss_shear_bending()
