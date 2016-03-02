@@ -33,6 +33,8 @@ https://pypi.python.org/pypi/ARS
 https://pypi.python.org/pypi/pymunk
  http://scipy.github.io/old-wiki/pages/NumPy_for_Matlab_Users.html
  
+ https://docs.scipy.org/doc/numpy-dev/user/numpy-for-matlab-users.html
+ 
 TODO
  - [ ] Add OOP model to generate Free Body Diagrams
  - [ ] add shear-bending diagrams 

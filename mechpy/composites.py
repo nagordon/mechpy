@@ -3,15 +3,73 @@
 '''
 Module to be used for composite material analysis
 '''
+from numpy import arange, pi, sin, cos, zeros, matrix
+from numpy.linalg import solve
+import matplotlib.pyplot as plt
 
+from numpy import linspace, pi, sin, cos, matrix, array
+
+import numpy as np
+import matplotlib.pyplot as mp
+
+from numpy import matrix
+from matplotlib.pyplot import *
+
+def failure_envelope():
+    # failure envelopes
+
+    # max stress criteria
+    # 1 direction in first row
+    # 2 direction in second row
+    
+    # failure strength in compression
+    #Fc = matrix([[-1250.0, -600.0],         
+    #            [-200.0,  -120.0]]) # Mpa
+    #            
+    ##failure strength in tension        
+    #Ft =  matrix([[1500, 1000]
+    #              [50,     30]]) # Mpa
+    #              
+    ##Failure strength in shear              
+    #Fs = matrix( [100,    70] ) # Shear
+    
+    Fc1 = [-1250, -600] # Compression 1 direction
+    Fc2 = [-200,  -120] # Compression 2 direction
+    Ft1 = [1500, 1000]  # Tension 1 direction
+    Ft2 = [50,     30]  # Tension 2 direction
+    Fs =  [100,    70]   # Shear
+    
+    # F1 = Ft(1);
+    # F2 = Ft(1);
+    # F6 = Fs(1);
+    
+    for c in range(2):# mattype
+        factor = 1.9
+        # right
+        plot( [Ft1[c], Ft1[c]] , [Fc2[c], Ft2[c]])
+        
+        # left
+        plot( [Fc1[c], Fc1[c]] , [Fc2[c], Ft2[c]])
+        # top
+        plot( [Fc1[c], Ft1[c]] , [Ft2[c], Ft2[c]])
+        # bottom
+        plot( [Fc1[c], Ft1[c]]  , [Fc2[c], Fc2[c]])
+        # center horizontal
+        plot( [Fc1[c], Ft1[c]]  , [0, 0])
+        # center vertical
+        plot( [0, 0]            , [Fc2[c], Ft2[c]])
+        
+        #xlim([min(Fc1) max(Ft1)]*factor)
+        #ylim([min(Fc2) max(Ft2)]*factor)
+        xlabel('$\sigma_1,MPa$')
+        ylabel('$\sigma_2,MPa$')
+        title('failure envelope with Max-Stress Criteria')    
 
 def vary_ply_direction_plot():
     '''
     composites calculations
     '''
-    from numpy import arange, pi, sin, cos, zeros, matrix
-    from numpy.linalg import solve
-    import matplotlib.pyplot as mp
+
     
     th = arange(0, 180.1, 0.1) * (pi/180)
     deg = th*180/pi
@@ -25,11 +83,18 @@ def vary_ply_direction_plot():
         # lamina thickness
         h = 1
         ## Initial lamina Properties
-        E1    = 147.0  # GPa
-        E2    = 10.3 # GPa
-        G12   = 7.0    # GPa 
-        Nu12 =  0.27
-        Nu21 =  E2*Nu12/E1
+        #E1    = 147.0  # GPa
+        #E2    = 10.3 # GPa
+        #12   = 7.0    # GPa 
+        #u12 =  0.27
+        #u21 =  E2*Nu12/E1
+        
+        E1    = 5730000
+        E2    = 5730000
+        G12   = 440000
+        Nu12 =  0.07
+        Nu21 =  E2*Nu12/E1        
+        
         ## Calculate stiffness
         Q = matrix(zeros((3,3)))
         Q[0,0] = E1 / (1-Nu12*Nu21)
@@ -57,15 +122,15 @@ def vary_ply_direction_plot():
         Gxybar[i] = 1 / (h*aij[2,2])
     
     
-    fig1 = mp.figure(1, figsize=(12,8), frameon=False)
-    mp.plot(deg, Exbar, label = r"Modulus: $E_x$")
-    mp.plot(deg, Eybar, label = r"Modulus: $E_y$")
-    mp.plot(deg, Gxybar, label = r"Modulus: $G_{xy}$")
-    mp.title("Constitutive Properties in various angles")
-    mp.xlabel("deg")
-    mp.ylabel("modulus, GPa")
-    mp.legend(loc='best')
-    mp.show()
+    fig1 = plt.figure(1, figsize=(12,8), frameon=False)
+    plt.plot(deg, Exbar, label = r"Modulus: $E_x$")
+    plt.plot(deg, Eybar, label = r"Modulus: $E_y$")
+    plt.plot(deg, Gxybar, label = r"Modulus: $G_{xy}$")
+    plt.title("Constitutive Properties in various angles")
+    plt.xlabel("deg")
+    plt.ylabel("modulus, GPa")
+    plt.legend(loc='best')
+    plt.show()
 
 
 def qbar_transformtion():
@@ -78,12 +143,9 @@ def qbar_transformtion():
     
     """
     
-    from numpy import linspace, pi, sin, cos, matrix, array
+
     
-    import numpy as np
-    import matplotlib.pyplot as mp
-    
-    theta = linspace(-90,90,100) * pi/180
+    theta = np.linspace(-90,90,100) * pi/180
     
     s_xy = matrix([[100], 
                     [10], 
@@ -108,7 +170,7 @@ def qbar_transformtion():
     mp.show()
     
     Ex = 150e9
-    Ey = 12.1e9
+    Ey = 150e9
     vxy = 0.248
     Gxy = 4.4e9
     vy = 0.458
@@ -209,7 +271,184 @@ def laminate_gen(lamthk=1.5, symang = [45,0,90], plyratio=2.0, matrixlayers=Fals
 
     return thk,ang,mat,lamang
 
+def laminate_calcs():
 
+    '''
+    code to compute composite properties
+    
+    '''
+    import numpy as np
+    #                       suppress scientific notation
+    #np.set_printoptions(suppress=False,precision=2)
+    np.set_printoptions(precision=3, linewidth=200)
+    
+    from numpy import pi, linspace, zeros, matrix, sin, cos
+    import matplotlib.pyplot as plt
+    from scipy import linalg
+    
+    import  matplotlib 
+    matplotlib.rcParams['figure.figsize'] = 10,8
+    
+    plt.close('all')
+    
+    # pg 125 Voyiadjis
+    wid =   10  # plate width
+    H =   0.8  # plate thickness
+    area = wid*H
+    ang = [0, 45, 90]# [0, 90, 90, 0]  # [0 90 90 0]# [90 0 90 0 0 90 0 90] # [30 -30 0 0 -30 30]  #
+    thk =   zeros(len(ang)) + H/len(ang) #meters
+    nlay = len(thk)
+    z = linspace(-H/2,H/2,nlay+1)
+    
+    # Engineering contants for a single ply
+    E1 = 8.49e6
+    E2 = 8.49e6
+    E3 = 8.49e6
+    nu12 = 0.06
+    nu13 = 0.06
+    nu23 = 0.06
+    G12 = 1.076e6
+    G13 = 1.076e6
+    G23 = 1.076e6
+    dT = 0  # change in temp
+    alpha1 = 0 # coefficient of thermal expansion in 1
+    alpha2 = 0 # coefficient of thermal expansion in 1
+    
+    
+    # # Reduced compliance matrix  
+    # S11 = 1/E1
+    # S22 = 1/E2
+    # S66= 1/G12
+    # S12 = -nu12/E1
+    # S = [S11 S12 0
+    #      S12 S22 0
+    #      0   0   S66]
+    # compliance matrix
+    S6 = zeros((6,6))
+    S6[0,0] = 1/E1
+    S6[1,1] = 1/E2
+    S6[2,2] = 1/E3
+    S6[3,3] = 1/G23
+    S6[4,4] = 1/G13
+    S6[5,5] = 1/G12
+    S6[0,1] = -nu12/E1
+    S6[1,0] = S6[0,1]
+    S6[0,2] = -nu13/E1
+    S6[2,0] = S6[0,2]
+    S6[1,2] = -nu23/E2
+    S6[2,1] = S6[1,2]
+    S6
+    C6 = linalg.inv(S6)
+    
+    # # reduced stiffness matrix
+    # Q11 = S22 / (S11*S22-S12**2)
+    # Q12 = -S12 / (S11*S22 - S12**2)
+    # Q22 = S11 / (S11*S22 - S12**2)
+    # Q66 = 1/S66
+    # # local coordinates
+    # Q = [Q11 Q12 0Q12 Q22 00 0 Q66]
+    # # inv(S) == Q
+    
+    Q = matrix(zeros((3,3)))
+    Q[0,0] = C6[0,0] - C6[0,2]**2/C6[2,2]
+    Q[0,1] = C6[0,1] - C6[0,2]*C6[1,2]/C6[2,2]
+    Q[1,1] = C6[1,1] - C6[1,2]**2/C6[2,2]
+    Q[2,2] = C6[5,5]  # actually Q66 in many texts
+    Q[1,0] =  Q[0,1]
+    
+    
+    A = matrix(zeros((3,3)))
+    B = matrix(zeros((3,3)))
+    D = matrix(zeros((3,3)))
+    
+    # strain with curvature and thermal
+    
+    # calcualte strain at each interface
+    kap1 = 0  # curvature coefficient
+    kap2 = 0   # curvature coefficient
+    kap12 = 0 #curvature coefficient
+    eps1app = 1e-3 # aplpied strain
+    eps2app = 0 # applied strain in 2
+    eps12app = 0
+    strain6 = matrix([ [eps1app], [eps2app], [eps12app], [kap1], [kap2], [kap12] ])
+    
+    strain = matrix(zeros((3,len(z))))
+    strainx0 = eps1app +kap1*z - alpha1*dT
+    strainy0 = eps2app + kap2*z- alpha2*dT
+    strainxy0 = 0
+    strain[0,:] = strainx0
+    strain[1,:] = strainy0
+    strain[2,:] = strainxy0
+    
+    sigma = matrix(zeros((3,2*nlay)))
+    zplot = zeros(2*nlay)
+    
+    for n,k in enumerate(range(0,2*nlay,2)):
+        s = sin(ang[n]*pi/180)
+        c = cos(ang[n]*pi/180)
+        T = matrix( [[c**2, s**2, 2*c*s],  [s**2, c**2, -2*c*s,],  [-c*s,   c*s,   (c**2-s**2)]] )
+        R = matrix( [[c**2, s**2, c*s],  [s**2, c**2, -c*s,],  [-2*c*s,   2*c*s,   (c**2-s**2)]] )
+        Qbar = T.I*Q*R
+        A = A + Qbar * (z[n+1]-z[n])
+        # coupling  stiffness
+        B = B + 0.5*Qbar * (z[n+1]**2-z[n]**2)
+        # bending or flexural laminate stiffness relating moments to curvatures
+        D = D + (1/3)*Qbar * (z[n+1]**3-z[n]**3)  
+        # stress is calcuated at top and bottom of each ply
+        sigma[:,k] = Qbar*strain[:,n]
+        sigma[:,k+1] = Qbar*strain[:,n+1]
+        zplot[k] = z[n]
+        zplot[k+1] = z[n+1]
+    
+    
+    f, axarr = plt.subplots(2, 3)#, sharey=True)
+    plt.tight_layout()
+    axarr[0,0].plot(strain[0,:].tolist()[0] , z)
+    axarr[0,0].set_xlabel('strain 1')
+    axarr[0,1].plot(strain[1,:].tolist()[0] , z)
+    axarr[0,1].set_xlabel('strain 2')
+    axarr[0,2].plot(strain[2,:].tolist()[0] , z)
+    axarr[0,2].set_xlabel('strain 3')
+    
+    axarr[1,0].plot(sigma[0,:].tolist()[0] , zplot)
+    axarr[1,0].set_xlabel('stress 1')
+    xlim([np.min(sigma), np.max(sigma)])
+    axarr[1,1].plot(sigma[1,:].tolist()[0] , zplot)
+    axarr[1,1].set_xlabel('stress 2')
+    xlim([np.min(sigma), np.max(sigma)])
+    axarr[1,2].plot(sigma[2,:].tolist()[0] , zplot)
+    axarr[1,2].set_xlabel('stress 3')
+    xlim([np.min(sigma), np.max(sigma)])
+    plt.tight_layout()
+    
+    
+    # laminate stiffness matrix
+    G = matrix(zeros((6,6)))
+    G[0:3,0:3] = A
+    G[0:3,3:6] = B
+    G[3:6,0:3] = B
+    G[3:6,3:6] = D
+    
+    print(G)
+    # laminatee compliance
+    g = G.I
+    
+    NM = G*strain6
+    Nx = NM[0]
+    
+    Exbar  = 1 / (H*g[0,0])
+    Eybar  = 1 / (H*g[1,1])
+    Gxybar = 1 / (H*g[2,2])
+    nuxybar = -g[0,1]/g[0,0]
+    nuyxbar = -g[0,1]/g[1,1]
+    
+    print('Ex=%f'%Exbar)
+    print('Ey=%f'%Eybar)
+    print('Gxy=%f'%Gxybar)
+    
+    
+
+#### Needs validation, Currently incorrect
 def composite_plate():
     # -*- coding: utf-8 -*-
     
@@ -218,13 +457,13 @@ def composite_plate():
     from matplotlib import cm
     import matplotlib.pyplot as plt
     np.set_printoptions(linewidth=300)
-    from mpl_toolkits.mplot3d import axes3d
+    from mpl_toolkits.mplot3d import axes3d  
     
     #from IPython import get_ipython
     #ipython = get_ipython()
     #ipython.magic('matplotlib')
     
-    plt.rcParams['figure.figsize'] = (18, 10)
+    plt.rcParams['figure.figsize'] = (10, 8)
     plt.rcParams['font.size'] = 12
     plt.rcParams['legend.fontsize'] = 8
     #plt.rcParams['title.fontsize'] = 12
@@ -253,29 +492,29 @@ def composite_plate():
     # The custom function laminate_gen generates the properties of a laminate
     # ith the following parameters.
     
-    epsxapp = 0#10e-4 #10e-4
-    Nxapp = 10e10
+    epsxapp = 0 #10e-4 #10e-4
+    Nxapp = 1
     
     # properties per ply
     #ang = [90, 0, 90, 0, 0, 90, 0, 90]  # degrees
     #ang = [90, 0, 90, 0, 0, 90, 0, 90]
-    ang = [0, 90,90,45]
+    ang = [45, 0, 0, 45, 0 ,45, 45, 45, 45, 45, 0, 45, 0, 0, 45]
     lamang = ang
     
     
     thk = [2]*len(ang)  # mm
     mat = [0]*len(ang)  # material index, starting with 0
     
-    W =  30     # laminate width
-    L = 100          # laminate length
+    W =  1.283      # laminate width
+    L = 3.8           # laminate length
     nl = len(mat) # number of layers
     H = np.sum(thk)     # laminate thickness
     area = W*H       # total cross-sectioal area of laminate
     
     ###################  Mechanical and thermal loading #######################
     
-    Ti = 1000   # initial temperature (C)
-    Tf = 100 # final temperature (C)
+    Ti = 0   # initial temperature (C)
+    Tf = 0 # final temperature (C)
     dT = Tf-Ti 
     # Applied loads
     # NMbarapp = Nx*1000/W , Nx is the composite load (kN) 
@@ -296,17 +535,17 @@ def composite_plate():
     # # graphite-polymer lamina
     # multiple lamina properties can be given by adding columns
     # # material 1 in column 1, material 2 in colum 2 etc
-    E1  = [155e3 , 400e3]
-    E2  = [12.1e3 , 400e3]
-    E3  = [12.1e3 , 400e3]
-    G12  = [4.4e3 , 170e3]
-    G13  = [4.4e3 , 170e3]
-    G23  = [3.2e3 , 170e3]
-    nu12 = [0.248, 0.17]
-    nu13 = [0.248, 0.17]
-    nu23 = [0.458, 0.17]
-    alpha1 =  [-0.018e-6, -0.3e-6]  # coefficient of thermal expansion in 1
-    alpha2 =  [24.3e-6, -0.3e-6]  # coefficient of thermal expansion in 1
+    E1  = [8.49e6 , 400e3]
+    E2  = [8.49e6, 400e3]
+    E3  = [8.49e6, 400e3]
+    G12  = [1.076e6 , 170e3]
+    G13  = [1.076e6  , 170e3]
+    G23  = [1.076e6  , 170e3]
+    nu12 = [1.076e6  ,  0.17]
+    nu13 = [0.06, 0.17]
+    nu23 = [0.06, 0.17]
+    alpha1 =  [0, -0.3e-6]  # coefficient of thermal expansion in 1
+    alpha2 =  [0, -0.3e-6]  # coefficient of thermal expansion in 1
     alpha12 = [0, 0] # coefficient of thermal expansion in 12
     
     alpha = [np.matrix([alpha1[k], alpha2[k], alpha12[k]]).T for k in range(len(alpha1))]
@@ -436,8 +675,8 @@ def composite_plate():
     epsilonbarapptotal = epsilonbarapp + abcd*NMbarapp # includes applied loads and strains
     # Note, epsilonbarapptotal == abcd*NMbarapptotal
     
-    
-    
+    '''
+	Plots are incorrect, need to check
     ######################  prepare data for plotting##########################
     
     
@@ -656,4 +895,11 @@ def composite_plate():
     print(A)
     print(alpha_composite)
     print(nuxybar)
+    '''
+
+   
+   
     
+    
+if __name__=='__main__':
+    laminate_calcs()
