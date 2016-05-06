@@ -1,0 +1,5 @@
+*pyc
+setup.py
+.idea
+.ropeproject
+log.txt

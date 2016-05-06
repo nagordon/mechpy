@@ -59,3 +59,8 @@ http://documen.tician.de/meshpy/
 http://mathema.tician.de/software/meshpy/
 http://fenicsproject.org/documentation/dolfin/1.4.0/python/demo/documented/mesh-generation/python/documentation.html
 https://wiki.scilab.org/Finite%20Elements%20in%20Scilab
+http://pyamg.org/
+
+
+units in python
+https://pypi.python.org/pypi/Unum
