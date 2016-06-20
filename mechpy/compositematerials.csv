@@ -1,0 +1,8 @@
+Unidirectional Materials,density,E1,E2,nu12,nu23,G12,G23,F1,F2,alpha1 ,alpha2,Vf,t
+"properties, units",density,"E1, axial modulus, msi","E2, transverse modulus, msi","nu12, poisson ratio, in/in","nu23, poisson ratio, in/in","G12, shear modulus, msi","G23, shear modulus, msi","F1, Axial tensile Strength, ksi","F2, Transverse Tensile Strength, ksi","alpha1, Axial CTE, 1e-6/F","alpha2, Transverse CTE, 1e-6/F","Vf, fiber volume fraction, %","t, ply thickness, in"
+AS4_3501-6,0.055,21.5,1.46,0.3,0.59,0.81,0.46,310,7.75,-0.44,16,0.62,0.005
+T300_5208,0.056,19.2,1.56,0.24,0.59,0.82,0.49,219.5,6.3,-0.43,13.6,0.62,0.005
+Kevlar_epoxy,0.05,11,0.8,0.34,0.37,0.3,0.2,200,4,-2.2,32,0.55,0.005
+Boron_Al,0.096,32.9,20.2,0.24,0.36,8.35,7.12,187,17,3.3,9.2,0.46,0.007
+SCS-6_Ti-15-3,0.14,32,21,0.27,0.4,7.78,7.5,220,46,3.4,4.4,0.39,0.009
+S-2 glass_epoxy,0.072,6.31,1.67,0.27,0.4,0.5,0.6,250,6,3.8,16,0.6,0.01

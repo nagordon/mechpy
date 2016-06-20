@@ -14,7 +14,9 @@ from pprint import pprint
 #get_ipython().magic('matplotlib inline')
 
 def T2rot(th):
-    return np.array([[np.cos(th), -np.sin(th)],[np.sin(th), np.cos(th)]])
+    T2 = np.array([[np.cos(th), -np.sin(th)],
+                   [np.sin(th), np.cos(th)]])
+    return T2
 
 # %load T3r.py
 def T3rot(th):
@@ -218,4 +220,3 @@ if __name__ == '__main__':
     
     T6rot(45,45,45)
     
-    qbar_transformtion()
