@@ -11,7 +11,8 @@ from numpy.linalg import solve, inv
 #from scipy import linalg
 import numpy as np
 #np.set_printoptions(suppress=False,precision=2)   # suppress scientific notation
-np.set_printoptions(precision=3, linewidth=200)
+#np.set_printoptions(precision=2, linewidth=200)
+np.set_printoptions(linewidth=200)
 
 import pandas as pd
 
@@ -40,7 +41,7 @@ def import_matprops(mymaterial='T300_5208'):
     '''
     import material properties
     '''
-    matprops = pd.read_csv('./mechpy/compositematerials.csv', index_col=0)
+    matprops = pd.read_csv('./compositematerials.csv', index_col=0)
     mat = matprops[mymaterial]
     return mat
 
@@ -308,6 +309,28 @@ def laminate1():
     6) Determine the laminate stiffness Matrix (ABD)
     7) Calculate the laminate compliance matrix by inverting the ABD matrix
     8) Calculate the laminate engineering properties
+    
+    TODO
+    * Validate mechanical properties with curvature
+    * add hygrothermal loads
+    
+    # Stress Strain Relationship for a laminate
+    |sx | |Qbar11 Qbar12 Qbar16| |ex +z*kx |
+    |sy |=|Qbar12 Qbar22 Qbar26|=|ey +z*ky |
+    |sxy| |Qbar16 Qbar26 Qbar66| |exy+z*kxy|
+    
+    # Herakovich pg 84
+    Qbar =  inv(T1) @ Q @ T2 == solve(T1, Q) @ T2
+    
+    transformation reminders - see Herakovich for details
+    sig1 = T1*sigx
+    sigx = inv(T1)*sig1
+    eps1 = T2*epsx
+    epsx = inv(R)*epsx
+    sigx = inv(T1)*Q*T2*epsx
+    Qbar = inv(T1)*Q*T2
+    Sbar = inv(T2)*inv(Q)*T2
+   
     '''
     
     get_ipython().magic('matplotlib') 
@@ -319,32 +342,37 @@ def laminate1():
 #    plt.rcParams['legend.fontsize'] = 14
     
     
-    mat  = import_matprops('T300_5208')
+    mat  = import_matprops('graphite-polymer_SI')
     alpha = array([[mat.alpha1], [mat.alpha2], [0]])
     
     W =   10  # plate width
     L =  4           # laminate length  
-    plyangle = [0,45,90]# [0, 90, 90, 0]  # [0 90 90 0]# [90 0 90 0 0 90 0 90] # [30 -30 0 0 -30 30]  #
+    plyangle = [0,90,90,0]# [0, 90, 90, 0]  # [0 90 90 0]# [90 0 90 0 0 90 0 90] # [30 -30 0 0 -30 30]  #
     laminatethk =   zeros(len(plyangle)) + mat.plythk  # ply thicknesses
     nply = len(laminatethk) # number of plies
     H =   mat.plythk*nply # plate thickness
 #    area = W*H
-    z = linspace(-H/2,H/2,nply+1)  # ply boundary vertical dimensions
+    z = zeros((1,nply))
+    z[0] = -H/2
+    for i in range(nply):
+        z[i+1] = z[i] + laminatethk[i]
     
     ###################  Mechanical loading #######################
     
-#    Ti = 100   # initial temperature (C)
-#    Tf = 100 # final temperature (C)
-#    dT = Tf-Ti 
+    Ti = 110   # initial temperature (C)
+    Tf = 100 # final temperature (C)
+    dT = Tf-Ti 
     
-    A = zeros((3,3))
-    B = zeros((3,3))
-    D = zeros((3,3))
-    
-    # Engineering contants for a single ply 
+    # Reduced stiffness matrix for a plane stress ply in principal coordinates
     # calcluating Q from the Compliance matrix may cause cancellation errors
     Q = Qf(mat.E1,mat.E2,mat.nu12,mat.G12)
 
+    A = zeros((3,3))
+    B = zeros((3,3))
+    D = zeros((3,3))
+    Nhatth= zeros((3,1))  # unit thermal force in global CS
+    Mhatth = zeros((3,1)) # unit thermal moment in global CS
+    alphabar = zeros((3,nply))    
     for i in range(nply):  # = nply
         Qbar = solve(T1(plyangle[i]), Q) @ T2(plyangle[i])
         A += Qbar*(z[i+1]-z[i])
@@ -352,6 +380,12 @@ def laminate1():
         B += (1/2)*Qbar*(z[i+1]**2-z[i]**2)
         # bending or flexural laminate stiffness relating moments to curvatures
         D += (1/3)*Qbar*(z[i+1]**3-z[i]**3)  
+        alphabar[:,[i]] = inv(T2(plyangle[i]))@alpha # Convert to global CS    
+        Nhatth += Qbar @ (alphabar[:,[i]])*(z[i+1] - z[i]) # Hyer method for calculating thermal unit loads
+        Mhatth += 0.5*Qbar@(alphabar[:,[i]])*(z[i+1]**2-z[i]**2)         
+    
+    NMhatth = np.vstack((Nhatth,Mhatth))
+    NMbarth = NMhatth*dT # resultant thermal loads
     
     # laminate stiffness matrix
     ABD = zeros((6,6))
@@ -361,7 +395,7 @@ def laminate1():
     ABD[3:6,3:6] = D
  
     # laminatee compliance
-    abcd = np.linalg.inv(ABD)
+    abcd = inv(ABD)
     a = abcd[0:3,0:3]
     
     # effective laminate shear coupling coefficients
@@ -376,92 +410,184 @@ def laminate1():
     Gxybar = 1 / (H*a[2,2])
     nuxybar = -a[0,1]/a[0,0]
     nuyxbar = -a[0,1]/a[1,1]
-    
+    alphaxyz = a@Nhatth # laminate CTE
 
-    # Laminate compliance matrix
-    LamComp = array([ [1/Exbar,       -nuyxbar/Eybar,  etasxbar/Gxybar],
-                      [-nuxybar/Exbar,  1/Eybar ,       etasybar/Gxybar],
-                      [etaxsbar/Exbar, etaysbar/Eybar, 1/Gxybar]] ) 
+    # --------------------- Double Check ---------------------
+#    # Laminate compliance matrix
+#    LamComp = array([ [1/Exbar,       -nuyxbar/Eybar,  etasxbar/Gxybar],
+#                      [-nuxybar/Exbar,  1/Eybar ,       etasybar/Gxybar],
+#                      [etaxsbar/Exbar, etaysbar/Eybar, 1/Gxybar]] ) 
+#    # Daniel pg 183
+#    # combines applied loads and applied strains
+#    strain_laminate = LamComp @ Nxyzapplied[:3]/H + strainxyzapplied[:3]
+#    Nxyz = A @ strain_laminate
+#    stress_laminate = Nxyz/H
+    # --------------------------------------------------------
     
     print('--------------- laminate1 Stress analysis of fibers----------')
-    print('ABD=')
-    print(ABD)   
-    print('Ex=%0.1f'%Exbar)
-    print('Ey=%0.1f'%Eybar)
-    print('nuxy=%0.1f'%nuxybar)
-    print('Gxy=%0.1f'%Gxybar)
+    print('plyangles'); print(plyangle)
+    print('ply layers') ; print(z)
+    print('ABD=');print(ABD)   
+    print('Ex=   %0.2E'%Exbar)
+    print('Ey=   %0.2E'%Eybar)
+    print('nuxy= %0.2E'%nuxybar)
+    print('Gxy=  %0.2E'%Gxybar)
+    
 
-    ################# Stresses and Strains #################    
-    Nxyzapplied = array([[100],[0],[0]])
-    strainxyzapplied = array([[1e-3],[0],[0]]) 
+    ################# Stresses and Strains #################   
+    # either apply strains or loads 
+    NMbarapp = array([[0],[0],[0],[0],[0],[0]])
+    epsilonbarapp = array([[0],[0],[0],[3.33e-3],[0],[0]]) 
     
-    # Daniel pg 183
-    # combines applied loads and applied strains
-    strain_laminate = LamComp @ Nxyzapplied/H + strainxyzapplied
-    Nxyz = A @ strain_laminate
-    stress_laminate = Nxyz/H
-    
-    strainxyz = zeros((3,2*nply))   # global strain 
-    stressxyz = zeros((3,2*nply))   # global stress    
     zplot = zeros(2*nply)
-    
-    strainxyz = strainxyz + strain_laminate[:]
-
     for i,k in enumerate(range(0,2*nply,2)):  # = nply
-        Qbar = solve(T1(plyangle[i]), Q) @ T2(plyangle[i])
-        # stress is calcuated at top and bottom of each ply
-        stressxyz[:,[k]] = Qbar @ strain_laminate
-        stressxyz[:,[k+1]] = Qbar @ strain_laminate
-        zplot[k] = z[i]
-        zplot[k+1] = z[i+1]
-
+        zplot[k:(k+2)] = z[i:(i+2)]
+    
+    NMbarapptotal = NMbarapp + ABD@epsilonbarapp  
+    
+    # Composite respone from applied mechanical loads and strains. Average
+    # properties only. Used to compare results from tensile test.
+    epsilon_composite = abcd@NMbarapptotal
+    sigma_composite = ABD@epsilon_composite/H
+    # determine thermal load and applied loads or strains Hyer pg 435,452
+    Nx = NMbarapptotal[0]*W # units kiloNewtons, total load as would be applied in a tensile test
+    Ny = NMbarapptotal[1]*L # units kN
+    epsilonbarth = abcd*NMbarth;
+    epsilonbarapptotal = epsilonbarapp + abcd@NMbarapp #includes applied loads and strains
+    # Note, epsilonbarapptotal == abcd*NMbarapptotal    
+    
+    
+    
+    epsilonbar          = zeros((3,len(z)))
+    sigmabar            = zeros((3,len(z)))
+    epsilon             = zeros((3,len(z)))
+    sigma               = zeros((3,len(z)))
+    epsilonbar_app      = zeros((3,len(z)))
+    sigmabar_app        = zeros((3,len(z)))
+    epsilon_app         = zeros((3,len(z)))
+    sigma_app           = zeros((3,len(z)))
+    epsilonbar_th       = zeros((3,len(z)))
+    sigmabar_th         = zeros((3,len(z)))
+    epsilon_th          = zeros((3,len(z)))
+    sigma_th            = zeros((3,len(z)))
+    epsilon_app_plot    = zeros((3,2*nply))
+    epsilonbar_app_plot = zeros((3,2*nply))
+    sigma_app_plot      = zeros((3,2*nply))
+    sigmabar_app_plot   = zeros((3,2*nply))
+    epsilon_th_plot     = zeros((3,2*nply))
+    epsilonbar_th_plot  = zeros((3,2*nply))
+    sigma_th_plot       = zeros((3,2*nply))
+    sigmabar_th_plot    = zeros((3,2*nply))
+    epsilonplot         = zeros((3,2*nply))
+    epsilonbarplot      = zeros((3,2*nply))
+    sigmaplot           = zeros((3,2*nply))
+    sigmabarplot        = zeros((3,2*nply))
+    
+#    strainxyz = zeros((3,2*nply))   # global stress 
+#    # add curvature kappaxyz
+#    for i in range(2*nply):
+#        strainxyz[:,[i]] =  strain0xyz[:3] + zplot[i]*strain0xyz[3:]  # global strain  
+#    print('strainsxyz') ; print(strainxyz)
+#    
+#    stressxyz = zeros((3,2*nply))   # global stress  
+#    for i,k in enumerate(range(0,2*nply,2)):  # = nply
+#        Qbar = solve(T1(plyangle[i]), Q) @ T2(plyangle[i])
+#        # stress is calcuated at top and bottom of each ply
+#        stressxyz[:,[k]] = Qbar @ strain0xyz[:3]  + Qbar @ strain0xyz[3:] * zplot[i]  # global strain  
+#        stressxyz[:,[k+1]] = stressxyz[:,[k]]
+#    print('stressxyz') ; print(stressxyz)
+#    
+#    stress123 = zeros((3,2*nply))   # global stress    
+#    strain123 = zeros((3,2*nply))   # global strain      
+#    for i,k in enumerate(range(0,2*nply,2)):
+#        stress123[:,[k]] = T1(plyangle[i]) @ stressxyz[:,[k]]
+#        stress123[:,[k+1]] = stress123[:,[k]]
+#
+#        strain123[:,[k]] = T2(plyangle[i]) @ strainxyz[:,[k]]
+#        strain123[:,[k+1]] = strain123[:,[k]]        
+        
     #==============================================================================
     #     Plotting
     #==============================================================================
     
+    # Global Stress-Strain
     f, ((ax1,ax2,ax3), (ax4,ax5,ax6)) = plt.subplots(2,3, sharex='row', sharey=True)
     f.canvas.set_window_title('Global Stress and Strain of %s laminate' % (plyangle))
     
     ax1.plot(strainxyz[0,:] , zplot)
-    ax1.plot([strain_laminate[0],strain_laminate[0]],[zplot[0], zplot[-1]], '--k' )
     ax1.set_xlabel(r'$\epsilon_x$')
     ax1.set_ylabel(r'$t,in$')
     ax1.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
     ax1.grid(True)
-    
+
     ax2.plot(strainxyz[1,:] , zplot)
-    ax2.plot([strain_laminate[1],strain_laminate[1]],[zplot[0], zplot[-1]], '--k' )
     ax2.set_xlabel(r'$\epsilon_y$')
     ax2.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
     ax2.grid(True)
     
     ax3.plot(strainxyz[2,:] , zplot)
-    ax3.plot([strain_laminate[2],strain_laminate[2]],[zplot[0], zplot[-1]], '--k' )
     ax3.set_xlabel(r'$\epsilon_{xy}$')
     ax3.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
     ax3.grid(True)
     
     ax4.plot(stressxyz[0,:] , zplot)
-    ax4.plot([stress_laminate[0],stress_laminate[0]],[zplot[0], zplot[-1]], '--k' )
     ax4.set_xlabel(r'$\sigma_x$')
     ax4.set_ylabel(r'$t,in$')
     ax4.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
     ax4.grid(True)
     
     ax5.plot(stressxyz[1,:] , zplot)
-    ax5.plot([stress_laminate[1],stress_laminate[1]],[zplot[0], zplot[-1]], '--k' )
     ax5.set_xlabel(r'$\sigma_y$')
     ax5.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
     ax5.grid(True)
     
     ax6.plot(stressxyz[2,:] , zplot)
-    ax6.plot([stress_laminate[2],stress_laminate[2]],[zplot[0], zplot[-1]], '--k' )
     ax6.set_xlabel(r'$\tau_{xy}$')
     ax6.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
     ax6.grid(True)
     
     f.show()
     tight_layout()
+    
+    
+    # Principal-Material-Local Stress-Strain
+    f, ((ax1,ax2,ax3), (ax4,ax5,ax6)) = plt.subplots(2,3, sharex='row', sharey=True)
+    f.canvas.set_window_title('Local Stress and Strain of %s laminate' % (plyangle))
+    
+    ax1.plot(strain123[0,:] , zplot)
+    ax1.set_xlabel(r'$\epsilon_1$')
+    ax1.set_ylabel(r'$t,in$')
+    ax1.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
+    ax1.grid(True)
+
+    ax2.plot(strain123[1,:] , zplot)
+    ax2.set_xlabel(r'$\epsilon_2$')
+    ax2.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
+    ax2.grid(True)
+    
+    ax3.plot(strain123[2,:] , zplot)
+    ax3.set_xlabel(r'$\epsilon_{12}$')
+    ax3.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
+    ax3.grid(True)
+    
+    ax4.plot(stress123[0,:] , zplot)
+    ax4.set_xlabel(r'$\sigma_1$')
+    ax4.set_ylabel(r'$t,in$')
+    ax4.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
+    ax4.grid(True)
+    
+    ax5.plot(stress123[1,:] , zplot)
+    ax5.set_xlabel(r'$\sigma_1$')
+    ax5.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
+    ax5.grid(True)
+    
+    ax6.plot(stress123[2,:] , zplot)
+    ax6.set_xlabel(r'$\tau_{12}$')
+    ax6.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
+    ax6.grid(True)
+    
+    f.show()
+    tight_layout()    
     
     
 if __name__=='__main__':
