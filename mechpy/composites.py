@@ -57,14 +57,28 @@ def Sf6(E1,E2,nu12,nu23,G12):
 
 
 def Sf(E1,E2,nu12,G12):
-    '''transversly isptropic compliance matrix. pg 58 herakovich'''
+    '''transversely isptropic compliance matrix. pg 58 herakovich'''
     nu21 = E2*nu12/E1
     S = array([[1/E1,    -nu21/E2, 0],
                [-nu12/E1, 1/E2,    0],
                [0,        0,       1/G12]])
     return S    
 
-
+def S6f(E1,E2,nu12,nu23,G12):
+    '''
+    transversely isotropic compliance matrix. 
+    For transversly isotropic
+    E2=E3, nu12=nu13,G12=G13,G23=E2/(2(1+nu23))
+    '''
+    G23=E2/(2*(1+nu23))
+    S6 = array( [[    1/E1, -nu12/E1, -nu12/E1,     0,     0,       0],  
+                 [-nu12/E1,     1/E2, -nu23/E2,     0,     0,       0],  
+                 [-nu12/E1, -nu23/E2,     1/E2,     0,     0,       0],
+                 [     0,        0,        0,      1/G23,  0,       0],
+                 [     0,        0,        0,       0,    1/G12,    0],
+                 [     0,        0,        0,       0,     0,   1/G12]])    
+    return S6
+    
 def Qf(E1,E2,nu12,G12):
     '''transversly isptropic compliance matrix. pg 58 herakovich'''
     nu21 = E2*nu12/E1
@@ -72,7 +86,6 @@ def Qf(E1,E2,nu12,G12):
                [ E2*nu12/(1-nu12*nu21), E2/(1-nu12*nu21),    0],
                [0,        0,       G12]])
     return Q  
-   
 
 def T61(th):
     '''Stress
@@ -311,7 +324,7 @@ def laminate1():
     8) Calculate the laminate engineering properties
     
     TODO
-    * Validate mechanical properties with curvature
+    * Validate mechanical properties with curvature. Found error with thermal loads. see page 519 Hyer for debugging
     * add hygrothermal loads
     
     # Stress Strain Relationship for a laminate
@@ -335,6 +348,10 @@ def laminate1():
     
     get_ipython().magic('matplotlib') 
     
+#    mngr = plt.get_current_fig_manager()
+#    # to put it into the upper left corner for example:
+#    mngr.window.setGeometry(50,100,640, 545)    
+    
     plt.close('all')
     
     plt.rcParams['figure.figsize'] = (12, 8)
@@ -342,25 +359,28 @@ def laminate1():
 #    plt.rcParams['legend.fontsize'] = 14
     
     
-    mat  = import_matprops('graphite-polymer_SI')
+    mat  = import_matprops('graphite-polymer_SI')  # Hyer
+    #mat  = import_matprops('T300_5208')  # Herakovich
     alpha = array([[mat.alpha1], [mat.alpha2], [0]])
     
     W =   10  # plate width
-    L =  4           # laminate length  
-    plyangle = [0,90,90,0]# [0, 90, 90, 0]  # [0 90 90 0]# [90 0 90 0 0 90 0 90] # [30 -30 0 0 -30 30]  #
+    L =  10           # laminate length  
+    plyangle = [30,-30,0]# [0, 90, 90, 0]  # [0 90 90 0]# [90 0 90 0 0 90 0 90] # [30 -30 0 0 -30 30]  #
     laminatethk =   zeros(len(plyangle)) + mat.plythk  # ply thicknesses
     nply = len(laminatethk) # number of plies
     H =   mat.plythk*nply # plate thickness
 #    area = W*H
     z = zeros(nply+1)
+    zmid = zeros(nply)
     z[0] = -H/2
     for i in range(nply):
         z[i+1] = z[i] + laminatethk[i]
+        zmid[i] = z[i] + laminatethk[i]/2
     
     ###################  Mechanical loading #######################
     
-    Ti = 100   # initial temperature (C)
-    Tf = 100 # final temperature (C)
+    Ti = 200   # initial temperature (C)
+    Tf = 50 # final temperature (C)
     dT = Tf-Ti 
     
     # Reduced stiffness matrix for a plane stress ply in principal coordinates
@@ -437,7 +457,7 @@ def laminate1():
     ################# Stresses and Strains #################   
     # either apply strains or loads 
     NMbarapp = array([[0],[0],[0],[0],[0],[0]])
-    epsilonbarapp = array([[0],[0],[0],[3.33e-3],[0],[0]]) 
+    epsilonbarapp = array([[0],[0],[0],[0],[0],[0]]) 
     
     zplot = zeros(2*nply)
     for i,k in enumerate(range(0,2*nply,2)):  # = nply
@@ -452,12 +472,10 @@ def laminate1():
     # determine thermal load and applied loads or strains Hyer pg 435,452
     Nx = NMbarapptotal[0]*W # units kiloNewtons, total load as would be applied in a tensile test
     Ny = NMbarapptotal[1]*L # units kN
-    epsilonbarth = abcd*NMbarth;
+    epsilonbarth = abcd@NMbarth
     epsilonbarapptotal = epsilonbarapp + abcd@NMbarapp #includes applied loads and strains
     
-    # Note, epsilonbarapptotal == abcd*NMbarapptotal    
-    
-    
+    # Declare variables for plotting
     epsilonbar          = zeros((3,len(z)))
     sigmabar            = zeros((3,len(z)))
     epsilon             = zeros((3,len(z)))
@@ -575,10 +593,10 @@ def laminate1():
         #ax.set_title(' Ply Strain at $\epsilon=%f$' % (epsxapp*100))
         ax.ticklabel_format(axis='x', style='sci', scilimits=(1,4))  # scilimits=(-2,2))
         
-        ax.plot(epsilonbarplot[i,:],     zplot, color='blue', lw=mylw)
-        ax.plot(epsilonbar_th_plot[i,:], zplot, color='red', lw=mylw)
-        ax.plot(epsilonbar_app_plot[i,:], zplot, color='green', lw=mylw)   
-        ax.plot([epsilon_composite[i], epsilon_composite[i]],[np.min(z) , np.max(z)], color='black', lw=mylw) 
+        ax.plot(epsilonbarplot[i,:],     zplot, color='blue', lw=mylw, label='total')
+        ax.plot(epsilonbar_th_plot[i,:], zplot, color='red', lw=mylw, label='thermal')
+        ax.plot(epsilonbar_app_plot[i,:], zplot, color='green', lw=mylw, label='applied') 
+        ax.plot([epsilon_composite[i], epsilon_composite[i]],[np.min(z) , np.max(z)], color='black', lw=mylw, label='composite') 
         ax.grid(True)              
     
     for i,ax in enumerate([ax4,ax5,ax6]):
@@ -587,17 +605,19 @@ def laminate1():
         #ax.set_title(' Ply Stress at $\sigma=%f$' % (epsxapp*100))
         ax.ticklabel_format(axis='x', style='sci', scilimits=(-3,3)) # scilimits=(-2,2))
         
-        ax.plot(sigmabarplot[i,:],     zplot, color='blue', lw=mylw)
-        ax.plot(sigmabar_th_plot[i,:], zplot, color='red', lw=mylw)
-        ax.plot(sigmabar_app_plot[i,:], zplot, color='green', lw=mylw)   
-        ax.plot([sigma_composite[i], sigma_composite[i]],[np.min(z) , np.max(z)], color='black', lw=mylw) 
+        ax.plot(sigmabarplot[i,:],     zplot, color='blue', lw=mylw, label='total')
+        ax.plot(sigmabar_th_plot[i,:], zplot, color='red', lw=mylw, label='thermal')
+        ax.plot(sigmabar_app_plot[i,:], zplot, color='green', lw=mylw, label='applied')  
+        ax.plot([sigma_composite[i], sigma_composite[i]],[np.min(z) , np.max(z)], color='black', lw=mylw, label='composite') 
         ax.grid(True)
-    
-    legend(legendlab)
-    f1.show()
-    tight_layout()          
-    #plt.savefig('global-stresses-strains.png')
-    
+
+
+    #legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3,ncol=2, mode="expand", borderaxespad=0.)
+    leg = legend(fancybox=True) ; leg.get_frame().set_alpha(0.3)     
+    tight_layout() 
+    mngr = plt.get_current_fig_manager() ; mngr.window.setGeometry(50,50,800, 500)
+    f1.show()             
+    #plt.savefig('global-stresses-strains.png')    
 
     ### Local Stresses and Strains
     f2, ((ax1,ax2,ax3), (ax4,ax5,ax6)) = plt.subplots(2,3, sharex='row', sharey=True)
@@ -612,29 +632,53 @@ def laminate1():
         #ax.set_title(' Ply Strain at $\epsilon=%f$' % (epsxapp*100))
         ax.ticklabel_format(axis='x', style='sci', scilimits=(1,4))  # scilimits=(-2,2))
         
-        ax.plot(epsilonplot[i,:],     zplot, color='blue', lw=mylw)
-        ax.plot(epsilon_th_plot[i,:], zplot, color='red', lw=mylw)
-        ax.plot(epsilon_app_plot[i,:], zplot, color='green', lw=mylw)   
-        ax.plot([epsilon_composite[i], epsilon_composite[i]],[np.min(z) , np.max(z)], color='black', lw=mylw) 
+        ax.plot(epsilonplot[i,:],     zplot, color='blue', lw=mylw, label='total')
+        ax.plot(epsilon_th_plot[i,:], zplot, color='red', lw=mylw, label='thermal')
+        ax.plot(epsilon_app_plot[i,:], zplot, color='green', lw=mylw, label='applied')   
+        ax.plot([epsilon_composite[i], epsilon_composite[i]],[np.min(z) , np.max(z)], color='black', lw=mylw, label='composite')
         ax.grid(True)
                           
-    
     for i,ax in enumerate([ax4,ax5,ax6]):
         ax.set_ylabel('thickness,z')
         ax.set_xlabel(stresslabel[i])
         #ax.set_title(' Ply Stress at $\sigma=%f$' % (epsxapp*100))
         ax.ticklabel_format(axis='x', style='sci', scilimits=(-3,3)) # scilimits=(-2,2))
         
-        ax.plot(sigmaplot[i,:],     zplot, color='blue', lw=mylw)
-        ax.plot(sigma_th_plot[i,:], zplot, color='red', lw=mylw)
-        ax.plot(sigma_app_plot[i,:], zplot, color='green', lw=mylw)   
-        ax.plot([sigma_composite[i], sigma_composite[i]],[np.min(z) , np.max(z)], color='black', lw=mylw)     
+        ax.plot(sigmaplot[i,:],     zplot, color='blue', lw=mylw, label='total')
+        ax.plot(sigma_th_plot[i,:], zplot, color='red', lw=mylw, label='thermal')
+        ax.plot(sigma_app_plot[i,:], zplot, color='green', lw=mylw, label='applied')   
+        ax.plot([sigma_composite[i], sigma_composite[i]],[np.min(z) , np.max(z)], color='black', lw=mylw, label='composite')   
         ax.grid(True)
-        
-    legend(legendlab)
+    
+    leg = legend(fancybox=True) ; leg.get_frame().set_alpha(0.3)   
+    tight_layout() 
+    mngr = plt.get_current_fig_manager() ; mngr.window.setGeometry(850,50,800, 500)
     f2.show()
-    tight_layout()          
     #plt.savefig('local-stresses-strains.png')
+   
+    ### warpage
+    res = 100
+    Xplt,Yplt = np.meshgrid(np.linspace(-W/2,W/2,res), np.linspace(-L/2,L/2,res))
+    epsx = epsilon_composite[0,0]
+    epsy = epsilon_composite[1,0]
+    epsxy = epsilon_composite[2,0]
+    kapx = epsilon_composite[3,0]
+    kapy = epsilon_composite[4,0]
+    kapxy = epsilon_composite[5,0]
+    ### dispalcement
+    w = -0.5*(kapx*Xplt**2 + kapy*Yplt**2 + kapxy*Xplt*Yplt)
+    u = epsx*Xplt  # pg 451 hyer
+    fig = plt.figure('plate-warpage')
+    ax = fig.gca(projection='3d')
+    ax.plot_surface(Xplt, Yplt, w+zmid[0], cmap=cm.jet, alpha=0.3)
+    ###ax.auto_scale_xyz([-(W/2)*1.1, (W/2)*1.1], [(L/2)*1.1, (L/2)*1.1], [-1e10, 1e10])
+    ax.set_xlabel('plate width,y-direction,in')
+    ax.set_ylabel('plate length,x-direction, in')
+    ax.set_zlabel('warpage,in')
+    #ax.set_zlim(-0.01, 0.04)
+    mngr = plt.get_current_fig_manager() ; mngr.window.setGeometry(450,550,600, 450)
+    plt.show()
+    #plt.savefig('plate-warpage')   
    
     
 if __name__=='__main__':
