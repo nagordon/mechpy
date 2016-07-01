@@ -11,7 +11,7 @@ from numpy.linalg import solve, inv
 #from scipy import linalg
 import numpy as np
 #np.set_printoptions(suppress=False,precision=2)   # suppress scientific notation
-#np.set_printoptions(precision=2, linewidth=200)
+np.set_printoptions(precision=4, linewidth=200)
 np.set_printoptions(linewidth=200)
 
 import pandas as pd
@@ -323,9 +323,10 @@ def laminate1():
     7) Calculate the laminate compliance matrix by inverting the ABD matrix
     8) Calculate the laminate engineering properties
     
-    TODO
+    TODO - 
     * Validate mechanical properties with curvature. Found error with thermal loads. see page 519 Hyer for debugging
     * add hygrothermal loads
+    TODO - left off on page hyper 529 validating to thermal and applied loads
     
     # Stress Strain Relationship for a laminate
     |sx | |Qbar11 Qbar12 Qbar16| |ex +z*kx |
@@ -346,26 +347,25 @@ def laminate1():
    
     '''
     
+#==============================================================================
+# Initialize
+#==============================================================================
     get_ipython().magic('matplotlib') 
-    
-#    mngr = plt.get_current_fig_manager()
-#    # to put it into the upper left corner for example:
-#    mngr.window.setGeometry(50,100,640, 545)    
-    
     plt.close('all')
-    
     plt.rcParams['figure.figsize'] = (12, 8)
     plt.rcParams['font.size'] = 13
-#    plt.rcParams['legend.fontsize'] = 14
+    #plt.rcParams['legend.fontsize'] = 14
     
-    
+#==============================================================================
+# Import Material Properties
+#==============================================================================
     mat  = import_matprops('graphite-polymer_SI')  # Hyer
     #mat  = import_matprops('T300_5208')  # Herakovich
     alpha = array([[mat.alpha1], [mat.alpha2], [0]])
     
-    W =   10  # plate width
-    L =  10           # laminate length  
-    plyangle = [30,-30,0]# [0, 90, 90, 0]  # [0 90 90 0]# [90 0 90 0 0 90 0 90] # [30 -30 0 0 -30 30]  #
+    W =   0.25  # plate width
+    L =  .125           # laminate length  
+    plyangle = [30,-30,0,0,-30,30]# [0, 90, 90, 0]  # [0 90 90 0]# [90 0 90 0 0 90 0 90] # [30 -30 0 0 -30 30]  #
     laminatethk =   zeros(len(plyangle)) + mat.plythk  # ply thicknesses
     nply = len(laminatethk) # number of plies
     H =   mat.plythk*nply # plate thickness
@@ -377,11 +377,9 @@ def laminate1():
         z[i+1] = z[i] + laminatethk[i]
         zmid[i] = z[i] + laminatethk[i]/2
     
-    ###################  Mechanical loading #######################
-    
-    Ti = 200   # initial temperature (C)
-    Tf = 50 # final temperature (C)
-    dT = Tf-Ti 
+#==============================================================================
+# ABD Matrix Compute
+#==============================================================================
     
     # Reduced stiffness matrix for a plane stress ply in principal coordinates
     # calcluating Q from the Compliance matrix may cause cancellation errors
@@ -389,23 +387,14 @@ def laminate1():
 
     A = zeros((3,3))
     B = zeros((3,3))
-    D = zeros((3,3))
-    Nhatth= zeros((3,1))  # unit thermal force in global CS
-    Mhatth = zeros((3,1)) # unit thermal moment in global CS
-    alphabar = zeros((3,nply))    
+    D = zeros((3,3))  
     for i in range(nply):  # = nply
         Qbar = solve(T1(plyangle[i]), Q) @ T2(plyangle[i])
         A += Qbar*(z[i+1]-z[i])
         # coupling  stiffness
         B += (1/2)*Qbar*(z[i+1]**2-z[i]**2)
         # bending or flexural laminate stiffness relating moments to curvatures
-        D += (1/3)*Qbar*(z[i+1]**3-z[i]**3)  
-        alphabar[:,[i]] = inv(T2(plyangle[i]))@alpha # Convert to global CS    
-        Nhatth += Qbar @ (alphabar[:,[i]])*(z[i+1] - z[i]) # Hyer method for calculating thermal unit loads
-        Mhatth += 0.5*Qbar@(alphabar[:,[i]])*(z[i+1]**2-z[i]**2)         
-    
-    NMhatth = np.vstack((Nhatth,Mhatth))
-    NMbarth = NMhatth*dT # resultant thermal loads
+        D += (1/3)*Qbar*(z[i+1]**3-z[i]**3)      
     
     # laminate stiffness matrix
     ABD = zeros((6,6))
@@ -417,6 +406,10 @@ def laminate1():
     # laminatee compliance
     abcd = inv(ABD)
     a = abcd[0:3,0:3]
+    
+#==============================================================================
+# Laminate Properties    
+#==============================================================================
     
     # effective laminate shear coupling coefficients
     etasxbar = a[0,2]/a[2,2]
@@ -430,7 +423,7 @@ def laminate1():
     Gxybar = 1 / (H*a[2,2])
     nuxybar = -a[0,1]/a[0,0]
     nuyxbar = -a[0,1]/a[1,1]
-    alpha_composite = a@Nhatth # laminate CTE
+    
 
     # --------------------- Double Check ---------------------
 #    # Laminate compliance matrix
@@ -444,6 +437,62 @@ def laminate1():
 #    stress_laminate = Nxyz/H
     # --------------------------------------------------------
     
+
+#==============================================================================
+#  Applied Loads 
+#==============================================================================
+    # either apply strains or loads 
+            #               Nx Ny  Nxy  Mx  My Mxy 
+    NMbarapp =      array([[0],[0],[0],[0],[0],[0]])
+    #                       ex ey exy  kx  ky kxy
+    epsilonbarapp = array([[0.1024e-2],[0],[0],[0],[0],[0]]) 
+    
+    NMbarapptotal = NMbarapp + ABD@epsilonbarapp
+    
+    # Composite respone from applied mechanical loads and strains. Average
+    # properties only. Used to compare results from tensile test.
+    epsilon_composite = abcd@NMbarapptotal
+    sigma_composite = ABD@epsilon_composite/H
+    # determine thermal load and applied loads or strains Hyer pg 435,452
+    Nx = NMbarapptotal[0,0]*W # units kiloNewtons, total load as would be applied in a tensile test
+    Ny = NMbarapptotal[1,0]*L # units kN  
+    
+#==============================================================================
+# Thermal Loads  
+#==============================================================================
+
+    
+    Ti = 200   # initial temperature (C)
+    Tf = 50 # final temperature (C)
+    dT = Tf-Ti 
+    
+    Nhatth= zeros((3,1))  # unit thermal force in global CS
+    Mhatth = zeros((3,1)) # unit thermal moment in global CS
+    alphabar = zeros((3,nply))    
+    for i in range(nply):  # = nply
+        Qbar = solve(T1(plyangle[i]), Q) @ T2(plyangle[i])
+        alphabar[:,[i]] = inv(T2(plyangle[i]))@alpha # Convert to global CS    
+        Nhatth += Qbar @ (alphabar[:,[i]])*(z[i+1] - z[i]) # Hyer method for calculating thermal unit loads
+        Mhatth += 0.5*Qbar@(alphabar[:,[i]])*(z[i+1]**2-z[i]**2)   
+        
+    NMhatth = np.vstack((Nhatth,Mhatth))
+    NMbarth = NMhatth*dT # resultant thermal loads    
+    #epsilonbarth = abcd@NMbarth # resultant thermal strains
+    
+    # Laminate CTE
+    alpha_composite = a@Nhatth # laminate CTE
+    
+    # applied loads and thermal loads
+    epsilonbarapp = abcd @ NMbarapptotal
+    epsilonbarth = abcd @ NMbarth
+    epsilonbartotal = epsilonbarapp + epsilonbarth
+    
+    epsilon_composite = epsilonbartotal[:]
+    sigma_composite = ABD@epsilonbartotal/H    
+    
+#==============================================================================
+# Printing Results    
+#==============================================================================
     print('--------------- laminate1 Stress analysis of fibers----------')
     print('plyangles'); print(plyangle)
     print('ply layers') ; print(z)
@@ -452,29 +501,16 @@ def laminate1():
     print('Ey=   %0.2E'%Eybar)
     print('nuxy= %0.2E'%nuxybar)
     print('Gxy=  %0.2E'%Gxybar)
-    
+    print('alpha_composite')
+    print(alpha_composite)
+    print('epsilon_composite')
+    print(epsilon_composite)
+    print('sigma_composite')
+    print(sigma_composite)
 
-    ################# Stresses and Strains #################   
-    # either apply strains or loads 
-    NMbarapp = array([[0],[0],[0],[0],[0],[0]])
-    epsilonbarapp = array([[0],[0],[0],[0],[0],[0]]) 
-    
-    zplot = zeros(2*nply)
-    for i,k in enumerate(range(0,2*nply,2)):  # = nply
-        zplot[k:(k+2)] = z[i:(i+2)]
-    
-    NMbarapptotal = NMbarapp + ABD@epsilonbarapp  
-    
-    # Composite respone from applied mechanical loads and strains. Average
-    # properties only. Used to compare results from tensile test.
-    epsilon_composite = abcd@NMbarapptotal
-    sigma_composite = ABD@epsilon_composite/H
-    # determine thermal load and applied loads or strains Hyer pg 435,452
-    Nx = NMbarapptotal[0]*W # units kiloNewtons, total load as would be applied in a tensile test
-    Ny = NMbarapptotal[1]*L # units kN
-    epsilonbarth = abcd@NMbarth
-    epsilonbarapptotal = epsilonbarapp + abcd@NMbarapp #includes applied loads and strains
-    
+#==============================================================================
+#     Local Stresses
+#==============================================================================
     # Declare variables for plotting
     epsilonbar          = zeros((3,len(z)))
     sigmabar            = zeros((3,len(z)))
@@ -508,8 +544,8 @@ def laminate1():
         # stress is calcuated at top and bottom of each ply
 
          # Global stresses and strains, applied load only
-        epsbar1 = epsilonbarapptotal[0:3] + z[i]*epsilonbarapptotal[3:7]
-        epsbar2 = epsilonbarapptotal[0:3] + z[i+1]*epsilonbarapptotal[3:7]
+        epsbar1 = epsilonbarapp[0:3] + z[i]*epsilonbarapp[3:7]
+        epsbar2 = epsilonbarapp[0:3] + z[i+1]*epsilonbarapp[3:7]
         sigbar1 = Qbar @ epsbar1
         sigbar2 = Qbar @ epsbar2
         epsilonbar_app[:,i:i+2] =  np.column_stack((epsbar1,epsbar2))
@@ -528,32 +564,39 @@ def laminate1():
         sigma_app_plot[:,k:k+2]      = np.column_stack((sig1,sig2))
         sigmabar_app_plot[:,k:k+2]   = np.column_stack((sigbar1,sigbar2))
         
-        # Global stress and strains, thermal loading only
-        epsbar1 = (alpha_composite - alphabar[:,[i]])*dT
+        
+        ###### Global stress and strains, thermal loading only
+        epsbar1 = epsilonbarth[0:3] + z[i]*epsilonbarth[3:7] - alphabar[:,[i]]*dT
+        epsbar2 = epsilonbarth[0:3] + z[i+1]*epsilonbarth[3:7] - alphabar[:,[i]]*dT
         sigbar1 = Qbar @ epsbar1
-        epsilonbar_th[:,i:i+2] = np.column_stack((epsbar1,epsbar1))
-        sigmabar_th[:,i:i+2] = np.column_stack((sigbar1,sigbar1))
+        sigbar2 = Qbar @ epsbar2
+        epsilonbar_th[:,i:i+2] = np.column_stack((epsbar1,epsbar2))
+        sigmabar_th[:,i:i+2] = np.column_stack((sigbar1,sigbar2))
         
         # Local stress and strains, thermal loading only
         eps1 = T2(plyangle[i]) @ epsbar1
+        eps2 = T2(plyangle[i]) @ epsbar2
         sig1 = Q @ eps1
-        epsilon_th[:,i:i+2] = np.column_stack((eps1,eps1))
-        sigma_th[:,i:i+2] = np.column_stack((sig1,sig1))
+        sig2 = Q @ eps2
+        epsilon_th[:,i:i+2] = np.column_stack((eps1,eps2))
+        sigma_th[:,i:i+2] = np.column_stack((sig1,sig2))
         
         # Create array for plotting purposes only
         epsilon_th_plot[:,k:k+2] = np.column_stack((eps1,eps1))
         epsilonbar_th_plot[:,k:k+2] = np.column_stack((epsbar1,epsbar1))
-        sigma_th_plot[:,k:k+2] = np.column_stack((sig1,sig1))
-        sigmabar_th_plot[:,k:k+2] = np.column_stack((sigbar1,sigbar1))  
+        sigma_th_plot[:,k:k+2] = np.column_stack((sig1,sig2))
+        sigmabar_th_plot[:,k:k+2] = np.column_stack((sigbar1,sigbar2))  
         
+        
+        ######
         # global stresses and strains, bar ,xy coord including both applied
-        # loads and thermal loads. NET, or relaized stress-strain
-        epsbar1 = epsilonbarapptotal[0:3] + z[i]*epsilonbarapptotal[3:7] + (alpha_composite - alphabar[:,[i]])*dT
-        epsbar2 = epsilonbarapptotal[0:3] + z[i+1]*epsilonbarapptotal[3:7] + (alpha_composite - alphabar[:,[i]])*dT
+        # loads and thermal loads. NET, or realized stress-strain
+        epsbar1 = epsilonbarapp[0:3] + z[i]*epsilonbarapp[3:7]   + epsilonbarth[0:3] + z[i]*epsilonbarth[3:7]   - alphabar[:,[i]]*dT
+        epsbar2 = epsilonbarapp[0:3] + z[i+1]*epsilonbarapp[3:7] + epsilonbarth[0:3] + z[i+1]*epsilonbarth[3:7] - alphabar[:,[i]]*dT
         sigbar1 = Qbar @ epsbar1
         sigbar2 = Qbar @ epsbar2
         epsilonbar[:,i:i+2] = np.column_stack((epsbar1,epsbar2))
-        sigmabar[:,i:i+2] = np.column_stack((sigbar1,sigbar2))
+        sigmabar[:,i:i+2]   = np.column_stack((sigbar1,sigbar2))
         
         # local stresses and strains , 12 coord, includes both applied loads
         # and thermal load. NET , or realized stress and strain
@@ -562,19 +605,23 @@ def laminate1():
         sig1 = Q @ eps1
         sig2 = Q @ eps2
         epsilon[:,i:i+2] = np.column_stack((eps1,eps2))
-        sigma[:,i:i+2] = np.column_stack((sig1,sig2))
+        sigma[:,i:i+2]   = np.column_stack((sig1,sig2))
         
         # Create array for plotting purposes only
-        epsilonplot[:,k:k+2] = np.column_stack((eps1,eps2))
-        epsilonbarplot[:,k:k+2] = np.column_stack((epsbar1,epsbar2))
-        sigmaplot[:,k:k+2] = np.column_stack((sig1,sig2))
-        sigmabarplot[:,k:k+2] = np.column_stack((sigbar1,sigbar2))      
+        epsilonplot[:,k:k+2]     = np.column_stack((eps1,eps2))
+        epsilonbarplot[:,k:k+2]  = np.column_stack((epsbar1,epsbar2))
+        sigmaplot[:,k:k+2]       = np.column_stack((sig1,sig2))
+        sigmabarplot[:,k:k+2]    = np.column_stack((sigbar1,sigbar2))      
     
  
         
-    #==============================================================================
-    #     Plotting
-    #==============================================================================
+#==============================================================================
+#     Plotting
+#==============================================================================
+    zplot = zeros(2*nply)
+    for i,k in enumerate(range(0,2*nply,2)):  # = nply
+        zplot[k:(k+2)] = z[i:(i+2)]        
+        
     legendlab = ['total','thermal','applied','composite']
     # global stresses and strains
     mylw = 1.5 #linewidth
@@ -582,7 +629,6 @@ def laminate1():
     # Global Stresses and Strains
     f1, ((ax1,ax2,ax3), (ax4,ax5,ax6)) = plt.subplots(2,3, sharex='row', sharey=True)
     f1.canvas.set_window_title('Global Stress and Strain of %s laminate' % (plyangle))
-    
     stresslabel = ['$\sigma_x,\ ksi$','$\sigma_y,\ ksi$','$\\tau_{xy},\ ksi$']
     strainlabel = ['$\epsilon_x$','$\epsilon_y$','$\gamma_{xy}$']
     
@@ -611,8 +657,6 @@ def laminate1():
         ax.plot([sigma_composite[i], sigma_composite[i]],[np.min(z) , np.max(z)], color='black', lw=mylw, label='composite') 
         ax.grid(True)
 
-
-    #legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3,ncol=2, mode="expand", borderaxespad=0.)
     leg = legend(fancybox=True) ; leg.get_frame().set_alpha(0.3)     
     tight_layout() 
     mngr = plt.get_current_fig_manager() ; mngr.window.setGeometry(50,50,800, 500)
@@ -676,7 +720,7 @@ def laminate1():
     ax.set_ylabel('plate length,x-direction, in')
     ax.set_zlabel('warpage,in')
     #ax.set_zlim(-0.01, 0.04)
-    mngr = plt.get_current_fig_manager() ; mngr.window.setGeometry(450,550,600, 450)
+    #mngr = plt.get_current_fig_manager() ; mngr.window.setGeometry(450,550,600, 450)
     plt.show()
     #plt.savefig('plate-warpage')   
    
