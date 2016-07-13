@@ -1,13 +1,16 @@
-
+# -*- coding: utf-8 -*-
+"""
+FEM Code
+"""
 from numpy import array, matrix, zeros, linspace, arange
 #from matplotlib.pyplot import *
-import scipy.linalg
 import matplotlib.pyplot as plt
+from numpy.linalg import solve, inv
 from matplotlib.pyplot import plot, figure, xlim, ylim, title, xlabel, ylabel, show
 import numpy as np 
 plt.rcParams['figure.figsize'] = (10, 8)  # (width, height)
-    
-def cst_fem(structure='9node'):
+
+def cst_fem(structure='4node'):
     '''
     Gusset plate problem using 8 CST elemetnts. Uniform load across top edge
     is modeled with 2 concentrated forces    
@@ -192,7 +195,7 @@ def cst_fem(structure='9node'):
     
     ## Solve displacements
     #U = Ksol\Psol
-    U = scipy.linalg.solve(Ksol,Psol) 
+    U = solve(Ksol,Psol) 
     
     ## retrieve kru of total structure stiffness matrix and get reactions
     R = K @ U

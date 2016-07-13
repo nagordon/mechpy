@@ -41,7 +41,6 @@ from IPython import get_ipython
 get_ipython().magic('matplotlib inline')    
     
 
-
 def import_matprops(mymaterial='T300_5208'):
     '''
     import material properties
@@ -332,6 +331,7 @@ def laminate():
     8) Calculate the laminate engineering properties
     
     TODO -    add failure criteria
+	TODO -    add multiple material properties for a laminate
     
     # Stress Strain Relationship for a laminate, with Q=reduced stiffness matrix
     |sx | |Qbar11 Qbar12 Qbar16| |ex +z*kx |
