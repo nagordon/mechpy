@@ -2,6 +2,10 @@
 
 '''
 Module to be used for composite material analysis
+
+Hyer-Stress Analysis of Fiber-Reinforced Composite Materials
+Herakovich-Mechanics of Fibrous Composites
+Daniel-Engineering Mechanics of Composite Materials
 '''
 
 from __future__ import print_function
@@ -41,25 +45,20 @@ from IPython import get_ipython
 get_ipython().magic('matplotlib inline')    
     
 
-def import_matprops(mymaterial='T300_5208'):
+
+
+def import_matprops(mymaterial=['T300_5208','AL_7075']):
     '''
     import material properties
     '''
 
-    matprops = pd.read_csv('F:/mechpy/mechpy/compositematerials.csv', index_col=0)
+    matprops = pd.read_csv('./compositematerials.csv', index_col=0)
 
+    if mymaterial==[] or mymaterial=='':
+        print(matprops.columns.tolist())
+            
     mat = matprops[mymaterial]
     return mat
-
-def Sf6(E1,E2,nu12,nu23,G12):
-    '''transversly isptropic compliance matrix. pg 58 herakovich'''
-    S = array([ [1/E1, -nu12/E1, -nu12/E1,0,0,0],
-              [-nu12/E1,1/E2,-nu23/E2,0,0,0],
-              [-nu12/E1, -nu23/E2, 1/E2,0,0,0],
-              [0,0,0,2*(1+nu23)/E2,0,0],
-              [0,0,0,0,1/G12,0],
-              [0,0,0,0,0,1/G12]])
-    return S
 
 
 def Sf(E1,E2,nu12,G12):
@@ -86,7 +85,8 @@ def S6f(E1,E2,nu12,nu23,G12):
     return S6
     
 def Qf(E1,E2,nu12,G12):
-    '''transversly isptropic compliance matrix. pg 58 herakovich'''
+    '''transversly isptropic compliance matrix. pg 58 herakovich
+    G12 = E1/(2*(1+nu12))  if isotropic'''
     nu21 = E2*nu12/E1
     Q = array([[E1/(1-nu12*nu21),    E2*nu12/(1-nu12*nu21), 0],
                [ E2*nu12/(1-nu12*nu21), E2/(1-nu12*nu21),    0],
@@ -331,7 +331,6 @@ def laminate():
     8) Calculate the laminate engineering properties
     
     TODO -    add failure criteria
-	TODO -    add multiple material properties for a laminate
     
     # Stress Strain Relationship for a laminate, with Q=reduced stiffness matrix
     |sx | |Qbar11 Qbar12 Qbar16| |ex +z*kx |
@@ -363,16 +362,26 @@ def laminate():
     #==========================================================================
     # Import Material Properties
     #==========================================================================
-    mat  = import_matprops('graphite-polymer_SI')  # Hyer  #import_matprops('T300_5208') #
+    matindex = ['graphite-polymer_SI','aluminum_SI']
+    mat  = import_matprops(matindex)  
     #mat  = import_matprops('T300_5208')  # Herakovich
-    alpha = array([[mat.alpha1], [mat.alpha2], [0]])
+    alphaf = lambda mat: array([[mat.alpha1], [mat.alpha2], [0]])
     
+    ''' to get ply material info, use as follows
+    alpha = alphaf(mat[matindex[plymat[i]]])
+    
+    mat[matindex[1]].E2
+    
+    '''
     W =   0.25  # plate width
     L =  .125           # laminate length  
-    plyangle = [30,-30,0,0,-30,30]
-    laminatethk =   zeros(len(plyangle)) + mat.plythk  # ply thicknesses
+    plyangle = [0,45,90]  # angle for each ply
+    plymat =   [1,1,1 ]  # material for each ply
+    
+    laminatethk = array([mat[matindex[i]].plythk for i in plymat ])
+    
     nply = len(laminatethk) # number of plies
-    H =   mat.plythk*nply # plate thickness
+    H =   sum(laminatethk) # plate thickness
     #    area = W*H
     z = zeros(nply+1)
     zmid = zeros(nply)
@@ -386,11 +395,12 @@ def laminate():
     #==========================================================================
     # Reduced stiffness matrix for a plane stress ply in principal coordinates
     # calcluating Q from the Compliance matrix may cause cancellation errors
-    Q = Qf(mat.E1,mat.E2,mat.nu12,mat.G12)
 
     A = zeros((3,3)); B = zeros((3,3)); D = zeros((3,3))  
     for i in range(nply):  # = nply
-        Qbar = solve(T1(plyangle[i]), Q) @ T2(plyangle[i])
+        Q = Qf(mat[matindex[plymat[i]]].E1, mat[matindex[plymat[i]]].E2, mat[matindex[plymat[i]]].nu12, mat[matindex[plymat[i]]].G12 )
+        
+        Qbar = inv(T1(plyangle[i])) @ Q   @ T2(plyangle[i]) # solve(T1(plyangle[i]), Q) @ T2(plyangle[i])
         A += Qbar*(z[i+1]-z[i])
         # coupling  stiffness
         B += (1/2)*Qbar*(z[i+1]**2-z[i]**2)
@@ -444,9 +454,9 @@ def laminate():
     #==========================================================================
     # either apply strains or loads 
             #               Nx Ny  Nxy  Mx  My Mxy 
-    NMbarapp =      array([[0],[0],[0],[12.84],[0],[0]])
+    NMbarapp =      array([[0],[0],[0],[0],[0],[0]])
     #                       ex ey exy  kx  ky kxy
-    epsilonbarapp = array([[0],[0],[0],[0],[0],[0]]) 
+    epsilonbarapp = array([[1e-3],[0],[0],[0],[0],[0]]) 
     
     NMbarapptotal = NMbarapp + ABD@epsilonbarapp
     #==========================================================================
@@ -461,7 +471,7 @@ def laminate():
     # 1) determine the free unrestrained thermal strains in each layer, alphabar
     '''
     
-    Ti = 150   # initial temperature (C)
+    Ti = 0   # initial temperature (C)
     Tf = 0 # final temperature (C)
     dT = Tf-Ti 
     
@@ -469,7 +479,9 @@ def laminate():
     Mhatth = zeros((3,1)) # unit thermal moment in global CS
     alphabar = zeros((3,nply))    # global ply CTE 
     for i in range(nply):  # = nply
-        Qbar = solve(T1(plyangle[i]), Q) @ T2(plyangle[i])
+        Q = Qf(mat[matindex[plymat[i]]].E1, mat[matindex[plymat[i]]].E2, mat[matindex[plymat[i]]].nu12, mat[matindex[plymat[i]]].G12 )
+        alpha = alphaf(mat[matindex[plymat[i]]])
+        Qbar = inv(T1(plyangle[i])) @ Q   @ T2(plyangle[i])
         alphabar[:,[i]] = solve(T2(plyangle[i]),  alpha)
         #alphabar[:,[i]] = inv(T2(plyangle[i])) @ alpha # Convert to global CS    
         Nhatth += Qbar @ (alphabar[:,[i]])*(z[i+1] - z[i]) # Hyer method for calculating thermal unit loads
@@ -518,7 +530,8 @@ def laminate():
     
     for i,k in enumerate(range(0,2*nply,2)):
         # stress is calcuated at top and bottom of each ply
-        Qbar = solve(T1(plyangle[i]), Q) @ T2(plyangle[i])
+        Q = Qf(mat[matindex[plymat[i]]].E1, mat[matindex[plymat[i]]].E2, mat[matindex[plymat[i]]].nu12, mat[matindex[plymat[i]]].G12 )
+        Qbar = inv(T1(plyangle[i])) @ Q   @ T2(plyangle[i])
 
          # Global stresses and strains, applied load only
         epsbarapp1 = epsilonbarapp[0:3] + z[i]*epsilonbarapp[3:7]
@@ -628,7 +641,7 @@ def laminate():
     # Global Stresses and Strains
     f1, ((ax1,ax2,ax3), (ax4,ax5,ax6)) = plt.subplots(2,3, sharex='row', sharey=True)
     f1.canvas.set_window_title('Global Stress and Strain of %s laminate' % (plyangle))
-    stresslabel = ['$\sigma_x,\ ksi$','$\sigma_y,\ ksi$','$\\tau_{xy},\ ksi$']
+    stresslabel = ['$\sigma_x$','$\sigma_y$','$\\tau_{xy}$']
     strainlabel = ['$\epsilon_x$','$\epsilon_y$','$\gamma_{xy}$']
     
     for i,ax in enumerate([ax1,ax2,ax3]):
@@ -666,7 +679,7 @@ def laminate():
     ### Local Stresses and Strains
     f2, ((ax1,ax2,ax3), (ax4,ax5,ax6)) = plt.subplots(2,3, sharex='row', sharey=True)
     f2.canvas.set_window_title('Local Stress and Strain of %s laminate' % (plyangle))
-    stresslabel = ['$\sigma_1,\ ksi$','$\sigma_2,\ ksi$','$\\tau_{12},\ ksi$']
+    stresslabel = ['$\sigma_1$','$\sigma_2$','$\\tau_{12}$']
     strainlabel = ['$\epsilon_1$','$\epsilon_2$','$\gamma_{12}$']
     
     for i,ax in enumerate([ax1,ax2,ax3]):
@@ -729,7 +742,7 @@ if __name__=='__main__':
     
     
     #material_plots()
-    laminate1()
+    laminate()
 
 
 '''CODE GRAVEYARD
