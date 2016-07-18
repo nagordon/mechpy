@@ -171,7 +171,12 @@ https://github.com/numpy/numpy/wiki/Numerical-software-on-Windows
 http://openalea.gforge.inria.fr/doc/vplants/mechanics/doc/_build/html/user/membrane/sphere%20iso/index.html
 https://github.com/pydy/scipy-2013-mechanics
 http://docs.sympy.org/dev/modules/physics/mechanics/
-
+http://download.gna.org/getfem/html/homepage/python/pygf.html
+>[Sparse matrices (scipy.sparse)](http://docs.scipy.org/doc/scipy-0.14.0/reference/sparse.html)
+>[Sparse Matrices in SciPy](https://scipy-lectures.github.io/advanced/scipy_sparse/)
+>[The FEniCS Book: Automated Solution of Differential Equations by the Finite Element Method](http://fenicsproject.org/book/index.html#book)
+>[FEniCS tutorial (Python)](http://fenicsproject.org/documentation/tutorial/)
+>[SfePy: Simple Finite Elements in Python](http://sfepy.org/doc-devel/index.html)
 
 
 

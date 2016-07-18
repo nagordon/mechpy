@@ -10,6 +10,58 @@ from matplotlib.pyplot import plot, figure, xlim, ylim, title, xlabel, ylabel, s
 import numpy as np 
 plt.rcParams['figure.figsize'] = (10, 8)  # (width, height)
 
+
+def create_mesh():
+    from pyfem import *
+    
+    my_block = Block2D()
+    my_block.set_coords( [[0,0],[1,0],[1,1],[0,1]] )
+    my_block.set_quadratic()
+    my_block.set_divisions(10, 10)
+    
+    my_mesh = Mesh()
+    my_mesh.add_blocks(my_block)
+    my_mesh.generate()
+    my_mesh.write("my_mesh.vtk")    
+
+
+def simple_fem():
+    from numpy import matrix, linalg
+    from math import *
+    
+    l = 1.5
+    d = 3
+    F1=F2=F3=F4=F5=F6=F7=F8=F9=F10=0
+    # K Matrix of order 10 x 10
+    A = (pi/4)*(d*d)
+    E = 200
+    #multiplying factor
+    m = (E*A)/ (2*1.414*l)
+    F1 = 4
+    F = matrix([[F1],[F2],[F3],[F4],[F5],[F6],[F7],[F8],[F9],[F10]])  
+    # K Matrix of order 10 x 10
+    K = m * matrix([[2.828,4,0,0,0,0,0,0,0,0],\
+                [-2,4 ,0,0,0,0,0,0,0,0],\
+                [0,0,4.828,0,0,0,0,0,0,0],\
+                [0,0,0,2,0,0,0,0,0,0],\
+                [0,0,0,0,1.414,0,0,0,0,0],\
+                [0,0,0,0,0,-2,0,0,0,0],\
+                [0,0,0,0,0,0,4.828,0,0,0],\
+                [0,0,0,0,0,0,0,2,0,0],\
+                [0,0,0,0,0,0,0,0,1.414,0],\
+                [0,0,0,0,0,0,0,0,0,-2]])
+                            
+    # U = (Inverse of K)* F
+    C = K.I
+    #C  matrix is the inverse of  K
+    print("The  Deformation matrix is: ")
+    print(C*F)
+    print("nodal displacements")
+
+
+
+
+
 def cst_fem(structure='4node'):
     '''
     Gusset plate problem using 8 CST elemetnts. Uniform load across top edge

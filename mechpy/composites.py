@@ -737,7 +737,15 @@ def laminate():
     plt.show()
     #plt.savefig('plate-warpage')   
    
-    
+
+    def plate():
+        '''
+        composite plate mechanics
+        '''
+        
+
+            
+
 if __name__=='__main__':
     
     
