@@ -13,6 +13,7 @@ TODO
 * check out FEM - Numerical Python pg 690/1311
 * add failure criteria to composites and mutli-material
 * add composite plate code to composites
+* convert matlab code for plotting test data
 
 - - - -
 
