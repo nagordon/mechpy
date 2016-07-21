@@ -8,29 +8,31 @@ Herakovich-Mechanics of Fibrous Composites
 Daniel-Engineering Mechanics of Composite Materials
 '''
 
-from __future__ import print_function
-from __future__ import division
+
+#==============================================================================
+# Import Modules
+#==============================================================================
+from __future__ import print_function, division
+
 from numpy import pi, zeros, ones, linspace, arange, array, sin, cos
 from numpy.linalg import solve, inv
 #from scipy import linalg
 import numpy as np
 #np.set_printoptions(suppress=False,precision=2)   # suppress scientific notation
-np.set_printoptions(precision=4, linewidth=200)
-np.set_printoptions(linewidth=200)
+np.set_printoptions(precision=4, linewidth=150)
 
 import pandas as pd
 
 import sympy as sp
+#from sympy import cos, sin
+#sp.init_printing(use_latex='mathjax')
 sp.init_printing(wrap_line=False, pretty_print=True)
-
-from pprint import pprint
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import plot,figure,xlim,ylim,title,legend, \
 grid, show, xlabel,ylabel, tight_layout
+from mpl_toolkits.mplot3d import axes3d
 import matplotlib as mpl
-from matplotlib import cm
-from mpl_toolkits.mplot3d import axes3d  
 
 mpl.rcParams['figure.figsize'] = (8,5)
 mpl.rcParams['font.size'] = 14
@@ -44,7 +46,11 @@ from IPython import get_ipython
 ###disable inline plotting
 get_ipython().magic('matplotlib inline')    
     
+from IPython.display import display
 
+#==============================================================================
+# Functions
+#==============================================================================
 
 
 def import_matprops(mymaterial=['T300_5208','AL_7075']):
@@ -380,7 +386,7 @@ def laminate():
     7) Calculate the laminate compliance matrix by inverting the ABD matrix
     8) Calculate the laminate engineering properties
     
-    TODO -    add failure criteria
+    TODO -    create a function to determine the max load or strain to failure
     
     # Stress Strain Relationship for a laminate, with Q=reduced stiffness matrix
     |sx | |Qbar11 Qbar12 Qbar16| |ex +z*kx |
@@ -412,7 +418,9 @@ def laminate():
     #==========================================================================
     # Import Material Properties
     #==========================================================================
-    matindex = ['graphite-polymer_SI','aluminum_SI']
+    	
+
+    matindex = ['AS4_3501-6']
     mat  = import_matprops(matindex)  
     #mat  = import_matprops('T300_5208')  # Herakovich
     alphaf = lambda mat: array([[mat.alpha1], [mat.alpha2], [0]])
@@ -425,8 +433,8 @@ def laminate():
     '''
     W =   0.25  # plate width
     L =  .125           # laminate length  
-    plyangle = [0,45,90]  # angle for each ply
-    plymat =   [1,1,1 ]  # material for each ply
+    plyangle = [0,90,90,0]  # angle for each ply
+    plymat =   [0,0,0,0]  # material for each ply
     
     laminatethk = array([mat[matindex[i]].plythk for i in plymat ])
     
@@ -506,7 +514,7 @@ def laminate():
             #               Nx Ny  Nxy  Mx  My Mxy 
     NMbarapp =      array([[0],[0],[0],[0],[0],[0]])
     #                       ex ey exy  kx  ky kxy
-    epsilonbarapp = array([[1e-3],[0],[0],[0],[0],[0]]) 
+    epsilonbarapp = array([[5e-3],[0],[0],[0],[0],[0]]) 
     
     NMbarapptotal = NMbarapp + ABD@epsilonbarapp
     #==========================================================================
@@ -633,6 +641,33 @@ def laminate():
         sigma[:,k:k+2]       = np.column_stack((sig1,sig2))
         sigmabar[:,k:k+2]    = np.column_stack((sigbar1,sigbar2))   
             
+            
+    #==========================================================================
+    # Failure Calculations            
+    #==========================================================================
+    
+    # Max Stress            
+    SR = zeros((3,2*nply)) 
+    TS = zeros((nply))
+    for i,k in enumerate(range(0,2*nply,2)):
+        
+        s1 = sigma[0,k]
+        s2 = sigma[1,k]
+        s12 = sigma[2,k]
+                    
+        F1 =  mat[matindex[plymat[i]]].F1t  if s1 > 0 else  mat[matindex[plymat[i]]].F1c
+        F2 =  mat[matindex[plymat[i]]].F2t  if s2 > 0 else  mat[matindex[plymat[i]]].F2c
+        F12 = mat[matindex[plymat[i]]].F12t if s12 > 0 else mat[matindex[plymat[i]]].F12c
+
+        #Tsai Hill
+        TS[i] = s1**2/F1**2 + s2**2/F2**2 + s12**2/F12**2 - s1*s2/F2**2
+        
+        # strength ratio, if < 1, then fail, 
+        SR[0,k:k+2] = s1 / F1  
+        SR[1,k:k+2] = s2 / F2
+        SR[2,k:k+2] = s12 / F12
+            
+       
     #==========================================================================
     # Printing Results    
     #==========================================================================
@@ -674,8 +709,15 @@ def laminate():
     print(epsilonbar)
     print('sigma')
     print(sigma)
-    print('sigmabar')       
+    print('sigmabar')    
     print(sigmabar)
+    print('Stress Ratio')
+    print(SR)
+    print('Tsai-Hill Failure')
+    print(TS)
+    #display(sp.Matrix(sigmabar))
+    
+
             
     #==========================================================================
     # Plotting
@@ -687,7 +729,6 @@ def laminate():
     #legendlab = ['total','thermal','applied','laminate']
     # global stresses and strains
     mylw = 1.5 #linewidth
-
     # Global Stresses and Strains
     f1, ((ax1,ax2,ax3), (ax4,ax5,ax6)) = plt.subplots(2,3, sharex='row', sharey=True)
     f1.canvas.set_window_title('Global Stress and Strain of %s laminate' % (plyangle))
@@ -700,7 +741,6 @@ def laminate():
         ax.set_xlabel(strainlabel[i])
         #ax.set_title(' Ply Strain at $\epsilon=%f$' % (epsxapp*100))
         ax.ticklabel_format(axis='x', style='sci', scilimits=(1,4))  # scilimits=(-2,2))
-        
         ax.plot(epsilonbar[i,:],     zplot, color='blue', lw=mylw, label='total')
         ax.plot(epsilonbar_th[i,:],  zplot, color='red', lw=mylw, alpha=0.75, linestyle='--',  label='thermal')
         ax.plot(epsilonbar_app[i,:], zplot, color='green', lw=mylw, alpha=0.75,linestyle='-.', label='applied') 
@@ -713,7 +753,6 @@ def laminate():
         ax.set_xlabel(stresslabel[i])
         #ax.set_title(' Ply Stress at $\sigma=%f$' % (epsxapp*100))
         ax.ticklabel_format(axis='x', style='sci', scilimits=(-3,3)) # scilimits=(-2,2))
-        
         ax.plot(sigmabar[i,:],     zplot, color='blue', lw=mylw, label='total')
         ax.plot(sigmabar_th[i,:], zplot, color='red', lw=mylw, alpha=0.75,linestyle='--', label='thermal')
         ax.plot(sigmabar_app[i,:], zplot, color='green', lw=mylw, alpha=0.75,linestyle='-.', label='applied')  
@@ -725,7 +764,6 @@ def laminate():
     #mngr = plt.get_current_fig_manager() ; mngr.window.setGeometry(50,50,800, 500)
     f1.show()             
     #plt.savefig('global-stresses-strains.png')    
-
     ### Local Stresses and Strains
     f2, ((ax1,ax2,ax3), (ax4,ax5,ax6)) = plt.subplots(2,3, sharex='row', sharey=True)
     f2.canvas.set_window_title('Local Stress and Strain of %s laminate' % (plyangle))
@@ -738,7 +776,6 @@ def laminate():
         ax.set_xlabel(strainlabel[i])
         #ax.set_title(' Ply Strain at $\epsilon=%f$' % (epsxapp*100))
         ax.ticklabel_format(axis='x', style='sci', scilimits=(1,4))  # scilimits=(-2,2))
-        
         ax.plot(epsilon[i,:],     zplot, color='blue', lw=mylw, label='total')
         ax.plot(epsilon_th[i,:], zplot, color='red', lw=mylw, alpha=0.75,linestyle='--', label='thermal')
         ax.plot(epsilon_app[i,:], zplot, color='green', lw=mylw, alpha=0.75,linestyle='-.', label='applied')   
@@ -750,13 +787,25 @@ def laminate():
         ax.set_xlabel(stresslabel[i])
         #ax.set_title(' Ply Stress at $\sigma=%f$' % (epsxapp*100))
         ax.ticklabel_format(axis='x', style='sci', scilimits=(-3,3)) # scilimits=(-2,2))
-        
         ax.plot(sigma[i,:],     zplot, color='blue', lw=mylw, label='total')
         ax.plot(sigma_th[i,:], zplot, color='red', lw=mylw, alpha=0.75,linestyle='--', label='thermal')
         ax.plot(sigma_app[i,:], zplot, color='green', lw=mylw, alpha=0.75,linestyle='-.', label='applied')   
         ax.plot([sigma_laminate[i], sigma_laminate[i]],[np.min(z) , np.max(z)], color='black', lw=mylw, label='laminate')   
         ax.grid(True)
     
+
+    ### Failure
+    f3, ((ax1,ax2,ax3)) = plt.subplots(1,3, sharex=True, sharey=True)
+    f3.canvas.set_window_title('Failure Ratios %s laminate' % (plyangle))
+    stresslabel = ['$\sigma_1/F_1$','$\sigma_2/F_2$','$\\tau_{12}/F_{12}$']
+    for i,ax in enumerate([ax1,ax2,ax3]):
+        ## the top axes
+        ax.set_ylabel('thickness,z')
+        ax.set_xlabel(stresslabel[i])
+        #ax.set_title(' Ply Strain at $\epsilon=%f$' % (epsxapp*100))
+        ax.ticklabel_format(axis='x', style='sci', scilimits=(1,4))  # scilimits=(-2,2))
+        ax.plot(SR[i,:],     zplot, color='blue', lw=mylw, label='total')
+        ax.grid(True)
     leg = legend(fancybox=True) ; leg.get_frame().set_alpha(0.3)   
     tight_layout() 
     #mngr = plt.get_current_fig_manager() ; mngr.window.setGeometry(850,50,800, 500)
@@ -777,7 +826,7 @@ def laminate():
     u = epsx*Xplt  # pg 451 hyer
     fig = plt.figure('plate-warpage')
     ax = fig.gca(projection='3d')
-    ax.plot_surface(Xplt, Yplt, w+zmid[0], cmap=cm.jet, alpha=0.3)
+    ax.plot_surface(Xplt, Yplt, w+zmid[0], cmap=mpl.cm.jet, alpha=0.3)
     ###ax.auto_scale_xyz([-(W/2)*1.1, (W/2)*1.1], [(L/2)*1.1, (L/2)*1.1], [-1e10, 1e10])
     ax.set_xlabel('plate width,y-direction,in')
     ax.set_ylabel('plate length,x-direction, in')
@@ -787,24 +836,12 @@ def laminate():
     plt.show()
     #plt.savefig('plate-warpage')   
    
-
+"""
 def plate():
-        '''
-        composite plate mechanics
-        '''
-       
-
-    from __future__ import print_function, division
-    
-    import numpy as np
-    import sympy as sp
-    from sympy import cos, sin
-    from matplotlib import cm
-    import matplotlib.pyplot as mp
-    np.set_printoptions(linewidth=300)
-    from mpl_toolkits.mplot3d import axes3d
-    from pprint import pprint
-    
+    '''
+    composite plate mechanics
+    '''
+      
     ## Variables
     # layer         1 (top)  ... nl (to bottom) 
     theta = [0, 45, -45, 90, 0]
@@ -1053,13 +1090,20 @@ def plate():
         xlabel('layer')
         title(strcat('\sigma',num2str(i)))
     end
-            
+"""    
 
 def plate_navier():
     '''
+    composite plate bending with navier solution
     '''
     
-    %% Plate a*b*h simply supported under q = q0 CLPT
+    pass
+    ## Plate a*b*h simply supported under q = q0 CLPT
+    
+    
+    
+    '''
+    
     syms q0 a b m n x y
     Qmn = 4/(a*b)*int(int(q0*sin(m*pi*x/a)*sin(n*pi*y/b),x,0,a),y,0,b);
     
@@ -1099,8 +1143,7 @@ def plate_navier():
     xlabel('length a, u(x)')
     ylabel('length b, v(y)')
     zlabel('w(z)')
-
-    
+    '''
 
 if __name__=='__main__':
     
