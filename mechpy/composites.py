@@ -14,6 +14,8 @@ Daniel-Engineering Mechanics of Composite Materials
 #==============================================================================
 from __future__ import print_function, division
 
+from copy import copy
+
 from numpy import pi, zeros, ones, linspace, arange, array, sin, cos
 from numpy.linalg import solve, inv
 #from scipy import linalg
@@ -24,6 +26,9 @@ np.set_printoptions(precision=4, linewidth=150)
 import pandas as pd
 
 import sympy as sp
+from sympy import Function, dsolve, Eq, Derivative, sin, cos, symbols, pprint
+from sympy.plotting import plot3d  
+
 #from sympy import cos, sin
 #sp.init_printing(use_latex='mathjax')
 sp.init_printing(wrap_line=False, pretty_print=True)
@@ -37,7 +42,6 @@ import matplotlib as mpl
 mpl.rcParams['figure.figsize'] = (8,5)
 mpl.rcParams['font.size'] = 14
 mpl.rcParams['legend.fontsize'] = 14
-
 
 # inline plotting
 from IPython import get_ipython
@@ -217,24 +221,24 @@ def material_plots():
     mat = import_matprops('T300_5208')
     S = Sf6(mat.E1,mat.E2,mat.nu12,mat.nu23,mat.G12 )    
     C = inv(S)
-    theta = arange(-90, 90.1, 0.1) 
+    plyangle = arange(-90, 90.1, 0.1) 
     
-    C11 = [(inv(T61(th)) @ C @ T62(th))[0,0] for th in theta]
-    C22 = [(inv(T61(th)) @ C @ T62(th))[1,1] for th in theta]
-    C44 = [(inv(T61(th)) @ C @ T62(th))[3,3] for th in theta]
-    C66 = [(inv(T61(th)) @ C @ T62(th))[5,5] for th in theta]
+    C11 = [(inv(T61(th)) @ C @ T62(th))[0,0] for th in plyangle]
+    C22 = [(inv(T61(th)) @ C @ T62(th))[1,1] for th in plyangle]
+    C44 = [(inv(T61(th)) @ C @ T62(th))[3,3] for th in plyangle]
+    C66 = [(inv(T61(th)) @ C @ T62(th))[5,5] for th in plyangle]
     
-    Exbar = zeros(len(theta))
-    Eybar = zeros(len(theta))
-    Gxybar = zeros(len(theta))
+    Exbar = zeros(len(plyangle))
+    Eybar = zeros(len(plyangle))
+    Gxybar = zeros(len(plyangle))
 
     h = 1      # lamina thickness
     Q = Qf(mat.E1,mat.E2,mat.nu12,mat.G12)
 
-    Qbar = zeros((len(theta),3,3))
-    for i,th in enumerate(theta):
+    Qbar = zeros((len(plyangle),3,3))
+    for i,th in enumerate(plyangle):
         Qbar[i] = solve(T1(th), Q) @ T2(th)
-    #Qbar = [solve(T1(th),Q) @ T2(th) for th in theta]
+    #Qbar = [solve(T1(th),Q) @ T2(th) for th in plyangle]
 
     Qbar11 = Qbar[:,0,0]
     Qbar22 = Qbar[:,1,1]
@@ -251,7 +255,7 @@ def material_plots():
     #     | etaxsbar etaysbar etasybar | 
 
     # laminate Comnpliance
-    aij = zeros((len(theta),3,3))
+    aij = zeros((len(plyangle),3,3))
     for i, _Aij in enumerate(Aij):
         aij[i] = inv(_Aij)   
 
@@ -266,15 +270,15 @@ def material_plots():
                   [5]])
     
     # local ply stress
-    s_12 = np.zeros((3,len(theta)))
-    for i,th in enumerate(theta):
+    s_12 = np.zeros((3,len(plyangle)))
+    for i,th in enumerate(plyangle):
         #s_12[:,i] = np.transpose(T1(th) @ s_xy)[0]   # local stresses
         s_12[:,[i]] = T1(th) @ s_xy   
     
     
     # Plotting
     figure()#, figsize=(10,8))
-    plot(theta, C11, theta, C22, theta, C44, theta, C66)
+    plot(plyangle, C11, plyangle, C22, plyangle, C44, plyangle, C66)
     legend(['$\overline{C}_{11}$','$\overline{C}_{22}$', '$\overline{C}_{44}$', '$\overline{C}_{66}$'])
     title('Transversly Isotropic Stiffness properties of carbon fiber T300_5208')
     xlabel("$\Theta$")
@@ -282,9 +286,9 @@ def material_plots():
     grid()
 
     figure()#, figsize=(10,8))
-    plot(theta, Exbar, label = r"Modulus: $E_x$")
-    plot(theta, Eybar, label = r"Modulus: $E_y$")
-    plot(theta, Gxybar, label = r"Modulus: $G_{xy}$")
+    plot(plyangle, Exbar, label = r"Modulus: $E_x$")
+    plot(plyangle, Eybar, label = r"Modulus: $E_y$")
+    plot(plyangle, Gxybar, label = r"Modulus: $G_{xy}$")
     title("Constitutive Properties in various angles")
     xlabel("$\Theta$")
     ylabel("modulus, GPa")
@@ -292,29 +296,29 @@ def material_plots():
     grid()
     
     figure()#,figsize=(10,8))
-    plot(theta, s_12[0,:], label = '$\sigma_{11},ksi$' )
-    plot(theta, s_12[1,:], label = '$\sigma_{22},ksi$' )
-    plot(theta, s_12[2,:], label = '$\sigma_{12},ksi$' )
+    plot(plyangle, s_12[0,:], label = '$\sigma_{11},ksi$' )
+    plot(plyangle, s_12[1,:], label = '$\sigma_{22},ksi$' )
+    plot(plyangle, s_12[2,:], label = '$\sigma_{12},ksi$' )
     legend(loc='lower left')
     xlabel("$\Theta$")
     ylabel("Stress, ksi")
     grid()
 
-    # plot theta as a function of time
+    # plot plyangle as a function of time
     figure()#,figsize=(10,8))
-    plot(theta,Qbar11, label = "Qbar11")
-    plot(theta,Qbar22, label = "Qbar22")
-    plot(theta,Qbar66, label = "Qbar66")
+    plot(plyangle,Qbar11, label = "Qbar11")
+    plot(plyangle,Qbar22, label = "Qbar22")
+    plot(plyangle,Qbar66, label = "Qbar66")
     legend(loc='lower left')
     xlabel("$\Theta$")
     ylabel('Q')
     grid()
 
-    # plot theta as a function of time
+    # plot plyangle as a function of time
     figure()#,figsize=(10,8))
-    plot(theta,Qbar12, label = "Qbar12")
-    plot(theta,Qbar16, label = "Qbar16")
-    plot(theta,Qbar26, label = "Qbar26")
+    plot(plyangle,Qbar12, label = "Qbar12")
+    plot(plyangle,Qbar16, label = "Qbar16")
+    plot(plyangle,Qbar26, label = "Qbar26")
     legend(loc='lower left')
     xlabel("$\Theta$")
     ylabel('Q')
@@ -337,36 +341,36 @@ def laminate_gen(lamthk=1.5, symang=[45,0,90], plyratio=2.0, matrixlayers=False,
          if lamina is 2x as thick as matrix plyratio = 2
     '''
     if matrixlayers:
-        nl = (len(symang)*2+1)*2
-        nm = nl-len(symang)*2
+        nply = (len(symang)*2+1)*2
+        nm = nply-len(symang)*2
         nf = len(symang)*2
         tm = lamthk / (plyratio*nf + nm)
         tf = tm*plyratio
-        theta = zeros(nl//2)
-        mat = 2*ones(nl//2)  #  orthotropic fiber and matrix = 1, isotropic matrix=2, 
-        mat[1:-1:2] = 1   #  [2 if x%2 else 1 for x in range(nl//2) ]
-        theta[1:-1:2] = symang[:]  # make a copy
-        thk = tm*ones(nl//2)
+        plyangle = zeros(nply//2)
+        mat = 2*ones(nply//2)  #  orthotropic fiber and matrix = 1, isotropic matrix=2, 
+        mat[1:-1:2] = 1   #  [2 if x%2 else 1 for x in range(nply//2) ]
+        plyangle[1:-1:2] = symang[:]  # make a copy
+        thk = tm*ones(nply//2)
         thk[2:2:-1] = tf
         lamang = list(symang) + list(symang[::-1])
-        theta = list(theta) + list(theta[::-1])
+        plyangle = list(plyangle) + list(plyangle[::-1])
         mat = list(mat) + list(mat[::-1])
         thk = list(thk) + list(thk[::-1])  
     else: # no matrix layers, ignore ratio
         if balancedsymmetric:
-            nl = len(symang)*2
-            mat = list(3*np.ones(nl)) 
-            thk = list(lamthk/nl*np.ones(nl))
+            nply = len(symang)*2
+            mat = list(3*np.ones(nply)) 
+            thk = list(lamthk/nply*np.ones(nply))
             lamang = list(symang) + list(symang[::-1])
-            theta = list(symang) + list(symang[::-1])
+            plyangle = list(symang) + list(symang[::-1])
         else:            
-            nl = len(symang)
-            mat =[1]*nl
-            thk = list(lamthk/nl*np.ones(nl))
+            nply = len(symang)
+            mat =[1]*nply
+            thk = list(lamthk/nply*np.ones(nply))
             lamang = symang[:]
-            theta = symang[:]
+            plyangle = symang[:]
 
-    return thk,theta,mat,lamang
+    return thk,plyangle,mat,lamang
 
 
 
@@ -835,23 +839,35 @@ def laminate():
     #mngr = plt.get_current_fig_manager() ; mngr.window.setGeometry(450,550,600, 450)
     plt.show()
     #plt.savefig('plate-warpage')   
-   
-"""
+
+
 def plate():
     '''
     composite plate mechanics
+    
+    TODO - results need vetted
     '''
       
-    ## Variables
-    # layer         1 (top)  ... nl (to bottom) 
-    theta = [0, 45, -45, 90, 0]
-    theta.reverse()
-    theta = np.matrix(theta) * np.pi/180
-    theta = theta.T
-    
-    thk = np.zeros(len(theta)) + 0.0025
-    
-    nl = len(thk)
+      
+    #==========================================================================
+    # Initialize
+    #==========================================================================
+    get_ipython().magic('matplotlib') 
+    plt.close('all')
+    plt.rcParams['figure.figsize'] = (12, 8)
+    plt.rcParams['font.size'] = 13
+    #plt.rcParams['legend.fontsize'] = 14
+     
+    #==========================================================================
+    # Import Material Properties
+    #==========================================================================
+ 
+    plythk = 0.0025
+    plyangle = array([0,90,90,0]) * np.pi/180 # angle for each ply
+    nply = len(plyangle) # number of plies
+    laminatethk = np.zeros(nply) + plythk
+    H =   sum(laminatethk) # plate thickness
+
     a =   20  # plate width;
     b =   10  # plate height
     q0_ = 5.7 # plate load;
@@ -869,12 +885,12 @@ def plate():
     STTc = -200e6
     SLTs =  100e6
     Sxzs =  100e6
-    Strength = np.matrix([[SLLt, SLLc],
+    Strength = np.array([[SLLt, SLLc],
                             [STTt, STTc],
                             [SLTs, Sxzs]])
                                 
     ## Stiffness Matrix
-    th = sp.Symbol('th')   # th = sp.var('th')
+    th = sp.symbols('th')   # th = sp.var('th')
     # tranformation
     Tij6 = sp.Matrix([[cos(th)**2, sin(th)**2, 0, 0, 0, -sin(2*th)],
                       [sin(th)**2, cos(th)**2, 0, 0, 0,  sin(2*th)],
@@ -888,7 +904,7 @@ def plate():
                      [-cos(th)*sin(th), sin(th)*cos(th), (cos(th)**2-sin(th)**2)]])
     
     # compliance matrix
-    Sij6 = np.matrix([[1/Ell, -vlt/Ell, -vlt/Ell, 0, 0, 0],
+    Sij6 = np.array([[1/Ell, -vlt/Ell, -vlt/Ell, 0, 0, 0],
                       [-vlt/Ell, 1/Ett, -vtt/Ett, 0, 0, 0],
                       [-vlt/Ell, -vtt/Ett, 1/Ett, 0, 0, 0],
                       [0, 0, 0, 1/Gtt, 0, 0],
@@ -896,59 +912,45 @@ def plate():
                       [0, 0, 0, 0, 0, 1/Glt]])
        
     # Stiffnes matrix in material coordinates
-    Cijm6 = Sij6.I
+    Cijm6 = inv(Sij6)
     
     
     # Stiffness matrix in Structural coordinates
-    Cij6 = Tij6*Cijm6*Tij6.T
+    Cij6 = Tij6 @ Cijm6 @ Tij6.inv()
     
     # reduced stiffness in structural
     Cij = sp.Matrix([[Cij6[0,0], Cij6[0,1], 0],
                      [Cij6[0,1], Cij6[1,1], 0],
                      [0, 0, Cij6[5,5] ]] )
-    hlam = thk.sum()
+
     
     # Create z dimensions of laminate
-    z_ = np.linspace(-hlam/2, hlam/2, nl+1)
+    z_ = np.linspace(-H/2, H/2, nply+1)
     
     # extensional stiffness
     Aij = sp.Matrix(np.zeros((6,6)))
-    for i in range(nl):
-        Aij += Cij6.evalf(subs={th:theta[i]}) * (z_[i+1]-z_[i])
-        
+    for i in range(nply):
+        Aij += Cij6.evalf(subs={th:plyangle[i]}) * (z_[i+1]-z_[i])
         
     # coupling  stiffness
     Bij = sp.Matrix(np.zeros((6,6)))
-    for i in range(nl):
-        Bij += 0.5 * Cij6.evalf(subs={th:theta[i]}) * (z_[i+1]**2-z_[i]**2)
+    for i in range(nply):
+        Bij += 0.5 * Cij6.evalf(subs={th:plyangle[i]}) * (z_[i+1]**2-z_[i]**2)
     
     # bending or flexural laminate stiffness relating moments to curvatures
     Dij = sp.Matrix(np.zeros((6,6)))
-    for i in range(nl):
-        Dij += (1/3.0)* Cij6.evalf(subs={th:theta[i]}) * (z_[i+1]**3-z_[i]**3)
+    for i in range(nply):
+        Dij += (1/3.0)* Cij6.evalf(subs={th:plyangle[i]}) * (z_[i+1]**3-z_[i]**3)
     
     
     ## Cylindrical Bending of a laminated plate
     
-    # displacement in w (z direction)
-    
-    from sympy import Function, dsolve, Eq, Derivative, sin,cos,symbols
-    #==============================================================================
-    # temp
-    
-    f = Function('f')
-    deq = dsolve(Derivative(f(x), x,x) + 9*f(x), f(x))
-    deq
-    
-    
-    from sympy import sin, symbols, dsolve, pprint, Function, subs
-    from sympy.abc import x
+    # displacement in w (z direction)  
+    from sympy.abc import x  
     f = Function('f')
     eq = dsolve(2*x*f(x) + (x**2 + f(x)**2)*f(x).diff(x), f(x), hint = '1st_homogeneous_coeff_best', simplify=False)
     pprint(eq)
     #==============================================================================
-    
-    from sympy import sin, symbols, dsolve, pprint, Function
     
     th,x,y,z,q0,C1,C2,C3,C4,C5,C6,C7,A11,B11,D11,A16,B16 = symbols('th x y z q0 C1 C2 C3 C4 C5 C6 C7 A11 B11 D11 A16 B16')
     
@@ -977,137 +979,133 @@ def plate():
     # displacement in u (x direction) from eq1,eq2,eq3
     ufun = B11*q0*x**3 / (6*(B11**2-A11*D11)) + C7 + x*C6 + 3*B11*x**2*C5/A11 # C5 C6 C7
     
+    # Cij6.evalf(subs={th:plyangle[i]}) * (z_[i+1]**3-z_[i]**3)
+    
     # cond1 -> w(0)=0 at x(0), roller
-    C1sol = sp.solve(subs(wfun, x, 0)==0, C1) # = 0
+    C1sol = sp.solve(wfun.subs(x,0), C1)[0] # = 0
     # cond2 -> angle at dw/dx at x(0) is 0, cantilever
-    C2sol = solve(subs(diff(wfun,x),x ,0),C2);  # =  0
+    C2sol = sp.solve(wfun.diff(x).subs(x,0),C2)[0]  # =  0
     # cond3 -> w(z) = 0 at x(a), roller
-    C4sol1 =  solve(subs(wfun,[x C1 C2],[a C1sol C2sol ]),C4) # C3
+    C4sol1 =  sp.solve(wfun.subs({x:a,C1:C1sol,C2:C2sol}),C4)[0] # C3
     # cond4 u = 0 at x = 0
-    C7sol = solve(subs(ufun,x,0),C7) #=0
+    C7sol = sp.solve(ufun.subs(x,0),C7)[0] #=0
     # u=0 at x = a
-    C5sol1 = solve(subs(ufun,[x C7],[a C7sol]),C5) #C6
+    C5sol1 = sp.solve(ufun.subs({x:a, C7:C7sol}),C5)[0] #C6
     # cond 5 EQ 4.4.14a Myy = 0 @ x(a) (Mxx , B11 D11) (Myy, B12 D12) roller no moment
-    C6sol1 = solve(subs(  [B11*(diff(ufun,x)+0.5*diff(wfun,x)**2 ) - D11*diff(wfun,x,2)]  ,...
-                   [x C1    C2    C4     C5     C7],...
-                   [a C1sol C2sol C4sol1 C5sol1 C7sol]),C6); # C6 C3 
+    C6sol1 = sp.solve( ( ((B11*ufun.diff(x)+0.5*wfun.diff(x)**2 ) - D11*wfun.diff(x,2)).subs({x:a, C1:C1sol, C2:C2sol, C4:C4sol1, C5:C5sol1, C7:C7sol})), C6)[0] # C6 C3 
     # EQ 4.4.13a, Nxx = 0 @ x(0) roller has no Nxx
-    C6sol2 = solve(subs([A11* (diff(ufun,x) +0.5*diff(wfun,x)**2)-B11*diff(wfun,x,2)],...
-        [x C1 C2 C4 C5 C7],[a C1sol C2sol C4sol1 C5sol1 C7sol]),C6);# C6 C3 
-    C3sol = solve(C6sol1 == C6sol2,C3);
-    C4sol = subs(C4sol1,C3,C3sol);
-    C6sol = simplify(subs(C6sol2,C3,C3sol));
-    C5sol = simplify(subs(C5sol1,C6,C6sol));
+    C6sol2 = sp.solve( ((A11* ufun.diff(x) + 0.5*wfun.diff(x)**2)-B11*wfun.diff(x,2)).subs({x:a, C1:C1sol, C2:C2sol, C4:C4sol1, C5:C5sol1, C7:C7sol}),C6)[0] # C6 C3 
+    C3sol = sp.solve(C6sol1 - C6sol2,C3)[0]
+    C4sol = C4sol1.subs(C3,C3sol)
+    C6sol = sp.simplify(C6sol2.subs(C3,C3sol))
+    C5sol = sp.simplify(C5sol1.subs(C6,C6sol))
     # substitute integration constants with actual values( _ is actual number)
-    C1_ = C1sol;
-    C2_ = C2sol;
-    C7_ = C7sol;
-    C3_ = subs(C3sol,[q0 A11 B11 D11],[q0_ Aij(1,1) Bij(1,1) Dij(1,1)]);
-    C4_ = subs(C4sol,[q0 A11 B11 D11],[q0_ Aij(1,1) Bij(1,1) Dij(1,1)]);
-    C5_ = subs(C5sol,[q0 A11 B11 D11],[q0_ Aij(1,1) Bij(1,1) Dij(1,1)]);
-    C6_ = subs(C6sol,[q0 A11 B11 D11],[q0_ Aij(1,1) Bij(1,1) Dij(1,1)]);
+    C1_ = copy(C1sol)
+    C2_ = copy(C2sol)
+    C7_ = copy(C7sol)
+    C3_ = C3sol.subs({q0:q0_, A11:Aij[0,0], B11:Bij[0,0], D11:Dij[0,0]})
+    C4_ = C4sol.subs({q0:q0_, A11:Aij[0,0], B11:Bij[0,0], D11:Dij[0,0]})
+    C5_ = C5sol.subs({q0:q0_, A11:Aij[0,0], B11:Bij[0,0], D11:Dij[0,0]})
+    C6_ = C6sol.subs({q0:q0_, A11:Aij[0,0], B11:Bij[0,0], D11:Dij[0,0]})
     
     # function w(x) vertical displacement w along z with actual vaules
-    wsol = subs(wfun,[q0  C1  C2  C3  C4  A11      B11      D11],...
-                     [q0_ C1_ C2_ C3_ C4_ Aij(1,1) Bij(1,1) Dij(1,1)]);
+    wsol = wfun.subs({q0:q0_, C1:C1_, C2:C2_, C3:C3_, C4:C4_,  A11:Aij[0,0], B11:Bij[0,0], D11:Dij[0,0]}) 
     # function u(x) horizontal displacement u along x with actual vaules
-    usol = subs(ufun,[q0  C5  C6  C7  A11      B11      D11],...
-                     [q0_ C5_ C6_ C7_ Aij(1,1) Bij(1,1) Dij(1,1)]);
-    ezsurf(x,y,wsol,[0,a,0,b])  
-    view(-45,30)
-    xlabel('x')
-    ylabel('y')
-    zlabel('z')
-    title('Cylindrical Bending -Displacement of a plate With CLPT')
-    wsol_opt = matlabFunction(wsol);
-    [xmax,wmax] = fminsearch(wsol_opt,0);
+    usol = ufun.subs({q0:q0_, C5:C5_, C6:C6_, C7:C7_,  A11:Aij[0,0], B11:Bij[0,0], D11:Dij[0,0]}) 
+
+    # 3d plots
+    plot3d(wsol,(x,0,a), (y,0,b)) 
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.title('Cylindrical Bending -Displacement of a plate With CLPT')
+    
     ## Strain calculation
     # eq 3.3.8 (pg 116 reddy (pdf = 138))
-    epstotal = [diff(usol,x) + 0.5* diff(wsol,x)**2 - z*diff(wsol,x,2),0,0].';
-    epsx = epstotal(1);
+    epstotal = array([[usol.diff(x) + 0.5* wsol.diff(x)**5 - z*wsol.diff(x,2)],[0],[0]])
+    epsx = epstotal[0,0]
     ## Calculating and plotting Stress in each layer
-    res = 8; # accuracy of finding max and min stress
-    xplot = linspace(0,a,res);
-    yplot = linspace(0,b,res);
-    for kstress = 1:3 # stress state s_x, s_y, s_xz
-        figure(kstress+1)
-        hold on
-        for klay = 1:nl # loop through all layers
-            thplot = theta(klay);
-            zplot = linspace(z_(klay),z_(klay+1),res);
+    res = 8 # accuracy of finding max and min stress
+    xplot = linspace(0,a,res)
+    yplot = linspace(0,b,res)
+    G0 = sp.symbols('G0')
+    Globalminstress = np.zeros((3, nply))
+    Globalmaxstress = np.zeros((3, nply))
+    
+    for kstress in range(3): # stress state s_x, s_y, s_xz
+        plt.figure(kstress+1)
+
+        for klay in range(nply): # loop through all layers
+            thplot = plyangle[klay]
+            zplot = linspace(z_[klay],z_[klay+1],res)
+            stressplot = np.zeros((len(zplot),len(xplot)))
             ## Calc Stresses
-            if kstress == 3
+            if kstress == 2:
                 # Shear stresses
-                syms G0
-                G0_ = -int(diff(s_stress(1),x),z)+G0.';
+                
+                G0_ = -sp.integrate(s_stress[0].diff(x),z)+G0
                 # solve for shear stresses from s_1
-                s_xz = solve(G0_,G0);     
+                s_xz = sp.solve(G0_,G0)[0] 
                 # out of plane shear S_xz does not need to be transformed ??
-                ezsurf(s_xz, [0, a, z_(klay), z_(klay+1)]) 
-            else
+                plot3d(s_xz, (x,0, a), (z, z_[klay], z_[klay+1]) ) 
+            else:
                 # normal stresses
                 # Cij = reduced structural stiffness in strictural coordinates 3x3
                 # stress in structural coordinates
-                s_stress = subs(Cij,th,thplot)*epstotal;
+                s_stress = Cij.subs(th,thplot) @ epstotal
                 # stressin material coordinates
-                m_stress = subs(Tij,th,thplot)*s_stress  ;          
-                ezsurf(m_stress(kstress),[0,a,z_(klay),z_(klay+1)])
-            end     
+                m_stress = Tij.subs(th,thplot) @ s_stress        
+                
+                #ezsurf(m_stress(kstress),[0,a,z_(klay),z_(klay+1)])
+                 
             ## find max stress in each layer
-            ii=1;
-            for i = xplot
-                jj=1;
-                for j = zplot
-                    if kstress == 3
-                        stressplot(ii,jj) = subs(s_xz,[x z],[i j]);
-                    else
-                        stressplot(ii,jj) = subs(m_stress(kstress),[x z],[i j]);
-                    end
-                    jj=jj+1;
-                end
-                ii=ii+1;
-            end    
-            Globalminstress(kstress,klay) = min(min(stressplot));
-            Globalmaxstress(kstress,klay) = max(max(stressplot));  
+            ii=0
+            for i in xplot:
+                jj=0
+                for j in zplot:
+                    if kstress == 2:
+                        stressplot[ii,jj] = s_xz.subs({x:i, z:j})
+                    else:
+                        stressplot[ii,jj] = m_stress[kstress].subs({x:i, z:j})
+                    jj+=jj
+                ii+=ii
+   
+            Globalminstress[kstress,klay] = np.min(stressplot)
+            Globalmaxstress[kstress,klay] = np.max(stressplot)
             #
-        end
-        hold off
-        axis auto
-        title(strcat('\sigma_',num2str(kstress)))
-        zlabel('stress(MPa)')
-        view(-45,30)
-    end
+
+        plt.title('\sigma_%i' % kstress)
+
     ## Plot max stress and failure strength
-    figure
-    for i = 1:3
-        subplot(1,3,i)
-        bar(Globalmaxstress(i,:))
-        hold on
-        bar(Globalminstress(i,:))
-        scatter(1:nl,ones(nl,1).*Strength(i,1),'filled')
-        scatter(1:nl,ones(nl,1).*Strength(i,2),'filled')
-        hold off
-        xlabel('layer')
-        title(strcat('\sigma',num2str(i)))
-    end
-"""    
+    plt.figure()
+    for i in range(3):
+
+        plt.subplot(1, 3, i+1)
+        plt.bar(range(nply), Globalmaxstress[i,:])
+
+        plt.bar(range(nply), Globalminstress[i,:])
+        plt.scatter(range(nply),np.ones(nply) * Strength[i,0])
+        plt.scatter(range(nply),np.ones(nply) * Strength[i,1])
+
+        plt.xlabel('layer')
+        plt.title('\sigma%i' % i)
+
 
 def plate_navier():
     '''
     composite plate bending with navier solution
+    
+    TODO - code needs to be converted from matlab
     '''
     
-    pass
     ## Plate a*b*h simply supported under q = q0 CLPT
     
-    
-    
+    pass
     '''
+    q0,a,b,m,n,x,y = sp.symbols('q0 a b m n x y')    
+
+    Qmn = 4/(a*b)*sp.integrate( sp.integrate( q0*sp.sin(m*pi*x/a)*sp.sin(n*pi*y/b),(x,0,a)) ,(y,0,b))
     
-    syms q0 a b m n x y
-    Qmn = 4/(a*b)*int(int(q0*sin(m*pi*x/a)*sin(n*pi*y/b),x,0,a),y,0,b);
-    
-    dmn = pi^4 / b^4 * (DTij(1,1)*m^4*(b/a)^4 + 2* (DTij(1,2)+2*DTij(6,6)) *m^2*n^2*(b/a)^2 + DTij(2,2)*n^4);
+    dmn = pi**4 / b**4 * (DTij(1,1)*m**4*(b/a)**4 + 2* (DTij(1,2)+2*DTij(6,6)) *m**2*n**2*(b/a)**2 + DTij(2,2)*n**4)
     
     Wmn = Qmn/dmn;
     
@@ -1149,7 +1147,8 @@ if __name__=='__main__':
     
     
     #material_plots()
-    laminate()
+    #laminate()
+    plate()
 
 
 
