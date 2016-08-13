@@ -83,6 +83,7 @@ http://www.vibrationdata.com/python/
 http://www.gribblelab.org/compneuro/index.html  
 http://scipy.github.io/old-wiki/pages/Cookbook/CoupledSpringMassSystem  
 https://ics.wofford-ecs.org/  
+http://www.ni.gsu.edu/~rclewley/PyDSTool/FrontPage.html
 
 ### Aero
 http://aeropy.readthedocs.io/en/latest/   
