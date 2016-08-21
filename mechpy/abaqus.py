@@ -4,6 +4,7 @@ Neal Gordon
 2016-06-18
 
 Requires an abaqus license to run and must be executed in the abaqus environment
+
 """
 
 # python general modules
