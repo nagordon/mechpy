@@ -1,16 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-
 Neal Gordon
 
 to be executed directly in bash or cmd.exe
-$ python PythonReportTool.py
+$ python abaqus_report.py
 
 In order to access the Abaqus odb file, the python script must be run in the abaqus environment, which will use a abaqus license token
 abaqus cae noGUI=myscript.py # launches cae and runs script
-
 Inputs: location and name of an OBD file
-
 Outputs: pptx report of file including screenshots, 
 
 """
@@ -39,6 +36,20 @@ def abaqus_cmd(mycmd):
             print >>sys.stderr, mycmd
     except OSError as e:
         print >>sys.stderr, mycmd+"...failed at execution", e
+
+def insert_img(f='', o='',c='', v='', imtype='png', left=0, top=0, height=1):
+    # o='STH',c='', v='Back',
+    picnames = glob.glob(os.path.dirname(odbname)+'/*.'+imtype)
+    if picnames:
+        picname = [fn for fn in picnames if f in fn if o in fn if c in fn if v in fn]
+        if picname:
+            if height:
+                slide.shapes.add_picture(picname[0], Inches(left), Inches(top), height=Inches(height))
+            else: # choose default
+                slide.shapes.add_picture(picname[0], Inches(left), Inches(top))
+
+def insert_icon():
+    slide.shapes.add_picture('https://www.python.org/static/img/python-logo.png', Inches(0.05) , Inches(6.85))
 
 def make_pptx(odbname,dict_o_c,list_v):
     """ Generic Function to create a pptx file
@@ -155,242 +166,6 @@ def make_pptx(odbname,dict_o_c,list_v):
                 picname = [f for f in picnames if o in f if c in f if 'Iso' in f]
                 if picname:
                     img_insert('gif', picname[0])
-
-    # save pptx
-    pptx1.save(os.path.splitext(odbname)[0]+'.pptx')
-
-def HS_make_pptx(odbname):
-    """ Fucntion specific to Heat-Set report"""
-
-    def insert_img(f='', o='',c='', v='', imtype='png', left=0, top=0, height=1):
-        # o='STH',c='', v='Back',
-        picnames = glob.glob(os.path.dirname(odbname)+'/*.'+imtype)
-        if picnames:
-            picname = [fn for fn in picnames if f in fn if o in fn if c in fn if v in fn]
-            if picname:
-                if height:
-                    slide.shapes.add_picture(picname[0], Inches(left), Inches(top), height=Inches(height))
-                else: # choose default
-                    slide.shapes.add_picture(picname[0], Inches(left), Inches(top))
-
-    def insert_icon():
-        slide.shapes.add_picture('https://www.python.org/static/img/python-logo.png', Inches(0.05) , Inches(6.85))
-
-    #odbname = 'customBeamExample/customBeamExample.odb'
-    pptx1 = Presentation()
-    #blank_slide_layout = pptx1.slide_layouts[6]
-    bullet_slide_layout = pptx1.slide_layouts[1]
-    title_slide_layout = pptx1.slide_layouts[0]
-    title_only_layout = pptx1.slide_layouts[5]
-
-    # first slide #####################################################################################################
-    slide = pptx1.slides.add_slide(title_slide_layout)
-    slide.shapes.title.text = "Project Name"
-    slide.placeholders[1].text = 'Project Number: XXXXXX\nDrawing Number: XXXXXXXX REV X\nWeight: XX grams\nPreform Number: XXXXXXXX REV X'
-    insert_icon()
-    insert_img('Undeformed','','','','png',-.25, 0, 3)
-
-    # second slide #####################################################################################################
-    slide = pptx1.slides.add_slide(bullet_slide_layout)
-    shapes = slide.shapes
-    title_shape = shapes.title
-    body_shape = shapes.placeholders[1]
-    title_shape.text = 'Simulation Characteristics'
-    tf = body_shape.text_frame
-
-    tf.text = 'Heat Set'
-    p = tf.add_paragraph()
-    p.text = '''Fill Line: 1.5 in'''
-    p.level = 1
-    p = tf.add_paragraph()
-    p.text = '''Fill Temp: 185 °F'''
-    p.level = 1
-    p = tf.add_paragraph()
-    p.text = '''Room Temp: 75 °F'''
-    p.level = 1
-
-    p = tf.add_paragraph()
-    p.text = 'Vacuum Resistance'
-    p.level = 0
-    p = tf.add_paragraph()
-    p.text = '''Volume of Water Removed: 5.0 mL'''
-    p.level = 1
-    p = tf.add_paragraph()
-    p.text = '''Volume of Headspace Removed: 1.0 mL'''
-    p.level = 1
-
-    # Third Slide #####################################################################################################
-    left = top = width = height = Inches(1.5)
-    slide = pptx1.slides.add_slide(title_only_layout)
-    title_shape = slide.shapes.title
-    title_shape.text = 'Thickness Profile'
-    txBox = slide.shapes.add_textbox(left, top, width, height)
-    txBox.text_frame.text = "Determinate of Profile: estimated with preform xxxxxxx"
-    insert_icon()
-    insert_img('frame-1','STH','','Back',  'png', 5.5,    2, 5)
-    insert_img('frame-1','STH','','Bottom','png', 5.25, 2, 5)
-
-    # Fourth Slide #####################################################################################################
-    slide = pptx1.slides.add_slide(title_only_layout)
-    title_shape = slide.shapes.title
-    title_shape.text = 'Deformation After Heat Set'
-    txBox = slide.shapes.add_textbox(left, top, width, height)
-    txBox.text_frame.text = "Max Expected Deformation: 0.078 in\nLocation of Max Deformation: vacuum panels"
-    insert_icon()
-    insert_img('',       'U','U1','Iso1',  'gif', 0.1,  2.7, 4)
-    insert_img('frame-1','U','U1','Back',  'png', 6,    5.3, 2)
-    insert_img('frame-1','U','U1','Bottom','png', 6.25, 2.5, 3)
-
-    # Fifth Slide #####################################################################################################
-    slide = pptx1.slides.add_slide(title_only_layout)
-    title_shape = slide.shapes.title
-    title_shape.text = 'Stress After Heat Set'
-    txBox = slide.shapes.add_textbox(left, top, width, height)
-    txBox.text_frame.text = "Max Expected Stress: 6126 psi"
-    insert_icon()
-    insert_img('',       'S','S11','Iso1',  'gif', 0.1,  2.7, 4)
-    insert_img('frame-1','S','S11','Back',  'png', 6,    5.3, 2)
-    insert_img('frame-1','S','S11','Bottom','png', 6.25, 2.5, 3)
-
-    # Sixth Slide #####################################################################################################
-    slide = pptx1.slides.add_slide(title_only_layout)
-    title_shape = slide.shapes.title
-    title_shape.text = 'Deformation After Headspace Removed'
-    txBox = slide.shapes.add_textbox(left, top, width, height)
-    txBox.text_frame.text = "Max Expected Deformation: 0.081 in\nLocation of Max Deformation: vacuum panels"
-    insert_icon()
-
-    # Seventh Slide #####################################################################################################
-    slide = pptx1.slides.add_slide(title_only_layout)
-    title_shape = slide.shapes.title
-    title_shape.text = 'Deformation After Volume of Water Removed'
-    txBox = slide.shapes.add_textbox(left, top, width, height)
-    txBox.text_frame.text = "Max Expected Deformation: .088 in\nLocation of Max Deformation: vacuum panels"
-    insert_img(o='U',c='U11')
-    insert_icon()
-
-    # save pptx
-    pptx1.save(os.path.splitext(odbname)[0]+'.pptx')
-
-def BT_make_pptx(odbname):
-    """ Fucntion specific to Heat-Set report"""
-
-    def insert_img(f='frame-1', o='',c='', v='', imtype='png', left=0, top=0, height=0):
-        # o='STH',c='', v='Back',
-        picnames = glob.glob(os.path.dirname(odbname)+'/*.'+imtype)
-        if picnames:
-            picname = [fn for fn in picnames if f in fn if o in fn if c in fn if v in fn]
-            if picname:
-                if height:
-                    slide.shapes.add_picture(picname[0], Inches(left), Inches(top), height=Inches(height))
-                else: # choose default
-                    slide.shapes.add_picture(picname[0], Inches(left), Inches(top))
-
-    def insert_icon():
-        slide.shapes.add_picture('https://www.python.org/static/img/python-logo.png', Inches(0.05) , Inches(6.85))
-
-    #odbname = 'customBeamExample/customBeamExample.odb'
-    pptx1 = Presentation()
-    #blank_slide_layout = pptx1.slide_layouts[6]
-    bullet_slide_layout = pptx1.slide_layouts[1]
-    title_slide_layout = pptx1.slide_layouts[0]
-    title_only_layout = pptx1.slide_layouts[5]
-
-    # first slide #####################################################################################################
-    slide = pptx1.slides.add_slide(title_slide_layout)
-    slide.shapes.title.text = "Project Name"
-    slide.placeholders[1].text = 'Project Number: XXXXXX\nDrawing Number: XXXXXXXX REV X\nWeight: XX grams\nPreform Number: XXXXXXXX REV X'
-    insert_icon()
-    insert_img('Undeformed','','','','png',-.25, 0, 3)
-
-    # second slide #####################################################################################################
-    slide = pptx1.slides.add_slide(bullet_slide_layout)
-    shapes = slide.shapes
-    title_shape = shapes.title
-    body_shape = shapes.placeholders[1]
-    title_shape.text = 'Simulation Characteristics'
-    tf = body_shape.text_frame
-
-    tf.text = 'Heat Set'
-    p = tf.add_paragraph()
-    p.text = '''Fill Line: xx in'''
-    p.level = 1
-    p = tf.add_paragraph()
-    p.text = '''Fill Temp: xx °F'''
-    p.level = 1
-    p = tf.add_paragraph()
-    p.text = '''Room Temp: xx °F'''
-    p.level = 1
-
-    p = tf.add_paragraph()
-    p.text = 'Vacuum Resistance'
-    p.level = 0
-    p = tf.add_paragraph()
-    p.text = '''Volume of Water Removed: xx mL'''
-    p.level = 1
-    p = tf.add_paragraph()
-    p.text = '''Volume of Headspace Removed: xx mL'''
-    p.level = 1
-
-    # Third Slide #####################################################################################################
-    left = top = width = height = Inches(1.5)
-    slide = pptx1.slides.add_slide(title_only_layout)
-    title_shape = slide.shapes.title
-    title_shape.text = 'Thickness Profile'
-    txBox = slide.shapes.add_textbox(left, top, width, height)
-    txBox.text_frame.text = "Determinate of Profile: estimated with preform xxxxxxx"
-    insert_icon()
-    insert_img('','STH','','','png', 5.25, 2, 5)
-
-    # Fourth Slide #####################################################################################################
-    slide = pptx1.slides.add_slide(title_only_layout)
-    title_shape = slide.shapes.title
-    title_shape.text = 'Deformation After Heat Set'
-    txBox = slide.shapes.add_textbox(left, top, width, height)
-    txBox.text_frame.text = "Max Expected Deformation: xxx in\nLocation of Max Deformation: vacuum panels"
-    insert_icon()
-    insert_img('','U','Magnitude','','png', 5.25, 2, 5)
-    insert_img('','U','Magnitude','','gif', 0.25, 2.25, 4)
-
-    # Fifth Slide #####################################################################################################
-    slide = pptx1.slides.add_slide(title_only_layout)
-    title_shape = slide.shapes.title
-    title_shape.text = 'Stress After Heat Set'
-    txBox = slide.shapes.add_textbox(left, top, width, height)
-    txBox.text_frame.text = "Max Expected Stress: xxx psi"
-    insert_icon()
-    insert_img('','S','Mises','','png', 5.25, 2, 5)
-    insert_img('','S','Mises','','gif', 0.25, 2.25, 4)
-
-    # Sixth Slide #####################################################################################################
-    slide = pptx1.slides.add_slide(title_only_layout)
-    title_shape = slide.shapes.title
-    title_shape.text = 'Deformation After Headspace Removed'
-    txBox = slide.shapes.add_textbox(left, top, width, height)
-    txBox.text_frame.text = "Max Expected Deformation:xxx in\nLocation of Max Deformation: vacuum panels"
-    insert_icon()
-    insert_img('','U','CSYS-CYN','','png', 5.25, 2, 3.5)
-    insert_img('','U','CSYS-CYN','','gif', 0.25, 2.25, 3.5)
-
-    # Seventh Slide #####################################################################################################
-    slide = pptx1.slides.add_slide(title_only_layout)
-    title_shape = slide.shapes.title
-    title_shape.text = 'Plots of data'
-    txBox = slide.shapes.add_textbox(left, top, width, height)
-    txBox.text_frame.text = "Reaction Force and Displacement"
-    insert_img('RF1','U1','XYplot','','png', 0.5, 2, 4)
-    insert_img('Xplot','RF1','','','png', 5, 2, 4)
-    insert_icon()
-
-    # Eighth Slide #####################################################################################################
-    slide = pptx1.slides.add_slide(title_only_layout)
-    title_shape = slide.shapes.title
-    title_shape.text = 'Mises Stress with plot'
-    txBox = slide.shapes.add_textbox(left, top, width, height)
-    txBox.text_frame.text = "plot Reaction force with with Displacement"
-    insert_img('RF1','U1','XYplot','','gif', 5, 2, 3.5)
-    insert_img('S','Mises','Iso1','CSYS-CYN','gif', 0.5, 2, 3.5)
-    insert_icon()
 
     # save pptx
     pptx1.save(os.path.splitext(odbname)[0]+'.pptx')
@@ -537,15 +312,6 @@ def customBeamExample():
     list_v, dict_o_c = make_dict_from_files(odbname)
     make_pptx(odbname,dict_o_c,list_v)
 
-def bottle_test():
-    odbname = 'bottle_test/bottle_test.odb'
-    if not glob.glob('bottle_test/*.odb'):
-        abaqus_cmd('abaqus cae noGUI=AbaqusReportTool.py -- bottle_test')
-    makeReportData('BT', odbname)
-    avi_to_gif(odbname)
-    BT_make_pptx(odbname)
-    clearFilesExcept(odbname)
-
 def Reports():
     """ will look in the folders for odbfiles and attempt to generate a report for every odb file there"""
     # find the name of the odbfile in the in HS_Example
@@ -571,5 +337,4 @@ if __name__ == '__main__':
     """ if this py file is executed these statements will be executed"""
     #beamExample()
     #customBeamExample()
-    bottle_test()
     #Reports()

@@ -978,7 +978,7 @@ if __name__ == '__main__':
             customBeamExample()
         elif odbname == 'beamExample':
             beamExample()
-        elif odbname == 'bottle_test':
-            bottle_test()
         else:
             print('No Demos run')
+
+
