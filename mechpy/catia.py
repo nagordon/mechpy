@@ -2,8 +2,11 @@
 '''
 CATIA Python Module that connects to a Windows CATIA session through COM
 Assumes that CATIA is running.
-
 '''
+
+__author__ = 'Neal Gordon <nealagordon@gmail.com>'
+__date__ =   '2016-09-06'
+
 import win32com.client
 import random, os, math, glob
 

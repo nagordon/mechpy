@@ -402,7 +402,7 @@ End of *abaqus* documentation
 ======= catia =======
 label{sec:catia}
 
-API code to automate cad in catia
+API code to automate cad in catia using wincom32 module
 
 
 
@@ -468,6 +468,70 @@ URL:"https://nagordon.github.io/mechpy/web/design.html"  <linebreak>
 URL:"https://nagordon.github.io/mechpy/web/statics.html"  <linebreak>
 URL:"https://nagordon.github.io/mechpy/web/Composite_Plate_Mechanics_with_Python.html"  <linebreak>
 
+======= Intro to python and gotchas =======
+
+To get started, choose the python distribution you want. I would recommend anaconda, which has most of the scientific packages that are needed, but more importantly, comes with a package manager called conda, which will help us update and install new packages and manage environments if we want to use multiple versions of python.
+"miniconda":"http://repo.continuum.io/miniconda/Miniconda-latest-Windows-x86_64.exe" is a great open-source lightweight distribution, but I would recommend anaconda":"http://continuum.io/downloads#34" which will install many scientific packages.
+
+Once the install is complete, lets set up our virtual environments with conda. This will allow you to have an isolated environment for different projects. I typically default with the most recent version and create a 2.7 environment.
+
+to check what environments are install type `conda info -e`
+
+To install a full version of python 2.7 with many packages, type `conda create -n py27 python=2.7 anaconda`
+
+In linux activate different environments by
+!bc bash
+source activate py27
+source deactivate
+!ec
+
+and in windows
+!bc batch
+activate py27
+deactivate
+!ec
+
+
+It is easy to install new packages with conda or pip
+!bc batch
+conda install numpy
+conda install pandas
+conda install pywin32
+pip install python-pptx
+pip install pyinstaller
+pip install moviepy
+!ec
+
+Updating 1 packages or all  is just as easy
+!bc batch
+conda update matplotlib
+
+# or update all
+conda update --all
+!ec
+
+
+Since python is a generic computing language, numerical computation was not initially a very high priority, and so there are a few quirks of the python language that may cause some confusion for non-programmers or matlab users. The first is the difference of python version 2.7 and the current suggested version python 3+ (as of 2016). Many legacy packages exist for python 2.7, so it is handy to use, but it is recommended to develop in the current release.
+
+a handy tool to ensure so errors go unnoticed is to import the future module. This will take care of the print function syntax change `print('hi')` and integer division `/`
+
+!bc pycod
+from __future__ import print_function, division
+!ec
+
+The second is variable assignment. Since every variable in python is an object, we have to copy variables, not just use `=`. for example, to copy a variable
+
+!bc pycod
+# CORRECT
+from copy import copy
+x = 5
+y=copy(x)
+
+# WRONG
+y=x
+!ec
+
+
 ======= Importing Python Modules  =======
 
 When using python, the very first code you will need is to import modules. An example of importing the essential scientific computing libraries with some settings is shown here.
@@ -489,6 +553,14 @@ from matplotlib import patches
 
 get_ipython().magic('matplotlib')  # seperate window
 get_ipython().magic('matplotlib inline') # inline plotting
+
+# or for inline plotting, in an  ipython console, use the magic commands
+%matplotlib inline
+
+# to revert to window plotting
+%matplotlib
+#or
+%matplotlib qt
 !ec
 
 
@@ -542,34 +614,40 @@ y = [float(x) for x in np.array(y.replace('\n',',').split(','))]
 print(y, end=" ")
 !ec
 
-======= simple fft example =======
+======= silly ascii text plot =======
 
+with sympy
 !bc pycod
-from pylab import *
-from scipy import fft
-N = 2**9
-F = 25
-t = arange(N)/float(N)
-x = cos(2*pi*t*F) + rand(len(t))*3
-subplot(2,1,1)
-plot(t,x)
-ylabel('x []')
-xlabel('t [seconds]')
-title('A cosine wave')
-grid()
+from sympy import symbols, exp, pi, cos
+from sympy.plotting import textplot
+x = symbols('x')
+textplot( exp(-x) * cos(2*pi*x)  ,0,5, 75,20)
+!ec
 
-subplot(2,1,2)
-f = t*N
-xf = fft(x)
-plot(f,abs(xf))
-title('Fourier transform of a cosine wave')
-xlabel('xf []')
-ylabel('xf []')
-xlim([0,N])
-grid()
-show()
+with scitools
+!bc pycod
+# This is the same example as in the scitools.aplotter doc string
 
-# note the spike at 25 hz and 512-25
+import numpy as np
+x = np.linspace(0, 5, 81)
+#y = np.exp(-0.5*x**2)*np.cos(np.pi*x)
+y=np.exp(-x)*np.cos(2*np.pi*x)
+from scitools.aplotter import plot
+plot(x, y)
+
+plot(x, y, draw_axes=False)
+
+# Plot symbols (the dot argument) at data points
+plot(x, y, plot_slope=False)
+
+# Drop axis labels
+plot(x, y, plot_labels=False)
+
+plot(x, y, dot='o', plot_slope=False)
+
+# Store plot in a string
+p = plot(x, y, output=str)
+print p
 !ec
 
 

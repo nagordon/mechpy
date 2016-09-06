@@ -31,8 +31,9 @@ dofile='mechpy'
 #doconce format html $dofile --pygments_html_style=autumn --keep_pygments_html_bg SLIDE_TYPE=reveal SLIDE_THEME=simple
 #doconce slides_html $dofile reveal --html_slide_theme=simple
 
-## create sphinx documentation
-# ##toinitialize## doconce sphinx_dir version=0.1 dirname=sphinx theme=bootstrap $dofile
+### sphinx
+## initialize
+#doconce sphinx_dir version=0.1 dirname=sphinx theme=bootstrap $
 ## create sphinx documentation
 #doconce format sphinx $dofile
 #python automate_sphinx.py
@@ -40,8 +41,10 @@ dofile='mechpy'
 
 ## updating github pages
 doconce format html $dofile --html_style=bootswatch_journal
+python ipynb_to_html.py
 mv mechpy.html web/index.html
 ghp-import web
-#git add --all
-#git commit -m 'updated doc webpage'
-#git push --all origin
+rm web/*.html
+git add --all
+git commit -m 'updated doc webpage'
+git push --all origin

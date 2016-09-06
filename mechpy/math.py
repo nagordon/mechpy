@@ -1,9 +1,11 @@
 # coding: utf-8
 
 '''
-Module to be used for mathematical tools for mechanical engineering stuff
+Module for mathematical tools for mechanical engineering stuff
 '''
 
+__author__ = 'Neal Gordon <nealagordon@gmail.com>'
+__date__ =   '2016-09-06'
 
 import sympy as sp
 import numpy as np

@@ -1,8 +1,5 @@
 # -*- coding: utf-8 -*-
 '''
-Created on Tue Aug 12 13:03:59 2014
-author: Neal Gordon
-
 Typical use of unitconvert are to find the equivalent of a unit at the command line
 without the need to be online
 
@@ -20,6 +17,10 @@ NOTE - if you want to use this in a windows command line anywhere
     > units 1 inch foot
     1.00 foot = 12.00 inch
 '''
+
+__author__ = 'Neal Gordon <nealagordon@gmail.com>'
+__date__ =   '2016-09-06'
+
 
 def uc1(numin,frm,to):
     '''sympy

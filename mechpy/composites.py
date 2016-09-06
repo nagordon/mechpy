@@ -1,18 +1,20 @@
 # coding: utf-8
 
 '''
-Module to be used for composite material analysis
+Module for composite material analysis
 
 Hyer-Stress Analysis of Fiber-Reinforced Composite Materials
 Herakovich-Mechanics of Fibrous Composites
 Daniel-Engineering Mechanics of Composite Materials
 '''
 
-
 #==============================================================================
 # Import Modules
 #==============================================================================
 from __future__ import print_function, division
+
+__author__ = 'Neal Gordon <nealagordon@gmail.com>'
+__date__ =   '2016-09-06'
 
 from copy import copy
 

@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-FEM Code
+fem code for practice
 """
+
+__author__ = 'Neal Gordon <nealagordon@gmail.com>'
+__date__ =   '2016-09-06'
+
+
 from numpy import array, matrix, zeros, linspace, arange
 #from matplotlib.pyplot import *
 import matplotlib.pyplot as plt

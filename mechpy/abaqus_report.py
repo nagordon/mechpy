@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Neal Gordon
+abaqus reporting tool utilizing python-pptx module
 
 to be executed directly in bash or cmd.exe
 $ python abaqus_report.py
@@ -11,6 +11,9 @@ Inputs: location and name of an OBD file
 Outputs: pptx report of file including screenshots, 
 
 """
+
+__author__ = 'Neal Gordon <nealagordon@gmail.com>'
+__date__ =   '2016-09-06'
 
 import os
 import glob
@@ -241,7 +244,7 @@ def image_resize(picnames=[]):
     """ This program does not use this but may be needed
         picnames ia a list of the full path of images
         do not recommend using this, change the picture size in the AbaqusReportTool function by adjusting
-            AbaqusReportTool.VP_edit(myView='Iso', vp_width=225, replaceKeyword = '')
+            abaqus_report.VP_edit(myView='Iso', vp_width=225, replaceKeyword = '')
     """
     for picname in picnames:
         im1 = Image.open(picname)
@@ -272,9 +275,9 @@ def clearFilesExcept(odbname, filetypes = ['.odb','.py','.txt','.pptx','.cae','.
 
 def makeReportData(reportType, odbname):
     """generic report generation with a flag indicating what type of report it is
-    abaqus cae noGUI=AbaqusReportTool.py -- BT bottle_test/bottle_test.odb
+    abaqus cae noGUI=abaqus_report.py -- BT bottle_test/bottle_test.odb
     """
-    abaqus_cmd('abaqus cae noGUI=AbaqusReportTool.py -- '+reportType+' '+odbname)
+    abaqus_cmd('abaqus cae noGUI=abaqus_report.py -- '+reportType+' '+odbname)
 
 def make_dict_from_files(odbname):
     """ this will generate a dictioanry from the png files in directory to use for report generation."""
@@ -296,7 +299,7 @@ def make_dict_from_files(odbname):
 # Main functions #####################################################################################################
 def beamExample():
     """ demo of  executing abaqus commands """
-    abaqus_cmd('abaqus cae noGUI=AbaqusReportTool.py -- beamExample')
+    abaqus_cmd('abaqus cae noGUI=abaqus_reportReportTool.py -- beamExample')
     odbname = 'beamExample/beam_tutorial.odb'
     makeReportData('BE', odbname)
     avi_to_gif(odbname)
@@ -305,7 +308,7 @@ def beamExample():
 
 def customBeamExample():
     """ demo created of a custom abaqus example that generates a stress-strain plot"""
-    abaqus_cmd('abaqus cae noGUI=AbaqusReportTool.py -- customBeamExample')
+    abaqus_cmd('abaqus cae noGUI=abaqus_report.py -- customBeamExample')
     odbname = 'customBeamExample/customBeamExample.odb'
     makeReportData('CBE', odbname)
     avi_to_gif(odbname)
@@ -327,7 +330,7 @@ def Reports():
                         print('%s \n  running makeReportData, OK...\n' % odbname)
                         makeReportData(d[:2], odbname)
                         avi_to_gif(odbname)
-                        HS_make_pptx(odbname)
+                        make_pptx(odbname)
                         clearFilesExcept(odbname)
                         print(' ')
                 except:
@@ -335,6 +338,6 @@ def Reports():
 
 if __name__ == '__main__':
     """ if this py file is executed these statements will be executed"""
-    #beamExample()
+    beamExample()
     #customBeamExample()
     #Reports()

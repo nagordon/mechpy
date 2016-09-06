@@ -1,8 +1,12 @@
 # coding: utf-8
 
 '''
-Module to be used for static analysis
+Module for mechnical engineering static analysis
 '''
+
+__author__ = 'Neal Gordon <nealagordon@gmail.com>'
+__date__ =   '2016-09-06'
+
 import numpy as np
 import sympy as sp
 import scipy

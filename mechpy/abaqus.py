@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 """
-Neal Gordon
-2016-06-18
-
+abaqus automation tool
 Requires an abaqus license to run and must be executed in the abaqus environment
-
 """
+__author__ = 'Neal Gordon <nealagordon@gmail.com>'
+__date__ =   '2016-09-06'
 
 # python general modules
 import sys

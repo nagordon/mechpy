@@ -3,6 +3,9 @@
 scripts and boilerplate code to use for mechanical engineering design tasks
 '''
 
+__author__ = 'Neal Gordon <nealagordon@gmail.com>'
+__date__ =   '2016-09-06'
+
 import pandas as pd
 import numpy as np
 from numpy import pi, array
