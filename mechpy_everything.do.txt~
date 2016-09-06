@@ -1,0 +1,596 @@
+TITLE: mechpy Documentation
+AUTHOR: Neal Gordon Email:nealagordon@gmail.com
+DATE: today
+
+TOC: on
+
+!split
+
+========= Introduction =========
+label{chp:intro}
+
+Mechpy was created for few reasons.
+ * To provide the practicing engineer with applications or boilerplate code to quickly replicate and solve real-world systems common in mechanical engineering
+ * To give the engineering student a code base from which to supplement learning through hand-calculations and an easy way to check work.
+
+There are many different tools available to engineers. Hand-calculations, spreadsheets, and code are all great ways to perform calculations or visualize data or concepts. MATLAB is the defacto tool to solve many engineering calculations, but is just too expensive to be a practical tool for many of us. Octave, Scilab, or Freelab are great alternatives, but is limited in scope to calculation. I began using python for calculations and visualizations and have found it to be a very powerful tool with many existing modules for mathematics and plotting, in addition to the thousands of other libraries for general computing.
+
+========= mechpy Modules =========
+label{chp:modules}
+
+======= abaqus and abaqus_report =======
+API code to automate running of finite element models and reporting using python-pptx. Abaqus uses python as its native macro/scripting language, which makes it easy to develop powerful tools that utilize the robustness and simplicity of the python programming language.
+
+This program was designed to generate a dynamic powerpoint presentation based on a user defined odb file. The `abaqus.py` requires and abaqus license and can be run from the abaqus python console within Abaqus CAE. The `abaqus_report.py` has many other modules that are not allowed in Abaqus python. PythonReportTool calls functions located in the AbaqusReportTool.py and can be run in any python console or windows terminal and can be executed by opening a windows command prompt by.
+
+
+======= catia =======
+API code to automate cad in catia
+
+======= composites  =======
+specialized code to analyze composite plates using classical laminated plate theory
+
+======= design  =======
+shear-bending diagrams, assisting hand calculations for stress
+
+===== Stress and Strain =====
+Stress is a tensor that can be broken into
+
+!bt
+\overline{\sigma}=\begin{bmatrix}
+ \sigma_{xx} & \sigma_{xy} & \sigma_{xz}\\
+ \sigma_{yx} & \sigma_{yy} & \sigma_{yz}\\
+ \sigma_{zx} & \sigma_{zy} & \sigma_{zz}
+ \end{bmatrix}
+!et
+
+
+=== Stress and Strain Transformations ===
+
+!bt
+\overline{\sigma}=\begin{bmatrix}
+ \sigma_{xx} & \sigma_{xy} & \sigma_{xz}\\
+ \sigma_{yx} & \sigma_{yy} & \sigma_{yz}\\
+ \sigma_{zx} & \sigma_{zy} & \sigma_{zz}
+ \end{bmatrix}
+!et
+
+reduce to plane stress
+
+!bt
+\overline{\sigma}=\begin{bmatrix}
+ \sigma_{xx} & \sigma_{xy} & 0 \\
+ \sigma_{yx} & \sigma_{yy} & 0\\
+ 0 &           0 &           \sigma_{zz}
+ \end{bmatrix}
+!et
+
+or
+
+!bt
+\overline{\sigma}=\begin{bmatrix}
+ \sigma_{xx} & \tau_{xy} & 0 \\
+ \tau_{yx} & \sigma_{yy} & 0\\
+ 0 &           0 &           \sigma_{zz}
+ \end{bmatrix}
+!et
+
+
+!bt
+\overline{\sigma}=\begin{bmatrix}
+ \sigma_{x} & \sigma_{xy} \\
+ \sigma_{yx} & \sigma_{y} \\
+ \end{bmatrix}
+!et
+
+Transformation
+
+!bt
+A=\begin{bmatrix}
+ cos(\theta) & sin(\theta) \\
+ -sin(\theta) & cos(\theta) \\
+ \end{bmatrix}
+!et
+
+!bt
+\sigma'=A \sigma A^T
+!et
+
+
+!bt
+\sigma_1 , \sigma_2 = \frac{\sigma_{x}}{2} + \frac{\sigma_{y}}{2} + \sqrt{\tau_{xy}^{2} + \left(\frac{\sigma_{x}}{2} - \frac{\sigma_{y}}{2}\right)^{2}}
+!et
+
+
+!bt
+T=\left[\begin{matrix}\sin^{2}{\left (\theta \right )} & \cos^{2}{\left (\theta \right )} & 2 \sin{\left (\theta \right )} \cos{\left (\theta \right )}\cos^{2}{\left (\theta \right )} & \\
+\sin^{2}{\left (\theta \right )} & - 2 \sin{\left (\theta \right )} \cos{\left (\theta \right )}\- \sin{\left (\theta \right )} \cos{\left (\theta \right )} & \\
+\sin{\left (\theta \right )} \cos{\left (\theta \right )} & \sin^{2}{\left (\theta \right )} - \cos^{2}{\left (\theta \right )}\end{matrix}\right]
+!et
+
+
+
+===== Example 2 - Symbolic Stress Proofs =====
+
+!bc pycod
+import sympy as sp
+from sympy.abc import tau, sigma
+import numpy as np
+sp.init_printing()
+!ec
+
+
+!bc pycod
+sx,sy,txy,tp = sp.symbols('sigma_x,sigma_y,tau_xy,theta_p')
+sp1 = (sx+sy)/2 + sp.sqrt( ((sx-sy)/2)**2 + txy**2 )
+sp2 = (sx+sy)/2 - sp.sqrt( ((sx-sy)/2)**2 + txy**2 )
+sp1
+!ec
+
+!bt
+
+!et
+
+
+
+===== Example 3 - Interactive Transformtion Toy =====
+!bc pycod
+from IPython.html.widgets import *
+
+plt.figure(figsize=(12,8))
+x = [-1,1, 0,-1,]
+y = [-1,-1,1,-1]
+xy = np.array([x,y])
+plt.xlim([-11.1,11.1])
+plt.ylim([-11.1,11.1])
+xyR = np.dot(T2rot(30),xy)
+#plt.plot(xyR[0,:],xyR[1,:])
+def rot2(th, xt,yt,zt):
+    xyR = np.dot(T2rot(th),xy*zt)
+    xyR[0,:]+=xt
+    xyR[1,:]+=yt
+    plt.plot(xyR[0,:],xyR[1,:])
+    plt.axis('square')
+    plt.xlim([-11.1,11.1])
+    plt.ylim([-11.1,11.1])
+    plt.show()
+
+interact(rot2, th=(0,np.pi,np.pi/90), yt=(1,10,1), xt=(1,10,1), zt=(1,10,1));
+!ec
+
+
+
+
+===== Fasteners and Adhesives =====
+
+## Fastener Notes and Formulas
+
+Finding the centroid of a bolt with coordinates, $\overline{x},\overline{y}$
+$ \overline{x}=\frac{\sum_{i=1}^{n_b}{A_i x_i} }{\sum_{i=1}^{n_b}{A_i} } \ \ \overline{y}=\frac{\sum_{i=1}^{n_b}{A_i y_i} }{\sum_{i=1}^{n_b}{A_i}}$
+
+Joint/Polar Moment of Inertia, $r=$ distance from centroid to fastener
+$J= \int{r^2dA}= \sum_{i=1}^{n_b}{A_k r_k^2}$
+
+Bearing Stress on a bolt
+$\sigma^i_{bearing}=\frac{V_{max}}{Dt}$
+
+Shear Stress on each bolt i due to shear force
+$\tau_f^i = \frac{P}{\sum_{i=1}^{n_b}{A_i} }$$
+Where $A_i=$ the area of ith bolt, $n_b=$number of bolts, and $P=$ shear force
+
+Shear Stress on each bolt i due to moment
+$\tau_t^i = \frac{T r_i}{J} $
+
+
+## Adhesive Joints
+
+With members, or adherends, joined with adhesives, either the member will fail due to tensile loads or the adhesive will fail in shear.
+
+The simple solution to finding the stress of bonded surfaces is taking the average stress
+$\tau_{avg}=\frac{P}{bL}$, is not an accurate way to model maximum stress. A good rule of thumb based on the calculations below is
+$\tau_{max}=2.08\tau_{avg}$
+
+The maximum shearing stress of an adhesive layer, $\tau_{max}$, can be computed as
+$\tau_{max}=K_s\tau_{avg}=K_s\left(\frac{P}{bL_L}\right)$
+with $P$ as applied load, $b$ as the width ofthe adhesive layer, and $L_L$ as the length ofthe adhesive layer. The stress distribution factor, $K_s$, can be defined as $K_s=\frac{cL}{tanh(CL/2)}$ where $c=\sqrt{\frac{2G_a}{Et_mt_a}}$, where the shear modulus, $G_a=\frac{\tau}{\gamma}$, and $E$ as the modulus of elasticity.
+
+
+The max shearing stress, $\tau_{max}$ in a scarf joint can be found with
+$\tau_{max}=K_s\tau_{avg}=K_s\left[ \frac{Pcos\theta}{\left(\frac{bt}{sin\theta} \right)  } \right] = K_s\left(  \frac{P}{bt} sin\theta cos\theta \right)$
+
+where $t$ is the thickness of the adherend members and $\theta=tan^{-1}\frac{t}{L_s}$ is the scarf angle
+
+
+===== Example 1 - Bolted Joint =====
+
+!bc pycod
+## Bolted Joint Example
+
+# fastener Location
+from mechpy.design import fastened_joint
+fx = [0,1,2,3,0,1,2,3]
+fy = [0,0,0,0,1,1,1,1]
+# Force magnitude(x,y)
+P = [-300,-500]
+# Force location
+l = [2,1]
+df = fastened_joint(fx, fy, P, l)
+
+df.plot(kind='scatter', x='x', y='y');
+#df.plot(style='o', x='x', y='y')
+plt.plot(df.xbar[0],df.ybar[0],'*')
+df
+#ax = plt.gca()
+#ax.arrow(l[0], l[1], Pnorm[0],Pnorm[1], head_width=0.05, head_length=0.1, fc='k', ec='k')
+#x.arrow(xbar, ybar, Pnorm[0],0, head_width=0.05, head_length=0.1, fc='k', ec='k')
+#ax.arrow(xbar, ybar, 0,Pnorm[1], head_width=0.05, head_length=0.1, fc='k', ec='k')
+
+!ec
+
+
+
+
+======= fem  =======
+example code for computing finite element models for analysis and education
+
+======= math  =======
+various math tools for processing engineering systems
+
+======= statics  =======
+code for assisting and checking hand calculations
+
+===== Overview =====
+Statics is the branch of physics that deals with rigid bodies not in motion
+
+
+
+The sum of the forces is zero in (ref{eq1})
+#label{eq1}
+!bt
+\Sigma F_x =0 , \Sigma F_y =0 , \Sigma F_z =0
+!et
+
+
+The sum of the moments is zero
+!bt
+\Sigma M_x =0 , \Sigma M_y =0 , \Sigma M_z =0
+!et
+Dot Product
+
+!bt
+\vec{A} \bullet \vec{B} = ABcos\left(\theta\right)= A_xB_x + A_yB_y+A_zB_z
+!et
+Cross-Product
+
+!bt
+\vec{C}=\vec{A} \times \vec{B} =
+\begin{vmatrix}
+    \widehat{i} & \widehat{j} & \widehat{k}\\
+    A_{x} & A_{y} & A_{z}\\
+    B_{x} & B_{y} & B_{z}
+\end{vmatrix}
+!et
+Moment of Force
+!bt
+M_0 = Fd \\
+\vec{M_0}=\vec{r}\times \vec{F} =
+\begin{vmatrix}
+    \widehat{i} & \widehat{j} & \widehat{k}\\
+    r_{x} & r_{y} & r_{z}\\
+    F_{x} & F_{y} & F_{z}
+\end{vmatrix}
+!et
+Moment of Force about a Specified axis
+!bt
+\vec{M_a}=\vec{u}\bullet\vec{r}\times \vec{F} =
+\begin{vmatrix}
+    u_{x} & u_{y} & u_{z} \\
+    r_{x} & r_{y} & r_{z} \\
+    F_{x} & F_{y} & F_{z}
+\end{vmatrix}
+!et
+
+===== Example 1 - A simple supported beam with shear-bending plots =====
+!bc pycod
+from mechpy.statics import simple_support
+simple_support()
+!ec
+
+
+===== Example 2 - Vector calculation method to calculate 3-D moments =====
+!bt
+\vec{M_{R_0}}=\Sigma \left( \vec{r} \times \vec{F} \right) = \vec{r_A}\times\vec{F_1} +\vec{r_A}\times\vec{F_2} + \vec{r_B}\times\vec{F_3}
+!et
+
+!bc pycod
+from mechpy.statics import moment_calc
+moment_calc()
+
+
+    Total Moment vector
+    [ 30 -40  60]
+    Total Force Vector about point O
+    [ 20 130 -10]
+    unit vector of the moment
+    [ 0.38411064 -0.51214752  0.76822128]
+    angles at which the moments react
+    [  67.41146121  120.80698112   39.80557109]
+
+!ec
+
+
+
+===== Example 3 - Distributed Load Calculations =====
+example, hibbler, pg 187
+
+!bt
+
+F_R = \Sigma F=\int_L w(x) \,dx  = \int_A dA \,dx
+
+F_R=\int_A dA \, =  \int_{0}^{2} \, 60x^2 \, dx = 160 N
+
+ \overline{x} = \frac{\int_A x \, dA}{\int_A dA} =  \frac{\int_{0}^{2} x60x^2 \, dx}{\int_{0}^{2} \, 60x^2 \, dx} = \frac{240}{160}
+
+!et
+
+!bc pycod
+x = sp.var('x')
+w = 60*x**2# N/m
+sp.plot(w, (x,0,2));
+w.subs(x,2)
+sp.Integral(w,(x,0,2))
+sp.integrate(w)
+sp.integrate(w,(x,0,2))
+sp.Integral(x*w,(x,0,2))
+sp.integrate(w*x)
+sp.integrate(x*w,(x,0,2))
+FR= float(sp.integrate(w,(x,0,2)))
+xbar = float(sp.integrate(x*w,(x,0,2)))/FR
+print('center of load of an exponential distributed load is %f' % xbar)
+
+    center of load of an exponential distributed load is 1.500000
+!ec
+
+===== Example 4 - Calculating Moments =====
+
+!bc pycod
+#hibbler pg 346
+
+import numpy as np
+
+r = np.array([    0, 3 , 5.25])
+F = np.array([-13.5, 0 ,6.376])
+M = -np.cross(r,F)
+
+# moments
+print('M_x = %f \nM_y = %f \nM_z = %f' % (M[0], M[1], M[2] ))
+
+
+    M_x = -19.128000
+    M_y = 70.875000
+    M_z = -40.500000
+!ec
+
+
+
+
+======= units  =======
+unit conversion
+
+
+========= Tutorials =========
+label{chp:tut}
+
+
+======= Importing Python Modules  =======
+
+When using python, the very first code you will need is to import modules. An example of importing the essential scientific computing libraries with some settings is shown here.
+
+!bc pycod
+
+# setup
+import numpy as np
+import sympy as sp
+import scipy
+from pprint import pprint
+sp.init_printing(use_latex='mathjax')
+
+import matplotlib.pyplot as plt
+plt.rcParams['figure.figsize'] = (12, 8)  # (width, height)
+plt.rcParams['font.size'] = 14
+plt.rcParams['legend.fontsize'] = 16
+from matplotlib import patches
+
+get_ipython().magic('matplotlib')  # seperate window
+get_ipython().magic('matplotlib inline') # inline plotting
+!ec
+
+======= Converting an ipython notebook to an html document =======
+Ipython notebooks can eaily be converted to an html file with the following python code
+
+!bc pycod
+get_ipython().system('jupyter nbconvert --to html mechpy.ipynb')
+!ec
+
+
+
+=========  References =========
+label{chp:ref}
+Hibbler - Statics
+Hibbler - Mechanics of Materials
+Collins et al - Mechanical Design of Machine Elements and Machines
+Flabel - Practical Stress Analysis for Design Engineers
+Peery - Aircraft Structures
+Niu - Airframe Stress Analysis and Sizing
+"Numerical Python - A Practical Techniques Approach for Industry":"http://www.apress.com/9781484205549" with "source code":"http://www.apress.com/downloadable/download/sample/sample_id/1732/"
+"Elementary Mechanics Using Python":"http://www.springer.com/us/book/9783319195957#aboutBook"
+A Primer on Scientific Programming With Python
+
+
+Mechanical Design of Machine Elements and Machines by Collins, Jack A., Busby, Henry R., Staab, George H. (2009)
+
+
+========= Sundries =========
+label{chp:sundries}
+======= Running jupyter notebook in windows =======
+In windows, create a batch file (*.bat) to run a jupyter notebook server in the current directory
+!bc batch
+:: Use to launch jupyter notebooks
+
+:: change console to the current working directory
+Pushd "%~dp0"
+
+:: launch jupyter notebook
+jupyter notebook
+
+:: write html output
+jupyter nbconvert --to html mechpy.ipynb
+
+pause
+
+!ec
+
+
+======= Links =======
+
+===== Python Engineering Libraries =====
+
+=== Units ===
+"pint units":"http://pint.readthedocs.io/en/0.7.2/"    <linebreak>
+"Unum units":"https://pypi.python.org/pypi/Unum" <linebreak>
+`scipy units`   <linebreak>
+
+=== Dynamics and Control Systems ===
+"pyndamics":"https://github.com/bblais/pyndamics"  with "example":"http://nbviewer.ipython.org/gist/bblais/7321928"
+URL:"http://www.siue.edu/~rkrauss/python_intro.html  "
+URL:"https://www.cds.caltech.edu/~murray/wiki/Control_Systems_Library_for_Python  "
+URL:"http://www.vibrationdata.com/python/  "
+URL:"http://www.gribblelab.org/compneuro/index.html  "
+URL:"http://scipy.github.io/old-wiki/pages/Cookbook/CoupledSpringMassSystem  "
+URL:"https://ics.wofford-ecs.org/  "
+URL:"http://www.ni.gsu.edu/~rclewley/PyDSTool/FrontPage.html  "
+"python control":"https://github.com/python-control/python-control"
+"pydy":"http://www.pydy.org/" with "examples":"http://nbviewer.jupyter.org/github/pydy/pydy-tutorial-human-standing/tree/online-read/notebooks/"  and "here":"https://github.com/pydy/scipy-2013-mechanics"
+"double pendulumn":"http://matplotlib.org/examples/animation/double_pendulum_animated.html"
+
+=== Fluids/Aero ===
+"aeropy":"http://aeropy.readthedocs.io/en/latest/"
+"NACA airfoils:"https://github.com/dgorissen/naca"
+"aeropython":"https://github.com/barbagroup/AeroPython"  or "aeropython":"http://lorenabarba.com/blog/announcing-aeropython/"
+"pyaero":"http://pyaero.sourceforge.net/"
+
+
+=== Mechanics/Composites/Materials ===
+URL:"https://github.com/nagordon/ME701  "
+URL:"https://github.com/nagordon/mcgill_mech_530_selimb  "
+URL:"https://github.com/elainecraigie/MechanicsOfCompositesProject_ECraigie  "
+"pyply composites":"https://github.com/Rlee13/pyPLY  "
+"sympy classical mechanics":"http://docs.sympy.org/latest/modules/physics/mechanics/index.html"
+"pygear":"http://sourceforge.net/projects/pygear/"
+
+
+=== FEM / Math ===
+"pynastran":"https://github.com/SteveDoyle2/pynastran/wiki/GUI"
+"grid solvers":"http://pyamg.org/" with "example""https://code.google.com/p/pyamg/wiki/Examples"
+"ode solver":"http://hplgit.github.io/odespy/doc/web/index.html  "
+URL:"http://arachnoid.com/IPython/differential_equations.html"
+"DiffyQ":"http://www.usna.edu/Users/math/wdj/_files/documents/teach/sm212/DiffyQ/des-book-2009-11-24.pdf"
+"pycalculix":"http://justinablack.com/pycalculix/"
+"FEniCS tutorial":"http://fenicsproject.org/documentation/tutorial/"
+"SfePy-Simple Finite Elements in Python":"http://sfepy.org/doc-devel/index.html"
+"PyODE":"http://pyode.sourceforge.net/tutorials/tutorial2.html"
+
+=== Plotting and Visualization ===
+http://hplgit.github.io/bumpy/doc/pub/._bumpy010.html#app:resources
+http://central.scipy.org/item/84/1/simple-interactive-matplotlib-plots
+https://github.com/rougier/matplotlib-tutorial
+http://www.petercollingridge.co.uk/pygame-physics-simulation
+"Pymunk visualization":"http://www.pymunk.org/en/latest/readme.html" and URL:"http://chipmunk-physics.net/"
+URL:"http://vpython.org/"
+
+=== General Numeric Python ===
+URL:"https://wiki.python.org/moin/NumericAndScientific"
+https://wiki.python.org/moin/NumericAndScientific
+
+
+__Scipy.__
+URL:"http://scipy-cookbook.readthedocs.io/index.html"
+http://www.davekuhlman.org/scipy_guide_01.html
+http://www.scipy-lectures.org/index.html
+https://github.com/rojassergio/Learning-Scipy
+"scipy":"http://docs.scipy.org/doc/scipy/reference/tutorial/"
+
+
+__Numpy.__
+https://docs.scipy.org/doc/numpy-dev/user/numpy-for-matlab-users.html
+https://github.com/rougier/numpy-100
+https://github.com/numpy/numpy/wiki/Numerical-software-on-Windows
+https://docs.scipy.org/doc/numpy-dev/user/numpy-for-matlab-users.html
+http://scipy.github.io/old-wiki/pages/NumPy_for_Matlab_Users.html
+
+
+__Sympy.__
+http://www.sympy.org/en/features.html
+"sympy":"http://docs.sympy.org/dev/tutorial/intro.html"
+http://scipy-lectures.github.io/advanced/sympy.html
+http://docs.sympy.org/dev/tutorial/calculus.html
+http://www.scipy-lectures.org/advanced/sympy.html
+http://docs.sympy.org/dev/modules/physics/mechanics/
+
+
+
+
+
+===== General Engineering Software =====
+URL:"https://github.com/MADEAPPS/newton-dynamics/"
+URL:"https://chipmunk-physics.net/"
+URL:"http://bulletphysics.org/wordpress/"
+URL:"http://physion.net/"
+URL:"http://www.algodoo.com/"
+URL:"http://box2d.org/"
+URL:"http://www.ode.org/"
+"Sage":"http://wiki.sagemath.org/quickref  "
+URL:"http://www.gregorybard.com/SAGE.html"
+URL:"http://www.people.vcu.edu/~clarson/bard-sage-for-undergraduates-2014.pdf"
+URL:"http://vibrationdata.com/software.htm"
+"libre mechanics":"http://www.libremechanics.com/"
+"materia abaqus plugin":"http://sourceforge.net/projects/materia/?source=directory"
+Method":"http://fenicsproject.org/book/index.html#book"
+http://download.gna.org/getfem/html/homepage/python/pygf.html
+https://wiki.scilab.org/Finite%20Elements%20in%20Scilab
+
+
+
+===== Python Engineering Tutorials and Classes =====
+URL:"https://github.com/jrjohansson/scientific-python-lectures"
+URL:"https://github.com/numerical-mooc/numerical-mooc  "
+"Python Numerical MOOC":"https://github.com/numerical-mooc/numerical-mooc" and the "course":"http://openedx.seas.gwu.edu/courses/GW/MAE6286/2014_fall/about"
+"Cornell":"http://pages.physics.cornell.edu/~sethna/StatMech/ComputerExercises/PythonSoftware/"
+"Python numerical methods mooc":"http://openedx.seas.gwu.edu/courses/GW/MAE6286/2014_fall/about"
+http://www-personal.umich.edu/~mejn/computational-physics/
+
+===== Random Links =====
+
+PyBullet
+https://github.com/pybox2d/pybox2d
+http://docs.sympy.org/latest/modules/physics/mechanics/index.html
+https://github.com/cdsousa/sympybotics
+https://pypi.python.org/pypi/Hamilton
+https://pypi.python.org/pypi/arboris
+https://pypi.python.org/pypi/PyODE
+https://pypi.python.org/pypi/odeViz
+https://pypi.python.org/pypi/ARS
+https://pypi.python.org/pypi/pymunk
+http://pyamg.org/
+http://nbviewer.jupyter.org/github/demotu/BMC/blob/master/notebooks/DataFiltering.ipynb
+http://nbviewer.jupyter.org/gist/bblais/7321928
+http://openalea.gforge.inria.fr/doc/vplants/mechanics/doc/_build/html/user/membrane/sphere%20iso/index.html
+
+
+
+===== Microsoft Excel =====
+Because it's there and everyone uses it
+"Automate the boring stuff, python excel scripting":"https://automatetheboringstuff.com/chapter12/"
+"Use python intead of VBA with xlwings":"http://xlwings.org/"
+"openpyxl":"https://openpyxl.readthedocs.io/en/default/"
+"or just develope directly with Windows COM":"http://shop.oreilly.com/product/9781565926219.do"
