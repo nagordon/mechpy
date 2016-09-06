@@ -18,13 +18,13 @@ dofile='mechpy'
 
 ## create a styled html file
 #doconce format html $dofile --html_style=tactile-black
-#doconce format html $dofile --html_style=bootswatch_journal
+doconce format html $dofile --html_style=bootswatch_journal
 
 ## create markdown slides
 #doconce format pandoc $dofile --github_md
 #doconce slides_markdown $dofile remark --slide_theme=light
 
-## creaet html files for html slides
+## creaet html files
 #doconce slides_html $dofile reveal --html_slide_theme=beige
 
 ## create reveal html slides
@@ -38,10 +38,3 @@ dofile='mechpy'
 #python automate_sphinx.py
 #firefox sphinx/_build/html/index/html
 
-## updating github pages
-doconce format html $dofile --html_style=bootswatch_journal
-mv mechpy.html web/index.html
-ghp-import web
-#git add --all
-#git commit -m 'updated doc webpage'
-#git push --all origin

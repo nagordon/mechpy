@@ -12,7 +12,7 @@ plt.rcParams['figure.figsize'] = (10, 8)  # (width, height)
 
 
 def create_mesh():
-    from pyfem import *
+    import pyfem
     
     my_block = Block2D()
     my_block.set_coords( [[0,0],[1,0],[1,1],[0,1]] )
@@ -27,7 +27,7 @@ def create_mesh():
 
 def simple_fem():
     from numpy import matrix, linalg
-    from math import *
+    from math import pi
     
     l = 1.5
     d = 3

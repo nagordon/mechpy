@@ -453,20 +453,9 @@ unit conversion
 
 
 !split
-========= tutorials =========
+========= general tutorials =========
 label{chp:tut}
 
-to view using the nbviewer checkout
-URL:"http://nbviewer.ipython.org/github/nagordon/mechpy" <linebreak>
-
-or for the html version <linebreak>
-URL:"https://nagordon.github.io/mechpy/web/composites.html" <linebreak>
-URL:"https://nagordon.github.io/mechpy/web/materials.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/web/fem.html"   <linebreak>
-URL:"https://nagordon.github.io/mechpy/web/math.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/web/design.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/web/statics.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/web/Composite_Plate_Mechanics_with_Python.html"  <linebreak>
 
 ======= Importing Python Modules  =======
 
@@ -532,6 +521,26 @@ y = '''62606.53409
 79218.03977
 81242.1875
 59387.27273
+59795.68182
+58303.18182
+81184.09091
+71876.81818
+72904.77273
+115563.9205
+113099.7869
+106939.2756
+58758.11688
+57349.02597
+52614.77273
+72899.75649
+68424.51299
+73514.28571
+75549.83766
+84867.69481
+79881.41234
+55882.71104
+54156.54221
+58260.71429
 73027.5974
 69470.69805
 66843.99351

@@ -10,29 +10,31 @@ Automatically generated HTML file from DocOnce source
 
 <title>mechpy documentation</title>
 
-<!-- Bootstrap style: bootswatch_journal -->
-<link href="http://netdna.bootstrapcdn.com/bootswatch/3.1.1/journal/bootstrap.min.css" rel="stylesheet">
-<!-- not necessary
-<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
--->
 
 <style type="text/css">
+/* blueish style */
 
-/* Add scrollbar to dropdown menus in bootstrap navigation bar */
-.dropdown-menu {
-   height: auto;
-   max-height: 400px;
-   overflow-x: hidden;
-}
+/* Color definitions:  http://www.december.com/html/spec/color0.html
+   CSS examples:       http://www.w3schools.com/css/css_examples.asp */
 
-/* Adds an invisible element before each target to offset for the navigation
-   bar */
-.anchor::before {
-  content:"";
-  display:block;
-  height:60px;      /* fixed header height for style bootswatch_journal */
-  margin:-60px 0 0; /* negative fixed header height */
+body {
+  margin-top: 1.0em;
+  background-color: #ffffff;
+  font-family: Helvetica, Arial, FreeSans, san-serif;
+  color: #000000;
 }
+h1 { font-size: 1.8em; color: #1e36ce; }
+h2 { font-size: 1.6em; color: #1e36ce; }
+h3 { font-size: 1.4em; color: #1e36ce; }
+a { color: #1e36ce; text-decoration:none; }
+tt { font-family: "Courier New", Courier; }
+/* pre style removed because it will interfer with pygments */
+p { text-indent: 0px; }
+hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+p.caption { width: 80%; font-style: normal; text-align: left; }
+hr.figure { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+
+div { text-align: justify; text-justify: inter-word; }
 </style>
 
 
@@ -46,7 +48,7 @@ Automatically generated HTML file from DocOnce source
                'table_of_contents'),
               ('introduction', 0, 'chp:intro', 'chp:intro'),
               ('mechpy modules', 0, 'chp:modules', 'chp:modules'),
-              ('abaqus api and abaqus_report', 1, None, '___sec2'),
+              ('abaqus and abaqus_report', 1, 'sec:abaqus', 'sec:abaqus'),
               ('abaqus documentation', 2, None, '___sec3'),
               ('A few examples of how to run individual functions',
                3,
@@ -85,13 +87,13 @@ Automatically generated HTML file from DocOnce source
                3,
                None,
                '___sec19'),
-              ('catia api', 1, None, '___sec20'),
-              ('composites', 1, None, '___sec21'),
-              ('design', 1, None, '___sec22'),
-              ('fem', 1, None, '___sec23'),
-              ('math', 1, None, '___sec24'),
-              ('statics', 1, None, '___sec25'),
-              ('units', 1, None, '___sec26'),
+              ('catia', 1, 'sec:catia', 'sec:catia'),
+              ('composites', 1, 'sec:comp', 'sec:comp'),
+              ('design', 1, 'sec:design', 'sec:design'),
+              ('fem', 1, 'sec:fem', 'sec:fem'),
+              ('math', 1, 'sec:math', 'sec:math'),
+              ('statics', 1, 'sec:statics', 'sec:statics'),
+              ('units', 1, 'sec:units', 'sec:units'),
               ('general tutorials', 0, 'chp:tut', 'chp:tut'),
               ('Importing Python Modules', 1, None, '___sec28'),
               ('Converting an ipython notebook to an html document',
@@ -99,100 +101,29 @@ Automatically generated HTML file from DocOnce source
                None,
                '___sec29'),
               ('Running jupyter notebook in windows', 1, None, '___sec30'),
+              ('pasting raw data into python', 1, None, '___sec31'),
+              ('simple fft example', 1, None, '___sec32'),
               ('References', 0, 'chp:ref', 'chp:ref'),
-              ('Links', 1, None, '___sec32'),
-              ('Python Engineering Classes', 2, None, '___sec33'),
-              ('Python Engineering Books', 2, None, '___sec34'),
-              ('Python Engineering Libraries', 2, None, '___sec35'),
-              ('General Numeric Python', 3, None, '___sec36'),
-              ('Fluids/Aero', 3, None, '___sec37'),
-              ('Mechanics/Composites/Materials', 3, None, '___sec38'),
-              ('FEM / Math', 3, None, '___sec39'),
-              ('Units', 3, None, '___sec40'),
-              ('Dynamics and Control Systems', 3, None, '___sec41'),
-              ('Plotting and Visualization', 3, None, '___sec42')]}
+              ('Links', 1, None, '___sec34'),
+              ('Python Engineering Classes', 2, None, '___sec35'),
+              ('Python Engineering Books', 2, None, '___sec36'),
+              ('Python Engineering Libraries', 2, None, '___sec37'),
+              ('General Numeric Python', 3, None, '___sec38'),
+              ('Fluids/Aero', 3, None, '___sec39'),
+              ('Mechanics/Composites/Materials', 3, None, '___sec40'),
+              ('FEM / Math', 3, None, '___sec41'),
+              ('Units', 3, None, '___sec42'),
+              ('Dynamics and Control Systems', 3, None, '___sec43'),
+              ('Plotting and Visualization', 3, None, '___sec44')]}
 end of tocinfo -->
 
 <body>
 
     
-<!-- Bootstrap navigation bar -->
-<div class="navbar navbar-default navbar-fixed-top">
-  <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <a class="navbar-brand" href="mechpy.html">mechpy documentation</a>
-  </div>
-
-  <div class="navbar-collapse collapse navbar-responsive-collapse">
-    <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contents <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-     <!-- navigation toc: --> <li><a href="#table_of_contents" style="font-size: 80%;"><b>Table of contents</b></a></li>
-     <!-- navigation toc: --> <li><a href="#chp:intro" style="font-size: 80%;"><b>introduction</b></a></li>
-     <!-- navigation toc: --> <li><a href="#chp:modules" style="font-size: 80%;"><b>mechpy modules</b></a></li>
-     <!-- navigation toc: --> <li><a href="#___sec2" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;abaqus api and abaqus_report</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec3" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;abaqus documentation</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec4" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A few examples of how to run individual functions</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec5" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Accessing History Region info using the bottle_test example</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec6" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Extracting Field info</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec7" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Closing the database. even though the database is read-only, it is good practice to close the database</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec8" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Installation</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec9" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Basic Checklist for generating an Abaqus simulation</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec10" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;launch an abaqus program</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec11" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;execute an existing script or open a file</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec12" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;executing an abaqus python script passing in variables</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec13" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fetch demos</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec14" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Some of the abaqus file types</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec15" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Outputs</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec16" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abaqus Scripting User's Guide - 5.2.2</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec17" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Common Abaqus activities</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec18" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abaqus/Python Scripting</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec19" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Other random tests from the documentation</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec20" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;catia api</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec21" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;composites</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec22" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;design</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec23" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;fem</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec24" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;math</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec25" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;statics</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec26" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;units</a></li>
-     <!-- navigation toc: --> <li><a href="#chp:tut" style="font-size: 80%;"><b>general tutorials</b></a></li>
-     <!-- navigation toc: --> <li><a href="#___sec28" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;Importing Python Modules</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec29" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;Converting an ipython notebook to an html document</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec30" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;Running jupyter notebook in windows</a></li>
-     <!-- navigation toc: --> <li><a href="#chp:ref" style="font-size: 80%;"><b>References</b></a></li>
-     <!-- navigation toc: --> <li><a href="#___sec32" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;Links</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec33" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Python Engineering Classes</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec34" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Python Engineering Books</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec35" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Python Engineering Libraries</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec36" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;General Numeric Python</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec37" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Fluids/Aero</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec38" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mechanics/Composites/Materials</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec39" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FEM / Math</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec40" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Units</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec41" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dynamics and Control Systems</a></li>
-     <!-- navigation toc: --> <li><a href="#___sec42" style="font-size: 80%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Plotting and Visualization</a></li>
-
-        </ul>
-      </li>
-    </ul>
-  </div>
-</div>
-</div> <!-- end of navigation bar -->
-
-<div class="container">
-
-<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p> <!-- add vertical space -->
-
 <!-- ------------------- main content ---------------------- -->
 
 
 
-<div class="jumbotron">
 <center><h1>mechpy documentation</h1></center>  <!-- document title -->
 
 <p>
@@ -207,38 +138,38 @@ end of tocinfo -->
 
 <br>
 <p>
-<center><h4>Sep 2, 2016</h4></center> <!-- date -->
+<center><h4>Sep 6, 2016</h4></center> <!-- date -->
 <br>
-<p>
-</div> <!-- end jumbotron -->
 
 <h1 id="table_of_contents">Table of contents</h2>
 
 <p>
 <a href="#chp:intro"> introduction </a><br>
 <a href="#chp:modules"> mechpy modules </a><br>
-&nbsp; &nbsp; &nbsp; <a href="#___sec2"> abaqus api and abaqus_report </a><br>
+&nbsp; &nbsp; &nbsp; <a href="#sec:abaqus"> abaqus and abaqus_report </a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec3"> abaqus documentation </a><br>
-&nbsp; &nbsp; &nbsp; <a href="#___sec20"> catia api </a><br>
-&nbsp; &nbsp; &nbsp; <a href="#___sec21"> composites  </a><br>
-&nbsp; &nbsp; &nbsp; <a href="#___sec22"> design  </a><br>
-&nbsp; &nbsp; &nbsp; <a href="#___sec23"> fem  </a><br>
-&nbsp; &nbsp; &nbsp; <a href="#___sec24"> math  </a><br>
-&nbsp; &nbsp; &nbsp; <a href="#___sec25"> statics  </a><br>
-&nbsp; &nbsp; &nbsp; <a href="#___sec26"> units  </a><br>
+&nbsp; &nbsp; &nbsp; <a href="#sec:catia"> catia </a><br>
+&nbsp; &nbsp; &nbsp; <a href="#sec:comp"> composites  </a><br>
+&nbsp; &nbsp; &nbsp; <a href="#sec:design"> design  </a><br>
+&nbsp; &nbsp; &nbsp; <a href="#sec:fem"> fem  </a><br>
+&nbsp; &nbsp; &nbsp; <a href="#sec:math"> math  </a><br>
+&nbsp; &nbsp; &nbsp; <a href="#sec:statics"> statics  </a><br>
+&nbsp; &nbsp; &nbsp; <a href="#sec:units"> units  </a><br>
 <a href="#chp:tut"> general tutorials </a><br>
 &nbsp; &nbsp; &nbsp; <a href="#___sec28"> Importing Python Modules  </a><br>
 &nbsp; &nbsp; &nbsp; <a href="#___sec29"> Converting an ipython notebook to an html document </a><br>
 &nbsp; &nbsp; &nbsp; <a href="#___sec30"> Running jupyter notebook in windows </a><br>
+&nbsp; &nbsp; &nbsp; <a href="#___sec31"> pasting raw data into python </a><br>
+&nbsp; &nbsp; &nbsp; <a href="#___sec32"> simple fft example </a><br>
 <a href="#chp:ref">  References </a><br>
-&nbsp; &nbsp; &nbsp; <a href="#___sec32"> Links </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec33"> Python Engineering Classes </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec34"> Python Engineering Books </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec35"> Python Engineering Libraries </a><br>
+&nbsp; &nbsp; &nbsp; <a href="#___sec34"> Links </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec35"> Python Engineering Classes </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec36"> Python Engineering Books </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec37"> Python Engineering Libraries </a><br>
 </p>
 <p>
 
-<center><h1 id="chp:intro" class="anchor">introduction</h1></center> <!-- chapter heading -->
+<center><h1 id="chp:intro">introduction</h1></center> <hr>
 
 <p>
 Mechpy was created for few reasons.
@@ -253,15 +184,57 @@ There are many different tools available to engineers. Hand-calculations, spread
 <p>
 <!-- !split -->
 
-<center><h1 id="chp:modules" class="anchor">mechpy modules</h1></center> <!-- chapter heading -->
+<center><h1 id="chp:modules">mechpy modules</h1></center> <hr>
+
+<p>
+<b>abaqus.</b>
+(<a href="#sec:abaqus">abaqus and abaqus_report</a>)
+abaqus api interface written in python for automating abaqus fem simulations and reporting.
+
+<p>
+<b>catia.</b>
+(<a href="#sec:catia">catia</a>)
+API code to automate cad in catia
+
+<p>
+<b>composites.</b>
+(<a href="#sec:comp">composites</a>)
+specialized code to analyze composite plates using classical laminated plate theory
+
+<p>
+<b>design.</b>
+(<a href="#sec:design">design</a>)
+shear-bending diagrams, assisting hand calculations for stress
+
+<p>
+<b>fem.</b>
+(<a href="#sec:fem">fem</a>)
+example code for computing finite element models for analysis and education
+
+<p>
+<b>math.</b>
+(<a href="#sec:math">math</a>)
+various math tools for processing engineering systems
+
+<p>
+<b>statics.</b>
+(<a href="#sec:statics">statics</a>)
+code for assisting and checking hand calculations
+
+<p>
+<b>units.</b>
+(<a href="#sec:units">units</a>)
+unit conversion
 
 <p>
 <hr>
 
-<h1 id="___sec2" class="anchor">abaqus api and abaqus_report </h1>
+<h1 id="sec:abaqus">abaqus and abaqus_report</h1>
+
+<p>
 API code to automate running of finite element models and reporting using python-pptx. Abaqus uses python as its native macro/scripting language, which makes it easy to develop powerful tools that utilize the robustness and simplicity of the python programming language.
 
-<h2 id="___sec3" class="anchor">abaqus documentation </h2>
+<h2 id="___sec3">abaqus documentation </h2>
 
 <p>
 Abaqus uses python as its native macro/scripting language, which makes it easy to develop powerful tools that utilize the robustness and simplicity of the python programming language.
@@ -283,7 +256,7 @@ In the python console in Abaqus <code>&gt;&gt;&gt;</code> , commands can be type
 <p>
 When myOdbTest is loaded, a check is made to determine if the database needs updated, and does so if it does. Also, <em>>>></em> indicates we are in the python console. and will be dropped henceforth
 
-<h3 id="___sec4" class="anchor">A few examples of how to run individual functions </h3>
+<h3 id="___sec4">A few examples of how to run individual functions </h3>
 
 <p>
 
@@ -308,7 +281,7 @@ myOdbTest<span style="color: #666666">.</span>txt_field_summary()
 myOdbTest<span style="color: #666666">.</span>png_save()
 </pre></div>
 
-<h3 id="___sec5" class="anchor">Accessing History Region info using the bottle_test example </h3>
+<h3 id="___sec5">Accessing History Region info using the bottle_test example </h3>
 
 <p>
 
@@ -329,7 +302,7 @@ myDat <span style="color: #666666">=</span> myRegion<span style="color: #666666"
 time, myRF1  <span style="color: #666666">=</span> <span style="color: #008000">zip</span>(<span style="color: #666666">*</span>myDat)
 </pre></div>
 
-<h3 id="___sec6" class="anchor">Extracting Field info </h3>
+<h3 id="___sec6">Extracting Field info </h3>
 
 <p>
 
@@ -338,7 +311,7 @@ time, myRF1  <span style="color: #666666">=</span> <span style="color: #008000">
 myU1 <span style="color: #666666">=</span> [myFieldval[k]<span style="color: #666666">.</span>data[<span style="color: #666666">0</span>] <span style="color: #008000; font-weight: bold">for</span> k <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">range</span>(<span style="color: #008000">len</span>(myFieldval))]
 </pre></div>
 
-<h3 id="___sec7" class="anchor">Closing the database. even though the database is read-only, it is good practice to close the database </h3>
+<h3 id="___sec7">Closing the database. even though the database is read-only, it is good practice to close the database </h3>
 
 <p>
 
@@ -346,13 +319,13 @@ myU1 <span style="color: #666666">=</span> [myFieldval[k]<span style="color: #66
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span>myOdbTest<span style="color: #666666">.</span>myOdbDat<span style="color: #666666">.</span>close()
 </pre></div>
 
-<h3 id="___sec8" class="anchor">Installation </h3>
+<h3 id="___sec8">Installation </h3>
 
 To install a minimal python, I recommend <a href="http://conda.pydata.org/miniconda.html" target="_self">miniconda</a> as a package maanger. Once miniconda or  is installed, install these packages by running these commands in a windows console and following the prompts
 
 <p>
 
-<!-- code=text (!bc sys) typeset with pygments style "default" -->
+<!-- code=batch (!bc batch) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span>conda install numpy
 
 pip install scipy matplotlib
@@ -375,7 +348,7 @@ For developers, I'd recommend a more complete python installation that includes 
  <li> <a href="https://code.google.com/p/pythonxy/" target="_self">python(x,y)</a> for Windows</li>
 </ul>
 
-<h3 id="___sec9" class="anchor">Basic Checklist for generating an Abaqus simulation  </h3>
+<h3 id="___sec9">Basic Checklist for generating an Abaqus simulation  </h3>
 
 <ol>
 <li> Parts</li>
@@ -390,11 +363,11 @@ For developers, I'd recommend a more complete python installation that includes 
 <li> Jobs</li>
 </ol>
 
-<h3 id="___sec10" class="anchor">launch an abaqus program   </h3>
+<h3 id="___sec10">launch an abaqus program   </h3>
 
 <p>
 
-<!-- code=text (!bc sys) typeset with pygments style "default" -->
+<!-- code=batch (!bc batch) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span>abaqus
 abq6132se
 abaqus doc
@@ -404,11 +377,11 @@ abaqus cae      # launches abaqus cae
 abaqus viewer   # launhces abaqus viewer
 </pre></div>
 
-<h3 id="___sec11" class="anchor">execute an existing script or open a file </h3>
+<h3 id="___sec11">execute an existing script or open a file </h3>
 
 <p>
 
-<!-- code=text (!bc sys) typeset with pygments style "default" -->
+<!-- code=batch (!bc batch) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span>abaqus python odb_to_txt.py test1.odb       # runs a abaqus python script with input &#39;test1.odb&#39;
 abaqus cae script=myscript.py               # launches cae and runs script
 abaqus cae database=filename.cae            # opens an odb file in cae
@@ -420,25 +393,25 @@ abaqus job=my_sample_job interactive        # executes *.inp file
 abaqus job=my_sample_job cpus=8 interactive # executes *.inp file and utilizes 8 cpu cores
 </pre></div>
 
-<h3 id="___sec12" class="anchor">executing an abaqus python script passing in variables </h3>
+<h3 id="___sec12">executing an abaqus python script passing in variables </h3>
 
 <p>
 
-<!-- code=text (!bc sys) typeset with pygments style "default" -->
+<!-- code=batch (!bc batch) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span>abaqus cae noGUI=myscript.py -- variable1 variable2
 </pre></div>
 
-<h3 id="___sec13" class="anchor">fetch demos </h3>
+<h3 id="___sec13">fetch demos </h3>
 
 <p>
 
-<!-- code=text (!bc sys) typeset with pygments style "default" -->
+<!-- code=batch (!bc batch) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span>abaqus fetch job=beamExample   # fetches the beamExample.py file
 abaqus fetch job=gsi_frame_caemodel.py
 abaqus cae script=gsi_frame_caemodel.py
 </pre></div>
 
-<h3 id="___sec14" class="anchor">Some of the abaqus file types  </h3>
+<h3 id="___sec14">Some of the abaqus file types  </h3>
 
 <p>
 files generated by created and analyzing a model
@@ -468,7 +441,7 @@ files created when a job is submitted
  <li> <em>lck</em> - a file that indicates that the odb file is open and cannot be edited if opened by another user</li>
 </ul>
 
-<h3 id="___sec15" class="anchor">Outputs </h3>
+<h3 id="___sec15">Outputs </h3>
 
 <ul>
 <li> defaults set in the environment file</li>
@@ -487,7 +460,7 @@ files created when a job is submitted
 
 </ul>
 
-<h3 id="___sec16" class="anchor">Abaqus Scripting User's Guide - 5.2.2 </h3>
+<h3 id="___sec16">Abaqus Scripting User's Guide - 5.2.2 </h3>
 
 field output
 
@@ -543,7 +516,7 @@ Depending on the type of output expected, a HistoryRegion object can be defined 
 
 The output from all history requests that relate to a particular point or region is then collected in one HistoryRegion object. Figure 9&#8211;4 shows the history output data object model within an output database. In contrast to field output, which is associated with a frame, history output is associated with a step.
 
-<h3 id="___sec17" class="anchor">Common Abaqus activities </h3>
+<h3 id="___sec17">Common Abaqus activities </h3>
 
 <p>
 Access the help documentation by typing <code>abaqus doc</code> in console or
@@ -590,7 +563,7 @@ Change font of legend
 </blockquote>
 
 
-<h3 id="___sec18" class="anchor">Abaqus/Python Scripting </h3>
+<h3 id="___sec18">Abaqus/Python Scripting </h3>
 
 <p>
  Abaqus specific Python modules imports
@@ -665,48 +638,72 @@ myViewport<span style="color: #666666">.</span>view<span style="color: #666666">
 myViewport<span style="color: #666666">.</span>view<span style="color: #666666">.</span>setViewpoint(viewVector<span style="color: #666666">=</span>(<span style="color: #666666">1</span>,<span style="color: #666666">1</span>,<span style="color: #666666">1</span>), cameraUpVector<span style="color: #666666">=</span>(<span style="color: #666666">0</span>,<span style="color: #666666">1</span>,<span style="color: #666666">0</span>))
 </pre></div>
 
-<h3 id="___sec19" class="anchor">Other random tests from the documentation </h3>
+<h3 id="___sec19">Other random tests from the documentation </h3>
 
 <p>
 
-<!-- code=text (!bc sys) typeset with pygments style "default" -->
+<!-- code=batch (!bc batch) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span>abaqus fetch job=odbElementConnectivity
 abaqus fetch job=viewer_tutorial
 abaqus cae odbElementConnectivity.py -- viewer_tutorial.odb
 </pre></div>
 <p>
-This document was generated from content in the abaqus documentation as a quick reference guide when using abaqus. To access  this content  <code>* Help -&gt; Search and Browse</code> Guides...`
+This document was generated from content in the abaqus documentation as a quick reference guide when using abaqus. To access  this content
 
 <p>
+<blockquote>
+    Help -> Search and Browse` Guides...
+</blockquote>
+
+
+<p>
+End of <em>abaqus</em> documentation
 <hr>
 
-<h1 id="___sec20" class="anchor">catia api </h1>
+<h1 id="sec:catia">catia</h1>
+
+<p>
 API code to automate cad in catia
 
-<h1 id="___sec21" class="anchor">composites  </h1>
+<h1 id="sec:comp">composites</h1>
+
+<p>
 specialized code to analyze composite plates using classical laminated plate theory
 
-<h1 id="___sec22" class="anchor">design  </h1>
+<h1 id="sec:design">design</h1>
+
+<p>
 shear-bending diagrams, assisting hand calculations for stress
 
-<h1 id="___sec23" class="anchor">fem  </h1>
+<h1 id="sec:fem">fem</h1>
+
+<p>
 example code for computing finite element models for analysis and education
 
-<h1 id="___sec24" class="anchor">math  </h1>
+<h1 id="sec:math">math</h1>
+
+<p>
 various math tools for processing engineering systems
 
-<h1 id="___sec25" class="anchor">statics  </h1>
+<h1 id="sec:statics">statics</h1>
+
+<p>
 code for assisting and checking hand calculations
 
-<h1 id="___sec26" class="anchor">units  </h1>
+<h1 id="sec:units">units</h1>
+
+<p>
 unit conversion
+
+<p>
+<a href="http://docs.sympy.org/latest/modules/physics/units.html" target="_self">sympy units</a>
 
 <p>
 <!-- !split -->
 
-<center><h1 id="chp:tut" class="anchor">general tutorials</h1></center> <!-- chapter heading -->
+<center><h1 id="chp:tut">general tutorials</h1></center> <hr>
 
-<h1 id="___sec28" class="anchor">Importing Python Modules  </h1>
+<h1 id="___sec28">Importing Python Modules  </h1>
 
 <p>
 When using python, the very first code you will need is to import modules. An example of importing the essential scientific computing libraries with some settings is shown here.
@@ -733,7 +730,7 @@ get_ipython()<span style="color: #666666">.</span>magic(<span style="color: #BA2
 <p>
 <!-- !split -->
 
-<h1 id="___sec29" class="anchor">Converting an ipython notebook to an html document </h1>
+<h1 id="___sec29">Converting an ipython notebook to an html document </h1>
 Ipython notebooks can eaily be converted to an html file with the following python code
 
 <p>
@@ -741,8 +738,16 @@ Ipython notebooks can eaily be converted to an html file with the following pyth
 <!-- code=python (!bc pycod) typeset with pygments style "default" -->
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span>get_ipython()<span style="color: #666666">.</span>system(<span style="color: #BA2121">&#39;jupyter nbconvert --to html mechpy.ipynb&#39;</span>)
 </pre></div>
+<p>
+or, in the OS terminal
 
-<h1 id="___sec30" class="anchor">Running jupyter notebook in windows </h1>
+<p>
+
+<!-- code=batch (!bc batch) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span>jupyter nbconvert --to html mechpy.ipynb
+</pre></div>
+
+<h1 id="___sec30">Running jupyter notebook in windows </h1>
 In windows, create a batch file (*.bat) to run a jupyter notebook server in the current directory
 <p>
 
@@ -756,10 +761,87 @@ jupyter notebook
 jupyter nbconvert --to html mechpy.ipynb
 <span style="color: #008000; font-weight: bold">pause</span>
 </pre></div>
+
+<h1 id="___sec31">pasting raw data into python </h1>
+
+<p>
+This example shows how you can copy and past data into python
+
+<p>
+
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span>y <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;&#39;&#39;62606.53409</span>
+<span style="color: #BA2121">59989.34659</span>
+<span style="color: #BA2121">62848.01136</span>
+<span style="color: #BA2121">80912.28693</span>
+<span style="color: #BA2121">79218.03977</span>
+<span style="color: #BA2121">81242.1875</span>
+<span style="color: #BA2121">59387.27273</span>
+<span style="color: #BA2121">59795.68182</span>
+<span style="color: #BA2121">58303.18182</span>
+<span style="color: #BA2121">81184.09091</span>
+<span style="color: #BA2121">71876.81818</span>
+<span style="color: #BA2121">72904.77273</span>
+<span style="color: #BA2121">115563.9205</span>
+<span style="color: #BA2121">113099.7869</span>
+<span style="color: #BA2121">106939.2756</span>
+<span style="color: #BA2121">58758.11688</span>
+<span style="color: #BA2121">57349.02597</span>
+<span style="color: #BA2121">52614.77273</span>
+<span style="color: #BA2121">72899.75649</span>
+<span style="color: #BA2121">68424.51299</span>
+<span style="color: #BA2121">73514.28571</span>
+<span style="color: #BA2121">75549.83766</span>
+<span style="color: #BA2121">84867.69481</span>
+<span style="color: #BA2121">79881.41234</span>
+<span style="color: #BA2121">55882.71104</span>
+<span style="color: #BA2121">54156.54221</span>
+<span style="color: #BA2121">58260.71429</span>
+<span style="color: #BA2121">73027.5974</span>
+<span style="color: #BA2121">69470.69805</span>
+<span style="color: #BA2121">66843.99351</span>
+<span style="color: #BA2121">82758.44156</span>
+<span style="color: #BA2121">81647.72727</span>
+<span style="color: #BA2121">77519.96753&#39;&#39;&#39;</span>
+y <span style="color: #666666">=</span> [<span style="color: #008000">float</span>(x) <span style="color: #008000; font-weight: bold">for</span> x <span style="color: #AA22FF; font-weight: bold">in</span> np<span style="color: #666666">.</span>array(y<span style="color: #666666">.</span>replace(<span style="color: #BA2121">&#39;</span><span style="color: #BB6622; font-weight: bold">\n</span><span style="color: #BA2121">&#39;</span>,<span style="color: #BA2121">&#39;,&#39;</span>)<span style="color: #666666">.</span>split(<span style="color: #BA2121">&#39;,&#39;</span>))]
+<span style="color: #008000; font-weight: bold">print</span>(y, end<span style="color: #666666">=</span><span style="color: #BA2121">&quot; &quot;</span>)
+</pre></div>
+
+<h1 id="___sec32">simple fft example </h1>
+
+<p>
+
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span><span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">pylab</span> <span style="color: #008000; font-weight: bold">import</span> <span style="color: #666666">*</span>
+<span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">scipy</span> <span style="color: #008000; font-weight: bold">import</span> fft
+N <span style="color: #666666">=</span> <span style="color: #666666">2**9</span>
+F <span style="color: #666666">=</span> <span style="color: #666666">25</span>
+t <span style="color: #666666">=</span> arange(N)<span style="color: #666666">/</span><span style="color: #008000">float</span>(N)
+x <span style="color: #666666">=</span> cos(<span style="color: #666666">2*</span>pi<span style="color: #666666">*</span>t<span style="color: #666666">*</span>F) <span style="color: #666666">+</span> rand(<span style="color: #008000">len</span>(t))<span style="color: #666666">*3</span>
+subplot(<span style="color: #666666">2</span>,<span style="color: #666666">1</span>,<span style="color: #666666">1</span>)
+plot(t,x)
+ylabel(<span style="color: #BA2121">&#39;x []&#39;</span>)
+xlabel(<span style="color: #BA2121">&#39;t [seconds]&#39;</span>)
+title(<span style="color: #BA2121">&#39;A cosine wave&#39;</span>)
+grid()
+
+subplot(<span style="color: #666666">2</span>,<span style="color: #666666">1</span>,<span style="color: #666666">2</span>)
+f <span style="color: #666666">=</span> t<span style="color: #666666">*</span>N
+xf <span style="color: #666666">=</span> fft(x)
+plot(f,<span style="color: #008000">abs</span>(xf))
+title(<span style="color: #BA2121">&#39;Fourier transform of a cosine wave&#39;</span>)
+xlabel(<span style="color: #BA2121">&#39;xf []&#39;</span>)
+ylabel(<span style="color: #BA2121">&#39;xf []&#39;</span>)
+xlim([<span style="color: #666666">0</span>,N])
+grid()
+show()
+
+<span style="color: #408080; font-style: italic"># note the spike at 25 hz and 512-25</span>
+</pre></div>
 <p>
 <!-- !split -->
 
-<center><h1 id="chp:ref" class="anchor">References</h1></center> <!-- chapter heading -->
+<center><h1 id="chp:ref">References</h1></center> <hr>
 
 <p>
 Hibbler - Statics   <br />
@@ -772,18 +854,18 @@ Niu - Airframe Stress Analysis and Sizing <br />
 <p>
 <!-- !split -->
 
-<h1 id="___sec32" class="anchor">Links </h1>
+<h1 id="___sec34">Links </h1>
 
-<h2 id="___sec33" class="anchor">Python Engineering Classes </h2>
-<a href="https://github.com/jrjohansson/scientific-python-lectures" target="_self"><tt>https://github.com/jrjohansson/scientific-python-lectures</tt></a>  <br />
-<a href="https://github.com/numerical-mooc/numerical-mooc  " target="_self"><tt>https://github.com/numerical-mooc/numerical-mooc  </tt></a>   <br />
-<a href="https://github.com/numerical-mooc/numerical-mooc" target="_self">Python Numerical MOOC</a> and the <a href="http://openedx.seas.gwu.edu/courses/GW/MAE6286/2014_fall/about" target="_self">course</a>  <br />
+<h2 id="___sec35">Python Engineering Classes </h2>
+<a href="https://github.com/jrjohansson/scientific-python-lectures" target="_self">scientific-python-lectures</a>  <br />
+<a href="http://openedx.seas.gwu.edu/courses/GW/MAE6286/2014_fall/about" target="_self">Practical Numerical Methods with Python</a> with <a href="https://github.com/numerical-mooc/numerical-mooc" target="_self">source code</a> <br />
+<a href="http://openedx.seas.gwu.edu/courses/GW/MAE6226/2014_spring/about" target="_self">Aerodynamics / Hydrodynamics with Python</a> <br />
 <a href="http://pages.physics.cornell.edu/~sethna/StatMech/ComputerExercises/PythonSoftware/" target="_self">Cornell</a>  <br />
 <a href="http://openedx.seas.gwu.edu/courses/GW/MAE6286/2014_fall/about" target="_self">Python numerical methods mooc</a>  <br />
-<a href="http://www-personal.umich.edu/~mejn/computational-physics/" target="_self"><tt>http://www-personal.umich.edu/~mejn/computational-physics/</tt></a> <br />
+<a href="http://www-personal.umich.edu/~mejn/computational-physics/" target="_self">Computational Physics with Python</a> <br />
 <a href="http://cs.brown.edu/courses/cs053/current/index.htm" target="_self">Coding the Matrix</a> <br />
 
-<h2 id="___sec34" class="anchor">Python Engineering Books </h2>
+<h2 id="___sec36">Python Engineering Books </h2>
 
 <p>
 <a href="http://www.apress.com/9781484205549" target="_self">Numerical Python - A Practical Techniques Approach for Industry</a> with <a href="http://www.apress.com/downloadable/download/sample/sample_id/1732/" target="_self">source code</a>  <br />
@@ -791,9 +873,9 @@ Niu - Airframe Stress Analysis and Sizing <br />
 <a href="http://hplgit.github.io/primer.html/doc/web/index.html" target="_self">A Primer on Scientific Programming With Python</a>  <br />
 <a href="http://codingthematrix.com/" target="_self">Coding the Matrix</a> <br />
 
-<h2 id="___sec35" class="anchor">Python Engineering Libraries </h2>
+<h2 id="___sec37">Python Engineering Libraries </h2>
 
-<h3 id="___sec36" class="anchor">General Numeric Python </h3>
+<h3 id="___sec38">General Numeric Python </h3>
 
 Python has mature scientific computation packages, namely <a href="https://www.scipy.org/" target="_self">scipy</a>
 
@@ -830,28 +912,29 @@ Python has mature scientific computation packages, namely <a href="https://www.s
 <a href="http://matplotlib.org/gallery.html" target="_self">matplotlib gallery</a> and <a href="https://github.com/rougier/matplotlib-tutorial" target="_self">matplotlib tutorial</a>  <br />
 <a href="http://central.scipy.org/item/84/1/simple-interactive-matplotlib-plots" target="_self">interactive matplotlib</a>  <br />
 
-<h3 id="___sec37" class="anchor">Fluids/Aero </h3>
+<h3 id="___sec39">Fluids/Aero </h3>
 
 <a href="http://aeropy.readthedocs.io/en/latest/" target="_self">aeropy</a>   <br />
 <a href="https://github.com/dgorissen/naca" target="_self">NACA airfoils</a>   <br />
 <a href="https://github.com/barbagroup/AeroPython" target="_self">aeropython</a>  or <a href="http://lorenabarba.com/blog/announcing-aeropython/" target="_self">aeropython</a>  <br />
 <a href="http://pyaero.sourceforge.net/" target="_self">pyaero</a>   <br />
 
-<h3 id="___sec38" class="anchor">Mechanics/Composites/Materials </h3>
+<h3 id="___sec40">Mechanics/Composites/Materials </h3>
 
 <a href="https://github.com/Rlee13/pyPLY  " target="_self">pyply composites</a>   <br />
 <a href="http://docs.sympy.org/latest/modules/physics/mechanics/index.html" target="_self">sympy classical mechanics</a>  <br />
 <a href="http://sourceforge.net/projects/pygear/" target="_self">pygear</a>   <br />
+<a href="https://github.com/bennames/AeroComBAT-Project" target="_self">AeroComBAT</a>
 <a href="https://github.com/nagordon/ME701  " target="_self"><tt>https://github.com/nagordon/ME701  </tt></a>  <br />
 <a href="https://github.com/nagordon/mcgill_mech_530_selimb  " target="_self"><tt>https://github.com/nagordon/mcgill_mech_530_selimb  </tt></a>  <br />
 <a href="https://github.com/elainecraigie/MechanicsOfCompositesProject_ECraigie  " target="_self"><tt>https://github.com/elainecraigie/MechanicsOfCompositesProject_ECraigie  </tt></a>   <br />
 
-<h3 id="___sec39" class="anchor">FEM / Math </h3>
+<h3 id="___sec41">FEM / Math </h3>
 
 <a href="https://github.com/SteveDoyle2/pynastran/wiki/GUI" target="_self">pynastran</a>   <br />
 <a href="http://pyamg.org/" target="_self">grid solvers</a> with "example""https://code.google.com/p/pyamg/wiki/Examples"   <br />
 <a href="http://hplgit.github.io/odespy/doc/web/index.html  " target="_self">ode solver</a>   <br />
-<a href="http://arachnoid.com/IPython/differential_equations.html" target="_self"><tt>http://arachnoid.com/IPython/differential_equations.html</tt></a>   <br />
+<a href="http://arachnoid.com/IPython/differential_equations.html" target="_self">differential equations demo</a>   <br />
 <a href="http://www.usna.edu/Users/math/wdj/_files/documents/teach/sm212/DiffyQ/des-book-2009-11-24.pdf" target="_self">DiffyQ</a>   <br />
 <a href="http://justinablack.com/pycalculix/" target="_self">pycalculix</a>  <br />
 <a href="http://fenicsproject.org/documentation/tutorial/" target="_self">FEniCS tutorial</a>   <br />
@@ -859,30 +942,28 @@ Python has mature scientific computation packages, namely <a href="https://www.s
 <a href="http://pyode.sourceforge.net/tutorials/tutorial2.html" target="_self">PyODE</a>  <br />
 <a href="http://download.gna.org/getfem/html/homepage/" target="_self">getfem++</a>   <br />
 <a href="http://justinablack.com/pycalculix/" target="_self">pycalculix</a>   <br />
-<a href="https://github.com/PySimulator/PySimulator/" target="_self"><tt>https://github.com/PySimulator/PySimulator/</tt></a>   <br />
-<a href="http://compmech.lab.asu.edu/data/pyfem.py " target="_self"><tt>http://compmech.lab.asu.edu/data/pyfem.py </tt></a>  <br />
-<a href="http://sfepy.org/doc-devel/index.html " target="_self"><tt>http://sfepy.org/doc-devel/index.html </tt></a>  <br />
+<a href="https://github.com/PySimulator/PySimulator/" target="_self">Pysimulator</a>   <br />
+<a href="http://compmech.lab.asu.edu/data/pyfem.py " target="_self">pyfem</a>  <br />
 
-<h3 id="___sec40" class="anchor">Units </h3>
+<h3 id="___sec42">Units </h3>
 
 <a href="http://pint.readthedocs.io/en/0.7.2/" target="_self">pint units</a>    <br />
 <a href="https://pypi.python.org/pypi/Unum" target="_self">Unum units</a> <br />
 <a href="https://github.com/python-quantities/python-quantities" target="_self">quantities</a>
 <a href="http://docs.sympy.org/latest/modules/physics/units.html" target="_self">scipy units</a>   <br />
 
-<h3 id="___sec41" class="anchor">Dynamics and Control Systems </h3>
+<h3 id="___sec43">Dynamics and Control Systems </h3>
 
 <a href="https://github.com/bblais/pyndamics" target="_self">pyndamics</a>   <br />
 <a href="http://www.siue.edu/~rkrauss/python_intro.html  " target="_self">Python for Controls, System Dynamics, and Mechatronics</a>  <br />
 <a href="https://www.cds.caltech.edu/~murray/wiki/Control_Systems_Library_for_Python  " target="_self">python-control</a>  <br />
 <a href="http://www.vibrationdata.com/python/  " target="_self">vibrationdata</a>  <br />
-<a href="http://www.gribblelab.org/compneuro/index.html  " target="_self"><tt>http://www.gribblelab.org/compneuro/index.html  </tt></a>  <br />
 <a href="http://scipy-cookbook.readthedocs.io/" target="_self">CoupledSpringMassSystem</a>  <br />
 <a href="http://www.ni.gsu.edu/~rclewley/PyDSTool/FrontPage.html  " target="_self">PyDSTool</a>   <br />
 <a href="https://github.com/python-control/python-control" target="_self">python control</a>   <br />
 <a href="http://www.pydy.org/" target="_self">pydy</a> with <a href="http://nbviewer.jupyter.org/github/pydy/pydy-tutorial-human-standing/tree/online-read/notebooks/" target="_self">examples</a>  and <a href="https://github.com/pydy/scipy-2013-mechanics" target="_self">here</a>  <br />
 
-<h3 id="___sec42" class="anchor">Plotting and Visualization </h3>
+<h3 id="___sec44">Plotting and Visualization </h3>
 
 <a href="http://hplgit.github.io/bumpy/doc/pub/._bumpy010.html#app:resources   " target="_self">bumpy</a>  <br />
 <a href="http://www.petercollingridge.co.uk/pygame-physics-simulation" target="_self">pygame physics</a>  <br />
@@ -890,17 +971,6 @@ Python has mature scientific computation packages, namely <a href="https://www.s
 <a href="http://vpython.org/" target="_self">vpython</a>  <br />
 
 <!-- ------------------- end of main content --------------- -->
-
-</div>  <!-- end container -->
-<!-- include javascript, jQuery *first* -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-
-<!-- Bootstrap footer
-<footer>
-<a href="http://..."><img width="250" align=right src="http://..."></a>
-</footer>
--->
 
 
 </body>
