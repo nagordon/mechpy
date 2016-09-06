@@ -11753,9 +11753,10 @@ div#notebook {
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
 <h1 id="Mechpy">Mechpy<a class="anchor-link" href="#Mechpy">&#182;</a></h1><p>a mechanical engineer's toolbox</p>
-<p>To view this notebook, use the <a href="http://nbviewer.jupyter.org/github/nagordon/mechpy/blob/master/mechpy.ipynb">nbviewer</a></p>
+<p>source code - <a href="https://github.com/nagordon/mechpy">https://github.com/nagordon/mechpy</a><br>
+documentation - <a href="https://nagordon.github.io/mechpy/web/">https://nagordon.github.io/mechpy/web/</a></p>
 <hr>
-<h2 id="Getting-Started-with-Engineering-Python"><a href="#Engineering-Python">Getting Started with Engineering Python</a><a class="anchor-link" href="#Getting-Started-with-Engineering-Python">&#182;</a></h2><ul>
+<h2 id="Math">Math<a class="anchor-link" href="#Math">&#182;</a></h2><h2 id="Getting-Started-with-Engineering-Python"><a href="#Engineering-Python">Getting Started with Engineering Python</a><a class="anchor-link" href="#Getting-Started-with-Engineering-Python">&#182;</a></h2><ul>
 <li>getting started</li>
 <li>packages</li>
 <li>math with numpy and sympy</li>
@@ -11763,9 +11764,10 @@ div#notebook {
 </ul>
 <h2 id="Appendix-A:-Engineering-Mathematics-with-Python">Appendix A: <a href="#Engineering-Mathematics-with-Python">Engineering Mathematics with Python</a><a class="anchor-link" href="#Appendix-A:-Engineering-Mathematics-with-Python">&#182;</a></h2><p><a href="#Differential-Equations">Differential Equations</a><br>
 <a href="#Linear-Algebra">Linear Algebra</a><br>
-<a href="#Signal-Processing">Signal Processing</a></p>
-<p><a href="#Curve-Fitting">Curve Fitting</a></p>
+<a href="#Signal-Processing">Signal Processing</a><br>
+<a href="#Curve-Fitting">Curve Fitting</a></p>
 <hr>
+<p>This is more or less my notes on using python for a variety of engineering tasks, including plotting, solving equations, linear algebra etc. Some of this work is my own, but many of it is from the scipy documentation.</p>
 
 </div>
 </div>
@@ -23033,7 +23035,7 @@ EMYYY4KyBGGMMSao/weYlEGPvy6LGgAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[98]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -23046,7 +23048,7 @@ EMYYY4KyBGGMMSao/weYlEGPvy6LGgAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[99]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
@@ -23059,7 +23061,7 @@ EMYYY4KyBGGMMSao/weYlEGPvy6LGgAAAABJRU5ErkJggg==
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[100]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
@@ -23110,179 +23112,162 @@ EMYYY4KyBGGMMSao/weYlEGPvy6LGgAAAABJRU5ErkJggg==
 
 
 <div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">RuntimeError</span>                              Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/IPython/core/formatters.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, obj)</span>
-<span class="ansi-green-fg">    337</span>                 <span class="ansi-green-intense-fg ansi-bold">pass</span>
-<span class="ansi-green-fg">    338</span>             <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 339</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span><span class="ansi-green-intense-fg ansi-bold">return</span> printer<span class="ansi-yellow-intense-fg ansi-bold">(</span>obj<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    340</span>             <span class="ansi-red-intense-fg ansi-bold"># Finally look for special method names</span>
-<span class="ansi-green-fg">    341</span>             method <span class="ansi-yellow-intense-fg ansi-bold">=</span> _safe_get_formatter_method<span class="ansi-yellow-intense-fg ansi-bold">(</span>obj<span class="ansi-yellow-intense-fg ansi-bold">,</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>print_method<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/IPython/core/pylabtools.py</span> in <span class="ansi-cyan-fg">&lt;lambda&gt;</span><span class="ansi-blue-intense-fg ansi-bold">(fig)</span>
-<span class="ansi-green-fg">    224</span> 
-<span class="ansi-green-fg">    225</span>     <span class="ansi-green-intense-fg ansi-bold">if</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;png&#39;</span> <span class="ansi-green-intense-fg ansi-bold">in</span> formats<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 226</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>png_formatter<span class="ansi-yellow-intense-fg ansi-bold">.</span>for_type<span class="ansi-yellow-intense-fg ansi-bold">(</span>Figure<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-green-intense-fg ansi-bold">lambda</span> fig<span class="ansi-yellow-intense-fg ansi-bold">:</span> print_figure<span class="ansi-yellow-intense-fg ansi-bold">(</span>fig<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;png&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    227</span>     <span class="ansi-green-intense-fg ansi-bold">if</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;retina&#39;</span> <span class="ansi-green-intense-fg ansi-bold">in</span> formats <span class="ansi-green-intense-fg ansi-bold">or</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;png2x&#39;</span> <span class="ansi-green-intense-fg ansi-bold">in</span> formats<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    228</span>         png_formatter<span class="ansi-yellow-intense-fg ansi-bold">.</span>for_type<span class="ansi-yellow-intense-fg ansi-bold">(</span>Figure<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-green-intense-fg ansi-bold">lambda</span> fig<span class="ansi-yellow-intense-fg ansi-bold">:</span> retina_figure<span class="ansi-yellow-intense-fg ansi-bold">(</span>fig<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/IPython/core/pylabtools.py</span> in <span class="ansi-cyan-fg">print_figure</span><span class="ansi-blue-intense-fg ansi-bold">(fig, fmt, bbox_inches, **kwargs)</span>
-<span class="ansi-green-fg">    115</span> 
-<span class="ansi-green-fg">    116</span>     bytes_io <span class="ansi-yellow-intense-fg ansi-bold">=</span> BytesIO<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 117</span><span class="ansi-yellow-intense-fg ansi-bold">     </span>fig<span class="ansi-yellow-intense-fg ansi-bold">.</span>canvas<span class="ansi-yellow-intense-fg ansi-bold">.</span>print_figure<span class="ansi-yellow-intense-fg ansi-bold">(</span>bytes_io<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kw<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    118</span>     data <span class="ansi-yellow-intense-fg ansi-bold">=</span> bytes_io<span class="ansi-yellow-intense-fg ansi-bold">.</span>getvalue<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    119</span>     <span class="ansi-green-intense-fg ansi-bold">if</span> fmt <span class="ansi-yellow-intense-fg ansi-bold">==</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;svg&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/backend_bases.py</span> in <span class="ansi-cyan-fg">print_figure</span><span class="ansi-blue-intense-fg ansi-bold">(self, filename, dpi, facecolor, edgecolor, orientation, format, **kwargs)</span>
-<span class="ansi-green-fg">   2178</span>                     orientation<span class="ansi-yellow-intense-fg ansi-bold">=</span>orientation<span class="ansi-yellow-intense-fg ansi-bold">,</span>
-<span class="ansi-green-fg">   2179</span>                     dryrun<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">True</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 2180</span><span class="ansi-yellow-intense-fg ansi-bold">                     **kwargs)
-</span><span class="ansi-green-fg">   2181</span>                 renderer <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>figure<span class="ansi-yellow-intense-fg ansi-bold">.</span>_cachedRenderer
-<span class="ansi-green-fg">   2182</span>                 bbox_inches <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>figure<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_tightbbox<span class="ansi-yellow-intense-fg ansi-bold">(</span>renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/backends/backend_agg.py</span> in <span class="ansi-cyan-fg">print_png</span><span class="ansi-blue-intense-fg ansi-bold">(self, filename_or_obj, *args, **kwargs)</span>
-<span class="ansi-green-fg">    525</span> 
-<span class="ansi-green-fg">    526</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> print_png<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> filename_or_obj<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 527</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>FigureCanvasAgg<span class="ansi-yellow-intense-fg ansi-bold">.</span>draw<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    528</span>         renderer <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_renderer<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    529</span>         original_dpi <span class="ansi-yellow-intense-fg ansi-bold">=</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">.</span>dpi
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/backends/backend_agg.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
-<span class="ansi-green-fg">    472</span> 
-<span class="ansi-green-fg">    473</span>         <span class="ansi-green-intense-fg ansi-bold">try</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 474</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>figure<span class="ansi-yellow-intense-fg ansi-bold">.</span>draw<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    475</span>         <span class="ansi-green-intense-fg ansi-bold">finally</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    476</span>             RendererAgg<span class="ansi-yellow-intense-fg ansi-bold">.</span>lock<span class="ansi-yellow-intense-fg ansi-bold">.</span>release<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/artist.py</span> in <span class="ansi-cyan-fg">draw_wrapper</span><span class="ansi-blue-intense-fg ansi-bold">(artist, renderer, *args, **kwargs)</span>
-<span class="ansi-green-fg">     59</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> draw_wrapper<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">     60</span>         before<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 61</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>draw<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     62</span>         after<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     63</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/figure.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-intense-fg ansi-bold">(self, renderer)</span>
-<span class="ansi-green-fg">   1157</span>         dsu<span class="ansi-yellow-intense-fg ansi-bold">.</span>sort<span class="ansi-yellow-intense-fg ansi-bold">(</span>key<span class="ansi-yellow-intense-fg ansi-bold">=</span>itemgetter<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   1158</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> zorder<span class="ansi-yellow-intense-fg ansi-bold">,</span> a<span class="ansi-yellow-intense-fg ansi-bold">,</span> func<span class="ansi-yellow-intense-fg ansi-bold">,</span> args <span class="ansi-green-intense-fg ansi-bold">in</span> dsu<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 1159</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>func<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   1160</span> 
-<span class="ansi-green-fg">   1161</span>         renderer<span class="ansi-yellow-intense-fg ansi-bold">.</span>close_group<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;figure&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/artist.py</span> in <span class="ansi-cyan-fg">draw_wrapper</span><span class="ansi-blue-intense-fg ansi-bold">(artist, renderer, *args, **kwargs)</span>
-<span class="ansi-green-fg">     59</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> draw_wrapper<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">     60</span>         before<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 61</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>draw<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     62</span>         after<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     63</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/axes/_base.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-intense-fg ansi-bold">(self, renderer, inframe)</span>
-<span class="ansi-green-fg">   2322</span> 
-<span class="ansi-green-fg">   2323</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> zorder<span class="ansi-yellow-intense-fg ansi-bold">,</span> a <span class="ansi-green-intense-fg ansi-bold">in</span> dsu<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 2324</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>a<span class="ansi-yellow-intense-fg ansi-bold">.</span>draw<span class="ansi-yellow-intense-fg ansi-bold">(</span>renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   2325</span> 
-<span class="ansi-green-fg">   2326</span>         renderer<span class="ansi-yellow-intense-fg ansi-bold">.</span>close_group<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;axes&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/artist.py</span> in <span class="ansi-cyan-fg">draw_wrapper</span><span class="ansi-blue-intense-fg ansi-bold">(artist, renderer, *args, **kwargs)</span>
-<span class="ansi-green-fg">     59</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> draw_wrapper<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">     60</span>         before<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 61</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>draw<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     62</span>         after<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     63</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/text.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-intense-fg ansi-bold">(self, renderer)</span>
-<span class="ansi-green-fg">    794</span>                     textrenderer.draw_text(gc, x, y, clean_line,
-<span class="ansi-green-fg">    795</span>                                            textobj<span class="ansi-yellow-intense-fg ansi-bold">.</span>_fontproperties<span class="ansi-yellow-intense-fg ansi-bold">,</span> angle<span class="ansi-yellow-intense-fg ansi-bold">,</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 796</span><span class="ansi-yellow-intense-fg ansi-bold">                                            ismath=ismath, mtext=mtext)
-</span><span class="ansi-green-fg">    797</span> 
-<span class="ansi-green-fg">    798</span>         gc<span class="ansi-yellow-intense-fg ansi-bold">.</span>restore<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/contextlib.py</span> in <span class="ansi-cyan-fg">__exit__</span><span class="ansi-blue-intense-fg ansi-bold">(self, type, value, traceback)</span>
-<span class="ansi-green-fg">     75</span>                 value <span class="ansi-yellow-intense-fg ansi-bold">=</span> type<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     76</span>             <span class="ansi-green-intense-fg ansi-bold">try</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 77</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>gen<span class="ansi-yellow-intense-fg ansi-bold">.</span>throw<span class="ansi-yellow-intense-fg ansi-bold">(</span>type<span class="ansi-yellow-intense-fg ansi-bold">,</span> value<span class="ansi-yellow-intense-fg ansi-bold">,</span> traceback<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     78</span>                 <span class="ansi-green-intense-fg ansi-bold">raise</span> RuntimeError<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;generator didn&#39;t stop after throw()&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     79</span>             <span class="ansi-green-intense-fg ansi-bold">except</span> StopIteration <span class="ansi-green-intense-fg ansi-bold">as</span> exc<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/text.py</span> in <span class="ansi-cyan-fg">_wrap_text</span><span class="ansi-blue-intense-fg ansi-bold">(textobj)</span>
-<span class="ansi-green-fg">     58</span>             textobj<span class="ansi-yellow-intense-fg ansi-bold">.</span>set_text<span class="ansi-yellow-intense-fg ansi-bold">(</span>old_text<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     59</span>     <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 60</span><span class="ansi-yellow-intense-fg ansi-bold">         </span><span class="ansi-green-intense-fg ansi-bold">yield</span> textobj
-<span class="ansi-green-fg">     61</span> 
-<span class="ansi-green-fg">     62</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/text.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-intense-fg ansi-bold">(self, renderer)</span>
-<span class="ansi-green-fg">    747</span> 
-<span class="ansi-green-fg">    748</span>         <span class="ansi-green-intense-fg ansi-bold">with</span> _wrap_text<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-green-intense-fg ansi-bold">as</span> textobj<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 749</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>bbox<span class="ansi-yellow-intense-fg ansi-bold">,</span> info<span class="ansi-yellow-intense-fg ansi-bold">,</span> descent <span class="ansi-yellow-intense-fg ansi-bold">=</span> textobj<span class="ansi-yellow-intense-fg ansi-bold">.</span>_get_layout<span class="ansi-yellow-intense-fg ansi-bold">(</span>renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    750</span>             trans <span class="ansi-yellow-intense-fg ansi-bold">=</span> textobj<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_transform<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    751</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/text.py</span> in <span class="ansi-cyan-fg">_get_layout</span><span class="ansi-blue-intense-fg ansi-bold">(self, renderer)</span>
-<span class="ansi-green-fg">    350</span>         tmp, lp_h, lp_bl = renderer.get_text_width_height_descent(&#39;lp&#39;,
-<span class="ansi-green-fg">    351</span>                                                          self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_fontproperties<span class="ansi-yellow-intense-fg ansi-bold">,</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 352</span><span class="ansi-yellow-intense-fg ansi-bold">                                                          ismath=False)
-</span><span class="ansi-green-fg">    353</span>         offsety <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-yellow-intense-fg ansi-bold">(</span>lp_h <span class="ansi-yellow-intense-fg ansi-bold">-</span> lp_bl<span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_linespacing
-<span class="ansi-green-fg">    354</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/backends/backend_agg.py</span> in <span class="ansi-cyan-fg">get_text_width_height_descent</span><span class="ansi-blue-intense-fg ansi-bold">(self, s, prop, ismath)</span>
-<span class="ansi-green-fg">    227</span>             fontsize <span class="ansi-yellow-intense-fg ansi-bold">=</span> prop<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_size_in_points<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    228</span>             w, h, d = texmanager.get_text_width_height_descent(s, fontsize,
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 229</span><span class="ansi-yellow-intense-fg ansi-bold">                                                                renderer=self)
-</span><span class="ansi-green-fg">    230</span>             <span class="ansi-green-intense-fg ansi-bold">return</span> w<span class="ansi-yellow-intense-fg ansi-bold">,</span> h<span class="ansi-yellow-intense-fg ansi-bold">,</span> d
-<span class="ansi-green-fg">    231</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/texmanager.py</span> in <span class="ansi-cyan-fg">get_text_width_height_descent</span><span class="ansi-blue-intense-fg ansi-bold">(self, tex, fontsize, renderer)</span>
-<span class="ansi-green-fg">    673</span>         <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    674</span>             <span class="ansi-red-intense-fg ansi-bold"># use dviread. It sometimes returns a wrong descent.</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 675</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>dvifile <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>make_dvi<span class="ansi-yellow-intense-fg ansi-bold">(</span>tex<span class="ansi-yellow-intense-fg ansi-bold">,</span> fontsize<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    676</span>             dvi <span class="ansi-yellow-intense-fg ansi-bold">=</span> dviread<span class="ansi-yellow-intense-fg ansi-bold">.</span>Dvi<span class="ansi-yellow-intense-fg ansi-bold">(</span>dvifile<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-cyan-intense-fg ansi-bold">72</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span> dpi_fraction<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    677</span>             <span class="ansi-green-intense-fg ansi-bold">try</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/texmanager.py</span> in <span class="ansi-cyan-fg">make_dvi</span><span class="ansi-blue-intense-fg ansi-bold">(self, tex, fontsize)</span>
-<span class="ansi-green-fg">    420</span>                      <span class="ansi-blue-intense-fg ansi-bold">&#39;string:\n%s\nHere is the full report generated by &#39;</span>
-<span class="ansi-green-fg">    421</span>                      <span class="ansi-blue-intense-fg ansi-bold">&#39;LaTeX: \n\n&#39;</span> <span class="ansi-yellow-intense-fg ansi-bold">%</span> repr<span class="ansi-yellow-intense-fg ansi-bold">(</span>tex<span class="ansi-yellow-intense-fg ansi-bold">.</span>encode<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;unicode_escape&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-yellow-intense-fg ansi-bold">+</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 422</span><span class="ansi-yellow-intense-fg ansi-bold">                      report))
-</span><span class="ansi-green-fg">    423</span>             <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    424</span>                 mpl<span class="ansi-yellow-intense-fg ansi-bold">.</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">.</span>report<span class="ansi-yellow-intense-fg ansi-bold">(</span>report<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;debug&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-red-intense-fg ansi-bold">RuntimeError</span>: LaTeX was not able to process the following string:
-b&#39;lp&#39;
-Here is the full report generated by LaTeX: 
-
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian)
- restricted \write18 enabled.
-entering extended mode
-(./d4969ce036b5440f12cfe4e0e57f9efe.tex
-LaTeX2e &lt;2011/06/27&gt;
-Babel &lt;3.9h&gt; and hyphenation patterns for 2 languages loaded.
-(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
-Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
-(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo))
-
-! LaTeX Error: File `type1cm.sty&#39; not found.
-
-Type X to quit or &lt;RETURN&gt; to proceed,
-or enter new name. (Default extension: sty)
-
-Enter file name: 
-! Emergency stop.
-&lt;read *&gt; 
-         
-l.3 \renewcommand
-                 {\rmdefault}{pnc}^^M
-No pages of output.
-Transcript written on d4969ce036b5440f12cfe4e0e57f9efe.log.
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
 
 
-<div class="output_text output_subarea ">
-<pre>&lt;matplotlib.figure.Figure at 0x7f4759ccbf28&gt;</pre>
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+lqYxY8Zo69atKliwoC5evKi0tDSdPHnS6TVu7Lbj4+OjvXv3SpJ2796ttLQ0tWrVSsYYORwOXbp0
+SdWqVdPRo0dVq1atXKkV1+SX8NOuXTulpKTou+++c1kN77zzjoKDg9WoUaPbPm7r1q0KDQ3VgQMH
+nD4wQN6qVq2aoqOj/3Tcjc1Abty+sbX6hQsX1KpVK3Xt2lULFy6Uw+HQ/Pnz9dprr91+0dms8383
+fMz2sY888oiMMVq7dq1mz55t7Y+OjlZQUJD69++vLVu2qEiRIqpbt67i4+P13nvvac+ePXJ3d5cx
+RomJiU7rp/6obNmy6tq1qxYvXqyAgABr/+LFi/XMM89YV7ZyS2xsrH7//XdNnz7dKRSGhoaqdevW
+Lq0NeYvwA9hA69atNW/evJuOady4sQoVKqSVK1fe8sLYG/Xq1Uvnz5/Xt99+q6JFiyouLk61a9fO
+8VWksmXLZusPEty+hIQElStXztVl3FRCQoJiYmJ05coVxcfHu6xV7fTp01WqVKkch5/MjitevLjq
+1q2rggUL5naZuAXLly9XUFCQfHx8VLBgQR08eFBBQUGSrk0XO3HihNP44sWL69y5c9b2b7/95vR8
+bGysEhIS1KVLFyuQ3HjV549NDa5cuSJjTIYgXLNmTXl4eOjAgQNO07QOHjyotm3b3voXnIlixYop
+LCxMoaGhSk9PV1pampKSkhQbG6vIyEhJ0qpVq6x7EG3evFnVq1e3roqsWLFClSpVUvPmzSVJO3fu
+VExMjNP7y9y5czVixAjFxsZKutb44cKFC5o5c2amNZ06deqmne+MMSpQoIDGjx+fYdrb6tWr5evr
+6xR80tLSFB0dnenNnHNaG/IPur0Bd7mGDRtmaEkaGxvrNDf8ypUrGjt2rGJiYhQTE6MFCxY4jf/j
+m3JKSkq2X/t6N6Drn5Jdvnw503GHDx922o6Li1O9evWs+o8dO+b0umlpaerXr5+uXr2a7VqQPSdP
+nrzjw8/ixYs1fPhwubm56ZNPPnF1ObmiTp06WrVqVb5vL363mDp1qhITE+Xp6akBAwbogw8+0KVL
+lyRJs2bNyhBSGzdurNjYWJ05c0aSMnRA8/b2VtGiRbVmzRpJ136HLVu2zGlM+fLlrWlob7/9trWm
+8Y8fFnl4eGjo0KF6//33rd+JCxYs0MWLF/Xcc89Z47LzAdM333yjSpUqZTpd7rqIiAj169fPuqfP
+mjVr1LJlS/n6+kq6Fn4ee+wxbdu2TWXKlFGxYsUkXZtdMHLkSL355pvW+0d0dLTuv/9+p/N7enrq
+/fffV79+/SRJI0aM0JQpU7K8uXLp0qU1adKkLB+TJ0/WhAkTslzv065dO6d9GzduVHp6eqb3NMtp
+bcg/CD/AXW706NH66aef9O2330qSrl69qnHjxjnNYX/99dc1aNAg+fn5afz48RoyZIjTJ5t/fFO+
+3oQgO3x9fRUTE6O0tDRJ0ueff57puGXLlunIkSOSrjVJ2LZtm/XpYO/evVWlShVNnjzZGj9z5kyl
+p6dbb0K3sh4JmcsP096WLFmioUOHKigoSAsXLrT2r1+/XgEBAXJzc1NkZKRCQ0Pl6+urXr16WYu6
+szPmumnTpqlRo0YKCAiQv7+/Vq1aZT3XunVrnThxwlpT97e//U3StWmmjz76qB5++GG1aNFCTz75
+pNPC6cyO2717d6atkRMSEtSzZ081btxYTZo0UY8ePZSQkCDp2iLt68fMnTtX3bp1U+PGjRUSEqLT
+p0/n/jf9LnPo0CEFBATo+PHjmjt3rpo1a2Y9AgICtH37dmvsW2+9pZo1a6p+/foKCQlRiRIlMvwf
+CQ4OVr9+/eTn56fHH39cvr6+cjgcGjJkiKKiolS6dGl98sknWrp0qfz9/dWtWzeVL19ex48ft6Yk
+d+nSRZ6enmrRooVWr16tHj16KCIiQkOHDpUktWrVSgcPHtTrr7+ukJAQ+fv7y8/PTx9++KFWr16t
+MmXKSLp21eqPx5w+fVoDBgzQzp07FR4ebq13SU1N1cWLF2+67qhx48bavHmz6tevL3d3d61du1aP
+PfaY9XxiYqI2bNigBg0aqFWrVvLx8VGPHj301FNP6dVXX1WnTp0kXQsZS5YsUUJCgtO6I+nautSJ
+EydKkgYNGpTr99LZtm2bxowZo1WrVmnfvn1asWKFJGnSpEkaO3asihQpon/9618ZpirmRW1wkcxa
+wPHg8Vc8RKvrv8QPP/xggoKCjJubm6lXr54ZN25chjGrVq0yDz74oNXu+u2337aeCwkJMZ6enlaL
+6tDQUOPm5mZq165tIiMjjTHGLF261NSrV88EBgaa119/PdM6+vTpYypWrGgqVapkBg8ebIwx5uef
+fzbNmzc39erVM507dzYvv/yycXNzM82aNTO7d+82bdu2NSVLljTDhg0zvXr1MoGBgcbHx8eEh4c7
+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
+"
+>
 </div>
 
 </div>
@@ -23293,7 +23278,7 @@ Transcript written on d4969ce036b5440f12cfe4e0e57f9efe.log.
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[101]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
@@ -23325,518 +23310,302 @@ Transcript written on d4969ce036b5440f12cfe4e0e57f9efe.log.
 <div class="output">
 
 
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">RuntimeError</span>                              Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-101-ec3f3acd0dfe&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
-<span class="ansi-green-fg">     14</span> 
-<span class="ansi-green-fg">     15</span> 
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 16</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>ax<span class="ansi-yellow-intense-fg ansi-bold">.</span>plot<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">1</span><span class="ansi-yellow-intense-fg ansi-bold">,</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>marker<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">r&#39;$\circlearrowleft$&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>ms<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-cyan-intense-fg ansi-bold">50</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     17</span> ax<span class="ansi-yellow-intense-fg ansi-bold">.</span>plot<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">,</span><span class="ansi-cyan-intense-fg ansi-bold">.5</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>marker<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">r&#39;$\downarrow$&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>ms<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-cyan-intense-fg ansi-bold">100</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     18</span> 
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
 
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/__init__.py</span> in <span class="ansi-cyan-fg">inner</span><span class="ansi-blue-intense-fg ansi-bold">(ax, *args, **kwargs)</span>
-<span class="ansi-green-fg">   1810</span>                     warnings.warn(msg % (label_namer, func.__name__),
-<span class="ansi-green-fg">   1811</span>                                   RuntimeWarning, stacklevel=2)
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 1812</span><span class="ansi-yellow-intense-fg ansi-bold">             </span><span class="ansi-green-intense-fg ansi-bold">return</span> func<span class="ansi-yellow-intense-fg ansi-bold">(</span>ax<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   1813</span>         pre_doc <span class="ansi-yellow-intense-fg ansi-bold">=</span> inner<span class="ansi-yellow-intense-fg ansi-bold">.</span>__doc__
-<span class="ansi-green-fg">   1814</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> pre_doc <span class="ansi-green-intense-fg ansi-bold">is</span> <span class="ansi-green-intense-fg ansi-bold">None</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
 
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/axes/_axes.py</span> in <span class="ansi-cyan-fg">plot</span><span class="ansi-blue-intense-fg ansi-bold">(self, *args, **kwargs)</span>
-<span class="ansi-green-fg">   1422</span>             kwargs<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#39;color&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span> <span class="ansi-yellow-intense-fg ansi-bold">=</span> c
-<span class="ansi-green-fg">   1423</span> 
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 1424</span><span class="ansi-yellow-intense-fg ansi-bold">         </span><span class="ansi-green-intense-fg ansi-bold">for</span> line <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_get_lines<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">   1425</span>             self<span class="ansi-yellow-intense-fg ansi-bold">.</span>add_line<span class="ansi-yellow-intense-fg ansi-bold">(</span>line<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   1426</span>             lines<span class="ansi-yellow-intense-fg ansi-bold">.</span>append<span class="ansi-yellow-intense-fg ansi-bold">(</span>line<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/axes/_base.py</span> in <span class="ansi-cyan-fg">_grab_next_args</span><span class="ansi-blue-intense-fg ansi-bold">(self, *args, **kwargs)</span>
-<span class="ansi-green-fg">    384</span>                 <span class="ansi-green-intense-fg ansi-bold">return</span>
-<span class="ansi-green-fg">    385</span>             <span class="ansi-green-intense-fg ansi-bold">if</span> len<span class="ansi-yellow-intense-fg ansi-bold">(</span>remaining<span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-yellow-intense-fg ansi-bold">&lt;=</span> <span class="ansi-cyan-intense-fg ansi-bold">3</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 386</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span><span class="ansi-green-intense-fg ansi-bold">for</span> seg <span class="ansi-green-intense-fg ansi-bold">in</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_plot_args<span class="ansi-yellow-intense-fg ansi-bold">(</span>remaining<span class="ansi-yellow-intense-fg ansi-bold">,</span> kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    387</span>                     <span class="ansi-green-intense-fg ansi-bold">yield</span> seg
-<span class="ansi-green-fg">    388</span>                 <span class="ansi-green-intense-fg ansi-bold">return</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/axes/_base.py</span> in <span class="ansi-cyan-fg">_plot_args</span><span class="ansi-blue-intense-fg ansi-bold">(self, tup, kwargs)</span>
-<span class="ansi-green-fg">    372</span>         ncx<span class="ansi-yellow-intense-fg ansi-bold">,</span> ncy <span class="ansi-yellow-intense-fg ansi-bold">=</span> x<span class="ansi-yellow-intense-fg ansi-bold">.</span>shape<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">1</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> y<span class="ansi-yellow-intense-fg ansi-bold">.</span>shape<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-cyan-intense-fg ansi-bold">1</span><span class="ansi-yellow-intense-fg ansi-bold">]</span>
-<span class="ansi-green-fg">    373</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> j <span class="ansi-green-intense-fg ansi-bold">in</span> xrange<span class="ansi-yellow-intense-fg ansi-bold">(</span>max<span class="ansi-yellow-intense-fg ansi-bold">(</span>ncx<span class="ansi-yellow-intense-fg ansi-bold">,</span> ncy<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 374</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>seg <span class="ansi-yellow-intense-fg ansi-bold">=</span> func<span class="ansi-yellow-intense-fg ansi-bold">(</span>x<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-yellow-intense-fg ansi-bold">:</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> j <span class="ansi-yellow-intense-fg ansi-bold">%</span> ncx<span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> y<span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-yellow-intense-fg ansi-bold">:</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> j <span class="ansi-yellow-intense-fg ansi-bold">%</span> ncy<span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> kw<span class="ansi-yellow-intense-fg ansi-bold">,</span> kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    375</span>             ret<span class="ansi-yellow-intense-fg ansi-bold">.</span>append<span class="ansi-yellow-intense-fg ansi-bold">(</span>seg<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    376</span>         <span class="ansi-green-intense-fg ansi-bold">return</span> ret
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/axes/_base.py</span> in <span class="ansi-cyan-fg">_makeline</span><span class="ansi-blue-intense-fg ansi-bold">(self, x, y, kw, kwargs)</span>
-<span class="ansi-green-fg">    279</span>         self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_setdefaults<span class="ansi-yellow-intense-fg ansi-bold">(</span>default_dict<span class="ansi-yellow-intense-fg ansi-bold">,</span> kw<span class="ansi-yellow-intense-fg ansi-bold">,</span> kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    280</span>         seg <span class="ansi-yellow-intense-fg ansi-bold">=</span> mlines<span class="ansi-yellow-intense-fg ansi-bold">.</span>Line2D<span class="ansi-yellow-intense-fg ansi-bold">(</span>x<span class="ansi-yellow-intense-fg ansi-bold">,</span> y<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kw<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 281</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>set_lineprops<span class="ansi-yellow-intense-fg ansi-bold">(</span>seg<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    282</span>         <span class="ansi-green-intense-fg ansi-bold">return</span> seg
-<span class="ansi-green-fg">    283</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/axes/_base.py</span> in <span class="ansi-cyan-fg">set_lineprops</span><span class="ansi-blue-intense-fg ansi-bold">(self, line, **kwargs)</span>
-<span class="ansi-green-fg">    187</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> set_lineprops<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> line<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    188</span>         <span class="ansi-green-intense-fg ansi-bold">assert</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>command <span class="ansi-yellow-intense-fg ansi-bold">==</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;plot&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;set_lineprops only works with &#34;plot&#34;&#39;</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 189</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>line<span class="ansi-yellow-intense-fg ansi-bold">.</span>set<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    190</span> 
-<span class="ansi-green-fg">    191</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> set_patchprops<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> fill_poly<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/artist.py</span> in <span class="ansi-cyan-fg">set</span><span class="ansi-blue-intense-fg ansi-bold">(self, **kwargs)</span>
-<span class="ansi-green-fg">    935</span>                raise TypeError(&#39;There is no %s property &#34;%s&#34;&#39; %
-<span class="ansi-green-fg">    936</span>                                (self.__class__.__name__, k))
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 937</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>ret<span class="ansi-yellow-intense-fg ansi-bold">.</span>extend<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">[</span>func<span class="ansi-yellow-intense-fg ansi-bold">(</span>v<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    938</span>         <span class="ansi-green-intense-fg ansi-bold">return</span> ret
-<span class="ansi-green-fg">    939</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/lines.py</span> in <span class="ansi-cyan-fg">set_marker</span><span class="ansi-blue-intense-fg ansi-bold">(self, marker)</span>
-<span class="ansi-green-fg">   1069</span> 
-<span class="ansi-green-fg">   1070</span>         &#34;&#34;&#34;
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 1071</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_marker<span class="ansi-yellow-intense-fg ansi-bold">.</span>set_marker<span class="ansi-yellow-intense-fg ansi-bold">(</span>marker<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   1072</span>         self<span class="ansi-yellow-intense-fg ansi-bold">.</span>stale <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-green-intense-fg ansi-bold">True</span>
-<span class="ansi-green-fg">   1073</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/markers.py</span> in <span class="ansi-cyan-fg">set_marker</span><span class="ansi-blue-intense-fg ansi-bold">(self, marker)</span>
-<span class="ansi-green-fg">    253</span> 
-<span class="ansi-green-fg">    254</span>         self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_marker <span class="ansi-yellow-intense-fg ansi-bold">=</span> marker
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 255</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_recache<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    256</span> 
-<span class="ansi-green-fg">    257</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> get_path<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/markers.py</span> in <span class="ansi-cyan-fg">_recache</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
-<span class="ansi-green-fg">    191</span>         self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_capstyle <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;butt&#39;</span>
-<span class="ansi-green-fg">    192</span>         self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_filled <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-green-intense-fg ansi-bold">True</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 193</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_marker_function<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    194</span> 
-<span class="ansi-green-fg">    195</span>     <span class="ansi-green-intense-fg ansi-bold">if</span> six<span class="ansi-yellow-intense-fg ansi-bold">.</span>PY3<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/markers.py</span> in <span class="ansi-cyan-fg">_set_mathtext_path</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
-<span class="ansi-green-fg">    329</span>         props <span class="ansi-yellow-intense-fg ansi-bold">=</span> FontProperties<span class="ansi-yellow-intense-fg ansi-bold">(</span>size<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-cyan-intense-fg ansi-bold">1.0</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    330</span>         text = TextPath(xy=(0, 0), s=self.get_marker(), fontproperties=props,
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 331</span><span class="ansi-yellow-intense-fg ansi-bold">                         usetex=rcParams[&#39;text.usetex&#39;])
-</span><span class="ansi-green-fg">    332</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> len<span class="ansi-yellow-intense-fg ansi-bold">(</span>text<span class="ansi-yellow-intense-fg ansi-bold">.</span>vertices<span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-yellow-intense-fg ansi-bold">==</span> <span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    333</span>             <span class="ansi-green-intense-fg ansi-bold">return</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/textpath.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-intense-fg ansi-bold">(self, xy, s, size, prop, _interpolation_steps, usetex, *kl, **kwargs)</span>
-<span class="ansi-green-fg">    443</span>         self._vertices, self._codes = self.text_get_vertices_codes(
-<span class="ansi-green-fg">    444</span>                                             prop<span class="ansi-yellow-intense-fg ansi-bold">,</span> s<span class="ansi-yellow-intense-fg ansi-bold">,</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 445</span><span class="ansi-yellow-intense-fg ansi-bold">                                             usetex=usetex)
-</span><span class="ansi-green-fg">    446</span> 
-<span class="ansi-green-fg">    447</span>         self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_should_simplify <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-green-intense-fg ansi-bold">False</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/textpath.py</span> in <span class="ansi-cyan-fg">text_get_vertices_codes</span><span class="ansi-blue-intense-fg ansi-bold">(self, prop, s, usetex)</span>
-<span class="ansi-green-fg">    523</span> 
-<span class="ansi-green-fg">    524</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> usetex<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 525</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>verts<span class="ansi-yellow-intense-fg ansi-bold">,</span> codes <span class="ansi-yellow-intense-fg ansi-bold">=</span> text_to_path<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_text_path<span class="ansi-yellow-intense-fg ansi-bold">(</span>prop<span class="ansi-yellow-intense-fg ansi-bold">,</span> s<span class="ansi-yellow-intense-fg ansi-bold">,</span> usetex<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">True</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    526</span>         <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    527</span>             clean_line<span class="ansi-yellow-intense-fg ansi-bold">,</span> ismath <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>is_math_text<span class="ansi-yellow-intense-fg ansi-bold">(</span>s<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/textpath.py</span> in <span class="ansi-cyan-fg">get_text_path</span><span class="ansi-blue-intense-fg ansi-bold">(self, prop, s, ismath, usetex)</span>
-<span class="ansi-green-fg">    148</span>                                                     prop, s)
-<span class="ansi-green-fg">    149</span>         <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 150</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>glyph_info<span class="ansi-yellow-intense-fg ansi-bold">,</span> glyph_map<span class="ansi-yellow-intense-fg ansi-bold">,</span> rects <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_glyphs_tex<span class="ansi-yellow-intense-fg ansi-bold">(</span>prop<span class="ansi-yellow-intense-fg ansi-bold">,</span> s<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    151</span> 
-<span class="ansi-green-fg">    152</span>         verts<span class="ansi-yellow-intense-fg ansi-bold">,</span> codes <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-yellow-intense-fg ansi-bold">]</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/textpath.py</span> in <span class="ansi-cyan-fg">get_glyphs_tex</span><span class="ansi-blue-intense-fg ansi-bold">(self, prop, s, glyph_map, return_new_glyphs_only)</span>
-<span class="ansi-green-fg">    312</span>             dvi <span class="ansi-yellow-intense-fg ansi-bold">=</span> dviread<span class="ansi-yellow-intense-fg ansi-bold">.</span>DviFromFileLike<span class="ansi-yellow-intense-fg ansi-bold">(</span>dvifilelike<span class="ansi-yellow-intense-fg ansi-bold">,</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>DPI<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    313</span>         <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 314</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>dvifile <span class="ansi-yellow-intense-fg ansi-bold">=</span> texmanager<span class="ansi-yellow-intense-fg ansi-bold">.</span>make_dvi<span class="ansi-yellow-intense-fg ansi-bold">(</span>s<span class="ansi-yellow-intense-fg ansi-bold">,</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>FONT_SCALE<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    315</span>             dvi <span class="ansi-yellow-intense-fg ansi-bold">=</span> dviread<span class="ansi-yellow-intense-fg ansi-bold">.</span>Dvi<span class="ansi-yellow-intense-fg ansi-bold">(</span>dvifile<span class="ansi-yellow-intense-fg ansi-bold">,</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>DPI<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    316</span>         <span class="ansi-green-intense-fg ansi-bold">try</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/texmanager.py</span> in <span class="ansi-cyan-fg">make_dvi</span><span class="ansi-blue-intense-fg ansi-bold">(self, tex, fontsize)</span>
-<span class="ansi-green-fg">    420</span>                      <span class="ansi-blue-intense-fg ansi-bold">&#39;string:\n%s\nHere is the full report generated by &#39;</span>
-<span class="ansi-green-fg">    421</span>                      <span class="ansi-blue-intense-fg ansi-bold">&#39;LaTeX: \n\n&#39;</span> <span class="ansi-yellow-intense-fg ansi-bold">%</span> repr<span class="ansi-yellow-intense-fg ansi-bold">(</span>tex<span class="ansi-yellow-intense-fg ansi-bold">.</span>encode<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;unicode_escape&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-yellow-intense-fg ansi-bold">+</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 422</span><span class="ansi-yellow-intense-fg ansi-bold">                      report))
-</span><span class="ansi-green-fg">    423</span>             <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    424</span>                 mpl<span class="ansi-yellow-intense-fg ansi-bold">.</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">.</span>report<span class="ansi-yellow-intense-fg ansi-bold">(</span>report<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;debug&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-red-intense-fg ansi-bold">RuntimeError</span>: LaTeX was not able to process the following string:
-b&#39;$\\\\circlearrowleft$&#39;
-Here is the full report generated by LaTeX: 
-
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian)
- restricted \write18 enabled.
-entering extended mode
-(./4381b5d1fc97d373cb0ae275acd500e3.tex
-LaTeX2e &lt;2011/06/27&gt;
-Babel &lt;3.9h&gt; and hyphenation patterns for 2 languages loaded.
-(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
-Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
-(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo))
-
-! LaTeX Error: File `type1cm.sty&#39; not found.
-
-Type X to quit or &lt;RETURN&gt; to proceed,
-or enter new name. (Default extension: sty)
-
-Enter file name: 
-! Emergency stop.
-&lt;read *&gt; 
-         
-l.3 \renewcommand
-                 {\rmdefault}{pnc}^^M
-No pages of output.
-Transcript written on 4381b5d1fc97d373cb0ae275acd500e3.log.
-</pre>
-</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>[&lt;matplotlib.lines.Line2D at 0x7f5a12ce1a20&gt;]</pre>
 </div>
 
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Error in callback &lt;function install_repl_displayhook.&lt;locals&gt;.post_execute at 0x7f475bb78a60&gt; (for post_execute):
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">RuntimeError</span>                              Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/pyplot.py</span> in <span class="ansi-cyan-fg">post_execute</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
-<span class="ansi-green-fg">    145</span>             <span class="ansi-green-intense-fg ansi-bold">def</span> post_execute<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    146</span>                 <span class="ansi-green-intense-fg ansi-bold">if</span> matplotlib<span class="ansi-yellow-intense-fg ansi-bold">.</span>is_interactive<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 147</span><span class="ansi-yellow-intense-fg ansi-bold">                     </span>draw_all<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    148</span> 
-<span class="ansi-green-fg">    149</span>             <span class="ansi-red-intense-fg ansi-bold"># IPython &gt;= 2</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/_pylab_helpers.py</span> in <span class="ansi-cyan-fg">draw_all</span><span class="ansi-blue-intense-fg ansi-bold">(cls, force)</span>
-<span class="ansi-green-fg">    148</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> f_mgr <span class="ansi-green-intense-fg ansi-bold">in</span> cls<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_all_fig_managers<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    149</span>             <span class="ansi-green-intense-fg ansi-bold">if</span> force <span class="ansi-green-intense-fg ansi-bold">or</span> f_mgr<span class="ansi-yellow-intense-fg ansi-bold">.</span>canvas<span class="ansi-yellow-intense-fg ansi-bold">.</span>figure<span class="ansi-yellow-intense-fg ansi-bold">.</span>stale<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 150</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span>f_mgr<span class="ansi-yellow-intense-fg ansi-bold">.</span>canvas<span class="ansi-yellow-intense-fg ansi-bold">.</span>draw_idle<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    151</span> 
-<span class="ansi-green-fg">    152</span> atexit<span class="ansi-yellow-intense-fg ansi-bold">.</span>register<span class="ansi-yellow-intense-fg ansi-bold">(</span>Gcf<span class="ansi-yellow-intense-fg ansi-bold">.</span>destroy_all<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/backend_bases.py</span> in <span class="ansi-cyan-fg">draw_idle</span><span class="ansi-blue-intense-fg ansi-bold">(self, *args, **kwargs)</span>
-<span class="ansi-green-fg">   2024</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> <span class="ansi-green-intense-fg ansi-bold">not</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_is_idle_drawing<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">   2025</span>             <span class="ansi-green-intense-fg ansi-bold">with</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_idle_draw_cntx<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 2026</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>draw<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   2027</span> 
-<span class="ansi-green-fg">   2028</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> draw_cursor<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> event<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/contextlib.py</span> in <span class="ansi-cyan-fg">__exit__</span><span class="ansi-blue-intense-fg ansi-bold">(self, type, value, traceback)</span>
-<span class="ansi-green-fg">     75</span>                 value <span class="ansi-yellow-intense-fg ansi-bold">=</span> type<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     76</span>             <span class="ansi-green-intense-fg ansi-bold">try</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 77</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>gen<span class="ansi-yellow-intense-fg ansi-bold">.</span>throw<span class="ansi-yellow-intense-fg ansi-bold">(</span>type<span class="ansi-yellow-intense-fg ansi-bold">,</span> value<span class="ansi-yellow-intense-fg ansi-bold">,</span> traceback<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     78</span>                 <span class="ansi-green-intense-fg ansi-bold">raise</span> RuntimeError<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;generator didn&#39;t stop after throw()&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     79</span>             <span class="ansi-green-intense-fg ansi-bold">except</span> StopIteration <span class="ansi-green-intense-fg ansi-bold">as</span> exc<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/backend_bases.py</span> in <span class="ansi-cyan-fg">_idle_draw_cntx</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
-<span class="ansi-green-fg">   1698</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> _idle_draw_cntx<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">   1699</span>         self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_is_idle_drawing <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-green-intense-fg ansi-bold">True</span>
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 1700</span><span class="ansi-yellow-intense-fg ansi-bold">         </span><span class="ansi-green-intense-fg ansi-bold">yield</span>
-<span class="ansi-green-fg">   1701</span>         self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_is_idle_drawing <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-green-intense-fg ansi-bold">False</span>
-<span class="ansi-green-fg">   1702</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/backend_bases.py</span> in <span class="ansi-cyan-fg">draw_idle</span><span class="ansi-blue-intense-fg ansi-bold">(self, *args, **kwargs)</span>
-<span class="ansi-green-fg">   2024</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> <span class="ansi-green-intense-fg ansi-bold">not</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_is_idle_drawing<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">   2025</span>             <span class="ansi-green-intense-fg ansi-bold">with</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_idle_draw_cntx<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 2026</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>draw<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   2027</span> 
-<span class="ansi-green-fg">   2028</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> draw_cursor<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> event<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/backends/backend_agg.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
-<span class="ansi-green-fg">    472</span> 
-<span class="ansi-green-fg">    473</span>         <span class="ansi-green-intense-fg ansi-bold">try</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 474</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>figure<span class="ansi-yellow-intense-fg ansi-bold">.</span>draw<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    475</span>         <span class="ansi-green-intense-fg ansi-bold">finally</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    476</span>             RendererAgg<span class="ansi-yellow-intense-fg ansi-bold">.</span>lock<span class="ansi-yellow-intense-fg ansi-bold">.</span>release<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/artist.py</span> in <span class="ansi-cyan-fg">draw_wrapper</span><span class="ansi-blue-intense-fg ansi-bold">(artist, renderer, *args, **kwargs)</span>
-<span class="ansi-green-fg">     59</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> draw_wrapper<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">     60</span>         before<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 61</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>draw<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     62</span>         after<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     63</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/figure.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-intense-fg ansi-bold">(self, renderer)</span>
-<span class="ansi-green-fg">   1157</span>         dsu<span class="ansi-yellow-intense-fg ansi-bold">.</span>sort<span class="ansi-yellow-intense-fg ansi-bold">(</span>key<span class="ansi-yellow-intense-fg ansi-bold">=</span>itemgetter<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   1158</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> zorder<span class="ansi-yellow-intense-fg ansi-bold">,</span> a<span class="ansi-yellow-intense-fg ansi-bold">,</span> func<span class="ansi-yellow-intense-fg ansi-bold">,</span> args <span class="ansi-green-intense-fg ansi-bold">in</span> dsu<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 1159</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>func<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   1160</span> 
-<span class="ansi-green-fg">   1161</span>         renderer<span class="ansi-yellow-intense-fg ansi-bold">.</span>close_group<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;figure&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/artist.py</span> in <span class="ansi-cyan-fg">draw_wrapper</span><span class="ansi-blue-intense-fg ansi-bold">(artist, renderer, *args, **kwargs)</span>
-<span class="ansi-green-fg">     59</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> draw_wrapper<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">     60</span>         before<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 61</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>draw<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     62</span>         after<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     63</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/axes/_base.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-intense-fg ansi-bold">(self, renderer, inframe)</span>
-<span class="ansi-green-fg">   2322</span> 
-<span class="ansi-green-fg">   2323</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> zorder<span class="ansi-yellow-intense-fg ansi-bold">,</span> a <span class="ansi-green-intense-fg ansi-bold">in</span> dsu<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 2324</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>a<span class="ansi-yellow-intense-fg ansi-bold">.</span>draw<span class="ansi-yellow-intense-fg ansi-bold">(</span>renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   2325</span> 
-<span class="ansi-green-fg">   2326</span>         renderer<span class="ansi-yellow-intense-fg ansi-bold">.</span>close_group<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;axes&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/artist.py</span> in <span class="ansi-cyan-fg">draw_wrapper</span><span class="ansi-blue-intense-fg ansi-bold">(artist, renderer, *args, **kwargs)</span>
-<span class="ansi-green-fg">     59</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> draw_wrapper<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">     60</span>         before<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 61</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>draw<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     62</span>         after<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     63</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/text.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-intense-fg ansi-bold">(self, renderer)</span>
-<span class="ansi-green-fg">    794</span>                     textrenderer.draw_text(gc, x, y, clean_line,
-<span class="ansi-green-fg">    795</span>                                            textobj<span class="ansi-yellow-intense-fg ansi-bold">.</span>_fontproperties<span class="ansi-yellow-intense-fg ansi-bold">,</span> angle<span class="ansi-yellow-intense-fg ansi-bold">,</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 796</span><span class="ansi-yellow-intense-fg ansi-bold">                                            ismath=ismath, mtext=mtext)
-</span><span class="ansi-green-fg">    797</span> 
-<span class="ansi-green-fg">    798</span>         gc<span class="ansi-yellow-intense-fg ansi-bold">.</span>restore<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/contextlib.py</span> in <span class="ansi-cyan-fg">__exit__</span><span class="ansi-blue-intense-fg ansi-bold">(self, type, value, traceback)</span>
-<span class="ansi-green-fg">     75</span>                 value <span class="ansi-yellow-intense-fg ansi-bold">=</span> type<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     76</span>             <span class="ansi-green-intense-fg ansi-bold">try</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 77</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>gen<span class="ansi-yellow-intense-fg ansi-bold">.</span>throw<span class="ansi-yellow-intense-fg ansi-bold">(</span>type<span class="ansi-yellow-intense-fg ansi-bold">,</span> value<span class="ansi-yellow-intense-fg ansi-bold">,</span> traceback<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     78</span>                 <span class="ansi-green-intense-fg ansi-bold">raise</span> RuntimeError<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;generator didn&#39;t stop after throw()&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     79</span>             <span class="ansi-green-intense-fg ansi-bold">except</span> StopIteration <span class="ansi-green-intense-fg ansi-bold">as</span> exc<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/text.py</span> in <span class="ansi-cyan-fg">_wrap_text</span><span class="ansi-blue-intense-fg ansi-bold">(textobj)</span>
-<span class="ansi-green-fg">     58</span>             textobj<span class="ansi-yellow-intense-fg ansi-bold">.</span>set_text<span class="ansi-yellow-intense-fg ansi-bold">(</span>old_text<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     59</span>     <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 60</span><span class="ansi-yellow-intense-fg ansi-bold">         </span><span class="ansi-green-intense-fg ansi-bold">yield</span> textobj
-<span class="ansi-green-fg">     61</span> 
-<span class="ansi-green-fg">     62</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/text.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-intense-fg ansi-bold">(self, renderer)</span>
-<span class="ansi-green-fg">    747</span> 
-<span class="ansi-green-fg">    748</span>         <span class="ansi-green-intense-fg ansi-bold">with</span> _wrap_text<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-green-intense-fg ansi-bold">as</span> textobj<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 749</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>bbox<span class="ansi-yellow-intense-fg ansi-bold">,</span> info<span class="ansi-yellow-intense-fg ansi-bold">,</span> descent <span class="ansi-yellow-intense-fg ansi-bold">=</span> textobj<span class="ansi-yellow-intense-fg ansi-bold">.</span>_get_layout<span class="ansi-yellow-intense-fg ansi-bold">(</span>renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    750</span>             trans <span class="ansi-yellow-intense-fg ansi-bold">=</span> textobj<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_transform<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    751</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/text.py</span> in <span class="ansi-cyan-fg">_get_layout</span><span class="ansi-blue-intense-fg ansi-bold">(self, renderer)</span>
-<span class="ansi-green-fg">    350</span>         tmp, lp_h, lp_bl = renderer.get_text_width_height_descent(&#39;lp&#39;,
-<span class="ansi-green-fg">    351</span>                                                          self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_fontproperties<span class="ansi-yellow-intense-fg ansi-bold">,</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 352</span><span class="ansi-yellow-intense-fg ansi-bold">                                                          ismath=False)
-</span><span class="ansi-green-fg">    353</span>         offsety <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-yellow-intense-fg ansi-bold">(</span>lp_h <span class="ansi-yellow-intense-fg ansi-bold">-</span> lp_bl<span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_linespacing
-<span class="ansi-green-fg">    354</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/backends/backend_agg.py</span> in <span class="ansi-cyan-fg">get_text_width_height_descent</span><span class="ansi-blue-intense-fg ansi-bold">(self, s, prop, ismath)</span>
-<span class="ansi-green-fg">    227</span>             fontsize <span class="ansi-yellow-intense-fg ansi-bold">=</span> prop<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_size_in_points<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    228</span>             w, h, d = texmanager.get_text_width_height_descent(s, fontsize,
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 229</span><span class="ansi-yellow-intense-fg ansi-bold">                                                                renderer=self)
-</span><span class="ansi-green-fg">    230</span>             <span class="ansi-green-intense-fg ansi-bold">return</span> w<span class="ansi-yellow-intense-fg ansi-bold">,</span> h<span class="ansi-yellow-intense-fg ansi-bold">,</span> d
-<span class="ansi-green-fg">    231</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/texmanager.py</span> in <span class="ansi-cyan-fg">get_text_width_height_descent</span><span class="ansi-blue-intense-fg ansi-bold">(self, tex, fontsize, renderer)</span>
-<span class="ansi-green-fg">    673</span>         <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    674</span>             <span class="ansi-red-intense-fg ansi-bold"># use dviread. It sometimes returns a wrong descent.</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 675</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>dvifile <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>make_dvi<span class="ansi-yellow-intense-fg ansi-bold">(</span>tex<span class="ansi-yellow-intense-fg ansi-bold">,</span> fontsize<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    676</span>             dvi <span class="ansi-yellow-intense-fg ansi-bold">=</span> dviread<span class="ansi-yellow-intense-fg ansi-bold">.</span>Dvi<span class="ansi-yellow-intense-fg ansi-bold">(</span>dvifile<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-cyan-intense-fg ansi-bold">72</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span> dpi_fraction<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    677</span>             <span class="ansi-green-intense-fg ansi-bold">try</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/texmanager.py</span> in <span class="ansi-cyan-fg">make_dvi</span><span class="ansi-blue-intense-fg ansi-bold">(self, tex, fontsize)</span>
-<span class="ansi-green-fg">    420</span>                      <span class="ansi-blue-intense-fg ansi-bold">&#39;string:\n%s\nHere is the full report generated by &#39;</span>
-<span class="ansi-green-fg">    421</span>                      <span class="ansi-blue-intense-fg ansi-bold">&#39;LaTeX: \n\n&#39;</span> <span class="ansi-yellow-intense-fg ansi-bold">%</span> repr<span class="ansi-yellow-intense-fg ansi-bold">(</span>tex<span class="ansi-yellow-intense-fg ansi-bold">.</span>encode<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;unicode_escape&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-yellow-intense-fg ansi-bold">+</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 422</span><span class="ansi-yellow-intense-fg ansi-bold">                      report))
-</span><span class="ansi-green-fg">    423</span>             <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    424</span>                 mpl<span class="ansi-yellow-intense-fg ansi-bold">.</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">.</span>report<span class="ansi-yellow-intense-fg ansi-bold">(</span>report<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;debug&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-red-intense-fg ansi-bold">RuntimeError</span>: LaTeX was not able to process the following string:
-b&#39;lp&#39;
-Here is the full report generated by LaTeX: 
-
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian)
- restricted \write18 enabled.
-entering extended mode
-(./d4969ce036b5440f12cfe4e0e57f9efe.tex
-LaTeX2e &lt;2011/06/27&gt;
-Babel &lt;3.9h&gt; and hyphenation patterns for 2 languages loaded.
-(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
-Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
-(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo))
-
-! LaTeX Error: File `type1cm.sty&#39; not found.
-
-Type X to quit or &lt;RETURN&gt; to proceed,
-or enter new name. (Default extension: sty)
-
-Enter file name: 
-! Emergency stop.
-&lt;read *&gt; 
-         
-l.3 \renewcommand
-                 {\rmdefault}{pnc}^^M
-No pages of output.
-Transcript written on d4969ce036b5440f12cfe4e0e57f9efe.log.
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">RuntimeError</span>                              Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/IPython/core/formatters.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-intense-fg ansi-bold">(self, obj)</span>
-<span class="ansi-green-fg">    337</span>                 <span class="ansi-green-intense-fg ansi-bold">pass</span>
-<span class="ansi-green-fg">    338</span>             <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 339</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span><span class="ansi-green-intense-fg ansi-bold">return</span> printer<span class="ansi-yellow-intense-fg ansi-bold">(</span>obj<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    340</span>             <span class="ansi-red-intense-fg ansi-bold"># Finally look for special method names</span>
-<span class="ansi-green-fg">    341</span>             method <span class="ansi-yellow-intense-fg ansi-bold">=</span> _safe_get_formatter_method<span class="ansi-yellow-intense-fg ansi-bold">(</span>obj<span class="ansi-yellow-intense-fg ansi-bold">,</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>print_method<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/IPython/core/pylabtools.py</span> in <span class="ansi-cyan-fg">&lt;lambda&gt;</span><span class="ansi-blue-intense-fg ansi-bold">(fig)</span>
-<span class="ansi-green-fg">    224</span> 
-<span class="ansi-green-fg">    225</span>     <span class="ansi-green-intense-fg ansi-bold">if</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;png&#39;</span> <span class="ansi-green-intense-fg ansi-bold">in</span> formats<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 226</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>png_formatter<span class="ansi-yellow-intense-fg ansi-bold">.</span>for_type<span class="ansi-yellow-intense-fg ansi-bold">(</span>Figure<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-green-intense-fg ansi-bold">lambda</span> fig<span class="ansi-yellow-intense-fg ansi-bold">:</span> print_figure<span class="ansi-yellow-intense-fg ansi-bold">(</span>fig<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;png&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    227</span>     <span class="ansi-green-intense-fg ansi-bold">if</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;retina&#39;</span> <span class="ansi-green-intense-fg ansi-bold">in</span> formats <span class="ansi-green-intense-fg ansi-bold">or</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;png2x&#39;</span> <span class="ansi-green-intense-fg ansi-bold">in</span> formats<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    228</span>         png_formatter<span class="ansi-yellow-intense-fg ansi-bold">.</span>for_type<span class="ansi-yellow-intense-fg ansi-bold">(</span>Figure<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-green-intense-fg ansi-bold">lambda</span> fig<span class="ansi-yellow-intense-fg ansi-bold">:</span> retina_figure<span class="ansi-yellow-intense-fg ansi-bold">(</span>fig<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/IPython/core/pylabtools.py</span> in <span class="ansi-cyan-fg">print_figure</span><span class="ansi-blue-intense-fg ansi-bold">(fig, fmt, bbox_inches, **kwargs)</span>
-<span class="ansi-green-fg">    115</span> 
-<span class="ansi-green-fg">    116</span>     bytes_io <span class="ansi-yellow-intense-fg ansi-bold">=</span> BytesIO<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 117</span><span class="ansi-yellow-intense-fg ansi-bold">     </span>fig<span class="ansi-yellow-intense-fg ansi-bold">.</span>canvas<span class="ansi-yellow-intense-fg ansi-bold">.</span>print_figure<span class="ansi-yellow-intense-fg ansi-bold">(</span>bytes_io<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kw<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    118</span>     data <span class="ansi-yellow-intense-fg ansi-bold">=</span> bytes_io<span class="ansi-yellow-intense-fg ansi-bold">.</span>getvalue<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    119</span>     <span class="ansi-green-intense-fg ansi-bold">if</span> fmt <span class="ansi-yellow-intense-fg ansi-bold">==</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;svg&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/backend_bases.py</span> in <span class="ansi-cyan-fg">print_figure</span><span class="ansi-blue-intense-fg ansi-bold">(self, filename, dpi, facecolor, edgecolor, orientation, format, **kwargs)</span>
-<span class="ansi-green-fg">   2178</span>                     orientation<span class="ansi-yellow-intense-fg ansi-bold">=</span>orientation<span class="ansi-yellow-intense-fg ansi-bold">,</span>
-<span class="ansi-green-fg">   2179</span>                     dryrun<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">True</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 2180</span><span class="ansi-yellow-intense-fg ansi-bold">                     **kwargs)
-</span><span class="ansi-green-fg">   2181</span>                 renderer <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>figure<span class="ansi-yellow-intense-fg ansi-bold">.</span>_cachedRenderer
-<span class="ansi-green-fg">   2182</span>                 bbox_inches <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>figure<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_tightbbox<span class="ansi-yellow-intense-fg ansi-bold">(</span>renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/backends/backend_agg.py</span> in <span class="ansi-cyan-fg">print_png</span><span class="ansi-blue-intense-fg ansi-bold">(self, filename_or_obj, *args, **kwargs)</span>
-<span class="ansi-green-fg">    525</span> 
-<span class="ansi-green-fg">    526</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> print_png<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">,</span> filename_or_obj<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 527</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>FigureCanvasAgg<span class="ansi-yellow-intense-fg ansi-bold">.</span>draw<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    528</span>         renderer <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_renderer<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    529</span>         original_dpi <span class="ansi-yellow-intense-fg ansi-bold">=</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">.</span>dpi
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/backends/backend_agg.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-intense-fg ansi-bold">(self)</span>
-<span class="ansi-green-fg">    472</span> 
-<span class="ansi-green-fg">    473</span>         <span class="ansi-green-intense-fg ansi-bold">try</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 474</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>figure<span class="ansi-yellow-intense-fg ansi-bold">.</span>draw<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    475</span>         <span class="ansi-green-intense-fg ansi-bold">finally</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    476</span>             RendererAgg<span class="ansi-yellow-intense-fg ansi-bold">.</span>lock<span class="ansi-yellow-intense-fg ansi-bold">.</span>release<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/artist.py</span> in <span class="ansi-cyan-fg">draw_wrapper</span><span class="ansi-blue-intense-fg ansi-bold">(artist, renderer, *args, **kwargs)</span>
-<span class="ansi-green-fg">     59</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> draw_wrapper<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">     60</span>         before<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 61</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>draw<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     62</span>         after<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     63</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/figure.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-intense-fg ansi-bold">(self, renderer)</span>
-<span class="ansi-green-fg">   1157</span>         dsu<span class="ansi-yellow-intense-fg ansi-bold">.</span>sort<span class="ansi-yellow-intense-fg ansi-bold">(</span>key<span class="ansi-yellow-intense-fg ansi-bold">=</span>itemgetter<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-cyan-intense-fg ansi-bold">0</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   1158</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> zorder<span class="ansi-yellow-intense-fg ansi-bold">,</span> a<span class="ansi-yellow-intense-fg ansi-bold">,</span> func<span class="ansi-yellow-intense-fg ansi-bold">,</span> args <span class="ansi-green-intense-fg ansi-bold">in</span> dsu<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 1159</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>func<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   1160</span> 
-<span class="ansi-green-fg">   1161</span>         renderer<span class="ansi-yellow-intense-fg ansi-bold">.</span>close_group<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;figure&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/artist.py</span> in <span class="ansi-cyan-fg">draw_wrapper</span><span class="ansi-blue-intense-fg ansi-bold">(artist, renderer, *args, **kwargs)</span>
-<span class="ansi-green-fg">     59</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> draw_wrapper<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">     60</span>         before<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 61</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>draw<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     62</span>         after<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     63</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/axes/_base.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-intense-fg ansi-bold">(self, renderer, inframe)</span>
-<span class="ansi-green-fg">   2322</span> 
-<span class="ansi-green-fg">   2323</span>         <span class="ansi-green-intense-fg ansi-bold">for</span> zorder<span class="ansi-yellow-intense-fg ansi-bold">,</span> a <span class="ansi-green-intense-fg ansi-bold">in</span> dsu<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">-&gt; 2324</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>a<span class="ansi-yellow-intense-fg ansi-bold">.</span>draw<span class="ansi-yellow-intense-fg ansi-bold">(</span>renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">   2325</span> 
-<span class="ansi-green-fg">   2326</span>         renderer<span class="ansi-yellow-intense-fg ansi-bold">.</span>close_group<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;axes&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/artist.py</span> in <span class="ansi-cyan-fg">draw_wrapper</span><span class="ansi-blue-intense-fg ansi-bold">(artist, renderer, *args, **kwargs)</span>
-<span class="ansi-green-fg">     59</span>     <span class="ansi-green-intense-fg ansi-bold">def</span> draw_wrapper<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">     60</span>         before<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 61</span><span class="ansi-yellow-intense-fg ansi-bold">         </span>draw<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span>args<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-yellow-intense-fg ansi-bold">**</span>kwargs<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     62</span>         after<span class="ansi-yellow-intense-fg ansi-bold">(</span>artist<span class="ansi-yellow-intense-fg ansi-bold">,</span> renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     63</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/text.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-intense-fg ansi-bold">(self, renderer)</span>
-<span class="ansi-green-fg">    794</span>                     textrenderer.draw_text(gc, x, y, clean_line,
-<span class="ansi-green-fg">    795</span>                                            textobj<span class="ansi-yellow-intense-fg ansi-bold">.</span>_fontproperties<span class="ansi-yellow-intense-fg ansi-bold">,</span> angle<span class="ansi-yellow-intense-fg ansi-bold">,</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 796</span><span class="ansi-yellow-intense-fg ansi-bold">                                            ismath=ismath, mtext=mtext)
-</span><span class="ansi-green-fg">    797</span> 
-<span class="ansi-green-fg">    798</span>         gc<span class="ansi-yellow-intense-fg ansi-bold">.</span>restore<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/contextlib.py</span> in <span class="ansi-cyan-fg">__exit__</span><span class="ansi-blue-intense-fg ansi-bold">(self, type, value, traceback)</span>
-<span class="ansi-green-fg">     75</span>                 value <span class="ansi-yellow-intense-fg ansi-bold">=</span> type<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     76</span>             <span class="ansi-green-intense-fg ansi-bold">try</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 77</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span>self<span class="ansi-yellow-intense-fg ansi-bold">.</span>gen<span class="ansi-yellow-intense-fg ansi-bold">.</span>throw<span class="ansi-yellow-intense-fg ansi-bold">(</span>type<span class="ansi-yellow-intense-fg ansi-bold">,</span> value<span class="ansi-yellow-intense-fg ansi-bold">,</span> traceback<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     78</span>                 <span class="ansi-green-intense-fg ansi-bold">raise</span> RuntimeError<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;generator didn&#39;t stop after throw()&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     79</span>             <span class="ansi-green-intense-fg ansi-bold">except</span> StopIteration <span class="ansi-green-intense-fg ansi-bold">as</span> exc<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/text.py</span> in <span class="ansi-cyan-fg">_wrap_text</span><span class="ansi-blue-intense-fg ansi-bold">(textobj)</span>
-<span class="ansi-green-fg">     58</span>             textobj<span class="ansi-yellow-intense-fg ansi-bold">.</span>set_text<span class="ansi-yellow-intense-fg ansi-bold">(</span>old_text<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     59</span>     <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 60</span><span class="ansi-yellow-intense-fg ansi-bold">         </span><span class="ansi-green-intense-fg ansi-bold">yield</span> textobj
-<span class="ansi-green-fg">     61</span> 
-<span class="ansi-green-fg">     62</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/text.py</span> in <span class="ansi-cyan-fg">draw</span><span class="ansi-blue-intense-fg ansi-bold">(self, renderer)</span>
-<span class="ansi-green-fg">    747</span> 
-<span class="ansi-green-fg">    748</span>         <span class="ansi-green-intense-fg ansi-bold">with</span> _wrap_text<span class="ansi-yellow-intense-fg ansi-bold">(</span>self<span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-green-intense-fg ansi-bold">as</span> textobj<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 749</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>bbox<span class="ansi-yellow-intense-fg ansi-bold">,</span> info<span class="ansi-yellow-intense-fg ansi-bold">,</span> descent <span class="ansi-yellow-intense-fg ansi-bold">=</span> textobj<span class="ansi-yellow-intense-fg ansi-bold">.</span>_get_layout<span class="ansi-yellow-intense-fg ansi-bold">(</span>renderer<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    750</span>             trans <span class="ansi-yellow-intense-fg ansi-bold">=</span> textobj<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_transform<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    751</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/text.py</span> in <span class="ansi-cyan-fg">_get_layout</span><span class="ansi-blue-intense-fg ansi-bold">(self, renderer)</span>
-<span class="ansi-green-fg">    350</span>         tmp, lp_h, lp_bl = renderer.get_text_width_height_descent(&#39;lp&#39;,
-<span class="ansi-green-fg">    351</span>                                                          self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_fontproperties<span class="ansi-yellow-intense-fg ansi-bold">,</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 352</span><span class="ansi-yellow-intense-fg ansi-bold">                                                          ismath=False)
-</span><span class="ansi-green-fg">    353</span>         offsety <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-yellow-intense-fg ansi-bold">(</span>lp_h <span class="ansi-yellow-intense-fg ansi-bold">-</span> lp_bl<span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_linespacing
-<span class="ansi-green-fg">    354</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/backends/backend_agg.py</span> in <span class="ansi-cyan-fg">get_text_width_height_descent</span><span class="ansi-blue-intense-fg ansi-bold">(self, s, prop, ismath)</span>
-<span class="ansi-green-fg">    227</span>             fontsize <span class="ansi-yellow-intense-fg ansi-bold">=</span> prop<span class="ansi-yellow-intense-fg ansi-bold">.</span>get_size_in_points<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    228</span>             w, h, d = texmanager.get_text_width_height_descent(s, fontsize,
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 229</span><span class="ansi-yellow-intense-fg ansi-bold">                                                                renderer=self)
-</span><span class="ansi-green-fg">    230</span>             <span class="ansi-green-intense-fg ansi-bold">return</span> w<span class="ansi-yellow-intense-fg ansi-bold">,</span> h<span class="ansi-yellow-intense-fg ansi-bold">,</span> d
-<span class="ansi-green-fg">    231</span> 
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/texmanager.py</span> in <span class="ansi-cyan-fg">get_text_width_height_descent</span><span class="ansi-blue-intense-fg ansi-bold">(self, tex, fontsize, renderer)</span>
-<span class="ansi-green-fg">    673</span>         <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    674</span>             <span class="ansi-red-intense-fg ansi-bold"># use dviread. It sometimes returns a wrong descent.</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 675</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>dvifile <span class="ansi-yellow-intense-fg ansi-bold">=</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>make_dvi<span class="ansi-yellow-intense-fg ansi-bold">(</span>tex<span class="ansi-yellow-intense-fg ansi-bold">,</span> fontsize<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    676</span>             dvi <span class="ansi-yellow-intense-fg ansi-bold">=</span> dviread<span class="ansi-yellow-intense-fg ansi-bold">.</span>Dvi<span class="ansi-yellow-intense-fg ansi-bold">(</span>dvifile<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-cyan-intense-fg ansi-bold">72</span> <span class="ansi-yellow-intense-fg ansi-bold">*</span> dpi_fraction<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    677</span>             <span class="ansi-green-intense-fg ansi-bold">try</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-
-<span class="ansi-green-intense-fg ansi-bold">/home/neal/anaconda3/lib/python3.5/site-packages/matplotlib/texmanager.py</span> in <span class="ansi-cyan-fg">make_dvi</span><span class="ansi-blue-intense-fg ansi-bold">(self, tex, fontsize)</span>
-<span class="ansi-green-fg">    420</span>                      <span class="ansi-blue-intense-fg ansi-bold">&#39;string:\n%s\nHere is the full report generated by &#39;</span>
-<span class="ansi-green-fg">    421</span>                      <span class="ansi-blue-intense-fg ansi-bold">&#39;LaTeX: \n\n&#39;</span> <span class="ansi-yellow-intense-fg ansi-bold">%</span> repr<span class="ansi-yellow-intense-fg ansi-bold">(</span>tex<span class="ansi-yellow-intense-fg ansi-bold">.</span>encode<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#39;unicode_escape&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-yellow-intense-fg ansi-bold">+</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 422</span><span class="ansi-yellow-intense-fg ansi-bold">                      report))
-</span><span class="ansi-green-fg">    423</span>             <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    424</span>                 mpl<span class="ansi-yellow-intense-fg ansi-bold">.</span>verbose<span class="ansi-yellow-intense-fg ansi-bold">.</span>report<span class="ansi-yellow-intense-fg ansi-bold">(</span>report<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;debug&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-red-intense-fg ansi-bold">RuntimeError</span>: LaTeX was not able to process the following string:
-b&#39;lp&#39;
-Here is the full report generated by LaTeX: 
-
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian)
- restricted \write18 enabled.
-entering extended mode
-(./d4969ce036b5440f12cfe4e0e57f9efe.tex
-LaTeX2e &lt;2011/06/27&gt;
-Babel &lt;3.9h&gt; and hyphenation patterns for 2 languages loaded.
-(/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
-Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
-(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo))
-
-! LaTeX Error: File `type1cm.sty&#39; not found.
-
-Type X to quit or &lt;RETURN&gt; to proceed,
-or enter new name. (Default extension: sty)
-
-Enter file name: 
-! Emergency stop.
-&lt;read *&gt; 
-         
-l.3 \renewcommand
-                 {\rmdefault}{pnc}^^M
-No pages of output.
-Transcript written on d4969ce036b5440f12cfe4e0e57f9efe.log.
-</pre>
-</div>
 </div>
 
 <div class="output_area"><div class="prompt"></div>
 
 
-<div class="output_text output_subarea ">
-<pre>&lt;matplotlib.figure.Figure at 0x7f4759cbf860&gt;</pre>
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAqwAAAC1CAYAAACahK1KAAAABHNCSVQICAgIfAhkiAAAAAlwSFlz
+AAALEgAACxIB0t1+/AAAIABJREFUeJzt3Xd8jef/x/HXyUIiVhQNmkRCrBCjYkvEVpvahNYopTXa
+WjHb8qtSs0rTij2rg6JGJIrGDkWIEHukIYKQea7fH+fryJEhsk7C5/l45NHe133f1/05qR7vc5/r
+vi6NUgohhBBCCCFyKxNjFyCEEEIIIURaJLAKIYQQQohcTQKrEEIIIYTI1SSwCiGEEEKIXE0CqxBC
+CCGEyNXM0tqp0WhkCgEhhBBCCJEjlFKalNrTDKz/OzHrqxG5Wq1aUzlxYqp+u3HjKQQETMt0v1ot
+fPABXL0K27aBpWXm+mvYcCoHD07Vb9esOYXjxzNfpxBCCCFynkaTYlYFZEiASEFiouF2/vxZ06+J
+Cfj4QOnS0KkTxMRkrj8zM8MPU4mJqf9BF0IIIUTeJYFVJGNubrit1WZdEDQ1heXLoWhR6NIFYmMz
+3ldCgmFdL9YthBBCiNeDBFaRjLm54Z3LJ0+ydliImRmsWqW7c/v++xAXl7F+oqO1Btsv1i2EEEKI
+14MEVpFMsWKGwS88HBJfHCeQSebmsG4dKAW9ekFCwqudHxUVxX//FTJos7HJwgKFEEIIkWtIYBXJ
+ODpaA1H67YiICoSGhmb5dSwsYNMmePIE+vZ9tdB67FgQd++6JmmJwsmpUKrHCyGEECLvksAqkmnR
+whUTk1P67QcParB374lsuVa+fLBlC9y7BwMHJn/gKzU7dpwgIaGGftvEJIjmzatnS41CCCGEMC4J
+rCKZOnVcKVHiZJIWZ7ZuDcq26+XPD7/9BjduwODBuumvXubgwZvA8zEAJUuexM2tRuonCCGEECLP
+ksAqknnrrbewtb2ZpMWU06dLcvPmrWy7pqUlbN0KFy/CsGG6sa2pOXz4BMHBNQ3abG1vYyODWIUQ
+QojXkgRWkaJWrd4Brui3b93qx5dfrszWa1pZwZ9/wunTMHJk6qF15szNREV1SdISRuvW72RrbUII
+IYQwHgmsIkWffdYHB4c1SVqKs2fPE8LD/8vW61pbw44dEBgIY8YkD62nTwdz7FhJIJ++zcFhDWPH
+9snWuoQQQghhPBJYRYqKFClCjRpPgecz+4eGjqFfv5nZvlxv4cKwaxf4+8P48c9Da3x8PB9+uJib
+N4cnOTqGmjVjKVy4cLbWJIQQQgjjkcAqUuXt3ZOSJX2StBRm//4OfPfd6my/dtGisHs3bN8OU6bo
+2kaPnsfx4yMAM/1xpUr54O3dM9vrEUIIIYTxSGAVqXJ1rUL37k8xMbmgb3v6tAnz59/k8OFTaZyZ
+NWxsYM8e+OUXeP/9v9i40Qat1lm/39Q0mB49YqlevXK21yKEEEII49Gk9fWuRqNR2f31r8jd4uPj
+adBgNEePfsfzO5taHB3H8+uvA3BxqZjtNaxd+zf9+x8iIeGLJK0J1KkzioMHv8PMzCzVc4UQQgiR
+N2g0GpRSmpT2yR1WkSZzc3N+/PEjbG3nJ2k14dKlr+jYcRV79wZm6/VXrdrK558fJSHhc4P20qXn
+4eMzXMKqEEII8QaQwCpeqnr1yowZU5IiRX5N0mrG5ctf0qfPcUaNmkvCq6yrmg7R0dH06TOFTz99
+ws2bo4HnH7gKFPiFsWNtc+TurhBCCCGMTwKrSJfRo/swePB1rKx2J2nVcOfOcBYsaEO9eqM4fvzf
+LLnWrl0HqFt3ImvWDOH+/e4G+ywt/8Lc/DYFCvTKkmsJIYQQIveTMazilUycuJglS0oSGdn1hT2J
+lCjhg4vLJYYO9aBTpxaYmpqmu9+4uDh8fX9j1aojnD1bi8jIHiS9qwpQtOhGhg+/h5fXR3h4wNSp
+MHBgpl+SEEIIIXKBtMawSmAVr2zhwvV8++0lrl0bS9IJ/HUU+fL54+y8CycnM2rWfIdmzVypVq0q
+BQoU0B/1+PFjjh8/xe7dQZw9e5cLFxIICelEYuK7KVwxhnfe+ZYvvqjAsGHvAxASAh4eMGsW9O2b
+bS9VCCGEEDlEAqvIcqGhYXh5zeXIES/i42ulcpQCblCgQBDFi5/BwiIWMzNFQoKGmBhLwsOrER9f
+AyiZ6nUsLI5Rp84KfH3H4Ohob7AvOBg8PWHuXOjRI6temRBCCCGMQQKryBZarZZp05by888PuHFj
+CFAsC3u/R9mySxk4sBiTJw/GxCTl4dZnzkDz5rBwIXR9cZSCEEIIIfIMCawiW12/foMZM1Zx4MAj
+QkI6/u9r/RT/vL2EwtT0CBUq/EajRoWYNKkvZcuWeelZQUHQsiUsWwYdOmTgskIIIYQwOgmsIkfE
+x8fj6/sba9Yc5+ZNCyIiyvPgQQ3AGTBP6QzgPEWKBFG8+EVKl46lb9936devA+bmKR2fuuPHoU0b
+WL5c908hhBBC5C0SWEWOS0xM5NKlS/j7n+TAgfPcu6clPl5DfLzC3FyDubnCxsaERo0q0aSJK05O
+Tql+7Z9ehw9Du3awejW0aJFFL0QIIYQQOUICq3hjHDwIHTvChg3QtKmxqxHZKTo6ms+/+pwLty9Q
+0bYi30z8BktLS2OXJYQQIoMksIo3SkCA7gGsX36Bxo2NXY3ILm292rLdZjsUAqKgbWRbti3fZuyy
+hBBCZFBagVVWuhKvnSZNYP16XWg9dMjY1YjsoJTifNR5XVgFKAzBD4KRD9hCCPF6ksAqXkuenrBq
+lW54wJEjxq5GZIdElZjmthBCiNeHBFbx2mrZEn7+Wfcg1okTxq5GCCGEEBklgVW81t57D5Yu1U11
+deqUsasRQgghREaYGbsAIbJbx46QkACtWsHu3VC1qrErEkIIIcSrkMAq3ghdu0JcnG5+Vj8/qFjR
+2BUJIYQQIr0ksIo3Rq9eujutzZrBvn1QvryxKxJCCCFEekhgFW+Ufv0gPl43i4C/P5QrZ+yKhBBC
+CPEyEljFG+eDD3ShtWlT3SIDdnbGrkgIIYQQaZHAKt5IQ4cahtYyZYxdkRBCCCFSI4FVvLFGjNCF
+Vg8PXWi1tTV2RUIIIYRIiQRW8UYbPVo3e8CzO60lSxq7IiGEEEK8SAKreOONG6cLrZ6eutkD3nrL
+2BUJIYQQIikJrEIA3t660NqsmW6eVhsbY1ckhBBCiGdkaVYhAI0GZszQrYbVvDlERhq7IiGEEEI8
+I4FViP/RaGDWLGjSBFq2hKgoY1ckhBBCCJDAKoQBjQbmzoU6daB1a3j0yNgVCSGEEEICqxAv0Ghg
+wQJwcYG2bSE62tgVCSGEEG82CaxCpMDEBJYsAUdHaNcOnjwxdkVCCCHEm0sCqxCpMDEBHx8oXRo6
+dYKYGGNXJIQQQryZJLAKkQZTU1i+HIoWhS5dIDbW2BUJIYQQbx4JrEK8hJkZrFoF+fPD++/r5msV
+QgghRM6RwCpEOpibw7p1oBT06gUJCcauSAghhHhzSGAVIp0sLGDTJt0DWH37SmgVQgghcooEViFe
+Qb58sGUL3LsHAwdCYqKxKxJCCCFefxJYhXhF+fPDb7/B9esweDBotcauSAghhHi9SWAVIgMsLWHr
+VggJgWHDdGNbhRBCCJE9JLAKkUEFC8L27XD6NIwcKaFVCCGEyC4SWIXIBGtr2LEDAgNhzBgJrUII
+IUR2kMAqRCYVLgy7doG/P4wfL6FVCCGEyGpmxi5AiNdB0aKwezd4eOimv5o+3dgVCSGEEK8PCaxC
+ZBEbG9izRxdazc3B29vYFQkhhBCvBwmsQmShEiVg715wd9fdaf3iC2NXJIQQQuR9EliFyGKlSoGf
+HzRporvTOnq0sSsSQggh8jYJrEJkA1vb56HVwgI+/tjYFQkhhBB5lwRWIbJJ2bK60OrurrvTOmSI
+sSsSQggh8iYJrEJkI3t73ZjWZw9iDRxo7IqEEEKIvEcCqxDZzNHRcPaAvn2NXZEQQgiRt0hgFSIH
+VKigC62enrrQ2qOHsSsSQggh8g4JrELkkEqVdCtiNW8OZmbQtauxKxJCCCHyBgmsQuSgqlVhxw5o
+2VJ3p7VDB2NXJIQQQuR+EliFyGGurrB9O7RpowutbdoYuyIhhBAidzMxdgFCvIlq1YI//gAvL90w
+ASGEEEKkTgKrEEbi5ga//gq9e+vmaxVCCCFEyiSwCmFEDRrA5s3QvTvs32/saoQQQojcSQKrEEbW
+pAmsX6+bNeDQIWNXI4QQQuQ+EliFyAU8PWHVKujYEY4cMXY1QgghRO4igVWIXKJlS/j5Z2jXDk6c
+MHY1QgghRO4hgVWIXOS992DpUt1UV6dOPW9/+PAhwcHB7N69mzVr1hAdHW28InOB2IRYHsU9MnYZ
+QgghcojMwypELtOxIyQkQKtWsHLlNVq3LodGo6Fs2bKUK1eOsmXL0qJFC6ysrIxdao6LT4xnxakV
+zAiYwZP4J8YuRwghRA6RO6xC5EJdu8KcOdC//zt07fohRYsW5fHjx0RHR+Pm5oaZ2Zv1WTNRm8jK
+UyuptLgS686sY22XtZS0KmnssoQQQuQQCaxC5FK9esGsWfD330to1aoH5cuXZ+zYsfj5+eHg4ED3
+7t3Zvn07CQkJxi4122iVlvVn1lPl+yr8eOJHfNr7sLffXuqXrW/s0oQQQuQgCaxC5GL9+sH06Rr2
+7ZtHyZJObN68mY0bN3L58mXc3d2ZPn06ZcuWZezYsfz777/GLjfLKKXYEryF6j9UZ17gPBa2Xsh+
+r/2427sbuzQhhBBG8GZ9ryhEHvTBBxAfb8LMmT+xZMkZAIoVK8ZHH33ERx99xPnz51m5ciVt2rSh
+RIkS9O/fn169elG8eHEjV/7qlFJsC9nGFP8pAMzynEWb8m3QaDRGrkwIIYQxaZRSqe/UaFRa+4UQ
+OWfBApg/HwICoEyZ5PsTExPx8/NjxYoVbNu2DXd3d7y8vGjTpg0WFhY5X/ArUEqx69IuJvtP5kn8
+E6a7T6djxY6pBlWlFA6dHLha46q+ze6kHWG/hkm4FUKIPEqj0aCUSvFNXAKrEHnInDnwww+60Gpr
+m/pxDx8+ZPPmzfj6+nL+/Hl69OhB//79qVmzZq4LdPvC9uG9z5t7T+8xtclUulXphokm7dFKEliF
+EOL1k1ZglTGsQuQhY8bohgg0bQp376Z+XKFChRg4cCD79+8nMDCQYsWK0a1bN1xcXPj222+5fft2
+zhWdioPXDtJ0RVMGbR3EkFpDOPPRGbpX7f7SsCqEEOLNI38zCJHHjBunm0HA0xP+++/lx5crV46p
+U6cSGhrK999/T3BwMJUrV6ZNmzZs2LCBmJiY7C86iSM3j9BqdSt6b+lNb5feBA8Ppm/1vpiamOZo
+HUIIIfIOCaxC5EHe3roFBpo1g3v30neOiYkJjRs35qeffuLGjRv06tULHx8fSpcuzZAhQ/jnn3/I
+ziFAQXeCaL+uPV02dqFjxY6EjAjhg5ofYG5qnm3XFEII8XqQwCpEHqTRwIwZutWwmjeHyMhXO9/K
+yoo+ffqwe/dugoKCsLe3x8vLC2dnZ7766iuuXbuWZbWeCT9Dl41daLOmDc3KNePiiIsMrT0UC9Pc
+/SCYEEKI3EMCqxB5lEajW1igSRNo2RKiojLWT9myZRk/frx+eqwbN25Qo0YNmjVrxqpVq4iOjs5Q
+vxciLtDzl554rvSkXpl6hI4MZaTbSPKb5c9YoUIIId5YEliFyMM0Gpg7F+rUgdat4dGjzPSloW7d
+uixZsoSbN28yZMgQ1q9fT5kyZRgwYAD+/v5otdqX9nPp/iX6/9afhssb4lLChdARoYytPxZLc8uM
+FyeEEOKNJoFViDxOo9HN0eriAm3bQgZviBrInz8/3bp1488//yQ4OJiqVasycuRIHB0dmTJlCpcu
+XUp2ztUHVxn0xyDcfNxwKOJA6IhQJjSagHU+68wXJIQQ4o0mgVWI14CJCSxZAo6O0K4dPHmSdX2X
+KlWKMWPGcOrUKbZs2cKDBw+oV68ejRo1wsfHh+DrwQz/czg1ltbgLau3CBkRwlT3qRTOXzjrihBC
+CPFGk4UDhHiNJCaClxeEh8Pvv0P+bBouGhcXx9ota/ly4ZdcPnGZivUqMvXTqXRp2wVT0+yfnkoW
+DhBCiNePLBwgxBvC1BSWL4eiRaFLF4iNzfprRDyJYFLAJEZfHU3bSW05HXyajzp9xDfTv8HOzo5x
+48YRHByc9RcWQgjxxpLAKsRrxswMVq3S3V19/32Ii8uafiOfRjLJbxLOi5x5FPuI0x+dZn7r+VS1
+r8qIESM4duwYf/31F1qtFk9PT2rVqkX/gf05e/Zs1hRgJLdv38Z3nW+uWB1MCCHeVDIkQIjXVFwc
+dO0KFhawfr0uyGbEw9iHzAucx4LDC+jg3AHvJt7YF7FP85yEhASc6ztz+d5lNNc1FC5ZmKouVRn9
+0Wg6vtcx01/bZ+eQAKUUu/ftZvkvywm9F8p17XXuFr1L1etV+Xf7v5nqWwghROrSGhKQwb/ChBC5
+nYUFbNoEnTpB3766u66vElofxz1m0ZFFzP1nLq2cWhH4YSBOxZzSda6ZmRlaWy20BfVU8eDsAw4E
+HeDA+wcoUaYEPbv0ZNbUWeTPrkG2GRAXF8cPK35g9a7VnLM8R7RdNJR4vv/x3cfGK04IId5wMiRA
+iNdYvnywZYtu+daBA3UPZb3M0/inzP1nLk4LnAi6E0SAVwArO61Md1hNpgBQG/hQ9xP+djjzF8+n
+SKki1Pesz5kzZzLWbxa5f/8+n07+lBo9ajD65GiOVj1KdLloyP5nx4QQQqSTBFYhXnP588Nvv8H1
+6zB4MKQ2939sQiyLjizCaaETB64dYHff3azvup5Kb1XK0HUtVApLrxYHPIHRENshln/u/kO1mtV4
+2+5tfHx8iM2Op8RSERERQa+Pe1FrcC3mR8/nXPVzJJZMPdGn+HqEEELkCAmsQrwBLC1h61YICYFh
+wyDp0PS4xDiWHltK+YXl2Rm6k609t7Kl+xZcSrpk6poTe0+k/oX6lDldBm4CSYOyCVAO6AZqrOKO
+yx1GjB9BMZtiDBs2jCNHjpBd4+eVUiz+eTH1P6zPuoLruOJyBQqldCCY3TDD/rQ9DS82ZFKfSdlS
+jxBCiJeTh66EeIM8egQtW0KtWjB3XgKrT69ixv4ZOBVzYrrHdOqWqZvl13zw4AG/7/idNTvWcCrm
+FOFO4ZAv5WMtQix4+9TbaKI1FChQgP79+9OnTx9Kly5tcFxGH7r677//6PFJD/6x/IenZZ+mfFAU
+lL1WlkpWlfBq70WH1h2wtJRlZYUQIrul9dCVBFYh3jD3IxOpPWA9kdWmUb2cLTM8ZtDIrlGOXPti
+6EWmzJtC4O1AwuzCIKXFsOLA6bQTw1sM5+zps/zyyy+8++679O/fn44dO2JpaZmhwLr/0H4GzxzM
+haoXIIVnvSxuWeByz4XmNZszZvAYihcvnkWvWgghRHrIwgFCCLRKy6azm2i0rhrFWy+meOAS3M7v
+o+E7ORNWAco7lWftorUc9znO6MKjqXyqMtx/4SALCK0VyqwDs3BwceDmzZt4eXmxcuVKypQpw4cf
+fsiBAwdeacjAnB/m0OO7HlyolUJYjYKKJyvyf7X+jyMbjzBzwkwJq0IIkcvIHVaRI6Kjo/n8q8+5
+cPsCFW0r8s3Eb+Rr1hyilOKPC38w2X8yFqYWzPCYQUvHlty/r8HDAzp2hOnTjVNbbGwso6eNZkvo
+Fu5UupPsI3SRsCJMrDORscPGAnDz5k3WrFmDr68vF69dJOHdBKgOFE39Duu8ZfOYfmA6kY6Rhp0n
+QJnzZXjP8T1mT5pNwYIFs/GVCiGEeBkZEiCMrq1XW7bbbNc93BIFbSPbsm35NmOX9VpTSrEzdCeT
+/ScTnxjPdI/ptKvQziDQhYeDhwf06AHe3sar9diJYwydPpTj5Y4nGyZQPKQ4s9rO4oNeH+jbtFot
+pT1Kc+fpHTgDlACbYjZc9r9MoULPn6DyXe/LF398QbhzuGGnj6BGSA3Wz1lPhfIVsvGVCSGESC8J
+rMKolFI4dXbisutlfVu5oHKEbgnN9KpEIjmlFHvD9jJ532SiYqOY5j6NzpU6Y6JJeQTQnTvg7g4D
+BsAXX+RsrUnFxMTQZ2QfdqgdPCnzxGBfqbOlWNx/MZ3bdgZeeOgqAQiBAvsLYPHUgvbt29O/f38e
+xjxk+Irh3K5iuKRqvjv58HziycbvN2JlZZVTL08IIcRLyBhWYXSJKjHNbZE19l/dj/sKd4b9OYyP
+63zM6aGn6Vq5a6phFaBUKfDzAx8fmDs3B4t9Qf78+dm0dBPjKo3DJtTGYN+dKnf45KdP8PvbL/mJ
+ZkBlKOFWggsXLlCzZk2GfjSUbt26cfvObYh4fqhNqA0jbUeyzXebhFUhhMhDJLAK8RoIvBFI81XN
+8frNiwGuAzg3/By9XHphapK+5ZpsbXWhddEi3Y+xaDQavEd7M+bdMRS+Yjg24Ea1G3ww+wNOBJ1I
+9fwSJUrQxKMJiRUTSeyXCPHAcsAHrP+0xruhN994fyN39oUQIo+RwCpEHnb81nHarm3L+5vep1vl
+blz4+AJerl6YmZi9cl9ly+pC67ffwtKl2VDsKxg/cjyDHAZhdSPJXVANXKlxhQGTBxATE5PieU+f
+PmXA5AGE1QiDt4FWwGgo5FiI8pRnyhdT6N69Ozt27CAhISFHXosQQojMk8AqRB50+u5pOm3oRPv1
+7Wnj1IaLIy4yuNZgzE3NM9WvvT3s3QtffQU//5w1tWbU7Mmz6Vm4J/nuJFllwAROO55m2IRhKZ4z
+bMIwTpU7ZfDOVvBWQT7r8BnHjxzn8uXLuLu7M23aNN555x0+++wzzpw5k82vRAghRGZJYBUiDzn3
+3zne3/Q+LVa1oPE7jQkdEcrwOsPJZ5bK0lEZ4OgIe/boZg1YtSrLus2QZbOX0ZGOmEYkGdpQBLbe
+3UpsYqzBsbGJsWwL3wZFnrdpIjV0turMpFG6ZVWLFSvGRx99RGBgIH5+fpiZmdGqVStq1arF/v37
+c+IlCSGEyACZJUBku4wuoymeu3jvItMCprHr0i7G1BvDx3U+xsoiex8aCg4GT0/dg1g9emTrpdKU
+mJhIk+5NOFjxIDy7gayAp0DSqXyfAAWAZ3+ktFDzVE3+2fgPFhYWafbv5+eHra0tVapUyY6XIIQQ
+Ih1klgAh8qiwyDAG/j6Qej/Vw9nGmdCRoXzR8ItsD6sAlSrBrl0wahRs3pztl0uVqakpK2evxO6s
+3fNGDYZhlf9tJ3mbezv4bZZOXppmWH3Wf/PmzSWsCiFELiaBVYhc6HrUdYZuG0rtH2tT2ro0F0dc
+xLuJN4XyFXr5yVmoalXYsQOGD4fff8/RSxso51COYZ7DyHc7fUMfzP4zo3fV3tSuWTubKxNCCJET
+JLAKkYvcfnSbkTtG4rrUlSL5i3Dh4wvMaDqDogWKGq0mV1fYvh0GD9b901jGDhuLS7iLbjhAWhTU
+uFWDWRNn5UhdQgghsp8EViFygfDocMbuGkuV76tgZmLGuWHnmNVsFsUtixu7NABq1YI//gAvL90w
+AWMwMTHBe7A31mHWyXd+/fxf81/Pz+g+ozE1Td8ctBlx9epV1q1bl6k+5s+fn+L0XNOnT2fChAkG
+badOnaJy5cpp9ufh4cGJE6nPUSuEEHmZBFYhjOj+0/uM3zOeSosrEZMQw5lhZ5jbci4lC5Y0dmnJ
+uLnBr79C7966+VqNoX2r9rjGuaZ5TJUHVejeqXu21ZCYmEhYWBhr167NVD/z5s3jyZMnydp79uzJ
+hg0bDNrWr19Pr169MnU9IYTIyySwCmEED2IeMGXfFCosrMC9p/c4OeQki9oswtba1tilpalBA90D
+WN27g7Fmgeri0QXuprzP9JgpD88+pFOnTjg5OTF+/HjWrl2Lm5sb1atXJywsDIABAwbw0Ucf8e67
+71KxYkX+/PNPAGJjYxk4cCDVqlWjVq1a+Pv7A7BixQo6dOiAp6cnzZo1Y/z48fz999/UrFmT+fPn
+c/XqVRo3bkzt2rWpXbs2gYGBAAQEBODh4UG3bt2oVKkSffv2BWDhwoXcunULDw8PPD09DV5D+fLl
+KVasGEePHtW3bdy4kZ49ewIwbNgw6tSpg4uLC9OmTUvx92Bt/fwu9C+//MKAAQMAiIiIoGvXrri5
+ueHm5sahQ4de5VcvhBBG8+rL4QghMuxR7CMWHF7AvMPzaFu+LUcGHaFc0XLGLuuVNGkC69dD167w
+229Qv37OXn9gz4HM/2s+YSXDku2zi7IjIjyCZfuXUaRIEcqVK8egQYM4fPgwCxYsYOHChcydOxfQ
+fa1/9OhRQkND8fDw4NKlSyxevBgTExNOnz7NhQsXaNGiBRcvXgTg5MmT/PvvvxQuXJiAgADmzJnD
+H3/8AUBMTAx79uzBwsKC0NBQevbsqQ+cQUFBnDt3jlKlStGgQQMOHTrEiBEj+O677/D396do0eTj
+k3v06MG6det49913CQwMxMbGBkdHRwC+/vprihQpglarxdPTky5dulC1alWD81+cLu7Z9ieffMLo
+0aOpX78+169fp2XLlpw7dy4z/zmEECJHSGAVIgc8iX/C4iOL+fafb2lWrhkHBhzAubizscvKME9P
+3aICHTvCtm1Qp07OXdva2pqKhSoSpg0z/I4oDiqUrIC2gJYSJUoA4OjoSIsWLQBwcXHR3zEFeP/9
+9wFwcnLC0dGR4OBgDhw4wMiRIwFwdnbG3t6ekJAQAJo3b07hwoVTrCkuLo6PP/6YoKAgTE1N9SEX
+oE6dOrz99tsAuLq6cuXKFerXr49SitTmue7evTsNGjRg7ty5bNiwQX93FXTDA3788UcSEhK4c+cO
+586dSxZYU+t3z549BAcH6/c/fvyYJ0+eYGn54hxhQgiRu0hgFSIbxSTEsPTYUv7v4P/R4J0G+PXz
+o0qJ12O+z5Ytdcu3tmunm/qqZs2cu3b/9v3Z/eduEsom6NsK3ChAq8at2Lt7r77NxMSEfPny6f89
+IeH58UnvQiqlMDFJPkIqafCzskp97tvvvvuOUqVKcfr0aRITEylQoIB+37Prg27O16Q1pKZMmTI4
+ODjg7+8XdTzTAAAeBklEQVTPL7/8oh9icOXKFebMmcPx48cpVKgQAwYMSPHBraSvLel+pRSHDx/G
+3DxzS/gKIUROkzGsQmSDuMQ4lhxdgtMCJ/yu+LG993Y2ddv02oTVZ957D5YuhTZt4NSpnLtu5/c6
+4xTpZNBm99gOlyou6e5j06ZNKKW4dOkSYWFhODs706hRI9asWQNASEgI169fx9k5+Z1wa2trHj16
+pN+OiorS30VduXIliYmJL71+oUKFePjwYar7e/TowahRo3B0dMTWVje2+eHDhxQsWBBra2vu3r3L
+jh07Ujy3VKlSXLhwAa1Wy6+//qpvb9GiBfPnz9dvn8rJ/2hCCJEJEliFyELxifH4nPChwsIK/BHy
+B792/5Xfe/yOa6m0n2zPyzp2hEWLoFUrOHMmZ65pbm6Os42zwZysTkWckk1lldbSv++88w516tSh
+bdu2LF2qWxFr2LBhJCYmUq1aNXr27MmKFStSvBtZrVo1TExMqFGjBvPnz2f48OH4+vpSo0YNQkJC
+Ur0bm7SeQYMG0apVq2QPXT3TrVs3zp07ZzA7QLVq1XB1daVSpUr06dOHhg0bptj3zJkzadu2LQ0b
+NtSHXdBNpXXs2DGqV69O1apVWbp0aaq/HyGEyE00qY11AtBoNCqt/UKkh1IKh04OXK1xVd9md9KO
+sF/D0gwUeUmiNpE1/65hesB07IrYMcNjBvXL5vDTSEa2di2MHaub8qpixey/3pTZU5h+ZzoUAu7B
+7IqzGTtsbLrOHTBgAO3ataNz587ZW6QQQoh002g0KKVSDAZyh1WITNAqLevPrKfK91X48cSP+LT3
+YW+/vW9cWAXo1QtmzoRmzSDJM0fZpmXDluT7Tzc+1DLSEg83j3Sf+7p8UBJCZJ+IiAhjlyCSkIeu
+hMgApRS/nv+VKf5TsDK3YmHrhTQr1+yND0L9+0NCgm4WAX9/KJeNM3bVcK3B21Fvc4UrlHhY4qUr
+QSX1888/Z19hQog8b/PmzWzbto0OHTrQqVMnY5cjkMAqxCtRSvHnxT+ZvG8yALM8Z9GmfJs3Pqgm
+9cEHEB8PTZtCQADY2WXPdQoUKMCk7pNYs3MNvbv3NngyX4jMunLlCgMGDCAwMJBSpUrh4OCg36eU
+IjAwkKdPn+ZoTQEBAVy5coX+/fsbtM+bN4+AgACDB+xExl2+fJmCBQvi6+vL9u3buXr1KnbZ9UYm
+0k3GsIpsZzCG9TugKOR7nI96VesREBCAs7Mzb7/9Nkopzp8/z4YNG2jcuHGmr/vdd9/RvHnzZHNU
+JtW/f3/++usv2rdvz7Jly9J8Dbsv72byvsmcnXsW7Q0tE76YwMSJEzNc29KlS9Fqtfp5Pl83CxbA
+/Pm60FqmjLGrESJjHBwcGDBgAJMnTzZoL1euHJcvX87RWqZNm0ZAQAB+L6yNvGHDBo4ePcq3336b
+o/Wk5tatW/j5+fH06VMGDRqUbH9ERARz587FxMSEfv36UaFCBSNUKXIjGcMqcg8N4AWlGpTSv+lO
+mDABPz8/9u3bR+vWrbPsUnPnzuX06dNpHrNixQqaN2+e5jH7wvbR2Lcxn+z8hFF1RxF1Noqa1Wtm
+6q7qqFGj+OyzzzJ8fl4wciQMGwYeHnDrlrGrSZ+wsCv07j2J1av/NHYpIpdbsWKFsUvQ6969u1HD
+alBQkMGNAVtbW/7++28uXLiQ4vFWVlaMGzeOdu3a0apVK+7du5dm/7NmzaJdu3aYmJgwdOhQfvjh
+hyyt/5kHDx4wdepUChQoQOvWrVm0aBGgW6yjcePGFCtWDG9vby5dupTjtQnQr7aS0o9utxCZo9Vq
+lV0HO8VUFK1QTEXZdbBTWq1WaTQatWLFCv2xv//+u7p69WqWXLdMmTJqzZo1Lz2uT58+atCgQcna
+D1w9oDx8PZTjfEe1MmilSkhM0O9r2LCh+uqrrzJVn4+Pjypfvnym+sgLZs5UytlZqTt3jF1JyhIT
+E9WWLX8pT8/PVMmSCxVEqjp1Rhm7LJFL2Nvbq2nTpum3r1y5otzd3Q2Oefz4serZs6dycHBQzZs3
+V3PmzFH29vaqUqVKasGCBeqrr75S9vb2ysPDQymlVFRUlHJ3d1cajUYFBATo+/nll19U/fr1VdOm
+TVXdunXVqFGjVFxcnFJKqdmzZyt7e3tVtGhR5eHhoTw8PNSVK1fUqlWrlKurq/rfN6JKKaUSEhLU
+uHHjVNWqVVWdOnVUkyZN1NGjR/X7N2zYoD9n27Ztqn379qp8+fJqxIgRGfodxcXFGbxvf/3116pI
+kSKqTp06qnXr1mrdunWpnjtq1Ci1cOHCZO2PHj1Sn3zyidq4caNSSqnAwEBlYmKi379q1So1atQo
+FR0dnaGaU3P37l1lYmKiLl68aNDep08f9fHHHxu1tjfB/3Jnypk0tR1KAqvIIgaBdWragTWp7du3
+qzp16qhGjRqpBg0aqO+//14ppdT9+/dVvXr1lEajUZUrV1bXr19XX331lSpSpIhq0KCBun79unJ3
+d1f58+dXlStXVh4eHmr48OGp1vdiYF21a5UqXq24yueYTzlVd1Kdu3RWN2/eNDinYcOGaty4cWrg
+wIGqQYMGysnJSS1fvtzgmJCQENWyZUtVr1491ahRI/XJJ5+oJ0+e6Pe/KYFVKaWmTVOqShWlwsON
+XYmOVqtVgYHH1ODBXytX189V/vy7FCQquKnKl5+sPvtsvrFLFLnEi4E1LCxMHzyfGTJkiHJzc1Ox
+sbFKKV24NDc3VytXrtQfM3Xq1GTnvRhYe/ToobZt26aU0oXOVq1aqRkzZqTZh1JK+fv7GwSm8ePH
+K1dXV31gWrFihSpSpIiKiIgwOEej0ajZs2crpZQKDw9X+fPnV/7+/vpjtm/frsqUKaNOnTr1sl+T
+gcjISFWwYEF92E7LDz/8oD799NMU961bt045ODgopZKHQnt7e/Xbb7+9Ul3psXr1alW6dOlk7aVL
+lza4njFqexOkFVjloSuRK509e5Zu3boRGBhI1apViYyMpEaNGlhbW9OnTx8OHTpE27ZtiYqKonTp
+0rRu3ZqTJ0+yadMmAPbt20fZsmWZNGmSwTrsaQm6E8TkfZP5e/Pf1HGtw9aft2JhasHUqVMZMGAA
+f/31l8Hxq1ev5tChQ5QtW5aDBw/SuHFjXFxcqFWrFrGxsbRs2ZLx48czaNAgtFotnTt35uOPP+an
+n37K8t9XbuftDXFxuimv/PzAxibna4iOjub33/eyefMRQkLg6tUaPH48HN1ErlcpX34aLVoU5Kuv
+RlO4cOGcL1DkWr6+vvj7+wPw9OlTgwf8oqOj8fX15YcffsDCwgKAESNGMGHCBIOlfdNjzpw5+oUe
+TE1N6dSpEytWrGDSpEnp7iMmJoZ58+axYMECLC0tAejXrx/jx49n8eLFBmNxNRqN/v3xrbfeonLl
+ygQFBdGkSRMA4uLiiI6OJj4+PsVrKaX4/vvvCQoKYujQodSqVQsAf39/3NzciIyMZNGiRfz4448E
+BgZiZ2eHUoovv/wSf39/3nnnHSIjIyldunSK/dvb23Pz5s1k7bGxsVy7ds3gQbhnIiMjmT17tkGN
+z17rs21zc3OmTJmSbKERgD179uDhYThFXkhICOHh4QbtGalNZI4EVpErzZo1i6ZNm+rHRRUtWpTO
+nTuzaNEi+vTpA8APP/yAi4sLM2bMYM+ePWzYsCFZP+n5C+NBzAMO3D7AtjXbGNdwHMuWLqOQZSEs
+THV/+XTr1o2vv/6ahIQEzMye/y/TokULypYtC0CDBg2oXbs2CxcuxNfXl1WrVnH//n39AwcmJiYM
+HDiQzp07s2DBgjTXpX8daTQwY4Zu9oDmzWHvXihaNHuupdVquX//PhcuXOTw4RBOnbrCjRtxXL5c
+gGvXmqHVTuf58P0LVKw4k/feK8nkyWOxtrbOnqJEnubl5aUPelevXmXAgAH6fZcuXSIuLg57e3t9
+W758+ShRosQrX+fBgweMHTuWa9euYWFhwe3bt4mLi3ulPkJDQ4mJicHR0dGgvVy5cvz777/Jjk+6
+Epq1tbXBcsEdOnTg/v37qV7rjz/+oHv37hw9epQrV67oA6ufnx916tThzz//ZOrUqSxZskQ/o8KY
+MWMIDg5m165dmJqaYm9vz7vvvpti/05OTiQmJnLnzh2D9qtXr2JqaoqTk1Oyc4oWLcrXX3+das0v
+s3fvXurWrcs333wD6P4OOXz4MLVr16ZQoUKZqk1kjgRWkSv9+++/3Lt3j6ZNm+rboqKiDB50Klu2
+LDNnzmT48OHMmzdPv5Z7el2IuMC0gGnsvrwb1zKu+I30w9Lcknv37jFhwgSOHTuGubk5T58+JTEx
+kf/++8/gGi9Oc+Lo6EhwcDAAZ86cITExkaZNm6KUQqPREBMTg52dHbdu3aJ8+fIZ+bXkaRoNzJql
+u9PasiXs3g0vu5F55MhJ5sz5FaUS2bjxqzSPbdFiJJcvFyUhwYS4uKJERFQgPr4R0JsX3+o0mlAq
+V15Gly4OjBs3WabEEulmZ2eX7Cn9lLz4UOaL21qt1mD7yZMnNG3alG7durFmzRo0Gg0rVqxg2rRp
+mS86nXX+7wntdJ/r6emJUop9+/YZLPPr5+eHu7s7AwYM4MiRIxQoUICKFSty9epVFi9ezNmzZzE1
+NUUpRUREBI0aNUqx/+LFi9OtWzfWr19PvXr19O3r16/ngw8+0N9Bzirnz5/n5s2bzJs3zyDId+7c
+mWbNmhm1NiGBVeRizZo1Y/ny5Wke4+rqioWFBX/99RcjR45MV7+X7l9i+v7pbL+4nVF1R6F11lKo
+YCEszXVvML169eLx48fs3r0bS0tLLl26RIUKFV75673ixYun6y+2N4lGA3PnwogR0Lo1/PUXpHRT
+8/Dhk0ycuIYTJ1yJjJyIre0i7t69S8mSJVPtu3Hjahw6ZEd0dNqzPsB/vPfe92zePEv/Fa4Qr2r7
+9u24u7vj6OiIubk5ly9fxt3dHdB9lX737l2D462trXn06JF++8aNGwb7z58/T3h4OF27dtWHyBfv
+rpqYPJ/YJz4+HqVUsj/DTk5O5M+fn9DQUIOvsC9fvkyLFi0y/oJTULBgQX744Qc6d+6MVqslMTGR
+e/fucf78eTZu3AjArl279BPvHz58GAcHB/3dx507d2Jra0vDhg0BOHXqFAEBAQbv5T4+PowdO5bz
+588D8O233/LkyRMWLlyYYk33799Pc8YEpRRmZmZMnTo12ZCAPXv2ULlyZYOwmpiYiJ+fH6NHj07W
+16vWJjJHprUSuZKLi0uyKVHOnz9vMP4qPj6eiRMnEhAQQEBAAKtWrTI4Pumbe3R0NFcfXGXQH4Nw
+83HDoYgDoSNCmdBoAuam5gbn/f3337Rp00b/CTk2NjbFGq9du2awfenSJSpVqqSv//bt20RHR+v3
+JyYm4uXlRUJCQnp/Da8ljUY3R6uLC7RtC0l+Rdy5c5fWrT+nTZsz7N07i8jIPkA+bt16nwULNqXZ
+76RJH9K+fQBw/SUV3KRpUxcJqyJTZs+eTUREBFZWVgwcOJBly5YRExMDwPfff4+5ueH7iqurK+fP
+nycqKgrQ3YlLyt7eHktLS/bu3Qvo3i+2bt1qcEyJEiX0X9HPmTNHPx4+6Yfp/PnzM2rUKJYsWaJ/
+/1m1ahVPnz5l2LBh+uPS8wF8x44d2NrapjiU4JnVq1fj5eXFjz/+COi+Um/cuLF+5bldu3bx3nvv
+cfz4cWxsbChYsCCg+8bss88+45tvvtG/V/v5+VGzZk2D/q2srFiyZAleXl4AjB07llmzZhkMz0qq
+WLFifP3116n+zJw5kxkzZqQ6frVly5YGbQcPHkSr1VK3bt1kx79qbSJzJLCKXGn8+PGcOHGC3bt3
+A5CQkIC3t7fBOLHp06czZMgQ3NzcmDp1Kp9++qnBXY1nb+43H96kTMUy1Pi+Bm9ZvUXIiBCmuk+l
+cP6Uv4+uXLkyAQEBJCYmAqS6eszWrVu5fl0Xjg4cOMDx48f1dwb69OlDmTJlmDlzpv74hQsXotVq
+9W9mr3rH9nViYgJLloCjI7RrB0+ewC+/7KJx43ns3DmZ+/f7YvgFUFn8/G6k1p3eTz9NxMVlNpDW
+79aV//u/WL75xjdzL0K81sLCwqhXrx537tzBx8eH+vXr63/q1avHyZMn9cd+++23ODk5UaVKFVq3
+bk2hQoWSjWH18PDAy8sLNzc32rdvT+XKldFoNHz66ads2bKFYsWKsXbtWjZv3kzdunV5//33KVGi
+BHfu3NEPjeratStWVlY0atSIPXv20KNHD1avXs2oUaMAaNq0KZcvX2b69Om0bt2aunXr4ubmxk8/
+/cSePXuw+d/Tjtu3bzc458GDBwwcOJBTp07h6+urH78ZFxfH06dP0xxH6+rqyuHDh6lSpQqmpqbs
+27eP9957T78/IiKCv//+m6pVq9K0aVMcHR3p0aMHvXv3ZsqUKXTs2BHQBcMNGzYQHh5uMI4WdM80
+fPnllwAMGTIky+c6PX78OBMmTGDXrl2EhISwc+dOAL7++msmTpxIgQIF+L//+79kwzhyojaRRGrT
+ByiZ1kpkkZSmtSrVqJRyd3dXJiYmqlKlSsrb2zvZebt27VK1a9fWT201Z84c/b7WrVsrKysr/XRU
+nTt3ViYmJqpChQr6ufF8VvuoYmWLKVM7U9WgXwMV/jj5nEr9+vVTpUqVUra2tmro0KFKKaX+/fdf
+1bBhQ1WpUiXVqVMn9cUXXygTExNVv359debMGdWiRQtVpEgRNXr0aNWrVy/VoEED5ejoqHx9fQ36
+Dg0NVa1bt1bVqlVTHh4eavDgwfppZubOnaucnZ2VpaWl8vDwUDExMVnzy85jEhKU6tVLq8qUmaWK
+Fl2rQKXwc05VqOCtBg36Ol197tsXqN5668dU+nr+U7DgX6p3b+90Tb0jxKuyt7dPdco+kVxcXJzq
+0aOHscsQRkYa01rJ0qwi26mkS7P+j91JO8J+DcvUalGpiXgSweyDs/E56UMflz6MaziOt61f7YEs
+kTOUUnh5TWf16tZotXVe2BuNk9NXfPCBIyNH9nylhxiGDPmaZct6AfZpHqfRXKRFi+/ZuvWbZF/h
+CpEZDg4OTJs2jX79+hm7lDxh//79BAUF0bFjR8qUKWMwpEu8OWRpVvFGiHwaySS/STgvcuZh7ENO
+DT3F/NbzJazmUkopPvzwSzZsaJUsrJqZnaVhw3EEBIxg3LhXf+J23rxRVKz44wutCcA1kg4XUKo8
+u3Z9TMeO4974scUia0RHR+Ph4cHdu3eZNWuWPICTThqNBo1GQ1hYmIRVkSIZGSzyvIexD5kXOI8F
+hxfQwbkDxwcfx76IvbHLEi/xxRcLWbu2KbGxbklaFRYWKxg8OIJ58+al+GBEehQoUIC2bYtz/vw1
+4B1AUaXKaLp3r8L69ec4d24aUER3ReXIzp1D6N9/OmvWTM/syxJvOCsrK/bt22fsMvKcRo0apTq9
+lRAgd1hFHvY47jGzDszCaYETofdDCfwwkJ86/CRhNQ/4/Xc/li8vRExMgyStMTg5fU7VqvZERIxF
+qYyF1WcmT/4AJ6dnq4o9oXHjt/H2HsL+/VNo0GAi8J/+WK22Alu3urF4cfLFJ4QQQhifBFaR5zyN
+f8rcf+bitMCJoDtBBHgFsLLTSpyKycoieUFUVBTjx28nIsIrSavCycmb3btHcPCgO/fuwcCB8L+J
+GjKkUKFCNG9uCdwFrAgJ0T15bGNTjB07ZlG9+jTg+dPPjx61Zd68M2mu7COEEMI4JLCKPCM2IZZF
+RxbhtNCJA9cOsLvvbtZ3XU+ltyoZuzTxCoYP/47g4C8M2kqXnouPTzfs7d8hf3747Te4fh0GD4YU
+ZpJJtxkzPsTeXjeW9dKlgvqJ262trdm4cTQODjMMjg8N/ZThw+dl/IJCCCGyhQRWkevFJ8az7Pgy
+yi8sz87QnWztuZUt3bfgUtLF2KWJVxQWdpV9+6yBt/RtBQrs4/PPS9GkyfMHrywtYetWCAmBYcN0
+E1FlhI2NDY0ba4FIrlxpw7p1O/T7KlQox3ffeVCiRNLV1Gzw8yvNsWOnM3ZBIYQQ2UICq8i1ErQJ
++Ab54rzImc3nNrOx20a29dpGzbdrvvxkkSuNHbuMW7eGJGmJxc3td0aM6JXs2IIFYft2OH0aRo7M
+eGidOXMQpUsvB1z59deTBvs6dGhKq1bXgQh9W3j4B3z+ueGqaUIIIYxLAqvIdRK1iaw5vYbKiyvj
+G+TLio4r2NV3F3XLJF8aT+QdV69e49ChEkBBfVuZMgtZtmxkqvPxWlvDjh0QGAhjxmQstNravo2z
+83+AhosX8+mXz3xm7tzhlCu3KEmLGefOleXGjZuvfjEhhBDZQgKryDW0Ssums5uo9kM1Fh9dzJK2
+S9jXfx+N7GSqk9fBwoW/cOdOjyQtCdSuHUn58uXSPK9wYdi1C/z9Yfz4jIXWDh2qAGe4dq0B+/cH
+GuyzsbGhSRMz4IG+7e7d7sydKzMGCCFEbiGBVRidUorfz/9OzaU1+ebQN8xpMYeDAw/iWc4zW1bC
+Esbxzz/hQEn9trn5fry8mqTr3KJFYfdu3RCBKVNe/doDBnTA3v434uPrs3nzoWT7J0/uS6lSSYcB
+lGT//rvISn9CCJE7yMIBwmiUUuwM3clk/8nEJ8Yz3WM67Sq0k5D6Grp27TqhoWUM2sqV20ebNpPT
+3YeNDezZAx4eYG4O3t7pv761tTXOzo+5csWSCxeeJNtvb29H+fLh3LnzvO3y5YpcunQJJyeZLk0I
+IYxNAqswipiEGBr83ICHcQ+Z5j6NzpU6Y6KRG/6vq507DxEenvRuagKVKinMzc1fqZ8SJWDvXnB3
+h+hHYRS45Y325k1MSpfGa8YM7BwcUj23b98G3LgxgnffrZDi/nLlLPj771ggHwCRkdU5fPiMBFYh
+hMgFJLAKo7j39B5z6syhR9UemJpkbkUjkfsdOXIR6Kjf1g0HaJyhvkqVgpW+Ycxu1BzfhEtYAdHA
+lMBARuzenWpo7d27Hb17t0u13w4d3mXVqqNotQ3/11KJ/ft30rt3x1TPEUIIkTPklpYwCltrW3q5
+9JKw+oa4cyeOZ3cuAezt99OmjUeG+9uxyFsfVgGsgGmXLuH7KuMEXuDpWR9b26TjWwtw40ZMqscL
+IYTIOS+9wyrDCUWWcAVqPN+8dlWDiXxceoMYvpFcvKiwsHi14QBJNeQmLz57ZQXsWXOLqWsy2msh
+dPdqn9u+Xd4DhRAiN3hpYJWHZEVmKQUOneBqkjY7Owg7IWHgTVGrloYTJ55vN24MAQEZ729an9JE
+r0F/hxV0UbNZb1v+Xp3xfhs21HDw4PPtmjU1HD+e8f6EEEKkX1qZQO5xCSGyXWKi4Xb+/Jnrz2vG
+DKY4Ourvh0YDUxwd8ZoxI1P9mpkZfkJPTJRPVEIIkRvIQ1dCiGz34mQAWm3mgqCdgwMjdu/mW29v
+tLduYWJry4iXzBKQHgkJhnW94iQGQgghsokEViFEtjM3N7xz+eRJ5sca2Tk4MGV1Jr7/T0F0tNZg
++8W6hRBCGIcMCRBCZLtixQyDX3g4JL44TsDIoqKi+O+/QgZtNjZGKkYIIYQBCaxCiGzn6GgNROm3
+IyIqEBoaaryCUnDsWBB377omaYnCyalQqscLIYTIORJYhRDZrkULV0xMTum3Hzyowd69J9I4I+ft
+2HGChITnc6+ZmATRvHl1I1YkhBDiGQmsQohsV6eOKyVKnEzS4szWrUFGqyclBw/eBJ6PAShZ8iRu
+bjVSP0EIIUSOkcAqhMh2b731Fra2N5O0mHL6dElu3rxltJqSOnz4BMHBNQ3abG1vYyODWIUQIleQ
+wCqEyBGtWr0DXNFv37rVjy+/XGm0epKaOXMzUVFdkrSE0br1O0arRwghhCEJrEKIHPHZZ31wcEi6
+bmpx9ux5Qnj4f0arCeD06WCOHSsJ5NO3OTisYezYPsYrSgghhAEJrEKIHFGkSBFq1HgKxOrbQkPH
+0K/fTJSR1oCOj4/nww8Xc/Pm8CStMdSsGUvhwoWNUpMQQojkJLAKIXKMt3dPSpb0SdJSmP37O/Dd
+d1m7AEB6jR49j+PHR5B0DZVSpXzw9u5plHqEEEKkTAKrECLHuLpWoXv3p5iYXNC3PX3ahPnzb3L4
+8Kk0zsx6Gzf+xcaNNmi1zvo2U9NgevSIpXr1yjlaixBCiLRp0voqTqPRyLqEQgghhBAiRyilNCm1
+pxlYhRBCCCGEMDYZEiCEEEIIIXI1CaxCCCGEECJXk8AqhBBCCCFyNQmsQgghhBAiV5PAKoQQQggh
+crX/B8n0f9gdlhHtAAAAAElFTkSuQmCC
+"
+>
 </div>
 
 </div>

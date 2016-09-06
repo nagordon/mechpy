@@ -95,26 +95,27 @@ div { text-align: justify; text-justify: inter-word; }
               ('statics', 1, 'sec:statics', 'sec:statics'),
               ('units', 1, 'sec:units', 'sec:units'),
               ('tutorials', 0, 'chp:tut', 'chp:tut'),
-              ('Importing Python Modules', 1, None, '___sec28'),
+              ('Intro to python and gotchas', 1, None, '___sec28'),
+              ('Importing Python Modules', 1, None, '___sec29'),
               ('Converting an ipython notebook to an html document',
                1,
                None,
-               '___sec29'),
-              ('Running jupyter notebook in windows', 1, None, '___sec30'),
-              ('pasting raw data into python', 1, None, '___sec31'),
-              ('simple fft example', 1, None, '___sec32'),
+               '___sec30'),
+              ('Running jupyter notebook in windows', 1, None, '___sec31'),
+              ('pasting raw data into python', 1, None, '___sec32'),
+              ('silly ascii text plot', 1, None, '___sec33'),
               ('References', 0, 'chp:ref', 'chp:ref'),
-              ('Links', 1, None, '___sec34'),
-              ('Python Engineering Classes', 2, None, '___sec35'),
-              ('Python Engineering Books', 2, None, '___sec36'),
-              ('Python Engineering Libraries', 2, None, '___sec37'),
-              ('General Numeric Python', 3, None, '___sec38'),
-              ('Fluids/Aero', 3, None, '___sec39'),
-              ('Mechanics/Composites/Materials', 3, None, '___sec40'),
-              ('FEM / Math', 3, None, '___sec41'),
-              ('Units', 3, None, '___sec42'),
-              ('Dynamics and Control Systems', 3, None, '___sec43'),
-              ('Plotting and Visualization', 3, None, '___sec44')]}
+              ('Links', 1, None, '___sec35'),
+              ('Python Engineering Classes', 2, None, '___sec36'),
+              ('Python Engineering Books', 2, None, '___sec37'),
+              ('Python Engineering Libraries', 2, None, '___sec38'),
+              ('General Numeric Python', 3, None, '___sec39'),
+              ('Fluids/Aero', 3, None, '___sec40'),
+              ('Mechanics/Composites/Materials', 3, None, '___sec41'),
+              ('FEM / Math', 3, None, '___sec42'),
+              ('Units', 3, None, '___sec43'),
+              ('Dynamics and Control Systems', 3, None, '___sec44'),
+              ('Plotting and Visualization', 3, None, '___sec45')]}
 end of tocinfo -->
 
 <body>
@@ -156,16 +157,17 @@ end of tocinfo -->
 &nbsp; &nbsp; &nbsp; <a href="#sec:statics"> statics  </a><br>
 &nbsp; &nbsp; &nbsp; <a href="#sec:units"> units  </a><br>
 <a href="#chp:tut"> tutorials </a><br>
-&nbsp; &nbsp; &nbsp; <a href="#___sec28"> Importing Python Modules  </a><br>
-&nbsp; &nbsp; &nbsp; <a href="#___sec29"> Converting an ipython notebook to an html document </a><br>
-&nbsp; &nbsp; &nbsp; <a href="#___sec30"> Running jupyter notebook in windows </a><br>
-&nbsp; &nbsp; &nbsp; <a href="#___sec31"> pasting raw data into python </a><br>
-&nbsp; &nbsp; &nbsp; <a href="#___sec32"> simple fft example </a><br>
+&nbsp; &nbsp; &nbsp; <a href="#___sec28"> Intro to python and gotchas </a><br>
+&nbsp; &nbsp; &nbsp; <a href="#___sec29"> Importing Python Modules  </a><br>
+&nbsp; &nbsp; &nbsp; <a href="#___sec30"> Converting an ipython notebook to an html document </a><br>
+&nbsp; &nbsp; &nbsp; <a href="#___sec31"> Running jupyter notebook in windows </a><br>
+&nbsp; &nbsp; &nbsp; <a href="#___sec32"> pasting raw data into python </a><br>
+&nbsp; &nbsp; &nbsp; <a href="#___sec33"> silly ascii text plot </a><br>
 <a href="#chp:ref">  References </a><br>
-&nbsp; &nbsp; &nbsp; <a href="#___sec34"> Links </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec35"> Python Engineering Classes </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec36"> Python Engineering Books </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec37"> Python Engineering Libraries </a><br>
+&nbsp; &nbsp; &nbsp; <a href="#___sec35"> Links </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec36"> Python Engineering Classes </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec37"> Python Engineering Books </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec38"> Python Engineering Libraries </a><br>
 </p>
 <p>
 
@@ -663,7 +665,7 @@ End of <em>abaqus</em> documentation
 <h1 id="sec:catia">catia</h1>
 
 <p>
-API code to automate cad in catia
+API code to automate cad in catia using wincom32 module
 
 <h1 id="sec:comp">composites</h1>
 
@@ -717,7 +719,86 @@ or for the html version <br />
 <a href="https://nagordon.github.io/mechpy/web/statics.html" target="_self"><tt>https://nagordon.github.io/mechpy/web/statics.html</tt></a>  <br />
 <a href="https://nagordon.github.io/mechpy/web/Composite_Plate_Mechanics_with_Python.html" target="_self"><tt>https://nagordon.github.io/mechpy/web/Composite_Plate_Mechanics_with_Python.html</tt></a>  <br />
 
-<h1 id="___sec28">Importing Python Modules  </h1>
+<h1 id="___sec28">Intro to python and gotchas </h1>
+
+<p>
+To get started, choose the python distribution you want. I would recommend anaconda, which has most of the scientific packages that are needed, but more importantly, comes with a package manager called conda, which will help us update and install new packages and manage environments if we want to use multiple versions of python.
+<a href="http://repo.continuum.io/miniconda/Miniconda-latest-Windows-x86_64.exe" target="_self">miniconda</a> is a great open-source lightweight distribution, but I would recommend anaconda":"http://continuum.io/downloads#34" which will install many scientific packages.
+
+<p>
+Once the install is complete, lets set up our virtual environments with conda. This will allow you to have an isolated environment for different projects. I typically default with the most recent version and create a 2.7 environment.
+
+<p>
+to check what environments are install type <code>conda info -e</code>
+
+<p>
+To install a full version of python 2.7 with many packages, type <code>conda create -n py27 python=2.7 anaconda</code>
+
+<p>
+In linux activate different environments by
+<p>
+
+<!-- code=bash (!bc bash) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span><span style="color: #008000">source</span> activate py27
+<span style="color: #008000">source</span> deactivate
+</pre></div>
+<p>
+and in windows
+<p>
+
+<!-- code=batch (!bc batch) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span>activate py27
+deactivate
+</pre></div>
+<p>
+It is easy to install new packages with conda or pip
+<p>
+
+<!-- code=batch (!bc batch) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span>conda install numpy
+conda install pandas
+conda install pywin32
+pip install python-pptx
+pip install pyinstaller
+pip install moviepy
+</pre></div>
+<p>
+Updating 1 packages or all  is just as easy
+<p>
+
+<!-- code=batch (!bc batch) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span>conda update matplotlib
+
+# or update all
+conda update --all
+</pre></div>
+<p>
+Since python is a generic computing language, numerical computation was not initially a very high priority, and so there are a few quirks of the python language that may cause some confusion for non-programmers or matlab users. The first is the difference of python version 2.7 and the current suggested version python 3+ (as of 2016). Many legacy packages exist for python 2.7, so it is handy to use, but it is recommended to develop in the current release.
+
+<p>
+a handy tool to ensure so errors go unnoticed is to import the future module. This will take care of the print function syntax change <code>print('hi')</code> and integer division <code>/</code>
+
+<p>
+
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span><span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">__future__</span> <span style="color: #008000; font-weight: bold">import</span> print_function, division
+</pre></div>
+<p>
+The second is variable assignment. Since every variable in python is an object, we have to copy variables, not just use <code>=</code>. for example, to copy a variable
+
+<p>
+
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span><span style="color: #408080; font-style: italic"># CORRECT</span>
+<span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">copy</span> <span style="color: #008000; font-weight: bold">import</span> copy
+x <span style="color: #666666">=</span> <span style="color: #666666">5</span>
+y<span style="color: #666666">=</span>copy(x)
+
+<span style="color: #408080; font-style: italic"># WRONG</span>
+y<span style="color: #666666">=</span>x
+</pre></div>
+
+<h1 id="___sec29">Importing Python Modules  </h1>
 
 <p>
 When using python, the very first code you will need is to import modules. An example of importing the essential scientific computing libraries with some settings is shown here.
@@ -740,11 +821,19 @@ plt<span style="color: #666666">.</span>rcParams[<span style="color: #BA2121">&#
 
 get_ipython()<span style="color: #666666">.</span>magic(<span style="color: #BA2121">&#39;matplotlib&#39;</span>)  <span style="color: #408080; font-style: italic"># seperate window</span>
 get_ipython()<span style="color: #666666">.</span>magic(<span style="color: #BA2121">&#39;matplotlib inline&#39;</span>) <span style="color: #408080; font-style: italic"># inline plotting</span>
+
+<span style="color: #408080; font-style: italic"># or for inline plotting, in an  ipython console, use the magic commands</span>
+<span style="color: #666666">%</span>matplotlib inline
+
+<span style="color: #408080; font-style: italic"># to revert to window plotting</span>
+<span style="color: #666666">%</span>matplotlib
+<span style="color: #408080; font-style: italic">#or</span>
+<span style="color: #666666">%</span>matplotlib qt
 </pre></div>
 <p>
 <!-- !split -->
 
-<h1 id="___sec29">Converting an ipython notebook to an html document </h1>
+<h1 id="___sec30">Converting an ipython notebook to an html document </h1>
 Ipython notebooks can eaily be converted to an html file with the following python code
 
 <p>
@@ -761,7 +850,7 @@ or, in the OS terminal
 <div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span>jupyter nbconvert --to html mechpy.ipynb
 </pre></div>
 
-<h1 id="___sec30">Running jupyter notebook in windows </h1>
+<h1 id="___sec31">Running jupyter notebook in windows </h1>
 In windows, create a batch file (*.bat) to run a jupyter notebook server in the current directory
 <p>
 
@@ -776,7 +865,7 @@ jupyter nbconvert --to html mechpy.ipynb
 <span style="color: #008000; font-weight: bold">pause</span>
 </pre></div>
 
-<h1 id="___sec31">pasting raw data into python </h1>
+<h1 id="___sec32">pasting raw data into python </h1>
 
 <p>
 This example shows how you can copy and past data into python
@@ -801,36 +890,45 @@ y <span style="color: #666666">=</span> [<span style="color: #008000">float</spa
 <span style="color: #008000; font-weight: bold">print</span>(y, end<span style="color: #666666">=</span><span style="color: #BA2121">&quot; &quot;</span>)
 </pre></div>
 
-<h1 id="___sec32">simple fft example </h1>
+<h1 id="___sec33">silly ascii text plot </h1>
 
+<p>
+with sympy
 <p>
 
 <!-- code=python (!bc pycod) typeset with pygments style "default" -->
-<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span><span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">pylab</span> <span style="color: #008000; font-weight: bold">import</span> <span style="color: #666666">*</span>
-<span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">scipy</span> <span style="color: #008000; font-weight: bold">import</span> fft
-N <span style="color: #666666">=</span> <span style="color: #666666">2**9</span>
-F <span style="color: #666666">=</span> <span style="color: #666666">25</span>
-t <span style="color: #666666">=</span> arange(N)<span style="color: #666666">/</span><span style="color: #008000">float</span>(N)
-x <span style="color: #666666">=</span> cos(<span style="color: #666666">2*</span>pi<span style="color: #666666">*</span>t<span style="color: #666666">*</span>F) <span style="color: #666666">+</span> rand(<span style="color: #008000">len</span>(t))<span style="color: #666666">*3</span>
-subplot(<span style="color: #666666">2</span>,<span style="color: #666666">1</span>,<span style="color: #666666">1</span>)
-plot(t,x)
-ylabel(<span style="color: #BA2121">&#39;x []&#39;</span>)
-xlabel(<span style="color: #BA2121">&#39;t [seconds]&#39;</span>)
-title(<span style="color: #BA2121">&#39;A cosine wave&#39;</span>)
-grid()
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span><span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">sympy</span> <span style="color: #008000; font-weight: bold">import</span> symbols, exp, pi, cos
+<span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">sympy.plotting</span> <span style="color: #008000; font-weight: bold">import</span> textplot
+x <span style="color: #666666">=</span> symbols(<span style="color: #BA2121">&#39;x&#39;</span>)
+textplot( exp(<span style="color: #666666">-</span>x) <span style="color: #666666">*</span> cos(<span style="color: #666666">2*</span>pi<span style="color: #666666">*</span>x)  ,<span style="color: #666666">0</span>,<span style="color: #666666">5</span>, <span style="color: #666666">75</span>,<span style="color: #666666">20</span>)
+</pre></div>
+<p>
+with scitools
+<p>
 
-subplot(<span style="color: #666666">2</span>,<span style="color: #666666">1</span>,<span style="color: #666666">2</span>)
-f <span style="color: #666666">=</span> t<span style="color: #666666">*</span>N
-xf <span style="color: #666666">=</span> fft(x)
-plot(f,<span style="color: #008000">abs</span>(xf))
-title(<span style="color: #BA2121">&#39;Fourier transform of a cosine wave&#39;</span>)
-xlabel(<span style="color: #BA2121">&#39;xf []&#39;</span>)
-ylabel(<span style="color: #BA2121">&#39;xf []&#39;</span>)
-xlim([<span style="color: #666666">0</span>,N])
-grid()
-show()
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span><span style="color: #408080; font-style: italic"># This is the same example as in the scitools.aplotter doc string</span>
 
-<span style="color: #408080; font-style: italic"># note the spike at 25 hz and 512-25</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">numpy</span> <span style="color: #008000; font-weight: bold">as</span> <span style="color: #0000FF; font-weight: bold">np</span>
+x <span style="color: #666666">=</span> np<span style="color: #666666">.</span>linspace(<span style="color: #666666">0</span>, <span style="color: #666666">5</span>, <span style="color: #666666">81</span>)
+<span style="color: #408080; font-style: italic">#y = np.exp(-0.5*x**2)*np.cos(np.pi*x)</span>
+y<span style="color: #666666">=</span>np<span style="color: #666666">.</span>exp(<span style="color: #666666">-</span>x)<span style="color: #666666">*</span>np<span style="color: #666666">.</span>cos(<span style="color: #666666">2*</span>np<span style="color: #666666">.</span>pi<span style="color: #666666">*</span>x)
+<span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">scitools.aplotter</span> <span style="color: #008000; font-weight: bold">import</span> plot
+plot(x, y)
+
+plot(x, y, draw_axes<span style="color: #666666">=</span><span style="color: #008000">False</span>)
+
+<span style="color: #408080; font-style: italic"># Plot symbols (the dot argument) at data points</span>
+plot(x, y, plot_slope<span style="color: #666666">=</span><span style="color: #008000">False</span>)
+
+<span style="color: #408080; font-style: italic"># Drop axis labels</span>
+plot(x, y, plot_labels<span style="color: #666666">=</span><span style="color: #008000">False</span>)
+
+plot(x, y, dot<span style="color: #666666">=</span><span style="color: #BA2121">&#39;o&#39;</span>, plot_slope<span style="color: #666666">=</span><span style="color: #008000">False</span>)
+
+<span style="color: #408080; font-style: italic"># Store plot in a string</span>
+p <span style="color: #666666">=</span> plot(x, y, output<span style="color: #666666">=</span><span style="color: #008000">str</span>)
+<span style="color: #008000; font-weight: bold">print</span> p
 </pre></div>
 <p>
 <!-- !split -->
@@ -848,9 +946,9 @@ Niu - Airframe Stress Analysis and Sizing <br />
 <p>
 <!-- !split -->
 
-<h1 id="___sec34">Links </h1>
+<h1 id="___sec35">Links </h1>
 
-<h2 id="___sec35">Python Engineering Classes </h2>
+<h2 id="___sec36">Python Engineering Classes </h2>
 <a href="https://github.com/jrjohansson/scientific-python-lectures" target="_self">scientific-python-lectures</a>  <br />
 <a href="http://openedx.seas.gwu.edu/courses/GW/MAE6286/2014_fall/about" target="_self">Practical Numerical Methods with Python</a> with <a href="https://github.com/numerical-mooc/numerical-mooc" target="_self">source code</a> <br />
 <a href="http://openedx.seas.gwu.edu/courses/GW/MAE6226/2014_spring/about" target="_self">Aerodynamics / Hydrodynamics with Python</a> <br />
@@ -859,7 +957,7 @@ Niu - Airframe Stress Analysis and Sizing <br />
 <a href="http://www-personal.umich.edu/~mejn/computational-physics/" target="_self">Computational Physics with Python</a> <br />
 <a href="http://cs.brown.edu/courses/cs053/current/index.htm" target="_self">Coding the Matrix</a> <br />
 
-<h2 id="___sec36">Python Engineering Books </h2>
+<h2 id="___sec37">Python Engineering Books </h2>
 
 <p>
 <a href="http://www.apress.com/9781484205549" target="_self">Numerical Python - A Practical Techniques Approach for Industry</a> with <a href="http://www.apress.com/downloadable/download/sample/sample_id/1732/" target="_self">source code</a>  <br />
@@ -867,9 +965,9 @@ Niu - Airframe Stress Analysis and Sizing <br />
 <a href="http://hplgit.github.io/primer.html/doc/web/index.html" target="_self">A Primer on Scientific Programming With Python</a>  <br />
 <a href="http://codingthematrix.com/" target="_self">Coding the Matrix</a> <br />
 
-<h2 id="___sec37">Python Engineering Libraries </h2>
+<h2 id="___sec38">Python Engineering Libraries </h2>
 
-<h3 id="___sec38">General Numeric Python </h3>
+<h3 id="___sec39">General Numeric Python </h3>
 
 Python has mature scientific computation packages, namely <a href="https://www.scipy.org/" target="_self">scipy</a>
 
@@ -906,14 +1004,14 @@ Python has mature scientific computation packages, namely <a href="https://www.s
 <a href="http://matplotlib.org/gallery.html" target="_self">matplotlib gallery</a> and <a href="https://github.com/rougier/matplotlib-tutorial" target="_self">matplotlib tutorial</a>  <br />
 <a href="http://central.scipy.org/item/84/1/simple-interactive-matplotlib-plots" target="_self">interactive matplotlib</a>  <br />
 
-<h3 id="___sec39">Fluids/Aero </h3>
+<h3 id="___sec40">Fluids/Aero </h3>
 
 <a href="http://aeropy.readthedocs.io/en/latest/" target="_self">aeropy</a>   <br />
 <a href="https://github.com/dgorissen/naca" target="_self">NACA airfoils</a>   <br />
 <a href="https://github.com/barbagroup/AeroPython" target="_self">aeropython</a>  or <a href="http://lorenabarba.com/blog/announcing-aeropython/" target="_self">aeropython</a>  <br />
 <a href="http://pyaero.sourceforge.net/" target="_self">pyaero</a>   <br />
 
-<h3 id="___sec40">Mechanics/Composites/Materials </h3>
+<h3 id="___sec41">Mechanics/Composites/Materials </h3>
 
 <a href="https://github.com/Rlee13/pyPLY  " target="_self">pyply composites</a>   <br />
 <a href="http://docs.sympy.org/latest/modules/physics/mechanics/index.html" target="_self">sympy classical mechanics</a>  <br />
@@ -923,7 +1021,7 @@ Python has mature scientific computation packages, namely <a href="https://www.s
 <a href="https://github.com/nagordon/mcgill_mech_530_selimb  " target="_self"><tt>https://github.com/nagordon/mcgill_mech_530_selimb  </tt></a>  <br />
 <a href="https://github.com/elainecraigie/MechanicsOfCompositesProject_ECraigie  " target="_self"><tt>https://github.com/elainecraigie/MechanicsOfCompositesProject_ECraigie  </tt></a>   <br />
 
-<h3 id="___sec41">FEM / Math </h3>
+<h3 id="___sec42">FEM / Math </h3>
 
 <a href="https://github.com/SteveDoyle2/pynastran/wiki/GUI" target="_self">pynastran</a>   <br />
 <a href="http://pyamg.org/" target="_self">grid solvers</a> with "example""https://code.google.com/p/pyamg/wiki/Examples"   <br />
@@ -939,14 +1037,14 @@ Python has mature scientific computation packages, namely <a href="https://www.s
 <a href="https://github.com/PySimulator/PySimulator/" target="_self">Pysimulator</a>   <br />
 <a href="http://compmech.lab.asu.edu/data/pyfem.py " target="_self">pyfem</a>  <br />
 
-<h3 id="___sec42">Units </h3>
+<h3 id="___sec43">Units </h3>
 
 <a href="http://pint.readthedocs.io/en/0.7.2/" target="_self">pint units</a>    <br />
 <a href="https://pypi.python.org/pypi/Unum" target="_self">Unum units</a> <br />
 <a href="https://github.com/python-quantities/python-quantities" target="_self">quantities</a>
 <a href="http://docs.sympy.org/latest/modules/physics/units.html" target="_self">scipy units</a>   <br />
 
-<h3 id="___sec43">Dynamics and Control Systems </h3>
+<h3 id="___sec44">Dynamics and Control Systems </h3>
 
 <a href="https://github.com/bblais/pyndamics" target="_self">pyndamics</a>   <br />
 <a href="http://www.siue.edu/~rkrauss/python_intro.html  " target="_self">Python for Controls, System Dynamics, and Mechatronics</a>  <br />
@@ -957,7 +1055,7 @@ Python has mature scientific computation packages, namely <a href="https://www.s
 <a href="https://github.com/python-control/python-control" target="_self">python control</a>   <br />
 <a href="http://www.pydy.org/" target="_self">pydy</a> with <a href="http://nbviewer.jupyter.org/github/pydy/pydy-tutorial-human-standing/tree/online-read/notebooks/" target="_self">examples</a>  and <a href="https://github.com/pydy/scipy-2013-mechanics" target="_self">here</a>  <br />
 
-<h3 id="___sec44">Plotting and Visualization </h3>
+<h3 id="___sec45">Plotting and Visualization </h3>
 
 <a href="http://hplgit.github.io/bumpy/doc/pub/._bumpy010.html#app:resources   " target="_self">bumpy</a>  <br />
 <a href="http://www.petercollingridge.co.uk/pygame-physics-simulation" target="_self">pygame physics</a>  <br />
