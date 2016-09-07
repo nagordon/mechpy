@@ -667,7 +667,6 @@ Niu - Airframe Stress Analysis and Sizing <linebreak>
 !split
 ======= Links =======
 
-
 ===== Python Engineering Classes =====
 "scientific-python-lectures":"https://github.com/jrjohansson/scientific-python-lectures"  <linebreak>
 "Practical Numerical Methods with Python":"http://openedx.seas.gwu.edu/courses/GW/MAE6286/2014_fall/about" with "source code":"https://github.com/numerical-mooc/numerical-mooc" <linebreak>
