@@ -10,11 +10,32 @@ Automatically generated HTML file from DocOnce source
 
 <title>mechpy documentation</title>
 
-<!-- Bootstrap style: bootswatch_journal -->
-<link href="http://netdna.bootstrapcdn.com/bootswatch/3.1.1/journal/bootstrap.min.css" rel="stylesheet">
-<!-- not necessary
-<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
--->
+
+<style type="text/css">
+/* blueish style */
+
+/* Color definitions:  http://www.december.com/html/spec/color0.html
+   CSS examples:       http://www.w3schools.com/css/css_examples.asp */
+
+body {
+  margin-top: 1.0em;
+  background-color: #ffffff;
+  font-family: Helvetica, Arial, FreeSans, san-serif;
+  color: #000000;
+}
+h1 { font-size: 1.8em; color: #1e36ce; }
+h2 { font-size: 1.6em; color: #1e36ce; }
+h3 { font-size: 1.4em; color: #1e36ce; }
+a { color: #1e36ce; text-decoration:none; }
+tt { font-family: "Courier New", Courier; }
+/* pre style removed because it will interfer with pygments */
+p { text-indent: 0px; }
+hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+p.caption { width: 80%; font-style: normal; text-align: left; }
+hr.figure { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+
+div { text-align: justify; text-justify: inter-word; }
+</style>
 
 
 </head>
@@ -96,42 +117,10 @@ end of tocinfo -->
 <body>
 
     
-<!-- Bootstrap navigation bar -->
-<div class="navbar navbar-default navbar-fixed-top">
-  <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <a class="navbar-brand" href="mechpy.html">mechpy documentation</a>
-  </div>
-  <div class="navbar-collapse collapse navbar-responsive-collapse">
-    <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contents <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-     <!-- navigation toc: --> <li><a href="#chp:intro" style="font-size: 80%;">introduction</a></li>
-     <!-- navigation toc: --> <li><a href="#chp:modules" style="font-size: 80%;">mechpy modules</a></li>
-     <!-- navigation toc: --> <li><a href="#chp:tut" style="font-size: 80%;">tutorials</a></li>
-     <!-- navigation toc: --> <li><a href="#chp:ref" style="font-size: 80%;">References</a></li>
-
-        </ul>
-      </li>
-    </ul>
-  </div>
-</div>
-</div> <!-- end of navigation bar -->
-
-<div class="container">
-
-<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p> <!-- add vertical space -->
-
 <!-- ------------------- main content ---------------------- -->
 
 
 
-<div class="jumbotron">
 <center><h1>mechpy documentation</h1></center>  <!-- document title -->
 
 <p>
@@ -178,7 +167,7 @@ end of tocinfo -->
 </p>
 <p>
 
-<center><h1 id="chp:intro">introduction</h1></center> <!-- chapter heading -->
+<center><h1 id="chp:intro">introduction</h1></center> <hr>
 
 <p>
 Mechpy was created for few reasons.
@@ -191,12 +180,9 @@ Mechpy was created for few reasons.
 There are many different tools available to engineers. Hand-calculations, spreadsheets, and code are all great ways to perform calculations or visualize data or concepts. MATLAB is the defacto tool to solve many engineering calculations, but is just too expensive to be a practical tool for many of us. Octave, Scilab, or Freelab are great alternatives, but is limited in scope to calculation. I began using python for calculations and visualizations and have found it to be a very powerful tool with many existing modules for mathematics and plotting, in addition to the thousands of other libraries for general computing.
 
 <p>
-<!-- potential-jumbotron-button -->
-</div> <!-- end jumbotron -->
-
 <!-- !split -->
 
-<center><h1 id="chp:modules">mechpy modules</h1></center> <!-- chapter heading -->
+<center><h1 id="chp:modules">mechpy modules</h1></center> <hr>
 
 <p>
 <b>abaqus.</b>
@@ -713,7 +699,7 @@ unit conversion
 <p>
 <!-- !split -->
 
-<center><h1 id="chp:tut">tutorials</h1></center> <!-- chapter heading -->
+<center><h1 id="chp:tut">tutorials</h1></center> <hr>
 
 <p>
 to view using the nbviewer checkout
@@ -943,7 +929,7 @@ p <span style="color: #666666">=</span> plot(x, y, output<span style="color: #66
 <p>
 <!-- !split -->
 
-<center><h1 id="chp:ref">References</h1></center> <!-- chapter heading -->
+<center><h1 id="chp:ref">References</h1></center> <hr>
 
 <p>
 Hibbler - Statics   <br />
@@ -1073,17 +1059,6 @@ Python has mature scientific computation packages, namely <a href="https://www.s
 <a href="http://vpython.org/" target="_self">vpython</a>  <br />
 
 <!-- ------------------- end of main content --------------- -->
-
-</div>  <!-- end container -->
-<!-- include javascript, jQuery *first* -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-
-<!-- Bootstrap footer
-<footer>
-<a href="http://..."><img width="250" align=right src="http://..."></a>
-</footer>
--->
 
 
 </body>
