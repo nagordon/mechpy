@@ -41,10 +41,12 @@ dofile='mechpy'
 
 ## updating github pages
 doconce format html $dofile --html_style=bootswatch_journal
-python ipynb_to_html.py
 mv mechpy.html web/index.html
-ghp-import web
-rm web/*.html
+python ipynb_to_html.py
+cd ..  # change directory to mechpy root directory
+ghp-import doc/web
+rm doc/web/*.html
+
 git add --all
 git commit -m 'updated doc webpage'
 git push --all origin

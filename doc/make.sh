@@ -40,7 +40,7 @@ dofile='mechpy'
 #firefox sphinx/_build/html/index/html
 
 ## updating github pages
-doconce format html $dofile --html_style=bootswatch_journal
+doconce format html $dofile #--html_style=bootswatch_journal
 mv mechpy.html web/index.html
 python ipynb_to_html.py
 cd ..  # change directory to mechpy root directory
