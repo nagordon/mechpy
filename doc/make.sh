@@ -40,7 +40,7 @@ dofile='mechpy'
 #firefox sphinx/_build/html/index/html
 
 ## updating github pages
-doconce format html $dofile #--html_style=bootswatch_journal
+doconce format html $dofile --html_style=tactile-white # bootswatch_journal  # bootstrap, blueish2, 
 mv mechpy.html web/index.html
 python ipynb_to_html.py
 cd ..  # change directory to mechpy root directory
@@ -50,5 +50,11 @@ rm doc/web/*.html
 git add --all
 git commit -m 'updated doc webpage'
 git push --all origin
+
+## Convert ipynb to doconce
+#doconce ipynb2doconce notebook.ipynb
+
+## diff files 
+#doconce diff file1.txt file2.txt
 
 
