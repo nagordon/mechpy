@@ -680,6 +680,7 @@ def laminate():
             
     # margin of safety based on max stress criteria
     MS = 1/SR-1
+    MS = np.min(MS[~np.isinf(MS)]) # remove inf
     
     #==========================================================================
     # Printing Results    
@@ -734,7 +735,7 @@ def laminate():
     print(MS)
     #display(sp.Matrix(sigmabar))
     
-
+    
             
     #==========================================================================
     # Plotting
