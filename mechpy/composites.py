@@ -414,7 +414,7 @@ def laminate():
     '''
     
     #==========================================================================
-    # Initialize
+    # Initialize python settings
     #==========================================================================
     get_ipython().magic('matplotlib') 
     plt.close('all')
@@ -422,12 +422,29 @@ def laminate():
     plt.rcParams['font.size'] = 13
     #plt.rcParams['legend.fontsize'] = 14
     
+    
+    #==========================================================================
+    # Define composite properties
+    #==========================================================================
+    matindex = ['Carbon_cloth_AGP3705H']  # list materials used, 
+    W =  5  # plate width (inches or meters)
+    L =  5  # laminate length, inches or meters  
+    plyangle = [0,45,45,0]  # angle for each ply
+    plymat =   [0,0,0,0]  # material for each ply
+    
+    # either apply strains or loads , lb/in
+            #               Nx    Ny  Nxy  Mx  My Mxy 
+    NMbarapp =      array([[400],[400],[400],[0],[0],[0]])
+    #                       ex ey exy  kx  ky kxy
+    epsilonbarapp = array([[0],[0],[0],[0],[0],[0]]) 
+    
+    Ti = 0   # initial temperature (C)
+    Tf = 0 # final temperature (C)        
+    
+    
     #==========================================================================
     # Import Material Properties
     #==========================================================================
-    	
-
-    matindex = ['AS4_3501-6']
     mat  = import_matprops(matindex)  
     #mat  = import_matprops('T300_5208')  # Herakovich
     alphaf = lambda mat: array([[mat.alpha1], [mat.alpha2], [0]])
@@ -438,11 +455,7 @@ def laminate():
     mat[matindex[1]].E2
     
     '''
-    W =   0.25  # plate width
-    L =  .125           # laminate length  
-    plyangle = [0,90,90,0]  # angle for each ply
-    plymat =   [0,0,0,0]  # material for each ply
-    
+
     laminatethk = array([mat[matindex[i]].plythk for i in plymat ])
     
     nply = len(laminatethk) # number of plies
@@ -500,7 +513,6 @@ def laminate():
     nuxybar = -a[0,1]/a[0,0]
     nuyxbar = -a[0,1]/a[1,1]
     
-
     # --------------------- Double Check ---------------------
 #    # Laminate compliance matrix
 #    LamComp = array([ [1/Exbar,       -nuyxbar/Eybar,  etasxbar/Gxybar],
@@ -517,13 +529,8 @@ def laminate():
     #==========================================================================
     #  Applied Loads 
     #==========================================================================
-    # either apply strains or loads 
-            #               Nx Ny  Nxy  Mx  My Mxy 
-    NMbarapp =      array([[0],[0],[0],[0],[0],[0]])
-    #                       ex ey exy  kx  ky kxy
-    epsilonbarapp = array([[5e-3],[0],[0],[0],[0],[0]]) 
-    
     NMbarapptotal = NMbarapp + ABD@epsilonbarapp
+    
     #==========================================================================
     # Thermal Loads  
     #==========================================================================
@@ -535,9 +542,6 @@ def laminate():
         unintuitive and complicated. Global Thermal strains are subtracted from applied strains 
     # 1) determine the free unrestrained thermal strains in each layer, alphabar
     '''
-    
-    Ti = 0   # initial temperature (C)
-    Tf = 0 # final temperature (C)
     dT = Tf-Ti 
     
     Nhatth= zeros((3,1))  # unit thermal force in global CS
@@ -666,15 +670,17 @@ def laminate():
         F2 =  mat[matindex[plymat[i]]].F2t  if s2 > 0 else  mat[matindex[plymat[i]]].F2c
         F12 = mat[matindex[plymat[i]]].F12t if s12 > 0 else mat[matindex[plymat[i]]].F12c
 
-        #Tsai Hill
+        #Tsai Hill, failure occurs when > 1
         TS[i] = s1**2/F1**2 + s2**2/F2**2 + s12**2/F12**2 - s1*s2/F2**2
         
-        # strength ratio, if < 1, then fail, 
+        # strength ratio, if > 1, then fail, 
         SR[0,k:k+2] = s1 / F1  
         SR[1,k:k+2] = s2 / F2
         SR[2,k:k+2] = s12 / F12
             
-       
+    # margin of safety based on max stress criteria
+    MS = 1/SR-1
+    
     #==========================================================================
     # Printing Results    
     #==========================================================================
@@ -718,10 +724,14 @@ def laminate():
     print(sigma)
     print('sigmabar')    
     print(sigmabar)
-    print('Stress Ratio')
+    print('Stress Ratio, failure > 1')
     print(SR)
-    print('Tsai-Hill Failure')
+    print('Maximum Stress Ratio, failure > 1')
+    print(np.max(SR))
+    print('Tsai-Hill Failure, failure > 1')
     print(TS)
+    print('Percent Margin of Safety, failure < 0')
+    print(MS)
     #display(sp.Matrix(sigmabar))
     
 
