@@ -45,6 +45,7 @@ mv mechpy.html web/index.html
 python ipynb_to_html.py
 cd ..  # change directory to mechpy root directory
 ghp-import doc/web
+rm doc/web/*.html
 
 git add --all
 git commit -m 'updated doc webpage'

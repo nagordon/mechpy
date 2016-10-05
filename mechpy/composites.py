@@ -20,6 +20,7 @@ from copy import copy
 
 from numpy import pi, zeros, ones, linspace, arange, array, sin, cos
 from numpy.linalg import solve, inv
+
 #from scipy import linalg
 import numpy as np
 #np.set_printoptions(suppress=False,precision=2)   # suppress scientific notation
@@ -28,12 +29,12 @@ np.set_printoptions(precision=4, linewidth=150)
 import pandas as pd
 
 import sympy as sp
-from sympy import Function, dsolve, Eq, Derivative, sin, cos, symbols, pprint
+from sympy import Function, dsolve, Eq, Derivative, symbols, pprint
 from sympy.plotting import plot3d  
 
 #from sympy import cos, sin
 #sp.init_printing(use_latex='mathjax')
-sp.init_printing(wrap_line=False, pretty_print=True)
+#sp.init_printing(wrap_line=False, pretty_print=True)
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import plot,figure,xlim,ylim,title,legend, \
@@ -131,7 +132,7 @@ def T62(th):
                  [0,    0,    1, 0, 0, 0],
                  [0,    0,    0, m,-n, 0],
                  [0,    0,    0, n, m, 0],
-                 [-2*m*n, 2*m*n,  0, 0, 0,(m**2-n**2)]])     
+                 [-2*m*n, 2*m*n,  0, 0, 0,(m**2-n**2)]])                  
     return T2
 
 
@@ -187,7 +188,7 @@ def failure_envelope():
     # F6 = Fs(1);
     
     for c in range(2):# mattype
-        factor = 1.9
+        factor = 1.25
         # right
         plot( [Ft1[c], Ft1[c]] , [Fc2[c], Ft2[c]])
         
@@ -221,7 +222,7 @@ def material_plots():
     plt.close('all')
     
     mat = import_matprops('T300_5208')
-    S = Sf6(mat.E1,mat.E2,mat.nu12,mat.nu23,mat.G12 )    
+    S = S6f(mat.E1,mat.E2,mat.nu12,mat.nu23,mat.G12 )    
     C = inv(S)
     plyangle = arange(-90, 90.1, 0.1) 
     
@@ -1149,8 +1150,8 @@ if __name__=='__main__':
     
     
     #material_plots()
-    #laminate()
-    plate()
+    laminate()
+    #plate()
 
 
 
