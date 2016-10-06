@@ -697,6 +697,22 @@ def laminate():
         #Tsai Hill, failure occurs when > 1
         TS[i] = s1**2/F1**2 + s2**2/F2**2 + s12**2/F12**2 - s1*s2/F2**2
         
+        
+        # Tsai Wu, failure occures when >1
+        F1t = mat[matindex[plymat[i]]].F1t  
+        F1c = mat[matindex[plymat[i]]].F1c
+        F2t = mat[matindex[plymat[i]]].F2t 
+        F2c = mat[matindex[plymat[i]]].F2c
+        F12t = mat[matindex[plymat[i]]].F12t 
+        
+        f1=1/F1t-1/F1c
+        f2=1/F2t-1/F2c
+        f11=1/(F1t*F1c)
+        f22=1/(F2t*F2c)
+        f66=1/F12t**2
+        f12=-0.5*(f11*f22)*0.5        
+        TW = f1*s1+f2*s2+f11*s1**2+f22*s2**2+f66*s12**2+2*f12*s1*s2
+        
         # strength ratio, if > 1, then fail, 
         SR[0,k:k+2] = s1 / F1  
         SR[1,k:k+2] = s2 / F2
@@ -755,6 +771,8 @@ def laminate():
     print(np.max(SR))
     print('Tsai-Hill Failure, failure > 1')
     print(TS)
+    print('Tsai-Wu Failure, failure > 1')
+    print(TW)    
     print('Percent Margin of Safety, failure < 0')
     print(MS)
     #display(sp.Matrix(sigmabar))
