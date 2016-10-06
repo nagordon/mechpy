@@ -375,7 +375,31 @@ def laminate_gen(lamthk=1.5, symang=[45,0,90], plyratio=2.0, matrixlayers=False,
 
     return thk,plyangle,mat,lamang
 
-
+def make_quasi(n0=4,n45=4):
+    #n0 = 4
+    #n45 = 13
+    #
+    #ply0 = [0]*n0
+    #ply45 = [45]*n45
+    #plyangle = []
+    #from itertools import zip_longest
+    #for x,y in zip_longest(ply0,ply45):
+    #    if len(plyangle)<min(len(ply0),len(ply45))*2:
+    #        plyangle.append(x)
+    #        plyangle.append(y)
+    #    else:
+    #        plyangle.append(x)
+    #        plyangle.reverse()
+    #        plyangle.append(y)
+    #plyangle = [x for x in plyangle if x is not None]       
+    #plyangle
+    
+    ntot = n45+n0
+    plyangle = [45]*int(n45)
+    for p in [0]*int(n0):
+        plyangle.append(p)
+        plyangle.reverse()
+    return plyangle
 
 def laminate():
     '''
