@@ -496,7 +496,7 @@ def laminate():
     # ABD Matrix Compute
     #==========================================================================
     # Reduced stiffness matrix for a plane stress ply in principal coordinates
-    # calcluating Q from the Compliance matrix may cause cancellation errors
+    # calcluating Q from the Compliance matrix may cause cancE1ation errors
 
     A = zeros((3,3)); B = zeros((3,3)); D = zeros((3,3))  
     for i in range(nply):  # = nply
@@ -919,85 +919,51 @@ def plate():
     #==========================================================================
  
     plythk = 0.0025
-    plyangle = array([0,90,90,0]) * np.pi/180 # angle for each ply
+    plyangle = array([0,90,-45,45,0]) * np.pi/180 # angle for each ply
     nply = len(plyangle) # number of plies
     laminatethk = np.zeros(nply) + plythk
     H =   sum(laminatethk) # plate thickness
+    # Create z dimensions of laminate
+    z_ = np.linspace(-H/2, H/2, nply+1)    
 
     a =   20  # plate width;
     b =   10  # plate height
     q0_ = 5.7 # plate load;
     # Transversly isotropic material properties
-    Ell = 150e9
-    Ett = 12.1e9
-    vlt = 0.248
-    Glt = 4.4e9
-    vtt = 0.458
-    Gtt = Ett / (2*(1+vtt))
+    E1 = 150e9
+    E2 = 12.1e9
+    nu12 = 0.248
+    G12 = 4.4e9
+    nu23 = 0.458
+    G23 = E2 / (2*(1+nu23))
     # Failure Strengths
-    SLLt =  1500e6
-    SLLc = -1250e6
-    STTt =  50e6
-    STTc = -200e6
-    SLTs =  100e6
-    Sxzs =  100e6
-    Strength = np.array([[SLLt, SLLc],
-                            [STTt, STTc],
-                            [SLTs, Sxzs]])
+    F1t =  1500e6
+    F1c = -1250e6
+    F2t =  50e6
+    F2c = -200e6
+    F12t =  100e6
+    F12c =  -100e6
+    Strength = np.array([[F1t, F1c],
+                            [F2t, F2c],
+                            [F12t, F12c]])
                                 
-    ## Stiffness Matrix
-    th = sp.symbols('th')   # th = sp.var('th')
-    # tranformation
-    Tij6 = sp.Matrix([[cos(th)**2, sin(th)**2, 0, 0, 0, -sin(2*th)],
-                      [sin(th)**2, cos(th)**2, 0, 0, 0,  sin(2*th)],
-                      [0, 0, 1, 0, 0, 0],
-                      [0, 0, 0, cos(th), sin(th), 0],
-                      [0, 0, 0, -sin(th), cos(th), 0],
-                      [cos(th)*sin(th), -cos(th)*sin(th), 0, 0, 0, (cos(th)**2-sin(th)**2)]])
-    
-    Tij = sp.Matrix([[cos(th)**2, sin(th)**2, 2*sin(th)*cos(th)],
-                     [sin(th)**2, cos(th)**2, -2*sin(th)*cos(th)],
-                     [-cos(th)*sin(th), sin(th)*cos(th), (cos(th)**2-sin(th)**2)]])
-    
-    # compliance matrix
-    Sij6 = np.array([[1/Ell, -vlt/Ell, -vlt/Ell, 0, 0, 0],
-                      [-vlt/Ell, 1/Ett, -vtt/Ett, 0, 0, 0],
-                      [-vlt/Ell, -vtt/Ett, 1/Ett, 0, 0, 0],
-                      [0, 0, 0, 1/Gtt, 0, 0],
-                      [0, 0, 0, 0, 1/Glt, 0],
-                      [0, 0, 0, 0, 0, 1/Glt]])
+
+    th = sp.symbols('th') 
        
     # Stiffnes matrix in material coordinates
     Cijm6 = inv(Sij6)
     
-    
-    # Stiffness matrix in Structural coordinates
-    Cij6 = Tij6 @ Cijm6 @ Tij6.inv()
     
     # reduced stiffness in structural
     Cij = sp.Matrix([[Cij6[0,0], Cij6[0,1], 0],
                      [Cij6[0,1], Cij6[1,1], 0],
                      [0, 0, Cij6[5,5] ]] )
 
+-    Tij = sp.Matrix([[cos(th)**2, sin(th)**2, 2*sin(th)*cos(th)],
+-                     [sin(th)**2, cos(th)**2, -2*sin(th)*cos(th)],
+-                     [-cos(th)*sin(th), sin(th)*cos(th), (cos(th)**2-sin(th)**2)]])
     
-    # Create z dimensions of laminate
-    z_ = np.linspace(-H/2, H/2, nply+1)
-    
-    # extensional stiffness
-    Aij = sp.Matrix(np.zeros((6,6)))
-    for i in range(nply):
-        Aij += Cij6.evalf(subs={th:plyangle[i]}) * (z_[i+1]-z_[i])
-        
-    # coupling  stiffness
-    Bij = sp.Matrix(np.zeros((6,6)))
-    for i in range(nply):
-        Bij += 0.5 * Cij6.evalf(subs={th:plyangle[i]}) * (z_[i+1]**2-z_[i]**2)
-    
-    # bending or flexural laminate stiffness relating moments to curvatures
-    Dij = sp.Matrix(np.zeros((6,6)))
-    for i in range(nply):
-        Dij += (1/3.0)* Cij6.evalf(subs={th:plyangle[i]}) * (z_[i+1]**3-z_[i]**3)
-    
+
     
     ## Cylindrical Bending of a laminated plate
     
@@ -1203,8 +1169,8 @@ if __name__=='__main__':
     
     
     #material_plots()
-    laminate()
-    #plate()
+    #laminate()
+    plate()
 
 
 
