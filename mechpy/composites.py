@@ -159,6 +159,31 @@ def T2(th):
                  [-2*m*n, 2*m*n,  (m**2-n**2)]])     
     return T2
 
+def T1s(th):
+    '''Symbolic Stress Transform for Plane Stress 
+    th=ply angle in degrees
+    voight notation for stress tranform. sigma1 = T1 @ sigmax
+    recall T1(th)**-1 == T1(-th)'''
+    n = sp.sin(th*sp.pi/180)
+    m = sp.cos(th*sp.pi/180)
+    T1 = sp.Matrix( [[m**2, n**2, 2*m*n],  
+                 [n**2, m**2,-2*m*n],  
+                 [-m*n, m*n,(m**2-n**2)]])    
+    return T1
+    
+def T2s(th):
+    '''Symbolic Strain Transform for Plane Stress
+    th=ply angle in degrees
+    voight notation for strain transform. epsilon1 = T2 @ epsilonx'''
+    n = sp.sin(th*sp.pi/180)
+    m = sp.cos(th*sp.pi/180)
+    T2 = sp.Matrix( [[m**2, n**2, m*n],  
+                 [n**2, m**2,-m*n],  
+                 [-2*m*n, 2*m*n,  (m**2-n**2)]])     
+    return T2
+
+
+
 def failure_envelope():
     # failure envelopes
 
@@ -465,6 +490,7 @@ def laminate():
     Ti = 0   # initial temperature (C)
     Tf = 0 # final temperature (C)        
     
+    SF = 1.2 # safety factor
     
     #==========================================================================
     # Import Material Properties
@@ -682,7 +708,7 @@ def laminate():
     #==========================================================================
     
     # Max Stress            
-    SR = zeros((3,2*nply)) 
+    FI = zeros((3,2*nply)) 
     TS = zeros((nply))
     for i,k in enumerate(range(0,2*nply,2)):
         
@@ -713,13 +739,16 @@ def laminate():
         f12=-0.5*(f11*f22)*0.5        
         TW = f1*s1+f2*s2+f11*s1**2+f22*s2**2+f66*s12**2+2*f12*s1*s2
         
-        # strength ratio, if > 1, then fail, 
-        SR[0,k:k+2] = s1 / F1  
-        SR[1,k:k+2] = s2 / F2
-        SR[2,k:k+2] = s12 / F12
+        # failure index, if > 1, then fail, 
+        FI[0,k:k+2] = s1 / F1  / SF
+        FI[1,k:k+2] = s2 / F2 / SF
+        FI[2,k:k+2] = s12 / F12 / SF
+        
+        # Strength Ratio, if < 1, then fail
+        SR = 1/FI
             
     # margin of safety based on max stress criteria
-    MS = 1/SR-1
+    MS = SR-1
     MS = np.min(MS[~np.isinf(MS)]) # remove inf
     
     #==========================================================================
@@ -959,9 +988,9 @@ def plate():
                      [Cij6[0,1], Cij6[1,1], 0],
                      [0, 0, Cij6[5,5] ]] )
 
--    Tij = sp.Matrix([[cos(th)**2, sin(th)**2, 2*sin(th)*cos(th)],
--                     [sin(th)**2, cos(th)**2, -2*sin(th)*cos(th)],
--                     [-cos(th)*sin(th), sin(th)*cos(th), (cos(th)**2-sin(th)**2)]])
+    Tij = sp.Matrix([[cos(th)**2, sin(th)**2, 2*sin(th)*cos(th)],
+                     [sin(th)**2, cos(th)**2, -2*sin(th)*cos(th)],
+                     [-cos(th)*sin(th), sin(th)*cos(th), (cos(th)**2-sin(th)**2)]])
     
 
     

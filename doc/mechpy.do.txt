@@ -656,6 +656,15 @@ print p
 
 
 
+======= Excel and Python - They can be friends =======
+Because it's there and everyone uses it
+"Automate the boring stuff, python excel scripting":"https://automatetheboringstuff.com/chapter12/"
+"Use python intead of VBA with xlwings":"http://xlwings.org/"
+"openpyxl":"https://openpyxl.readthedocs.io/en/default/"
+"or just develope directly with Windows COM":"http://shop.oreilly.com/product/9781565926219.do"
+
+
+
 !split
 =========  References =========
 label{chp:ref}

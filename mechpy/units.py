@@ -98,21 +98,39 @@ def uc3(numin,frm,to):
     https://github.com/python-quantities/python-quantities
     https://pythonhosted.org/quantities/user/tutorial.html
     
-    c3(1,'inch','ft')
+    see here for details on all units 
+    https://github.com/python-quantities/python-quantities/tree/master/quantities/units
     
-    inch, ft, m, mil, mile, fathom, light_year, mm, 
-    Celsius, Fahrenheit, kelvin
-    pascal, psi
-    calorie, joule
-    watt, horsepower
+    uc3(1,'inch','ft')
+    
+    angle
+       radian/rad, turn/cycle, deg/degree
+      
+    distance
+       inch/in, feet/ft, m/meter, mil/thou, mile/mi,, yard/yd, fathom, light_year, kilometer/km, nautical_mile/nmi
+    
+    temperature
+        celsius/degC, fahrenheit/degF, kelvin/degK
+    
+    force
+        newton/N, ozf/fource_ounce, lbf/pound_force
+    
+    pressure
+        pascal/Pa, kilopascal/kPa, psi, mmHg
+    
+    energy
+        cal/calorie, J/joule, btu, ton_TNT, kWh/kilowatthour
+    
+    power
+        watt/W, horsepower/hp
     
     '''
     try:
         import quantities as pq
     except:
-        print('python-quantities not found, downloading and installing from github now...')
-        import os
-        os.system('pip install git+https://github.com/python-quantities/python-quantities.git')
+        print('python-quantities not found, download from github')
+        #import os
+        #os.system('pip install git+https://github.com/python-quantities/python-quantities.git')
     
     try:
         eval('pq.'+frm)   
@@ -126,7 +144,7 @@ def uc3(numin,frm,to):
     numout = float(numout)
     
     #print(numin , frm , '=' , numout , to)
-    print('%.2f %s = %.2f  %s '%(numin, frm, numout, to  ))
+    print('%.4f %s = %.4f  %s '%(numin, frm, numout, to  ))
     #return numout      
     
 
