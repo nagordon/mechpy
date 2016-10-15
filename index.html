@@ -15,7 +15,24 @@ Automatically generated HTML file from DocOnce source
 <!-- not necessary
 <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 -->
+<style type="text/css">
 
+/* Add scrollbar to dropdown menus in bootstrap navigation bar */
+.dropdown-menu {
+   height: auto;
+   max-height: 400px;
+   overflow-x: hidden;
+}
+
+/* Adds an invisible element before each target to offset for the navigation
+   bar */
+.anchor::before {
+  content:"";
+  display:block;
+  height:45px; /* fixed header height*/
+  margin:-50px 0 0; /* negative fixed header height */
+}
+</style>
 
 </head>
 
