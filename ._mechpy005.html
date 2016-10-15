@@ -1,0 +1,282 @@
+<!--
+Automatically generated HTML file from DocOnce source
+(https://github.com/hplgit/doconce/)
+-->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="DocOnce: https://github.com/hplgit/doconce/" />
+<meta name="description" content="mechpy documentation">
+
+<title>mechpy documentation</title>
+
+<!-- Bootstrap style: bootstrap -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+<!-- not necessary
+<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+-->
+
+
+</head>
+
+<!-- tocinfo
+{'highest level': 0,
+ 'sections': [('introduction', 0, 'chp:intro', 'chp:intro'),
+              ('mechpy modules', 0, 'chp:modules', 'chp:modules'),
+              ('abaqus and abaqus_report', 1, 'sec:abaqus', 'sec:abaqus'),
+              ('abaqus documentation', 2, None, '___sec3'),
+              ('A few examples of how to run individual functions',
+               3,
+               None,
+               '___sec4'),
+              ('Accessing History Region info using the bottle_test example',
+               3,
+               None,
+               '___sec5'),
+              ('Extracting Field info', 3, None, '___sec6'),
+              ('Closing the database. even though the database is read-only, it is good practice to close the database',
+               3,
+               None,
+               '___sec7'),
+              ('Installation', 3, None, '___sec8'),
+              ('Basic Checklist for generating an Abaqus simulation',
+               3,
+               None,
+               '___sec9'),
+              ('launch an abaqus program', 3, None, '___sec10'),
+              ('execute an existing script or open a file',
+               3,
+               None,
+               '___sec11'),
+              ('executing an abaqus python script passing in variables',
+               3,
+               None,
+               '___sec12'),
+              ('fetch demos', 3, None, '___sec13'),
+              ('Some of the abaqus file types', 3, None, '___sec14'),
+              ('Outputs', 3, None, '___sec15'),
+              ("Abaqus Scripting User's Guide - 5.2.2", 3, None, '___sec16'),
+              ('Common Abaqus activities', 3, None, '___sec17'),
+              ('Abaqus/Python Scripting', 3, None, '___sec18'),
+              ('Other random tests from the documentation',
+               3,
+               None,
+               '___sec19'),
+              ('catia', 1, 'sec:catia', 'sec:catia'),
+              ('composites', 1, 'sec:comp', 'sec:comp'),
+              ('design', 1, 'sec:design', 'sec:design'),
+              ('fem', 1, 'sec:fem', 'sec:fem'),
+              ('math', 1, 'sec:math', 'sec:math'),
+              ('statics', 1, 'sec:statics', 'sec:statics'),
+              ('units', 1, 'sec:units', 'sec:units'),
+              ('tutorials', 0, 'chp:tut', 'chp:tut'),
+              ('Intro to python and gotchas', 1, None, '___sec28'),
+              ('Importing Python Modules', 1, None, '___sec29'),
+              ('Converting an ipython notebook to an html document',
+               1,
+               None,
+               '___sec30'),
+              ('Running jupyter notebook in windows', 1, None, '___sec31'),
+              ('pasting raw data into python', 1, None, '___sec32'),
+              ('silly ascii text plot', 1, None, '___sec33'),
+              ('Excel and Python - They can be friends', 1, None, '___sec34'),
+              ('References', 0, 'chp:ref', 'chp:ref'),
+              ('Links', 1, None, '___sec36'),
+              ('Composites References', 2, None, '___sec37'),
+              ('Python Engineering Classes', 2, None, '___sec38'),
+              ('Python Engineering Books', 2, None, '___sec39'),
+              ('Python Engineering Libraries', 2, None, '___sec40'),
+              ('General Numeric Python', 3, None, '___sec41'),
+              ('Fluids/Aero', 3, None, '___sec42'),
+              ('Mechanics/Composites/Materials', 3, None, '___sec43'),
+              ('FEM / Math', 3, None, '___sec44'),
+              ('Units', 3, None, '___sec45'),
+              ('Dynamics and Control Systems', 3, None, '___sec46'),
+              ('Plotting and Visualization', 3, None, '___sec47')]}
+end of tocinfo -->
+
+<body>
+
+    
+<!-- Bootstrap navigation bar -->
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="mechpy.html">mechpy documentation</a>
+  </div>
+  <div class="navbar-collapse collapse navbar-responsive-collapse">
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contents <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+     <!-- navigation toc: --> <li><a href="._mechpy000.html#chp:intro" style="font-size: 80%;">introduction</a></li>
+     <!-- navigation toc: --> <li><a href="._mechpy001.html#chp:modules" style="font-size: 80%;">mechpy modules</a></li>
+     <!-- navigation toc: --> <li><a href="._mechpy002.html#chp:tut" style="font-size: 80%;">tutorials</a></li>
+     <!-- navigation toc: --> <li><a href="._mechpy004.html#chp:ref" style="font-size: 80%;">References</a></li>
+
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+</div> <!-- end of navigation bar -->
+
+<div class="container">
+
+<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p> <!-- add vertical space -->
+
+<a name="part0005"></a>
+<!-- !split -->
+
+<h1 id="___sec36">Links </h1>
+
+<h2 id="___sec37">Composites References </h2>
+http://www.doitpoms.ac.uk/tlplib/fibre_composites/
+
+<h2 id="___sec38">Python Engineering Classes </h2>
+<a href="https://github.com/jrjohansson/scientific-python-lectures" target="_self">scientific-python-lectures</a>  <br />
+<a href="http://openedx.seas.gwu.edu/courses/GW/MAE6286/2014_fall/about" target="_self">Practical Numerical Methods with Python</a> with <a href="https://github.com/numerical-mooc/numerical-mooc" target="_self">source code</a> <br />
+<a href="http://openedx.seas.gwu.edu/courses/GW/MAE6226/2014_spring/about" target="_self">Aerodynamics / Hydrodynamics with Python</a> <br />
+<a href="http://pages.physics.cornell.edu/~sethna/StatMech/ComputerExercises/PythonSoftware/" target="_self">Cornell</a>  <br />
+<a href="http://openedx.seas.gwu.edu/courses/GW/MAE6286/2014_fall/about" target="_self">Python numerical methods mooc</a>  <br />
+<a href="http://www-personal.umich.edu/~mejn/computational-physics/" target="_self">Computational Physics with Python</a> <br />
+<a href="http://cs.brown.edu/courses/cs053/current/index.htm" target="_self">Coding the Matrix</a> <br />
+
+<h2 id="___sec39">Python Engineering Books </h2>
+
+<p>
+<a href="http://www.apress.com/9781484205549" target="_self">Numerical Python - A Practical Techniques Approach for Industry</a> with <a href="http://www.apress.com/downloadable/download/sample/sample_id/1732/" target="_self">source code</a>  <br />
+<a href="http://www.springer.com/us/book/9783319195957#aboutBook" target="_self">Elementary Mechanics Using Python</a>   <br />
+<a href="http://hplgit.github.io/primer.html/doc/web/index.html" target="_self">A Primer on Scientific Programming With Python</a>  <br />
+<a href="http://codingthematrix.com/" target="_self">Coding the Matrix</a> <br />
+
+<h2 id="___sec40">Python Engineering Libraries </h2>
+
+<h3 id="___sec41">General Numeric Python </h3>
+
+Python has mature scientific computation packages, namely <a href="https://www.scipy.org/" target="_self">scipy</a>
+
+<p>
+<b>Scipy.</b>
+
+<p>
+<a href="http://scipy-cookbook.readthedocs.io/index.html" target="_self">Scipy Cookbook</a>  <br />
+<a href="http://www.davekuhlman.org/scipy_guide_01.html" target="_self">Scipy Guide</a>  <br />
+<a href="http://www.scipy-lectures.org/index.html" target="_self">Scipy Lectures</a>   <br />
+<a href="https://github.com/rojassergio/Learning-Scipy" target="_self">Learning Scipy</a>   <br />
+<a href="http://docs.scipy.org/doc/scipy/reference/tutorial/" target="_self">Scipy Tutorial</a>   <br />
+
+<p>
+<b>Numpy.</b>
+
+<p>
+<a href="https://wiki.python.org/moin/NumericAndScientific" target="_self">Numpy</a>  <br />
+<a href="https://docs.scipy.org/doc/numpy-dev/contents.html" target="_self">Official Docs</a>
+<a href="https://docs.scipy.org/doc/numpy-dev/user/numpy-for-matlab-users.html" target="_self">Numpy for matlab users</a>  <br />
+<a href="https://github.com/rougier/numpy-100" target="_self">100 numpy examples</a>  <br />
+<a href="https://github.com/numpy/numpy/wiki/Numerical-software-on-Windows" target="_self">numpy on windows</a>  <br />
+
+<p>
+<b>Sympy.</b>
+
+<p>
+<a href="http://docs.sympy.org/dev/tutorial/intro.html" target="_self">sympy tutorial</a> <br />
+<a href="http://www.sympy.org/en/features.html" target="_self">sympy features</a> <br />
+<a href="http://docs.sympy.org/dev/modules/physics/mechanics/" target="_self">sympy physics</a> <br />
+
+<p>
+<b>Matplotlib.</b>
+<a href="http://matplotlib.org/gallery.html" target="_self">matplotlib gallery</a> and <a href="https://github.com/rougier/matplotlib-tutorial" target="_self">matplotlib tutorial</a>  <br />
+<a href="http://central.scipy.org/item/84/1/simple-interactive-matplotlib-plots" target="_self">interactive matplotlib</a>  <br />
+
+<h3 id="___sec42">Fluids/Aero </h3>
+
+<a href="http://aeropy.readthedocs.io/en/latest/" target="_self">aeropy</a>   <br />
+<a href="https://github.com/dgorissen/naca" target="_self">NACA airfoils</a>   <br />
+<a href="https://github.com/barbagroup/AeroPython" target="_self">aeropython</a>  or <a href="http://lorenabarba.com/blog/announcing-aeropython/" target="_self">aeropython</a>  <br />
+<a href="http://pyaero.sourceforge.net/" target="_self">pyaero</a>   <br />
+
+<h3 id="___sec43">Mechanics/Composites/Materials </h3>
+
+<a href="https://github.com/Rlee13/pyPLY  " target="_self">pyply composites</a>   <br />
+<a href="http://docs.sympy.org/latest/modules/physics/mechanics/index.html" target="_self">sympy classical mechanics</a>  <br />
+<a href="http://sourceforge.net/projects/pygear/" target="_self">pygear</a>   <br />
+<a href="https://github.com/bennames/AeroComBAT-Project" target="_self">AeroComBAT</a>
+<a href="https://github.com/nagordon/ME701  " target="_self"><tt>https://github.com/nagordon/ME701  </tt></a>  <br />
+<a href="https://github.com/nagordon/mcgill_mech_530_selimb  " target="_self"><tt>https://github.com/nagordon/mcgill_mech_530_selimb  </tt></a>  <br />
+<a href="https://github.com/elainecraigie/MechanicsOfCompositesProject_ECraigie  " target="_self"><tt>https://github.com/elainecraigie/MechanicsOfCompositesProject_ECraigie  </tt></a>   <br />
+
+<h3 id="___sec44">FEM / Math </h3>
+
+<a href="https://github.com/SteveDoyle2/pynastran/wiki/GUI" target="_self">pynastran</a>   <br />
+<a href="http://pyamg.org/" target="_self">grid solvers</a> with "example""https://code.google.com/p/pyamg/wiki/Examples"   <br />
+<a href="http://hplgit.github.io/odespy/doc/web/index.html  " target="_self">ode solver</a>   <br />
+<a href="http://arachnoid.com/IPython/differential_equations.html" target="_self">differential equations demo</a>   <br />
+<a href="http://www.usna.edu/Users/math/wdj/_files/documents/teach/sm212/DiffyQ/des-book-2009-11-24.pdf" target="_self">DiffyQ</a>   <br />
+<a href="http://justinablack.com/pycalculix/" target="_self">pycalculix</a>  <br />
+<a href="http://fenicsproject.org/documentation/tutorial/" target="_self">FEniCS tutorial</a>   <br />
+<a href="http://sfepy.org/doc-devel/index.html" target="_self">SfePy-Simple Finite Elements in Python</a>   <br />
+<a href="http://pyode.sourceforge.net/tutorials/tutorial2.html" target="_self">PyODE</a>  <br />
+<a href="http://download.gna.org/getfem/html/homepage/" target="_self">getfem++</a>   <br />
+<a href="http://justinablack.com/pycalculix/" target="_self">pycalculix</a>   <br />
+<a href="https://github.com/PySimulator/PySimulator/" target="_self">Pysimulator</a>   <br />
+<a href="http://compmech.lab.asu.edu/data/pyfem.py " target="_self">pyfem</a>  <br />
+
+<h3 id="___sec45">Units </h3>
+
+<a href="http://pint.readthedocs.io/en/0.7.2/" target="_self">pint units</a>    <br />
+<a href="https://pypi.python.org/pypi/Unum" target="_self">Unum units</a> <br />
+<a href="https://github.com/python-quantities/python-quantities" target="_self">quantities</a>
+<a href="http://docs.sympy.org/latest/modules/physics/units.html" target="_self">scipy units</a>   <br />
+
+<h3 id="___sec46">Dynamics and Control Systems </h3>
+
+<a href="https://github.com/bblais/pyndamics" target="_self">pyndamics</a>   <br />
+<a href="http://www.siue.edu/~rkrauss/python_intro.html  " target="_self">Python for Controls, System Dynamics, and Mechatronics</a>  <br />
+<a href="https://www.cds.caltech.edu/~murray/wiki/Control_Systems_Library_for_Python  " target="_self">python-control</a>  <br />
+<a href="http://www.vibrationdata.com/python/  " target="_self">vibrationdata</a>  <br />
+<a href="http://scipy-cookbook.readthedocs.io/" target="_self">CoupledSpringMassSystem</a>  <br />
+<a href="http://www.ni.gsu.edu/~rclewley/PyDSTool/FrontPage.html  " target="_self">PyDSTool</a>   <br />
+<a href="https://github.com/python-control/python-control" target="_self">python control</a>   <br />
+<a href="http://www.pydy.org/" target="_self">pydy</a> with <a href="http://nbviewer.jupyter.org/github/pydy/pydy-tutorial-human-standing/tree/online-read/notebooks/" target="_self">examples</a>  and <a href="https://github.com/pydy/scipy-2013-mechanics" target="_self">here</a>  <br />
+
+<h3 id="___sec47">Plotting and Visualization </h3>
+
+<a href="http://hplgit.github.io/bumpy/doc/pub/._bumpy010.html#app:resources   " target="_self">bumpy</a>  <br />
+<a href="http://www.petercollingridge.co.uk/pygame-physics-simulation" target="_self">pygame physics</a>  <br />
+<a href="http://www.pymunk.org/en/latest/readme.html" target="_self">Pymunk visualization</a> and <a href="http://chipmunk-physics.net/" target="_self"><tt>http://chipmunk-physics.net/</tt></a>
+<a href="http://vpython.org/" target="_self">vpython</a>  <br />
+
+<p>
+<!-- navigation buttons at the bottom of the page -->
+<ul class="pagination">
+<li><a href="._mechpy004.html">&laquo;</a></li>
+  <li><a href="._mechpy000.html">1</a></li>
+  <li><a href="._mechpy001.html">2</a></li>
+  <li><a href="._mechpy002.html">3</a></li>
+  <li><a href="._mechpy003.html">4</a></li>
+  <li><a href="._mechpy004.html">5</a></li>
+  <li class="active"><a href="._mechpy005.html">6</a></li>
+</ul>
+<!-- ------------------- end of main content --------------- -->
+
+</div>  <!-- end container -->
+<!-- include javascript, jQuery *first* -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap footer
+<footer>
+<a href="http://..."><img width="250" align=right src="http://..."></a>
+</footer>
+-->
+
+
+</body>
+</html>
+    
+
