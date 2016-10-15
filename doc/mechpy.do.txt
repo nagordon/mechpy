@@ -667,9 +667,11 @@ Flabel - Practical Stress Analysis for Design Engineers  <linebreak>
 Peery - Aircraft Structures  <linebreak>
 Niu - Airframe Stress Analysis and Sizing <linebreak>
 
-
 !split
 ======= Links =======
+
+===== Composites References =====
+http://www.doitpoms.ac.uk/tlplib/fibre_composites/
 
 ===== Python Engineering Classes =====
 "scientific-python-lectures":"https://github.com/jrjohansson/scientific-python-lectures"  <linebreak>
