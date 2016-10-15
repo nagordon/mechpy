@@ -46,11 +46,9 @@ dofile='mechpy'
 #firefox sphinx/_build/html/index/html
 
 ## updating github pages
-
-#doconce format html $dofile --html_style=bootstrap _html_style=default --html_admon=bootstrap_panel
-#doconce split_html $dofile --pagination --nav_button=bottom
+doconce format html index --html_style=bootswatch_journal
 doconce format html $dofile --html_style=bootswatch_journal # bootstrap  # , blueish2, #tactile-white 
-mv mechpy.html index.html
+
 #python ipynb_to_html.py
 cd ..  # change directory to mechpy root directory
 ghp-import doc -m "updated doc webpage" -p

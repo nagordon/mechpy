@@ -1,0 +1,8 @@
+TITLE: mechpy documentation
+AUTHOR: neal gordon Email:nealagordon@gmail.com
+DATE: today
+
+TOC: on
+
+
+URL:"https://nagordon.github.io/mechpy/mechpy.html" <linebreak>

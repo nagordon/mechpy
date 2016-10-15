@@ -10,6 +10,12 @@ dofile='mechpy'
 ## spellcheck all files
 #doconce spellcheck *.do.txt
 
+## Convert ipynb to doconce
+#doconce ipynb2doconce notebook.ipynb
+
+## diff files 
+#doconce diff file1.txt file2.txt
+
 ## create the github markdown from the doconce_notes.do.txt file
 #doconce format pandoc $dofile --github_md
 
@@ -40,20 +46,19 @@ dofile='mechpy'
 #firefox sphinx/_build/html/index/html
 
 ## updating github pages
+
+#doconce format html $dofile --html_style=bootstrap _html_style=default --html_admon=bootstrap_panel
+#doconce split_html $dofile --pagination --nav_button=bottom
 doconce format html $dofile --html_style=bootswatch_journal # bootstrap  # , blueish2, #tactile-white 
-#mv mechpy.html web/index.html
+mv mechpy.html index.html
 #python ipynb_to_html.py
-#cd ..  # change directory to mechpy root directory
-#ghp-import doc/web
+cd ..  # change directory to mechpy root directory
+ghp-import doc -m "updated doc webpage" -p
 
 #git add --all
 #git commit -m 'updated doc webpage'
 #git push --all origin
 
-## Convert ipynb to doconce
-#doconce ipynb2doconce notebook.ipynb
 
-## diff files 
-#doconce diff file1.txt file2.txt
 
 
