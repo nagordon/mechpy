@@ -1,0 +1,270 @@
+<!--
+Automatically generated HTML file from DocOnce source
+(https://github.com/hplgit/doconce/)
+-->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="DocOnce: https://github.com/hplgit/doconce/" />
+<meta name="description" content="mechpy documentation">
+
+<title>mechpy documentation</title>
+
+<!-- Bootstrap style: bootstrap -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+<!-- not necessary
+<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+-->
+
+
+</head>
+
+<!-- tocinfo
+{'highest level': 0,
+ 'sections': [('introduction', 0, 'chp:intro', 'chp:intro'),
+              ('mechpy modules', 0, 'chp:modules', 'chp:modules'),
+              ('abaqus and abaqus_report', 1, 'sec:abaqus', 'sec:abaqus'),
+              ('abaqus documentation', 2, None, '___sec3'),
+              ('A few examples of how to run individual functions',
+               3,
+               None,
+               '___sec4'),
+              ('Accessing History Region info using the bottle_test example',
+               3,
+               None,
+               '___sec5'),
+              ('Extracting Field info', 3, None, '___sec6'),
+              ('Closing the database. even though the database is read-only, it is good practice to close the database',
+               3,
+               None,
+               '___sec7'),
+              ('Installation', 3, None, '___sec8'),
+              ('Basic Checklist for generating an Abaqus simulation',
+               3,
+               None,
+               '___sec9'),
+              ('launch an abaqus program', 3, None, '___sec10'),
+              ('execute an existing script or open a file',
+               3,
+               None,
+               '___sec11'),
+              ('executing an abaqus python script passing in variables',
+               3,
+               None,
+               '___sec12'),
+              ('fetch demos', 3, None, '___sec13'),
+              ('Some of the abaqus file types', 3, None, '___sec14'),
+              ('Outputs', 3, None, '___sec15'),
+              ("Abaqus Scripting User's Guide - 5.2.2", 3, None, '___sec16'),
+              ('Common Abaqus activities', 3, None, '___sec17'),
+              ('Abaqus/Python Scripting', 3, None, '___sec18'),
+              ('Other random tests from the documentation',
+               3,
+               None,
+               '___sec19'),
+              ('catia', 1, 'sec:catia', 'sec:catia'),
+              ('composites', 1, 'sec:comp', 'sec:comp'),
+              ('design', 1, 'sec:design', 'sec:design'),
+              ('fem', 1, 'sec:fem', 'sec:fem'),
+              ('math', 1, 'sec:math', 'sec:math'),
+              ('statics', 1, 'sec:statics', 'sec:statics'),
+              ('units', 1, 'sec:units', 'sec:units'),
+              ('tutorials', 0, 'chp:tut', 'chp:tut'),
+              ('Intro to python and gotchas', 1, None, '___sec28'),
+              ('Importing Python Modules', 1, None, '___sec29'),
+              ('Converting an ipython notebook to an html document',
+               1,
+               None,
+               '___sec30'),
+              ('Running jupyter notebook in windows', 1, None, '___sec31'),
+              ('pasting raw data into python', 1, None, '___sec32'),
+              ('silly ascii text plot', 1, None, '___sec33'),
+              ('Excel and Python - They can be friends', 1, None, '___sec34'),
+              ('References', 0, 'chp:ref', 'chp:ref'),
+              ('Links', 1, None, '___sec36'),
+              ('Composites References', 2, None, '___sec37'),
+              ('Python Engineering Classes', 2, None, '___sec38'),
+              ('Python Engineering Books', 2, None, '___sec39'),
+              ('Python Engineering Libraries', 2, None, '___sec40'),
+              ('General Numeric Python', 3, None, '___sec41'),
+              ('Fluids/Aero', 3, None, '___sec42'),
+              ('Mechanics/Composites/Materials', 3, None, '___sec43'),
+              ('FEM / Math', 3, None, '___sec44'),
+              ('Units', 3, None, '___sec45'),
+              ('Dynamics and Control Systems', 3, None, '___sec46'),
+              ('Plotting and Visualization', 3, None, '___sec47')]}
+end of tocinfo -->
+
+<body>
+
+    
+<!-- Bootstrap navigation bar -->
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="mechpy.html">mechpy documentation</a>
+  </div>
+  <div class="navbar-collapse collapse navbar-responsive-collapse">
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contents <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+     <!-- navigation toc: --> <li><a href="._mechpy000.html#chp:intro" style="font-size: 80%;">introduction</a></li>
+     <!-- navigation toc: --> <li><a href="._mechpy001.html#chp:modules" style="font-size: 80%;">mechpy modules</a></li>
+     <!-- navigation toc: --> <li><a href="._mechpy002.html#chp:tut" style="font-size: 80%;">tutorials</a></li>
+     <!-- navigation toc: --> <li><a href="._mechpy004.html#chp:ref" style="font-size: 80%;">References</a></li>
+
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+</div> <!-- end of navigation bar -->
+
+<div class="container">
+
+<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p> <!-- add vertical space -->
+
+<a name="part0003"></a>
+<!-- !split -->
+
+<h1 id="___sec30">Converting an ipython notebook to an html document </h1>
+Ipython notebooks can eaily be converted to an html file with the following python code
+
+<p>
+
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span>get_ipython()<span style="color: #666666">.</span>system(<span style="color: #BA2121">&#39;jupyter nbconvert --to html mechpy.ipynb&#39;</span>)
+</pre></div>
+<p>
+or, in the OS terminal
+
+<p>
+
+<!-- code=batch (!bc batch) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span>jupyter nbconvert --to html mechpy.ipynb
+</pre></div>
+
+<h1 id="___sec31">Running jupyter notebook in windows </h1>
+In windows, create a batch file (*.bat) to run a jupyter notebook server in the current directory
+<p>
+
+<!-- code=batch (!bc batch) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span>:<span style="color: #408080; font-style: italic">: Use to launch jupyter notebooks</span>
+:<span style="color: #408080; font-style: italic">: change console to the current working directory</span>
+<span style="color: #008000; font-weight: bold">Pushd</span> <span style="color: #BA2121">&quot;</span><span style="color: #19177C">%~dp0</span><span style="color: #BA2121">&quot;</span>
+:<span style="color: #408080; font-style: italic">: launch jupyter notebook</span>
+jupyter notebook
+:<span style="color: #408080; font-style: italic">: write html output</span>
+jupyter nbconvert --to html mechpy.ipynb
+<span style="color: #008000; font-weight: bold">pause</span>
+</pre></div>
+
+<h1 id="___sec32">pasting raw data into python </h1>
+
+<p>
+This example shows how you can copy and past data into python
+
+<p>
+
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span>y <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;&#39;&#39;62606.53409</span>
+<span style="color: #BA2121">59989.34659</span>
+<span style="color: #BA2121">62848.01136</span>
+<span style="color: #BA2121">80912.28693</span>
+<span style="color: #BA2121">79218.03977</span>
+<span style="color: #BA2121">81242.1875</span>
+<span style="color: #BA2121">59387.27273</span>
+<span style="color: #BA2121">73027.5974</span>
+<span style="color: #BA2121">69470.69805</span>
+<span style="color: #BA2121">66843.99351</span>
+<span style="color: #BA2121">82758.44156</span>
+<span style="color: #BA2121">81647.72727</span>
+<span style="color: #BA2121">77519.96753&#39;&#39;&#39;</span>
+y <span style="color: #666666">=</span> [<span style="color: #008000">float</span>(x) <span style="color: #008000; font-weight: bold">for</span> x <span style="color: #AA22FF; font-weight: bold">in</span> np<span style="color: #666666">.</span>array(y<span style="color: #666666">.</span>replace(<span style="color: #BA2121">&#39;</span><span style="color: #BB6622; font-weight: bold">\n</span><span style="color: #BA2121">&#39;</span>,<span style="color: #BA2121">&#39;,&#39;</span>)<span style="color: #666666">.</span>split(<span style="color: #BA2121">&#39;,&#39;</span>))]
+<span style="color: #008000; font-weight: bold">print</span>(y, end<span style="color: #666666">=</span><span style="color: #BA2121">&quot; &quot;</span>)
+</pre></div>
+
+<h1 id="___sec33">silly ascii text plot </h1>
+
+<p>
+with sympy
+<p>
+
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span><span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">sympy</span> <span style="color: #008000; font-weight: bold">import</span> symbols, exp, pi, cos
+<span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">sympy.plotting</span> <span style="color: #008000; font-weight: bold">import</span> textplot
+x <span style="color: #666666">=</span> symbols(<span style="color: #BA2121">&#39;x&#39;</span>)
+textplot( exp(<span style="color: #666666">-</span>x) <span style="color: #666666">*</span> cos(<span style="color: #666666">2*</span>pi<span style="color: #666666">*</span>x)  ,<span style="color: #666666">0</span>,<span style="color: #666666">5</span>, <span style="color: #666666">75</span>,<span style="color: #666666">20</span>)
+</pre></div>
+<p>
+with scitools
+<p>
+
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span></span><span style="color: #408080; font-style: italic"># This is the same example as in the scitools.aplotter doc string</span>
+
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">numpy</span> <span style="color: #008000; font-weight: bold">as</span> <span style="color: #0000FF; font-weight: bold">np</span>
+x <span style="color: #666666">=</span> np<span style="color: #666666">.</span>linspace(<span style="color: #666666">0</span>, <span style="color: #666666">5</span>, <span style="color: #666666">81</span>)
+<span style="color: #408080; font-style: italic">#y = np.exp(-0.5*x**2)*np.cos(np.pi*x)</span>
+y<span style="color: #666666">=</span>np<span style="color: #666666">.</span>exp(<span style="color: #666666">-</span>x)<span style="color: #666666">*</span>np<span style="color: #666666">.</span>cos(<span style="color: #666666">2*</span>np<span style="color: #666666">.</span>pi<span style="color: #666666">*</span>x)
+<span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">scitools.aplotter</span> <span style="color: #008000; font-weight: bold">import</span> plot
+plot(x, y)
+
+plot(x, y, draw_axes<span style="color: #666666">=</span><span style="color: #008000">False</span>)
+
+<span style="color: #408080; font-style: italic"># Plot symbols (the dot argument) at data points</span>
+plot(x, y, plot_slope<span style="color: #666666">=</span><span style="color: #008000">False</span>)
+
+<span style="color: #408080; font-style: italic"># Drop axis labels</span>
+plot(x, y, plot_labels<span style="color: #666666">=</span><span style="color: #008000">False</span>)
+
+plot(x, y, dot<span style="color: #666666">=</span><span style="color: #BA2121">&#39;o&#39;</span>, plot_slope<span style="color: #666666">=</span><span style="color: #008000">False</span>)
+
+<span style="color: #408080; font-style: italic"># Store plot in a string</span>
+p <span style="color: #666666">=</span> plot(x, y, output<span style="color: #666666">=</span><span style="color: #008000">str</span>)
+<span style="color: #008000; font-weight: bold">print</span> p
+</pre></div>
+
+<h1 id="___sec34">Excel and Python - They can be friends </h1>
+Because it's there and everyone uses it
+<a href="https://automatetheboringstuff.com/chapter12/" target="_self">Automate the boring stuff, python excel scripting</a>
+<a href="http://xlwings.org/" target="_self">Use python intead of VBA with xlwings</a>
+<a href="https://openpyxl.readthedocs.io/en/default/" target="_self">openpyxl</a>
+<a href="http://shop.oreilly.com/product/9781565926219.do" target="_self">or just develope directly with Windows COM</a>
+
+<p>
+<p>
+<!-- navigation buttons at the bottom of the page -->
+<ul class="pagination">
+<li><a href="._mechpy002.html">&laquo;</a></li>
+  <li><a href="._mechpy000.html">1</a></li>
+  <li><a href="._mechpy001.html">2</a></li>
+  <li><a href="._mechpy002.html">3</a></li>
+  <li class="active"><a href="._mechpy003.html">4</a></li>
+  <li><a href="._mechpy004.html">5</a></li>
+  <li><a href="._mechpy005.html">6</a></li>
+  <li><a href="._mechpy004.html">&raquo;</a></li>
+</ul>
+<!-- ------------------- end of main content --------------- -->
+
+</div>  <!-- end container -->
+<!-- include javascript, jQuery *first* -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap footer
+<footer>
+<a href="http://..."><img width="250" align=right src="http://..."></a>
+</footer>
+-->
+
+
+</body>
+</html>
+    
+
