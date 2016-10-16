@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 """
 convert ipython notebooks to html file and move them to web
-"""
 
-from glob import glob
-import os, shutil, subprocess
+
+old code, now replace with bash loop
 
 for ipynb in glob('../mechpy/*.ipynb'):
     #get_ipython().system('jupyter nbconvert --to html ' + ipynb)
@@ -12,8 +11,18 @@ for ipynb in glob('../mechpy/*.ipynb'):
     #fbe = os.path.join( 'web',fb+'.html')
     subprocess.call('jupyter nbconvert --to html '+ipynb, shell=True)
 
+
+"""
+
+from glob import glob
+import os, shutil, subprocess
+
+os.chdir('web')
+
 print('\n')
 for html in glob('*.html'):    
     print('URL:"https://nagordon.github.io/mechpy/'+html+'"  <linebreak>')
     #shutil.move(html, os.path.join( 'web',html)    )
 print('\n')
+
+os.chdir('..')

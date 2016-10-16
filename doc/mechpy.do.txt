@@ -20,14 +20,6 @@ To get the source code check out the "github project page":"https://github.com/n
 ========= mechpy modules =========
 label{chp:modules}
 
-__abaqus.__
-(ref{sec:abaqus})
-abaqus api interface written in python for automating abaqus fem simulations and reporting.
-
-__catia.__
-(ref{sec:catia})
-API code to automate cad in catia
-
 __composites.__
 (ref{sec:comp})
 specialized code to analyze composite plates using classical laminated plate theory
@@ -52,9 +44,333 @@ __units.__
 (ref{sec:units})
 unit conversion
 
+__catia.__
+(ref{sec:catia})
+API code to automate cad in catia
+
+__abaqus.__
+(ref{sec:abaqus})
+abaqus api interface written in python for automating abaqus fem simulations and reporting.
+
+----------
+
+!split
+ ======= composites  =======
+ label{sec:comp}
+
+ specialized code to analyze composite plates using classical laminated plate theory
+
+
+
+ ======= design  =======
+ label{sec:design}
+
+ shear-bending diagrams, assisting hand calculations for stress
+
+
+
+ ======= fem  =======
+ label{sec:fem}
+
+ example code for computing finite element models for analysis and education
+
+
+
+ ======= math  =======
+ label{sec:math}
+
+ various math tools for processing engineering systems
+
+
+
+ ======= statics  =======
+ label{sec:statics}
+
+ code for assisting and checking hand calculations
+
+
+
+ ======= units  =======
+ label{sec:units}
+
+ unit conversion
+
+ "sympy units":"http://docs.sympy.org/latest/modules/physics/units.html"
+
+
+ ======= catia =======
+ label{sec:catia}
+
+ API code to automate cad in catia using wincom32 module
+
 
 
 ----------
+
+!split
+========= Intro to python =========
+
+
+
+
+
+
+
+!split
+======= Tutorials =======
+
+to view using the nbviewer checkout URL:"http://nbviewer.ipython.org/github/nagordon/mechpy" <linebreak>
+
+
+===== python tutorials =====
+label{chp:pytut}
+
+or for the html version <linebreak>
+URL:"https://nagordon.github.io/mechpy/Composite_Plate_Mechanics_with_Python_Example.html"  <linebreak>
+URL:"https://nagordon.github.io/mechpy/Composite_Plate_Mechanics_with_Python_Theory.html"  <linebreak>
+URL:"https://nagordon.github.io/mechpy/Solving_Differential_Equations_with_Python_mechanical_vibrations.html"  <linebreak>
+URL:"https://nagordon.github.io/mechpy/python_optimzation_tutorial.html"  <linebreak>
+
+===== mechpy tutorials =====
+label{chp:mechtut}
+
+URL:"https://nagordon.github.io/mechpy/composites.html"  <linebreak>
+URL:"https://nagordon.github.io/mechpy/design.html"  <linebreak>
+URL:"https://nagordon.github.io/mechpy/dynamics.html"  <linebreak>
+URL:"https://nagordon.github.io/mechpy/fem.html"  <linebreak>
+URL:"https://nagordon.github.io/mechpy/math.html"  <linebreak>
+URL:"https://nagordon.github.io/mechpy/plotting.html"  <linebreak>
+URL:"https://nagordon.github.io/mechpy/solids.html"  <linebreak>
+URL:"https://nagordon.github.io/mechpy/statics.html"  <linebreak>
+URL:"https://nagordon.github.io/mechpy/testing.html"  <linebreak>
+URL:"https://nagordon.github.io/mechpy/units.html"  <linebreak>
+
+
+
+ ===== Installation =====
+
+I'd recommend a more complete python installation that includes an IDE (Integrated Development Environment).
+
+  * "Anaconda":"http://continuum.io/downloads" for Linux and Windows
+  * "winpython":"http://winpython.sourceforge.net/" for Windows
+  * "python(x,y)":"https://code.google.com/p/pythonxy/" for Windows
+
+  To install a minimal python, I recommend  as a package manager. Once miniconda is installed, install these packages by running these commands in a windows console and following the prompts
+
+
+  conda install numpy
+  conda install matplotlib=1.4.3
+  conda install pandas
+  pip install python-pptx
+  pip install moviepy
+
+
+
+ To get started, choose the python distribution you want. I would recommend anaconda, which has most of the scientific packages that are needed, but more importantly, comes with a package manager called conda, which will help us update and install new packages and manage environments if we want to use multiple versions of python.
+ "miniconda":"http://conda.pydata.org/miniconda.html" with  "(download)":"http://repo.continuum.io/miniconda/Miniconda-latest-Windows-x86_64.exe" is a great open-source lightweight distribution, but I would recommend anaconda":"http://continuum.io/downloads#34" which will install many scientific packages.
+
+ Once the install is complete, lets set up our virtual environments with conda. This will allow you to have an isolated environment for different projects. I typically default with the most recent version and create a 2.7 environment.
+
+ to check what environments are install type
+
+ !bc bash
+ conda info -e
+ !ec
+
+ To install a full version of python 2.7 with many packages, type
+
+ !bc bash
+ conda create -n py27 python=2.7 anaconda
+ !ec
+
+ In linux activate different environments by
+ !bc bash
+ source activate py27
+ source deactivate
+ !ec
+
+ and in windows
+ !bc batch
+ activate py27
+ deactivate
+ !ec
+
+
+
+
+ It is easy to install new packages with conda or pip
+ !bc batch
+ conda install numpy
+ conda install pandas
+ conda install pywin32
+ pip install python-pptx
+ pip install pyinstaller
+ pip install moviepy
+ !ec
+
+ Updating 1 packages or all  is just as easy
+ !bc batch
+ conda update matplotlib
+
+ # or update all
+ conda update --all
+ !ec
+
+
+ Since python is a generic computing language, numerical computation was not initially a very high priority, and so there are a few quirks of the python language that may cause some confusion for non-programmers or matlab users. The first is the difference of python version 2.7 and the current suggested version python 3+ (as of 2016). Many legacy packages exist for python 2.7, so it is handy to use, but it is recommended to develop in the current release.
+
+ a handy tool to ensure so errors go unnoticed is to import the future module. This will take care of the print function syntax change `print('hi')` and integer division `/`
+
+ !bc pycod
+ from __future__ import print_function, division
+ !ec
+
+ The second is variable assignment. Since every variable in python is an object, we have to copy variables, not just use `=`. for example, to copy a variable
+
+ !bc pycod
+ # CORRECT
+ from copy import copy
+ x = 5
+ y=copy(x)
+
+ # WRONG
+ y=x
+ !ec
+
+
+ ======= Importing Python Modules  =======
+
+ When using python, the very first code you will need is to import modules. An example of importing the essential scientific computing libraries with some settings is shown here.
+
+ !bc pycod
+
+ # setup
+ import numpy as np
+ import sympy as sp
+ import scipy
+ from pprint import pprint
+ sp.init_printing(use_latex='mathjax')
+
+ import matplotlib.pyplot as plt
+ plt.rcParams['figure.figsize'] = (12, 8)  # (width, height)
+ plt.rcParams['font.size'] = 14
+ plt.rcParams['legend.fontsize'] = 16
+ from matplotlib import patches
+
+ get_ipython().magic('matplotlib')  # seperate window
+ get_ipython().magic('matplotlib inline') # inline plotting
+
+ # or for inline plotting, in an  ipython console, use the magic commands
+ %matplotlib inline
+
+ # to revert to window plotting
+ %matplotlib
+ #or
+ %matplotlib qt
+ !ec
+
+
+ !split
+ ======= Converting an ipython notebook to an html document =======
+ Ipython notebooks can eaily be converted to an html file with the following python code
+
+ !bc pycod
+ get_ipython().system('jupyter nbconvert --to html mechpy.ipynb')
+ !ec
+
+ or, in the OS terminal
+
+ !bc batch
+ jupyter nbconvert --to html mechpy.ipynb
+ !ec
+
+ ======= Running jupyter notebook in windows =======
+ In windows, create a batch file (*.bat) to run a jupyter notebook server in the current directory
+ !bc batch
+ :: Use to launch jupyter notebooks
+ :: change console to the current working directory
+ Pushd "%~dp0"
+ :: launch jupyter notebook
+ jupyter notebook
+ :: write html output
+ jupyter nbconvert --to html mechpy.ipynb
+ pause
+ !ec
+
+
+ ======= pasting raw data into python =======
+
+ This example shows how you can copy and past data into python
+
+ !bc pycod
+ y = '''62606.53409
+ 59989.34659
+ 62848.01136
+ 80912.28693
+ 79218.03977
+ 81242.1875
+ 59387.27273
+ 73027.5974
+ 69470.69805
+ 66843.99351
+ 82758.44156
+ 81647.72727
+ 77519.96753'''
+ y = [float(x) for x in np.array(y.replace('\n',',').split(','))]
+ print(y, end=" ")
+ !ec
+
+ ======= silly ascii text plot =======
+
+ with sympy
+ !bc pycod
+ from sympy import symbols, exp, pi, cos
+ from sympy.plotting import textplot
+ x = symbols('x')
+ textplot( exp(-x) * cos(2*pi*x)  ,0,5, 75,20)
+ !ec
+
+ with scitools
+ !bc pycod
+ # This is the same example as in the scitools.aplotter doc string
+
+ import numpy as np
+ x = np.linspace(0, 5, 81)
+ #y = np.exp(-0.5*x**2)*np.cos(np.pi*x)
+ y=np.exp(-x)*np.cos(2*np.pi*x)
+ from scitools.aplotter import plot
+ plot(x, y)
+
+ plot(x, y, draw_axes=False)
+
+ # Plot symbols (the dot argument) at data points
+ plot(x, y, plot_slope=False)
+
+ # Drop axis labels
+ plot(x, y, plot_labels=False)
+
+ plot(x, y, dot='o', plot_slope=False)
+
+ # Store plot in a string
+ p = plot(x, y, output=str)
+ print p
+ !ec
+
+
+
+ ======= Excel and Python - They can be friends =======
+ Because it's there and everyone uses it
+ "Automate the boring stuff, python excel scripting":"https://automatetheboringstuff.com/chapter12/"
+ "Use python intead of VBA with xlwings":"http://xlwings.org/"
+ "openpyxl":"https://openpyxl.readthedocs.io/en/default/"
+ "or just develope directly with Windows COM":"http://shop.oreilly.com/product/9781565926219.do"
+
+
+
+
+
+
+
 ======= abaqus and abaqus_report =======
 label{sec:abaqus}
 
@@ -127,32 +443,6 @@ myU1 = [myFieldval[k].data[0] for k in range(len(myFieldval))]
 !bc pycod
 myOdbTest.myOdbDat.close()
 !ec
-
-
-=== Installation ===
-To install a minimal python, I recommend "miniconda":"http://conda.pydata.org/miniconda.html" as a package maanger. Once miniconda or  is installed, install these packages by running these commands in a windows console and following the prompts
-
-!bc batch
-conda install numpy
-
-pip install scipy matplotlib
-# or
-conda install matplotlib=1.4.3
-
-pip install pandas
-# or
-conda install pandas
-
-pip install python-pptx
-pip install moviepy
-!ec
-
-For developers, I'd recommend a more complete python installation that includes an IDE (Integrated Development Environment).
-
- * "Anaconda":"http://continuum.io/downloads" for Linux and Windows
- * "winpython":"http://winpython.sourceforge.net/" for Windows
- * "python(x,y)":"https://code.google.com/p/pythonxy/" for Windows
-
 
 === Basic Checklist for generating an Abaqus simulation  ===
  o Parts
@@ -400,276 +690,6 @@ Help -> Search and Browse` Guides...
 End of *abaqus* documentation
 ----------
 
-
-
-======= catia =======
-label{sec:catia}
-
-API code to automate cad in catia using wincom32 module
-
-
-
-======= composites  =======
-label{sec:comp}
-
-specialized code to analyze composite plates using classical laminated plate theory
-
-
-
-======= design  =======
-label{sec:design}
-
-shear-bending diagrams, assisting hand calculations for stress
-
-
-
-======= fem  =======
-label{sec:fem}
-
-example code for computing finite element models for analysis and education
-
-
-
-======= math  =======
-label{sec:math}
-
-various math tools for processing engineering systems
-
-
-
-======= statics  =======
-label{sec:statics}
-
-code for assisting and checking hand calculations
-
-
-
-======= units  =======
-label{sec:units}
-
-unit conversion
-
-"sympy units":"http://docs.sympy.org/latest/modules/physics/units.html"
-
-
-
-
-
-!split
-========= tutorials =========
-label{chp:tut}
-
-to view using the nbviewer checkout
-URL:"http://nbviewer.ipython.org/github/nagordon/mechpy" <linebreak>
-
-or for the html version <linebreak>
-URL:"https://nagordon.github.io/mechpy/Composite_Plate_Mechanics_with_Python_Example.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/Composite_Plate_Mechanics_with_Python_Theory.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/Solving_Differential_Equations_with_Python_mechanical_vibrations.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/composites.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/design.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/dynamics.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/fem.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/math.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/plotting.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/python_optimzation_tutorial.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/solids.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/statics.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/testing.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/units.html"  <linebreak>
-
-
-
-======= Intro to python and gotchas =======
-
-To get started, choose the python distribution you want. I would recommend anaconda, which has most of the scientific packages that are needed, but more importantly, comes with a package manager called conda, which will help us update and install new packages and manage environments if we want to use multiple versions of python.
-"miniconda":"http://repo.continuum.io/miniconda/Miniconda-latest-Windows-x86_64.exe" is a great open-source lightweight distribution, but I would recommend anaconda":"http://continuum.io/downloads#34" which will install many scientific packages.
-
-Once the install is complete, lets set up our virtual environments with conda. This will allow you to have an isolated environment for different projects. I typically default with the most recent version and create a 2.7 environment.
-
-to check what environments are install type `conda info -e`
-
-To install a full version of python 2.7 with many packages, type `conda create -n py27 python=2.7 anaconda`
-
-In linux activate different environments by
-!bc bash
-source activate py27
-source deactivate
-!ec
-
-and in windows
-!bc batch
-activate py27
-deactivate
-!ec
-
-
-It is easy to install new packages with conda or pip
-!bc batch
-conda install numpy
-conda install pandas
-conda install pywin32
-pip install python-pptx
-pip install pyinstaller
-pip install moviepy
-!ec
-
-Updating 1 packages or all  is just as easy
-!bc batch
-conda update matplotlib
-
-# or update all
-conda update --all
-!ec
-
-
-Since python is a generic computing language, numerical computation was not initially a very high priority, and so there are a few quirks of the python language that may cause some confusion for non-programmers or matlab users. The first is the difference of python version 2.7 and the current suggested version python 3+ (as of 2016). Many legacy packages exist for python 2.7, so it is handy to use, but it is recommended to develop in the current release.
-
-a handy tool to ensure so errors go unnoticed is to import the future module. This will take care of the print function syntax change `print('hi')` and integer division `/`
-
-!bc pycod
-from __future__ import print_function, division
-!ec
-
-The second is variable assignment. Since every variable in python is an object, we have to copy variables, not just use `=`. for example, to copy a variable
-
-!bc pycod
-# CORRECT
-from copy import copy
-x = 5
-y=copy(x)
-
-# WRONG
-y=x
-!ec
-
-
-======= Importing Python Modules  =======
-
-When using python, the very first code you will need is to import modules. An example of importing the essential scientific computing libraries with some settings is shown here.
-
-!bc pycod
-
-# setup
-import numpy as np
-import sympy as sp
-import scipy
-from pprint import pprint
-sp.init_printing(use_latex='mathjax')
-
-import matplotlib.pyplot as plt
-plt.rcParams['figure.figsize'] = (12, 8)  # (width, height)
-plt.rcParams['font.size'] = 14
-plt.rcParams['legend.fontsize'] = 16
-from matplotlib import patches
-
-get_ipython().magic('matplotlib')  # seperate window
-get_ipython().magic('matplotlib inline') # inline plotting
-
-# or for inline plotting, in an  ipython console, use the magic commands
-%matplotlib inline
-
-# to revert to window plotting
-%matplotlib
-#or
-%matplotlib qt
-!ec
-
-
-!split
-======= Converting an ipython notebook to an html document =======
-Ipython notebooks can eaily be converted to an html file with the following python code
-
-!bc pycod
-get_ipython().system('jupyter nbconvert --to html mechpy.ipynb')
-!ec
-
-or, in the OS terminal
-
-!bc batch
-jupyter nbconvert --to html mechpy.ipynb
-!ec
-
-======= Running jupyter notebook in windows =======
-In windows, create a batch file (*.bat) to run a jupyter notebook server in the current directory
-!bc batch
-:: Use to launch jupyter notebooks
-:: change console to the current working directory
-Pushd "%~dp0"
-:: launch jupyter notebook
-jupyter notebook
-:: write html output
-jupyter nbconvert --to html mechpy.ipynb
-pause
-!ec
-
-
-======= pasting raw data into python =======
-
-This example shows how you can copy and past data into python
-
-!bc pycod
-y = '''62606.53409
-59989.34659
-62848.01136
-80912.28693
-79218.03977
-81242.1875
-59387.27273
-73027.5974
-69470.69805
-66843.99351
-82758.44156
-81647.72727
-77519.96753'''
-y = [float(x) for x in np.array(y.replace('\n',',').split(','))]
-print(y, end=" ")
-!ec
-
-======= silly ascii text plot =======
-
-with sympy
-!bc pycod
-from sympy import symbols, exp, pi, cos
-from sympy.plotting import textplot
-x = symbols('x')
-textplot( exp(-x) * cos(2*pi*x)  ,0,5, 75,20)
-!ec
-
-with scitools
-!bc pycod
-# This is the same example as in the scitools.aplotter doc string
-
-import numpy as np
-x = np.linspace(0, 5, 81)
-#y = np.exp(-0.5*x**2)*np.cos(np.pi*x)
-y=np.exp(-x)*np.cos(2*np.pi*x)
-from scitools.aplotter import plot
-plot(x, y)
-
-plot(x, y, draw_axes=False)
-
-# Plot symbols (the dot argument) at data points
-plot(x, y, plot_slope=False)
-
-# Drop axis labels
-plot(x, y, plot_labels=False)
-
-plot(x, y, dot='o', plot_slope=False)
-
-# Store plot in a string
-p = plot(x, y, output=str)
-print p
-!ec
-
-
-
-======= Excel and Python - They can be friends =======
-Because it's there and everyone uses it
-"Automate the boring stuff, python excel scripting":"https://automatetheboringstuff.com/chapter12/"
-"Use python intead of VBA with xlwings":"http://xlwings.org/"
-"openpyxl":"https://openpyxl.readthedocs.io/en/default/"
-"or just develope directly with Windows COM":"http://shop.oreilly.com/product/9781565926219.do"
 
 
 

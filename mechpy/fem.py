@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 """
 fem code for practice
+
+
+check out FEM - Numerical Python pg 690/1311  
+
 """
 
 __author__ = 'Neal Gordon <nealagordon@gmail.com>'

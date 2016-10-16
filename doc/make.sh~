@@ -60,15 +60,15 @@ cd ..
 for i in ../mechpy/*.ipynb; do
     jupyter nbconvert --to html $i
 done
+python ipynb_to_html.py
 
 cd ..  # change directory to mechpy root directory
 mv mechpy/*.html doc/web
-ghp-import doc/web -m "updated doc webpage on gh-pages branch" #-p    ##-p is a push
+ghp-import doc/web -m "updated doc webpage" -p    ##-p is a push
 
 # add all master branch files
 git add --all
-git commit -m 'auto add changes to master branch'
-
+git commit -m 'updated doc webpage'
 git push --all origin
 
 

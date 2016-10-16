@@ -8,7 +8,11 @@ $ python abaqus_report.py
 In order to access the Abaqus odb file, the python script must be run in the abaqus environment, which will use a abaqus license token
 abaqus cae noGUI=myscript.py # launches cae and runs script
 Inputs: location and name of an OBD file
-Outputs: pptx report of file including screenshots, 
+Outputs: pptx report of file including screenshots,
+
+Software Requirements (in addition to python)
+pip install python-pptx
+pip install moviepy
 
 """
 
@@ -60,13 +64,13 @@ def make_pptx(odbname,dict_o_c,list_v):
        creates a new pptx file and inserts all the images in the current directory
        ppt default width 10 inches by 7.5 inches landscape
        #odbname = 'customBeamExample/customBeamExample.odb'
-       
+
         # make a new slide for each component given
         dict_o_c = {'S':['Mises'], 'U':['U1','Magnitude'],  'RF':['RF1'], 'EVOL':['']}
-    
+
         # add all three views onto the same slide
-        list_v = ['Iso','Left','Top']      
-        
+        list_v = ['Iso','Left','Top']
+
         CBE_make_pptx(odbname,dict_o_c,list_v)
        """
 
@@ -154,7 +158,7 @@ def make_pptx(odbname,dict_o_c,list_v):
         for c in dict_o_c[o]:
             slide = pptx1.slides.add_slide(title_only_layout)
             title_shape = slide.shapes.title
-            img_insert('icon')            
+            img_insert('icon')
             title_shape.text = o + '-' + c
             txBox = slide.shapes.add_textbox(left, top, width, height)
             txBox.text_frame.text = "This is text inside a textbox\n and this is some more text that you can add"
@@ -207,7 +211,7 @@ def history_plots(csvnames):
 
      a simple way to check the contents of csvs print(open(filename1).read())
      """
-     
+
     for csvname in csvnames:
         df = pd.read_csv(csvname,names=['time','val'],delimiter=',')
         #print df
