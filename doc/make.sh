@@ -49,28 +49,19 @@ dofile='mechpy'
 #mv *.html web
 
 cp mechpy.do.txt web/index.do.txt
-
 cd web
-
 doconce format html index --html_style=bootswatch_journal
-
 doconce replace "http://netdna.bootstrapcdn.com/bootswatch/3.1.1/journal/bootstrap.min.css" "bootstrap.css" index.html
 doconce replace "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"          "jquery.min.js" index.html
 doconce replace "http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"        "bootstrap.js" index.html
-
 rm index.do.txt
-
-
 cd ..
-
-#python ipynb_to_html.py
-
+python ipynb_to_html.py
 cd ..  # change directory to mechpy root directory
-
 mv mechpy/*.html doc/web
+ghp-import doc/web -m "updated doc webpage" -p    ##-p is a push
 
-#ghp-import doc/web -m "updated doc webpage" -p    ##-p is a push
-
+# add all master branch files
 git add --all
 git commit -m 'updated doc webpage'
 git push --all origin
