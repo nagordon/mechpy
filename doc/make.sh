@@ -52,7 +52,7 @@ cp mechpy.do.txt web/index.do.txt
 
 cd web
 
-doconce format html index --html_style=bootswatch_journal #--pygments_html_style=default --html_admon=bootstrap_panel
+doconce format html index --html_style=bootswatch_journal
 
 doconce replace "http://netdna.bootstrapcdn.com/bootswatch/3.1.1/journal/bootstrap.min.css" "bootstrap.css" index.html
 
