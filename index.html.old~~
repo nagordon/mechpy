@@ -181,6 +181,10 @@ end of tocinfo -->
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec40"> Python Engineering Libraries </a><br>
 </p>
 <p>
+<!-- potential-jumbotron-button -->
+</div> <!-- end jumbotron -->
+
+<!-- !split -->
 
 <center><h1 id="chp:intro">introduction</h1></center> <!-- chapter heading -->
 
@@ -195,9 +199,9 @@ Mechpy was created for few reasons.
 There are many different tools available to engineers. Hand-calculations, spreadsheets, and code are all great ways to perform calculations or visualize data or concepts. MATLAB is the defacto tool to solve many engineering calculations, but is just too expensive to be a practical tool for many of us. Octave, Scilab, or Freelab are great alternatives, but is limited in scope to calculation. I began using python for calculations and visualizations and have found it to be a very powerful tool with many existing modules for mathematics and plotting, in addition to the thousands of other libraries for general computing.
 
 <p>
-<!-- potential-jumbotron-button -->
-</div> <!-- end jumbotron -->
+To get the source code check out the <a href="https://github.com/nagordon/mechpy" target="_self">github project page</a> <br />
 
+<p>
 <!-- !split -->
 
 <center><h1 id="chp:modules">mechpy modules</h1></center> <!-- chapter heading -->
