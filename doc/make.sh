@@ -46,12 +46,28 @@ dofile='mechpy'
 #firefox sphinx/_build/html/index/html
 
 ## updating github pages
-doconce format html $dofile --html_style=bootswatch_journal # bootstrap  # , blueish2, #tactile-white 
-mv mechpy.html web/index.html
+#mv *.html web
+
+cp mechpy.do.txt web/index.do.txt
+
+cd web
+
+doconce format html index --html_style=bootswatch_journal #--pygments_html_style=default --html_admon=bootstrap_panel
+
+doconce replace "http://netdna.bootstrapcdn.com/bootswatch/3.1.1/journal/bootstrap.min.css" "bootstrap.css" index.html
+
+rm index.do.txt
+
+
+cd ..
+#mv mechpy.html web/index.html
 python ipynb_to_html.py
+
 cd ..  # change directory to mechpy root directory
-rm mechpy/*.html
-ghp-import doc/web -m "updated doc webpage" -p
+
+mv mechpy/*.html doc/web
+
+#ghp-import doc/web -m "updated doc webpage" -p    ##-p is a push
 
 git add --all
 git commit -m 'updated doc webpage'
