@@ -14,7 +14,7 @@ Mechpy was created for few reasons.
 
 There are many different tools available to engineers. Hand-calculations, spreadsheets, and code are all great ways to perform calculations or visualize data or concepts. MATLAB is the defacto tool to solve many engineering calculations, but is just too expensive to be a practical tool for many of us. Octave, Scilab, or Freelab are great alternatives, but is limited in scope to calculation. I began using python for calculations and visualizations and have found it to be a very powerful tool with many existing modules for mathematics and plotting, in addition to the thousands of other libraries for general computing.
 
-To clone project or view source code check out the "github project page":"https://github.com/nagordon/mechpy" <linebreak>
+To get the source code check out the "github project page":"https://github.com/nagordon/mechpy" <linebreak>
 
 !split
 ========= mechpy modules =========
