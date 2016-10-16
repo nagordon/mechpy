@@ -55,12 +55,14 @@ cd web
 doconce format html index --html_style=bootswatch_journal
 
 doconce replace "http://netdna.bootstrapcdn.com/bootswatch/3.1.1/journal/bootstrap.min.css" "bootstrap.css" index.html
+doconce replace "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"          "jquery.min.js" index.html
+doconce replace "http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"        "bootstrap.js" index.html
 
 rm index.do.txt
 
 
 cd ..
-#mv mechpy.html web/index.html
+
 #python ipynb_to_html.py
 
 cd ..  # change directory to mechpy root directory
