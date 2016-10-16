@@ -14,6 +14,6 @@ for ipynb in glob('../mechpy/*.ipynb'):
 
 print('\n')
 for html in glob('*.html'):    
-    print('URL:"https://nagordon.github.io/mechpy/'+html+'"  <linebreak>')
+    print('URL:"https://nagordon.github.io/mechpy/'+html+'"')
     shutil.move(html, os.path.join( 'web',html)    )
 print('\n')

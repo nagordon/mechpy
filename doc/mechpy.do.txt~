@@ -460,21 +460,16 @@ to view using the nbviewer checkout
 URL:"http://nbviewer.ipython.org/github/nagordon/mechpy" <linebreak>
 
 or for the html version <linebreak>
-URL:"https://nagordon.github.io/mechpy/Composite_Plate_Mechanics_with_Python_Example.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/Composite_Plate_Mechanics_with_Python_Theory.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/Solving_Differential_Equations_with_Python_mechanical_vibrations.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/composites.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/design.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/dynamics.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/fem.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/math.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/plotting.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/python_optimzation_tutorial.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/solids.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/statics.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/testing.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/units.html"  <linebreak>
-
+URL:"https://nagordon.github.io/mechpy/index.html" <linebreak>
+URL:"https://nagordon.github.io/mechpy/Composite_Plate_Mechanics_with_Python.html" <linebreak>
+URL:"https://nagordon.github.io/mechpy/Solving_Differential_Equations_with_Python.html" <linebreak>
+URL:"https://nagordon.github.io/mechpy/composites.html" <linebreak>
+URL:"https://nagordon.github.io/mechpy/design.html" <linebreak>
+URL:"https://nagordon.github.io/mechpy/fem.html" <linebreak>
+URL:"https://nagordon.github.io/mechpy/math.html" <linebreak>
+URL:"https://nagordon.github.io/mechpy/solids.html" <linebreak>
+URL:"https://nagordon.github.io/mechpy/statics.html" <linebreak>
+URL:"https://nagordon.github.io/mechpy/testing.html" <linebreak>
 
 
 ======= Intro to python and gotchas =======
