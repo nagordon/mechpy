@@ -61,7 +61,7 @@ rm index.do.txt
 
 cd ..
 #mv mechpy.html web/index.html
-python ipynb_to_html.py
+#python ipynb_to_html.py
 
 cd ..  # change directory to mechpy root directory
 
