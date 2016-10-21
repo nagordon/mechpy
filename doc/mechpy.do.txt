@@ -120,7 +120,7 @@ I'd recommend a more complete python installation that includes an IDE (Integrat
 
 * "Anaconda":"https://www.continuum.io/downloads#34" for Linux and Windows
 * "winpython":"http://winpython.sourceforge.net/" for Windows
-* "python(x,y)":"https://code.google.com/p/pythonxy/" for Windows
+* "python(x,y)":"http://python-xy.github.io/" for Windows
 * "miniconda":"http://conda.pydata.org/miniconda.html" with  "(download)":"http://repo.continuum.io/miniconda/Miniconda-latest-Windows-x86_64.exe"
 * "pyzo":"http://www.pyzo.org/index.html"
 
