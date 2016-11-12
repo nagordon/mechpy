@@ -109,105 +109,12 @@ this should add the mechpy module to the python path
 ========= Python =========
 label{chp:introtopython}
 
-======= Getting Started =======
 
-Included are instructions for python installation, getting started, links to mechpy and python engineering tutorials, and some advanced settings are code snippets. The tutorials range from getting started with python to more specific engineering topics. Enjoy!
+======= Getting Started with Python in Engineering =======
 
-======= Installation =======
-To get started, choose the python distribution you want. I would recommend anaconda, which has most of the scientific packages that are needed, but more importantly, comes with a package manager called conda, which will help us update and install new packages and manage environments if we want to use multiple versions of python.
+See the following slides for a introduction to python
 
-I'd recommend a more complete python installation that includes an IDE (Integrated Development Environment).
-
-* "Anaconda":"https://www.continuum.io/downloads#34" for Linux and Windows
-* "winpython":"http://winpython.sourceforge.net/" for Windows
-* "python(x,y)":"http://python-xy.github.io/" for Windows
-* "miniconda":"http://conda.pydata.org/miniconda.html" with  "(download)":"http://repo.continuum.io/miniconda/Miniconda-latest-Windows-x86_64.exe"
-* "pyzo":"http://www.pyzo.org/index.html"
-
-Assuming you installed miniconda or anaconda, we can easily install new python packages or update using conda, or pip, which comes with anaconda. In your windows or linux terminal, the following commands with install some very useful libraries.
-
-!bc batch
-conda install numpy
-conda install pandas
-conda install pywin32
-pip install python-pptx
-pip install pyinstaller
-pip install moviepy
-conda install matplotlib=1.4.3
-
-!ec
-
-Updating 1 packages or all  is just as easy
-!bc batch
-conda update matplotlib
-
-# or update all
-conda update --all
-!ec
-
-======= Introduction =======
-
-Since python is a generic computing language, numerical computation was not initially a very high priority, and so there are a few quirks of the python language that may cause some confusion for non-programmers or matlab users. The first is the difference of python version 2.7 and the current suggested version python 3+ (as of 2016). Many legacy packages exist for python 2.7, so it is handy to use, but it is recommended to develop in the current release.
-
-a handy tool to ensure so errors go unnoticed is to import the future module. This will take care of the print function syntax change `print('hi')` and integer division `/`
-
-!bc pycod
-from __future__ import print_function, division
-!ec
-
-The second is variable assignment. Since every variable in python is an object, we have to copy variables, not just use `=`. for example, to copy a variable
-
-!bc pycod
-# CORRECT
-from copy import copy
-x = 5
-y=copy(x)
-
-# WRONG
-y=x
-!ec
-
-
-===== .... needs finished .... =====
-
-===== Importing Modules  =====
-
-When using python, the very first code you will need is to import modules. An example of importing the essential scientific computing libraries with some settings is shown here.
-
-!bc pycod
-
-# setup
-import numpy as np
-import sympy as sp
-import scipy
-from pprint import pprint
-sp.init_printing(use_latex='mathjax')
-
-import matplotlib.pyplot as plt
-plt.rcParams['figure.figsize'] = (12, 8)  # (width, height)
-plt.rcParams['font.size'] = 14
-plt.rcParams['legend.fontsize'] = 16
-from matplotlib import patches
-
-get_ipython().magic('matplotlib')  # seperate window
-get_ipython().magic('matplotlib inline') # inline plotting
-
-# or for inline plotting, in an  ipython console, use the magic commands
-%matplotlib inline
-
-# to revert to window plotting
-%matplotlib
-#or
-%matplotlib qt
-!ec
-
-
-
-
-
-
-
-
+"Getting Started with Python in Engineering":"https://nagordon.github.io/mechpy/Getting_Started_with_Python_in_Engineering.deckslides.html"
 
 
 ======= Advanced Tutorials =======
