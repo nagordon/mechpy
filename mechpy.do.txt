@@ -74,16 +74,6 @@ __dynamics.__
 (ref{sec:dynamics})
 URL:"https://nagordon.github.io/mechpy/dynamics.html"  <linebreak>
 
-
-======= Tutorials =======
-label{chp:mechtut}
-URL:"https://nagordon.github.io/mechpy/plotting.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/Composite_Plate_Mechanics_with_Python_Example.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/Composite_Plate_Mechanics_with_Python_Theory.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/Solving_Differential_Equations_with_Python_mechanical_vibrations.html"  <linebreak>
-URL:"https://nagordon.github.io/mechpy/python_optimzation_tutorial.html"  <linebreak>
-
-
 ======= Installation =======
 
 The easiest way to get mechpy is to download it directly from the "mechpy github repository":"https://github.com/nagordon/mechpy/archive/master.zip"
@@ -1504,6 +1494,17 @@ _Matplotlib_.
 
 ======= Advanced Tutorials =======
 
+
+===== Engineering Tutorials =====
+label{chp:mechtut}
+URL:"https://nagordon.github.io/mechpy/plotting.html"  <linebreak>
+URL:"https://nagordon.github.io/mechpy/Composite_Plate_Mechanics_with_Python_Example.html"  <linebreak>
+URL:"https://nagordon.github.io/mechpy/Composite_Plate_Mechanics_with_Python_Theory.html"  <linebreak>
+URL:"https://nagordon.github.io/mechpy/Solving_Differential_Equations_with_Python_mechanical_vibrations.html"  <linebreak>
+URL:"https://nagordon.github.io/mechpy/python_optimzation_tutorial.html"  <linebreak>
+
+
+
 ===== Virtual Environments =====
 
 Lets set up our virtual environments with conda. This will allow you to have an isolated environment for different projects. I typically default with the most recent version and create a 2.7 environment.
@@ -1564,10 +1565,10 @@ pause
 
 ======= Excel and Python - They can be friends =======
 Because it's there and everyone uses it
-"Automate the boring stuff, python excel scripting":"https://automatetheboringstuff.com/chapter12/"
-"Use python intead of VBA with xlwings":"http://xlwings.org/"
-"openpyxl":"https://openpyxl.readthedocs.io/en/default/"
-"or just develope directly with Windows COM":"http://shop.oreilly.com/product/9781565926219.do"
+"Automate the boring stuff, python excel scripting":"https://automatetheboringstuff.com/chapter12/" <linebreak>
+"Use python intsead of VBA with xlwings":"http://xlwings.org/" <linebreak>
+"openpyxl":"https://openpyxl.readthedocs.io/en/default/" <linebreak>
+"or just develop directly with Windows COM":"http://shop.oreilly.com/product/9781565926219.do"
 
 ----------
 !split
