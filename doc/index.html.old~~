@@ -24,62 +24,62 @@ Automatically generated HTML file from DocOnce source
  'sections': [('mechpy', 0, 'chp:intro', 'chp:intro'),
               ('Introduction', 1, None, '___sec1'),
               ('Modules', 1, 'chp:modules', 'chp:modules'),
-              ('Tutorials', 1, 'chp:mechtut', 'chp:mechtut'),
-              ('Installation', 1, None, '___sec4'),
+              ('Installation', 1, None, '___sec3'),
               ('Python', 0, 'chp:introtopython', 'chp:introtopython'),
               ('Getting Started with Python in Engineering',
                1,
                None,
-               '___sec6'),
-              ('Summary', 2, None, '___sec7'),
-              ('Why code', 2, None, '___sec8'),
+               '___sec5'),
+              ('Summary', 2, None, '___sec6'),
+              ('Why code', 2, None, '___sec7'),
+              ('Why python', 2, None, '___sec8'),
               ('Why python', 2, None, '___sec9'),
-              ('Why python', 2, None, '___sec10'),
+              ('Python vs Matlab', 2, None, '___sec10'),
               ('Python vs Matlab', 2, None, '___sec11'),
-              ('Python vs Matlab', 2, None, '___sec12'),
-              ('Installation', 2, None, '___sec13'),
-              ('A Note on Versions', 2, None, '___sec14'),
-              ('Development Environments', 2, None, '___sec15'),
-              ('First Program', 2, None, '___sec16'),
-              ('Help and Documentation', 2, None, '___sec17'),
-              ('Comments and Strings', 2, None, '___sec18'),
-              ('String Pitfalls', 2, None, '___sec19'),
-              ('Printing', 2, None, '___sec20'),
-              ('Advanced Printing', 2, None, '___sec21'),
-              ('Variables and Datatypes', 2, None, '___sec22'),
-              ('Lists and Arrays', 2, None, '___sec23'),
-              ('More Lists', 2, None, '___sec24'),
-              ('List and Array Pitfalls', 2, None, '___sec25'),
-              ('Indentation and Conditionals', 2, None, '___sec26'),
-              ('Loops', 2, None, '___sec27'),
-              ('Functions', 2, None, '___sec28'),
-              ('Using Modules', 2, None, '___sec29'),
-              ('Creating Modules', 2, None, '___sec30'),
-              ('Basic Python Example', 2, None, '___sec31'),
-              ('Ipython Handy Hints', 2, None, '___sec32'),
-              ('Numerical Python', 2, None, '___sec33'),
+              ('Installation', 2, None, '___sec12'),
+              ('A Note on Versions', 2, None, '___sec13'),
+              ('Development Environments', 2, None, '___sec14'),
+              ('First Program', 2, None, '___sec15'),
+              ('Help and Documentation', 2, None, '___sec16'),
+              ('Comments and Strings', 2, None, '___sec17'),
+              ('String Pitfalls', 2, None, '___sec18'),
+              ('Printing', 2, None, '___sec19'),
+              ('Advanced Printing', 2, None, '___sec20'),
+              ('Variables and Datatypes', 2, None, '___sec21'),
+              ('Lists and Arrays', 2, None, '___sec22'),
+              ('More Lists', 2, None, '___sec23'),
+              ('List and Array Pitfalls', 2, None, '___sec24'),
+              ('Indentation and Conditionals', 2, None, '___sec25'),
+              ('Loops', 2, None, '___sec26'),
+              ('Functions', 2, None, '___sec27'),
+              ('Using Modules', 2, None, '___sec28'),
+              ('Creating Modules', 2, None, '___sec29'),
+              ('Basic Python Example', 2, None, '___sec30'),
+              ('Ipython Handy Hints', 2, None, '___sec31'),
+              ('Numerical Python', 2, None, '___sec32'),
               ('Arrays', 2, 'sec:arrays', 'sec:arrays'),
+              ('Array Operations', 2, None, '___sec34'),
               ('Array Operations', 2, None, '___sec35'),
-              ('Array Operations', 2, None, '___sec36'),
-              ('Logical Indexing', 2, None, '___sec37'),
-              ('Multi-Dimensional Arrays (matrices)', 2, None, '___sec38'),
-              ('Matrix Pitfalls', 2, None, '___sec39'),
-              ('Matrix Operations', 2, None, '___sec40'),
-              ('Plotting', 2, None, '___sec41'),
-              ('Python in Engineering Summary', 2, None, '___sec42'),
+              ('Logical Indexing', 2, None, '___sec36'),
+              ('Multi-Dimensional Arrays (matrices)', 2, None, '___sec37'),
+              ('Matrix Pitfalls', 2, None, '___sec38'),
+              ('Matrix Operations', 2, None, '___sec39'),
+              ('Plotting', 2, None, '___sec40'),
+              ('Python in Engineering Summary', 2, None, '___sec41'),
               ('References and Links', 2, 'sec:reflinks', 'sec:reflinks'),
-              ('MATLAB vs Python', 3, None, '___sec44'),
-              ('Python Syntax Cheatsheets', 3, None, '___sec45'),
-              ('Python Engineering Books', 3, None, '___sec46'),
+              ('MATLAB vs Python', 3, None, '___sec43'),
+              ('Python Syntax Cheatsheets', 3, None, '___sec44'),
+              ('Python Engineering Books', 3, None, '___sec45'),
               ('Python Engineering Library Documentation',
                3,
                None,
-               '___sec47'),
-              ('General Python', 3, None, '___sec48'),
-              ('Python and Excel Spreadsheets', 3, None, '___sec49'),
-              ('Python Online Courses', 3, None, '___sec50'),
-              ('Programming Games', 3, None, '___sec51'),
-              ('Advanced Tutorials', 1, None, '___sec52'),
+               '___sec46'),
+              ('General Python', 3, None, '___sec47'),
+              ('Python and Excel Spreadsheets', 3, None, '___sec48'),
+              ('Python Online Courses', 3, None, '___sec49'),
+              ('Programming Games', 3, None, '___sec50'),
+              ('Advanced Tutorials', 1, None, '___sec51'),
+              ('Engineering Tutorials', 2, 'chp:mechtut', 'chp:mechtut'),
               ('Virtual Environments', 2, None, '___sec53'),
               ('Converting an ipython notebook to an html document',
                2,
@@ -212,48 +212,48 @@ a mechanical engineering toolbox
 <a href="#chp:intro"> mechpy </a><br>
 &nbsp; &nbsp; &nbsp; <a href="#___sec1"> Introduction </a><br>
 &nbsp; &nbsp; &nbsp; <a href="#chp:modules"> Modules </a><br>
-&nbsp; &nbsp; &nbsp; <a href="#chp:mechtut"> Tutorials </a><br>
-&nbsp; &nbsp; &nbsp; <a href="#___sec4"> Installation </a><br>
+&nbsp; &nbsp; &nbsp; <a href="#___sec3"> Installation </a><br>
 <a href="#chp:introtopython"> Python </a><br>
-&nbsp; &nbsp; &nbsp; <a href="#___sec6"> Getting Started with Python in Engineering </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec7"> Summary </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec8"> Why code </a><br>
+&nbsp; &nbsp; &nbsp; <a href="#___sec5"> Getting Started with Python in Engineering </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec6"> Summary </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec7"> Why code </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec8"> Why python </a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec9"> Why python </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec10"> Why python </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec10"> Python vs Matlab </a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec11"> Python vs Matlab </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec12"> Python vs Matlab </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec13"> Installation </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec14"> A Note on Versions </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec15"> Development Environments </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec16"> First Program </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec17"> Help and Documentation </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec18"> Comments and Strings </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec19"> String Pitfalls </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec20"> Printing </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec21"> Advanced Printing </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec22"> Variables and Datatypes  </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec23"> Lists and Arrays </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec24"> More Lists </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec25"> List and Array Pitfalls </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec26"> Indentation and Conditionals </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec27"> Loops </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec28"> Functions </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec29"> Using Modules </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec30"> Creating Modules </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec31"> Basic Python Example </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec32"> Ipython Handy Hints </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec33"> Numerical Python </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec12"> Installation </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec13"> A Note on Versions </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec14"> Development Environments </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec15"> First Program </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec16"> Help and Documentation </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec17"> Comments and Strings </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec18"> String Pitfalls </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec19"> Printing </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec20"> Advanced Printing </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec21"> Variables and Datatypes  </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec22"> Lists and Arrays </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec23"> More Lists </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec24"> List and Array Pitfalls </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec25"> Indentation and Conditionals </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec26"> Loops </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec27"> Functions </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec28"> Using Modules </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec29"> Creating Modules </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec30"> Basic Python Example </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec31"> Ipython Handy Hints </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec32"> Numerical Python </a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#sec:arrays"> Arrays </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec34"> Array Operations </a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec35"> Array Operations </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec36"> Array Operations </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec37"> Logical Indexing </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec38"> Multi-Dimensional Arrays (matrices) </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec39"> Matrix Pitfalls </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec40"> Matrix Operations </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec41"> Plotting </a><br>
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec42"> Python in Engineering Summary </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec36"> Logical Indexing </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec37"> Multi-Dimensional Arrays (matrices) </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec38"> Matrix Pitfalls </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec39"> Matrix Operations </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec40"> Plotting </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec41"> Python in Engineering Summary </a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#sec:reflinks"> References and Links </a><br>
-&nbsp; &nbsp; &nbsp; <a href="#___sec52"> Advanced Tutorials </a><br>
+&nbsp; &nbsp; &nbsp; <a href="#___sec51"> Advanced Tutorials </a><br>
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#chp:mechtut"> Engineering Tutorials </a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec53"> Virtual Environments </a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec54"> Converting an ipython notebook to an html document </a><br>
 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="#___sec55"> Running jupyter notebook in windows </a><br>
@@ -362,14 +362,7 @@ abaqus api interface written in python for automating abaqus fem simulations and
 \eqref{sec:dynamics}
 <a href="https://nagordon.github.io/mechpy/dynamics.html" target="_self"><tt>https://nagordon.github.io/mechpy/dynamics.html</tt></a>  <br />
 
-<h1 id="chp:mechtut">Tutorials</h1>
-<a href="https://nagordon.github.io/mechpy/plotting.html" target="_self"><tt>https://nagordon.github.io/mechpy/plotting.html</tt></a>  <br />
-<a href="https://nagordon.github.io/mechpy/Composite_Plate_Mechanics_with_Python_Example.html" target="_self"><tt>https://nagordon.github.io/mechpy/Composite_Plate_Mechanics_with_Python_Example.html</tt></a>  <br />
-<a href="https://nagordon.github.io/mechpy/Composite_Plate_Mechanics_with_Python_Theory.html" target="_self"><tt>https://nagordon.github.io/mechpy/Composite_Plate_Mechanics_with_Python_Theory.html</tt></a>  <br />
-<a href="https://nagordon.github.io/mechpy/Solving_Differential_Equations_with_Python_mechanical_vibrations.html" target="_self"><tt>https://nagordon.github.io/mechpy/Solving_Differential_Equations_with_Python_mechanical_vibrations.html</tt></a>  <br />
-<a href="https://nagordon.github.io/mechpy/python_optimzation_tutorial.html" target="_self"><tt>https://nagordon.github.io/mechpy/python_optimzation_tutorial.html</tt></a>  <br />
-
-<h1 id="___sec4">Installation </h1>
+<h1 id="___sec3">Installation </h1>
 
 <p>
 The easiest way to get mechpy is to download it directly from the <a href="https://github.com/nagordon/mechpy/archive/master.zip" target="_self">mechpy github repository</a>
@@ -401,7 +394,7 @@ this should add the mechpy module to the python path
 
 <center><h1 id="chp:introtopython">Python</h1></center> <!-- chapter heading -->
 
-<h1 id="___sec6">Getting Started with Python in Engineering </h1>
+<h1 id="___sec5">Getting Started with Python in Engineering </h1>
 
 <p>
 For slides, see the <a href="https://nagordon.github.io/mechpy/Getting_Started_with_Python_in_Engineering.deckslides.html" target="_self">Getting Started with Python in Engineering slides</a>
@@ -412,7 +405,7 @@ For slides, see the <a href="https://nagordon.github.io/mechpy/Getting_Started_w
 <p>
 <!-- !split -->
 
-<h2 id="___sec7">Summary </h2>
+<h2 id="___sec6">Summary </h2>
 
 <ul>
 <li> Why python</li>
@@ -445,7 +438,7 @@ For slides, see the <a href="https://nagordon.github.io/mechpy/Getting_Started_w
 
 <!-- !split -->
 
-<h2 id="___sec8">Why code </h2>
+<h2 id="___sec7">Why code </h2>
 
 <p>
 It's just another tool to solve engineering problems
@@ -467,7 +460,7 @@ It's just another tool to solve engineering problems
 <p>
 <!-- !split -->
 
-<h2 id="___sec9">Why python </h2>
+<h2 id="___sec8">Why python </h2>
 
 <p>
 <center><p><img src="fig/xkcd-python.png" align="bottom" ></p></center>
@@ -475,7 +468,7 @@ It's just another tool to solve engineering problems
 <p>
 <!-- !split -->
 
-<h2 id="___sec10">Why python </h2>
+<h2 id="___sec9">Why python </h2>
 
 <p>
 Python is a general purpose programming language, and is used in web development, graphical user interfaces, IT automation, and SCIENTIFIC COMPUTING
@@ -486,7 +479,7 @@ Python is a general purpose programming language, and is used in web development
 <p>
 <!-- !split -->
 
-<h2 id="___sec11">Python vs Matlab </h2>
+<h2 id="___sec10">Python vs Matlab </h2>
 
 <p>
 Matlab is a powerful scientific computing language and software development package that is superior for many mathematical operations, specifically linear algebra, signal processing, and modeling dynamic systems(via Simulink). However, for many engineering applications is not worth the cost. Although many of the Matlab libraries  may be arguably better than comparable python libraries, they are closed source and cannot be modified or inspected by users. Also, sharing code with collaborators or publications requires other users to have licenses.
@@ -500,7 +493,7 @@ Python, on the other hand, is a general programming language so it is very good 
 <p>
 <!-- !split -->
 
-<h2 id="___sec12">Python vs Matlab </h2>
+<h2 id="___sec11">Python vs Matlab </h2>
 
 <p>
 <b>Python Positives</b>
@@ -523,7 +516,7 @@ Python, on the other hand, is a general programming language so it is very good 
 
 <!-- !split -->
 
-<h2 id="___sec13">Installation </h2>
+<h2 id="___sec12">Installation </h2>
 
 <p>
 To get started, choose the python distribution you want. I would recommend anaconda, which has most of the scientific packages that are needed in one installation, but more importantly, comes with a package manager called <code>conda</code>, which is a big help when installing and updating python packages (especially on Windows) and <a href="http://conda.pydata.org/docs/using/envs.html" target="_self">managing environments</a> if we want to use multiple versions of python.
@@ -552,7 +545,7 @@ conda update <span style="color: #666666">--</span><span style="color: #008000">
 <p>
 <!-- !split -->
 
-<h2 id="___sec14">A Note on Versions </h2>
+<h2 id="___sec13">A Note on Versions </h2>
 
 <p>
 Python currently has 2 popular versions, 2x and 3x. 2x has a lot of legacy code still in use, but support is being phased out. Either version works, but I would recommend always trying to default to the latest release (v3.5).
@@ -593,7 +586,7 @@ Among many major changes, the two changes I find most troublesome is the print c
 <p>
 <!-- !split -->
 
-<h2 id="___sec15">Development Environments </h2>
+<h2 id="___sec14">Development Environments </h2>
 
 <p>
 Python has many options for programming, and graphical user interface development. Many different integrated development environments (IDE), such as spyder. Although not a polished, spyder is similar to the Matlab interface. Browser based jupyter notebooks are a great way to write web-ready content or sharing calculations or plots
@@ -604,7 +597,7 @@ Python has many options for programming, and graphical user interface developmen
 <p>
 <!-- !split -->
 
-<h2 id="___sec16">First Program </h2>
+<h2 id="___sec15">First Program </h2>
 
 <p>
 Before we go any further, let's put together a simple python script and run it. First, open a text file and type
@@ -653,7 +646,7 @@ You should have seen your print statement printed to the console. If so, congrat
 <p>
 <!-- !split -->
 
-<h2 id="___sec17">Help and Documentation </h2>
+<h2 id="___sec16">Help and Documentation </h2>
 
 <p>
 if help is ever needed, for example of the math module, in the ipython console, type
@@ -693,7 +686,7 @@ For anything else, there is a handy company on the internet that is good at find
 <p>
 <!-- !split -->
 
-<h2 id="___sec18">Comments and Strings </h2>
+<h2 id="___sec17">Comments and Strings </h2>
 
 <p>
 Making notes or comments in code can be more important than the code itself. If the program is so obscure, hard to read, or confusing, it will not be enjoyable to use, or if it breaks, it will be terrible to repair. Comments should contain info about the command or variable and  can be on the same row as a command or be on a new line. Also, it is good practice to include a short description at the beginning of your functions called a <b>docstring</b>. Using these can make documentation much easier. Oneline comments are simply prefixed with <code>#</code>, and strings can either be enclosed with <em>'single'</em> or <em>"double"</em> quotes.
@@ -725,7 +718,7 @@ Making notes or comments in code can be more important than the code itself. If 
 <p>
 <!-- !split -->
 
-<h2 id="___sec19">String Pitfalls </h2>
+<h2 id="___sec18">String Pitfalls </h2>
 
 <p>
 One troublesome feature of using a cross-platform language like python is dealing with the difference between operating systems. One frustrating difference is the filepath separators. Linux/MAC use the forwardslash <code>/</code>,and windows uses the backslash`\\`. In python, the backslash has a different function, it is an escape character, so the windows file paths need <code>C:\mydir</code> must be written as <code>C:\\mydir</code> or as a forward-slash <code>C:/mydir</code> in python
@@ -785,7 +778,7 @@ One solution to this error is to use double quotes <code>\\</code>, in Windows
 <p>
 <!-- !split -->
 
-<h2 id="___sec20">Printing </h2>
+<h2 id="___sec19">Printing </h2>
 
 <p>
 The simplest way to print a statement with some variables is to simple create groups of strings separated by commas and inserting variables in the middle. This is easy, but controlling output is difficult.
@@ -861,7 +854,7 @@ x <span style="color: #666666">=</span> <span style="color: #666666">1/3</span>
 <p>
 <!-- !split -->
 
-<h2 id="___sec21">Advanced Printing </h2>
+<h2 id="___sec20">Advanced Printing </h2>
 
 <p>
 The preferred method for printing is using the format dot operator. This format allows full control on how the information is displayed. The current syntax for printing variables uses the <code>.format</code> dot operator
@@ -933,7 +926,7 @@ The preferred method for printing is using the format dot operator. This format 
 <p>
 <!-- !split -->
 
-<h2 id="___sec22">Variables and Datatypes  </h2>
+<h2 id="___sec21">Variables and Datatypes  </h2>
 
 <p>
  Everything in python is an object, meaning a variable can be a simple text string to a huge nxm array of complex numbers and they all have properties specific to them.
@@ -1006,7 +999,7 @@ The preferred method for printing is using the format dot operator. This format 
 <p>
 <!-- !split -->
 
-<h2 id="___sec23">Lists and Arrays </h2>
+<h2 id="___sec22">Lists and Arrays </h2>
 
 <p>
 Lists are a standard, python datatype for storing and processing strings and numbers. A list can contain different datatypes. Arrays are not a standard python datatype, but can be imported from the numerical python library, numpy. Arrays can only hold one type of data, but are optimized for numerics(see the section <a href="#sec:arrays">Arrays</a> for demo).
@@ -1082,7 +1075,7 @@ z[<span style="color: #666666">2</span>:<span style="color: #666666">5</span>]
 <p>
 <!-- !split -->
 
-<h2 id="___sec24">More Lists </h2>
+<h2 id="___sec23">More Lists </h2>
 
 <p>
 Since lists are so useful, lets do a few more examples.
@@ -1158,7 +1151,7 @@ mylist
 <p>
 <!-- !split -->
 
-<h2 id="___sec25">List and Array Pitfalls </h2>
+<h2 id="___sec24">List and Array Pitfalls </h2>
 
 <p>
 Reassigning lists can be dangerous business with unexpected results. If you are used to Matlab syntax, the following example is a reasonable way to create a copy of list x named y
@@ -1229,7 +1222,7 @@ That makes more sense, although it's a bit cumbersome. Oh well :(
 <p>
 <!-- !split -->
 
-<h2 id="___sec26">Indentation and Conditionals </h2>
+<h2 id="___sec25">Indentation and Conditionals </h2>
 
 <p>
 Unlike many other languages that use brackets to enclose commands, python uses the whitespace to control the program flow. For example, if statements, loops, and functions are indented 4 spaces to indicate what code is in the function. Once the indent is removed, the code is no longer in the function. This forces a clean, readable coding style. For boolean <b>is</b> or <b>==</b>, or binary <b>0</b> , <b>1</b> or logical <b>True</b> or <b>False</b> .
@@ -1297,7 +1290,7 @@ s <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;x is t
 <p>
 <!-- !split -->
 
-<h2 id="___sec27">Loops </h2>
+<h2 id="___sec26">Loops </h2>
 
 <p>
 Loops in python are a great way to iterate through a list, perform element-wise calculations, or for sorting data. Here are a few examples of  <b>for</b> and <b>while</b> loops. In python, it is preferred to loop through a list as compared to generating an index array, but both work fine.
@@ -1368,7 +1361,7 @@ A while loops requires a little more work, but is handy when the number of loops
 <p>
 <!-- !split -->
 
-<h2 id="___sec28">Functions </h2>
+<h2 id="___sec27">Functions </h2>
 
 <p>
 The bread-and-butter of any language are creating custom user-defined functions. This compartmentalizes code to reusable chunks. Simple functions can be defined as a one-liner <em>lambda</em> function. This example creates a function <em>myfunc</em> with two inputs, <em>x</em> and <em>y</em> which looks like  <em>myfunc(x,y)</em>
@@ -1413,7 +1406,7 @@ Here is an example of calling the function
 <p>
 <!-- !split -->
 
-<h2 id="___sec29">Using Modules </h2>
+<h2 id="___sec28">Using Modules </h2>
 
 <p>
 Since python is a generic programming language, it does not have math operations built in, they must be imported from modules. Modules are simply a <b>*.py</b> file that has lots of functions that can be used in any other script if it is imported. Imports are typically done at the beginning of a script, but can be done at anytime, as a long as it is before you call the function. The concept of namespace and reserved names is very important when naming variables and importing modules. Ensure you do not name variables or modules the same as any reserved names, such as <code>list</code>, <code>type</code>, <code>print</code>.
@@ -1497,7 +1490,7 @@ sin(pi<span style="color: #666666">/45</span>)
 <p>
 <!-- !split -->
 
-<h2 id="___sec30">Creating Modules </h2>
+<h2 id="___sec29">Creating Modules </h2>
 
 <p>
 For many calculations, importing existing modules like <code>numpy</code> or <code>scipy</code> is sufficient, but you may eventually need to define your own, custom module. Let's make a custom module. Open a text editor and enter the function we made earlier. Save it as <code>mymodule.py</code>
@@ -1560,7 +1553,7 @@ myfunc(<span style="color: #666666">1</span>,<span style="color: #666666">2</spa
 <p>
 <!-- !split -->
 
-<h2 id="___sec31">Basic Python Example </h2>
+<h2 id="___sec30">Basic Python Example </h2>
 
 <p>
 Let's wrap up our introductory tutorial by doing using a few of the examples together. All of these functions perform the same task, but use slightly different python syntax. We want all the numbers divisible by 5 up to our input y. The example shows how to do this using a for loop, while loop, list comprehension, and a numpy array. This example also shows that there are many ways to solve the same problem.
@@ -1624,7 +1617,7 @@ Since we provided a default value in the function with <code>y=100</code>, we ca
 <p>
 <!-- !split -->
 
-<h2 id="___sec32">Ipython Handy Hints </h2>
+<h2 id="___sec31">Ipython Handy Hints </h2>
 
 <p>
 When using the command line, there are a few commands that are very handy. The first is the <code>cd</code> or change directory command is used to navigate directories.
@@ -1700,7 +1693,7 @@ If there are undesired variables, use the general <code>reset</code> command or 
 <p>
 <!-- !split -->
 
-<h2 id="___sec33">Numerical Python </h2>
+<h2 id="___sec32">Numerical Python </h2>
 
 <p>
 Although python was not originally intended to be a numerical language, it's helpful community, simple syntax, and free, open-source codebase lend it to being a great academic and applied language for theoretical math to physics and engineering calculations.
@@ -1778,7 +1771,7 @@ x <span style="color: #666666">=</span> linspace(<span style="color: #666666">0<
 <p>
 <!-- !split -->
 
-<h2 id="___sec35">Array Operations </h2>
+<h2 id="___sec34">Array Operations </h2>
 
 <p>
 Element-wise operations
@@ -1834,7 +1827,7 @@ x<span style="color: #666666">**2</span>
 <p>
 <!-- !split -->
 
-<h2 id="___sec36">Array Operations </h2>
+<h2 id="___sec35">Array Operations </h2>
 
 <p>
 Often, objects in python have many methods that can be performed on that data-type. To see what methods are available, a <code>.</code> can be typed to see what is available or the <code>dir()</code> function can be used
@@ -1878,7 +1871,7 @@ np<span style="color: #666666">.</span>sum(x)
 <p>
 <!-- !split -->
 
-<h2 id="___sec37">Logical Indexing </h2>
+<h2 id="___sec36">Logical Indexing </h2>
 
 <p>
 A powerful filtering technique in Matlab and python called logical indexing is a great way to perform calculations to specific numbers or filter data
@@ -1966,7 +1959,7 @@ A powerful filtering technique in Matlab and python called logical indexing is a
 <p>
 <!-- !split -->
 
-<h2 id="___sec38">Multi-Dimensional Arrays (matrices) </h2>
+<h2 id="___sec37">Multi-Dimensional Arrays (matrices) </h2>
 
 <p>
 Numpy has both array classes and a matrix class. The array is a more general object, where the matrix class is specifically for linear algebra. Matrices are only 2-dimensional, which can limit functionality, where the array can be n-dimensional. All matrix operations can be performed on an array, so it is recommended to just use arrays to avoid confusion.
@@ -2030,7 +2023,7 @@ If we want to define a 3x1 array, we define the array like so
 <p>
 <!-- !split -->
 
-<h2 id="___sec39">Matrix Pitfalls </h2>
+<h2 id="___sec38">Matrix Pitfalls </h2>
 
 <p>
 Defining an array is simple but if you are used to Matlab syntax, there could be some confusion. In Matlab, every array(or vector) is at least a (1,1). In python, it is possible to define a (3,), which can be very frustrating if, for example you are interested in transposing your array from a row to a column. Lets take a look.
@@ -2091,7 +2084,7 @@ This can be addressed in a few ways. The safest solution is to change how the ar
 <p>
 <!-- !split -->
 
-<h2 id="___sec40">Matrix Operations </h2>
+<h2 id="___sec39">Matrix Operations </h2>
 
 <p>
 lets creat some matrices (but recall use the array)
@@ -2171,7 +2164,7 @@ To perform element wise operation, use <code>*</code>
 <p>
 <!-- !split -->
 
-<h2 id="___sec41">Plotting </h2>
+<h2 id="___sec40">Plotting </h2>
 
 <p>
 Finally, to wrap up this scientific computing tutorial, we end with plotting. Sometimes it is difficult to communicate a calculation or understand complex datasets. Graphs and Plots are such an important part of science and engineering that the python science stack comes with a powerful yet simple plotting packaged called <em>matplotlib</em>. Plotting can be just as complicated as the calculations, so here is a simple example to get started. Check out the <a href="http://matplotlib.org/gallery.html" target="_self">matplotlib gallery</a> for many more examples.
@@ -2193,7 +2186,7 @@ show()
 <p>
 <!-- !split -->
 
-<h2 id="___sec42">Python in Engineering Summary </h2>
+<h2 id="___sec41">Python in Engineering Summary </h2>
 
 <p>
 A brief introduction to the python programming language has been presented to demonstrate the capabilities of python for scientific computing applied to physics and engineering. If your curiosity got the better part of you, please check out the following links that I have found very useful in the (<a href="#sec:reflinks">References and Links</a>) section.
@@ -2203,7 +2196,7 @@ A brief introduction to the python programming language has been presented to de
 
 <h2 id="sec:reflinks">References and Links</h2>
 
-<h3 id="___sec44">MATLAB vs Python  </h3>
+<h3 id="___sec43">MATLAB vs Python  </h3>
 
 <p>
 Other comparisons of python versus MATLAB  <br />
@@ -2213,7 +2206,7 @@ Other comparisons of python versus MATLAB  <br />
 <a href="https://www.mathworks.com/products/matlab/matlab-vs-python.html#comparison_table" target="_self"><tt>https://www.mathworks.com/products/matlab/matlab-vs-python.html#comparison_table</tt></a> <br />
 <a href="https://docs.scipy.org/doc/numpy-dev/user/numpy-for-matlab-users.html" target="_self"><tt>https://docs.scipy.org/doc/numpy-dev/user/numpy-for-matlab-users.html</tt></a> <br />
 
-<h3 id="___sec45">Python Syntax Cheatsheets </h3>
+<h3 id="___sec44">Python Syntax Cheatsheets </h3>
 
 <p>
 <a href="https://damontallen.github.io/IPython-quick-ref-sheets/" target="_self">ipython-chetasheet</a> <br />
@@ -2223,7 +2216,7 @@ Other comparisons of python versus MATLAB  <br />
 <p>
 <!-- !split -->
 
-<h3 id="___sec46">Python Engineering Books </h3>
+<h3 id="___sec45">Python Engineering Books </h3>
 
 <p>
 <a href="http://www.apress.com/9781484205549" target="_self">Numerical Python - A Practical Techniques Approach for Industry</a> with <a href="http://www.apress.com/downloadable/download/sample/sample_id/1732/" target="_self">source code</a>  <br />
@@ -2234,7 +2227,7 @@ Other comparisons of python versus MATLAB  <br />
 <a href="http://www.springer.com/us/book/9783662498866" target="_self">A Primer on Scientific Programming with Python</a>  with <a href="https://hplgit.github.io/primer.html/doc/pub/half/book.pdf" target="_self">partial free download</a> <br />
 <a href="http://www-personal.umich.edu/~mejn/computational-physics/" target="_self">Computation Physics</a> <br />
 
-<h3 id="___sec47">Python Engineering Library Documentation </h3>
+<h3 id="___sec46">Python Engineering Library Documentation </h3>
 
 <p>
 Python has mature scientific computation packages, namely <a href="https://www.scipy.org/" target="_self">scipy</a> <br />
@@ -2277,19 +2270,19 @@ Python has mature scientific computation packages, namely <a href="https://www.s
 <p>
 <!-- !split -->
 
-<h3 id="___sec48">General Python </h3>
+<h3 id="___sec47">General Python </h3>
 
 <p>
 <a href="http://docs.python-guide.org/en/latest/" target="_self">The Hitchhikers Guide to Python</a> <br />
 <a href="http://hplgit.github.io/bumpy/doc/pub/._basics000.html#table_of_contents" target="_self">A very basic introduction to scientific Python programming</a>  <br />
 
-<h3 id="___sec49">Python and Excel Spreadsheets </h3>
+<h3 id="___sec48">Python and Excel Spreadsheets </h3>
 
 <p>
 <a href="http://www.xlwings.org" target="_self">xlwings</a> <br />
 <a href="http://pandas.pydata.org" target="_self">pandas</a> <br />
 
-<h3 id="___sec50">Python Online Courses </h3>
+<h3 id="___sec49">Python Online Courses </h3>
 
 <p>
 <a href="https://github.com/jrjohansson/scientific-python-lectures" target="_self">scientific-python-lectures</a>  <br />
@@ -2301,14 +2294,21 @@ Python has mature scientific computation packages, namely <a href="https://www.s
 <a href="http://cs.brown.edu/courses/cs053/current/index.htm" target="_self">Coding the Matrix</a> <br />
 <a href="http://interactivepython.org/runestone/static/thinkcspy/index.html" target="_self">How to Think Like a Computer Scientist</a> <br />
 
-<h3 id="___sec51">Programming Games </h3>
+<h3 id="___sec50">Programming Games </h3>
 
 <p>
 <a href="https://projecteuler.net/" target="_self">project euler</a> <br />
 <a href="https://checkio.org/" target="_self">checkio</a> <br />
 <a href="https://github.com/rougier/numpy-100/blob/master/100%20Numpy%20exercises.md" target="_self">Numeric Python exercises</a> <br />
 
-<h1 id="___sec52">Advanced Tutorials </h1>
+<h1 id="___sec51">Advanced Tutorials </h1>
+
+<h2 id="chp:mechtut">Engineering Tutorials</h2>
+<a href="https://nagordon.github.io/mechpy/plotting.html" target="_self"><tt>https://nagordon.github.io/mechpy/plotting.html</tt></a>  <br />
+<a href="https://nagordon.github.io/mechpy/Composite_Plate_Mechanics_with_Python_Example.html" target="_self"><tt>https://nagordon.github.io/mechpy/Composite_Plate_Mechanics_with_Python_Example.html</tt></a>  <br />
+<a href="https://nagordon.github.io/mechpy/Composite_Plate_Mechanics_with_Python_Theory.html" target="_self"><tt>https://nagordon.github.io/mechpy/Composite_Plate_Mechanics_with_Python_Theory.html</tt></a>  <br />
+<a href="https://nagordon.github.io/mechpy/Solving_Differential_Equations_with_Python_mechanical_vibrations.html" target="_self"><tt>https://nagordon.github.io/mechpy/Solving_Differential_Equations_with_Python_mechanical_vibrations.html</tt></a>  <br />
+<a href="https://nagordon.github.io/mechpy/python_optimzation_tutorial.html" target="_self"><tt>https://nagordon.github.io/mechpy/python_optimzation_tutorial.html</tt></a>  <br />
 
 <h2 id="___sec53">Virtual Environments </h2>
 
@@ -2384,10 +2384,10 @@ jupyter nbconvert --to html mechpy.ipynb
 
 <h1 id="___sec56">Excel and Python - They can be friends </h1>
 Because it's there and everyone uses it
-<a href="https://automatetheboringstuff.com/chapter12/" target="_self">Automate the boring stuff, python excel scripting</a>
-<a href="http://xlwings.org/" target="_self">Use python intead of VBA with xlwings</a>
-<a href="https://openpyxl.readthedocs.io/en/default/" target="_self">openpyxl</a>
-<a href="http://shop.oreilly.com/product/9781565926219.do" target="_self">or just develope directly with Windows COM</a>
+<a href="https://automatetheboringstuff.com/chapter12/" target="_self">Automate the boring stuff, python excel scripting</a> <br />
+<a href="http://xlwings.org/" target="_self">Use python intsead of VBA with xlwings</a> <br />
+<a href="https://openpyxl.readthedocs.io/en/default/" target="_self">openpyxl</a> <br />
+<a href="http://shop.oreilly.com/product/9781565926219.do" target="_self">or just develop directly with Windows COM</a>
 
 <p>
 <hr>
