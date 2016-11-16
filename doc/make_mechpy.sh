@@ -3,17 +3,13 @@
 ## activate conda env for python 2.7
 source activate py27
 
-## create a variable of the doconce file
-#dofile='mechpy.do.txt'
-dofile='mechpy'
-
 ## spellcheck all files
 #doconce spellcheck *.do.txt
 
 ## Convert ipynb to doconce
 #doconce ipynb2doconce notebook.ipynb
 
-## diff files 
+## diff files
 #doconce diff file1.txt file2.txt
 
 ## create the github markdown from the doconce_notes.do.txt file
@@ -48,29 +44,30 @@ dofile='mechpy'
 ## updating github pages
 #mv *.html web
 
-cp mechpy.do.txt web/index.do.txt
-cd web
+cp mechpy.do.txt index.do.txt
+
+## create a variable of the doconce file
+#dofile='mechpy.do.txt'
 doconce format html index --html_style=bootswatch_journal
 doconce replace "http://netdna.bootstrapcdn.com/bootswatch/3.1.1/journal/bootstrap.min.css" "bootstrap.css" index.html
 doconce replace "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"          "jquery.min.js" index.html
 doconce replace "http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"        "bootstrap.js" index.html
 rm index.do.txt
-cd ..
 
-for i in ../mechpy/*.ipynb; do
+for i in ../tutorials/*.ipynb; do
     jupyter nbconvert --to html $i
 done
 
-cd ..  # change directory to mechpy root directory
-mv mechpy/*.html doc/web
-ghp-import doc/web -m "updated doc webpage on gh-pages branch" #-p    ##-p is a push
+mv ../tutorials/*.html .
 
-# add all master branch files
+cd ..
+
+ghp-import doc -m "updated doc webpage on gh-pages branch" #-p    ##-p is a push
+
+rm doc/*.html
+
+### add all master branch files
 git add --all
-git commit -m 'auto add changes to master branch'
+git commit -m 'auto add changes to master branch and updated documentation'
 
 git push --all origin
-
-
-
-
