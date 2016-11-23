@@ -71,6 +71,8 @@ def import_matprops(mymaterial=['T300_5208','AL_7075']):
         print(matprops.columns.tolist())
             
     mat = matprops[mymaterial]
+    #mat.applymap(lambda x:np.float(x))
+    mat = mat.applymap(lambda x:pd.to_numeric(x, errors='ignore'))
     return mat
 
 
@@ -475,22 +477,22 @@ def laminate():
     #==========================================================================
     # Define composite properties
     #==========================================================================
-    matindex = ['Carbon_cloth_AGP3705H']  # list materials used, 
+    matindex = ['Carbon_cloth_AGP3705H', 'HRH-10-0.125-3.0']  # list materials used, 
     W =  5  # plate width (inches or meters)
     L =  5  # laminate length, inches or meters  
-    plyangle = [0,45,45,0]  # angle for each ply
-    plymat =   [0,0,0,0]  # material for each ply
+    plyangle = [0,45,0,45,0]  # angle for each ply
+    plymat =   [0,0,1,0,0]  # material for each ply
     
     # either apply strains or loads , lb/in
             #               Nx    Ny  Nxy  Mx  My Mxy 
-    NMbarapp =      array([[400],[400],[400],[0],[0],[0]])
+    NMbarapp =      array([[1000],[0],[1000],[0],[0],[0]])
     #                       ex ey exy  kx  ky kxy
     epsilonbarapp = array([[0],[0],[0],[0],[0],[0]]) 
     
     Ti = 0   # initial temperature (C)
     Tf = 0 # final temperature (C)        
     
-    SF = 1.2 # safety factor
+    SF = 1.0 # safety factor
     
     #==========================================================================
     # Import Material Properties
@@ -509,7 +511,7 @@ def laminate():
     laminatethk = array([mat[matindex[i]].plythk for i in plymat ])
     
     nply = len(laminatethk) # number of plies
-    H =   sum(laminatethk) # plate thickness
+    H =   np.sum(laminatethk) # plate thickness
     #    area = W*H
     z = zeros(nply+1)
     zmid = zeros(nply)
@@ -796,8 +798,8 @@ def laminate():
     print(sigmabar)
     print('Stress Ratio, failure > 1')
     print(SR)
-    print('Maximum Stress Ratio, failure > 1')
-    print(np.max(SR))
+    print('Maximum Failure Index, failure > 1')
+    print(np.max(FI))
     print('Tsai-Hill Failure, failure > 1')
     print(TS)
     print('Tsai-Wu Failure, failure > 1')
@@ -885,7 +887,7 @@ def laminate():
 
     ### Failure
     f3, ((ax1,ax2,ax3)) = plt.subplots(1,3, sharex=True, sharey=True)
-    f3.canvas.set_window_title('Failure Ratios %s laminate' % (plyangle))
+    f3.canvas.set_window_title('Failure Index(failure if greater than 1),  %s laminate' % (plyangle))
     stresslabel = ['$\sigma_1/F_1$','$\sigma_2/F_2$','$\\tau_{12}/F_{12}$']
     for i,ax in enumerate([ax1,ax2,ax3]):
         ## the top axes
@@ -893,7 +895,7 @@ def laminate():
         ax.set_xlabel(stresslabel[i])
         #ax.set_title(' Ply Strain at $\epsilon=%f$' % (epsxapp*100))
         ax.ticklabel_format(axis='x', style='sci', scilimits=(1,4))  # scilimits=(-2,2))
-        ax.plot(SR[i,:],     zplot, color='blue', lw=mylw, label='total')
+        ax.plot(FI[i,:],     zplot, color='blue', lw=mylw, label='total')
         ax.grid(True)
     leg = legend(fancybox=True) ; leg.get_frame().set_alpha(0.3)   
     tight_layout() 
@@ -1198,8 +1200,8 @@ if __name__=='__main__':
     
     
     #material_plots()
-    #laminate()
-    plate()
+    laminate()
+    #plate()
 
 
 
