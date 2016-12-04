@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="DocOnce: https://github.com/hplgit/doconce/" />
+<meta name="description" content="Getting Started with Python in Engineering">
+
+<title>Getting Started with Python in Engineering</title>
+
+
+
+
+
+
+
+<!-- deck.js: https://github.com/imakewebthings/deck.js -->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=1024, user-scalable=no">
+
+<!-- Required stylesheet -->
+<link rel="stylesheet" href="deck.js/core/deck.core.css">
+
+<!-- Extension CSS files go here. Remove or add as needed.
+deck.goto: Adds a shortcut key to jump to any slide number.
+Hit g, type in the slide number, and hit enter.
+
+deck.hash: Enables internal linking within slides, deep
+linking to individual slides, and updates the address bar and
+a permalink anchor with each slide change.
+
+deck.menu: Adds a menu view, letting you see all slides in a grid.
+Hit m to toggle to menu view, continue navigating your deck,
+and hit m to return to normal view. Touch devices can double-tap
+the deck to switch between views.
+
+deck.navigation: Adds clickable left and right buttons for the
+less keyboard inclined.
+
+deck.status: Adds a page number indicator. (current/total).
+
+deck.scale: Scales each slide to fit within the deck container
+using CSS Transforms for those browsers that support them.
+
+deck.pointer: Turn mouse into laser pointer (toggle with p).
+(Requires https://github.com/mikeharris100/deck.pointer.js)
+-->
+
+<link rel="stylesheet" href="deck.js/extensions/menu/deck.menu.css">
+<link rel="stylesheet" href="deck.js/extensions/navigation/deck.navigation.css">
+<link rel="stylesheet" href="deck.js/extensions/scale/deck.scale.css">
+<link rel="stylesheet" href="deck.js/extensions/pointer/deck.pointer.css">
+<link rel="stylesheet" href="deck.js/extensions/notes/deck.notes.css">
+<!--
+<link rel="stylesheet" href="deck.js/extensions/goto/deck.goto.css">
+<link rel="stylesheet" href="deck.js/extensions/hash/deck.hash.css">
+<link rel="stylesheet" href="deck.js/extensions/status/deck.status.css">
+-->
+
+<!-- Style theme. More available in themes/style/ or create your own. -->
+<link rel="stylesheet" href="deck.js/themes/style/swiss.css">
+
+<!--
+<link rel="stylesheet" href="deck.js/themes/style/neon.css">
+<link rel="stylesheet" href="deck.js/themes/style/swiss.css">
+<link rel="stylesheet" href="deck.js/themes/style/web-2.0.css">
+
+git clone git://github.com/duijf/mnml.git
+<link rel="stylesheet" href="deck.js/themes/style/mnml.css">
+
+git://github.com/groovecoder/deckjs-theme-mozilla.git
+<link rel="stylesheet" href="deck.js/themes/style/sandstone.css">
+<link rel="stylesheet" href="deck.js/themes/style/sandstone.aurora.css">
+<link rel="stylesheet" href="deck.js/themes/style/sandstone.dark.css">
+<link rel="stylesheet" href="deck.js/themes/style/sandstone.default.css">
+<link rel="stylesheet" href="deck.js/themes/style/sandstone.firefox.css">
+<link rel="stylesheet" href="deck.js/themes/style/sandstone.light.css">
+<link rel="stylesheet" href="deck.js/themes/style/sandstone.mdn.css">
+<link rel="stylesheet" href="deck.js/themes/style/sandstone.nightly.css">
+<link rel="stylesheet" href="deck.js/themes/style/sandstone.cbc.css">
+
+git://github.com/barraq/deck.ext.js.git
+<link rel="stylesheet" href="deck.js/themes/style/beamer.css">
+-->
+
+<!--
+Transition theme. More available in /themes/transition/ or create your own. -->
+<!--
+<link rel="stylesheet" href="deck.js/themes/transition/horizontal-slide.css">
+<link rel="stylesheet" href="deck.js/themes/transition/fade.css">
+<link rel="stylesheet" href="deck.js/themes/transition/vertical-slide.css">
+<link rel="stylesheet" href="deck.js/themes/transition/horizontal-slide.css">
+-->
+
+<!-- Required Modernizr file -->
+<script src="deck.js/modernizr.custom.js"></script>
+
+<style type="text/css">
+/* Override h1, h2, ... styles */
+h1 { font-size: 2.8em; }
+h2 { font-size: 1.5em; }
+h3 { font-size: 1.4em; }
+h4 { font-size: 1.3em; }
+h1, h2, h3, h4 { font-weight: bold; line-height: 1.2; }
+body { overflow: auto; } /* vertical scrolling */
+
+hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+p.caption { width: 80%; font-size: 60%; font-style: italic; text-align: left; }
+hr.figure { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+.slide .alert-text-small   { font-size: 80%;  }
+.slide .alert-text-large   { font-size: 130%; }
+.slide .alert-text-normal  { font-size: 90%;  }
+.slide .alert {
+     padding:8px 35px 8px 14px; margin-bottom:18px;
+     text-shadow:0 1px 0 rgba(255,255,255,0.5);
+     border:5px solid #bababa;
+       -webkit-border-radius:14px; -moz-border-radius:14px;
+     border-radius:14px
+     background-position: 10px 10px;
+     background-repeat: no-repeat;
+     background-size: 38px;
+     padding-left: 30px; /* 55px; if icon */
+ }
+ .slide .alert-block {padding-top:14px; padding-bottom:14px}
+ .slide .alert-block > p, .alert-block > ul {margin-bottom:0}
+ /*.slide .alert li {margin-top: 1em}*/
+ .deck .alert-block p+p {margin-top:5px}
+ /*.slide .alert-notice { background-image: url(http://hplgit.github.io/doconce/bundled/html_images//small_gray_notice.png); }
+ .slide .alert-summary  { background-image:url(http://hplgit.github.io/doconce/bundled/html_images//small_gray_summary.png); }
+ .slide .alert-warning { background-image: url(http://hplgit.github.io/doconce/bundled/html_images//small_gray_warning.png); }
+ .slide .alert-question {background-image:url(http://hplgit.github.io/doconce/bundled/html_images/small_gray_question.png); } */
+
+</style>
+
+
+
+<!-- Styles for table layout of slides -->
+<style type="text/css">
+td.padding {
+  padding-top:20px;
+  padding-bottom:20px;
+  padding-right:50px;
+  padding-left:50px;
+}
+</style>
+
+</head>
+
+<body class="deck-container">
+
+<header>
+<!-- Here goes a potential header -->
+</header>
+
+<!-- do not use the article tag - it gives strange sizings -->
+
+
+
+    
+
+
+
+<section class="slide">
+<!-- ------------------- main content ---------------------- -->
+
+<h2 style="text-align: center;">Getting Started with Python in Engineering</h2>  <!-- document title -->
+
+<p>
+<!-- author(s): Neal Gordon -->
+
+<center>
+<b style="font-weight: bold">Neal Gordon</b> 
+</center>
+
+<p>
+<!-- institution(s) -->
+
+<br>
+<p>
+<center><b style="font-weight: bold">Dec 02, 2016</b></center> <!-- date -->
+<br>
+<p>
+<center><p><img src="fig/pythonengineering.png" align="bottom" width=450></p></center>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec0">Summary </h2>
+
+<ul>
+<p><li> Why python</li>
+<p><li> Installation</li>
+<p><li> Help and Documentation</li>
+<p><li> Python Syntax</li>
+
+<ul>
+ <p><li> Comments and Strings</li>
+ <p><li> Printing</li>
+ <p><li> Variables and Datatypes</li>
+ <p><li> Lists and Arrays</li>
+ <p><li> Indentation and Conditionals</li>
+ <p><li> Loops</li>
+ <p><li> Functions</li>
+ <p><li> Modules</li>
+</ul>
+<p><li> Numerical Python</li>
+
+<ul>
+ <p><li> Arrays</li>
+ <p><li> Logical Indexing</li>
+ <p><li> Multi-Dimensional Arrays (matrices)</li>
+ <p><li> Plotting</li>
+</ul>
+<p><li> References and Links</li>
+</ul>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec1">Why code </h2>
+
+<p>
+It's just another tool to solve engineering problems
+
+<ul>
+ <p><li class="slide"> Hand calculations are by far the best way to start solving a problem, but not always the best way to find the solution you need.</li>
+ <p><li class="slide"> Spreadsheets are a great mix of a database and calculator, but not great at either</li>
+ <p><li class="slide"> Databases are the best way to store data, but typically are interfaced with code</li>
+ <p><li class="slide"> The best calculators are the ones that work out of the box, but are also 100% customizable</li>
+ <p><li class="slide"> diversify skills other than just basic data entry or calculations, such as web design and development, software development, CAD/CAE API development</li>
+ <p><li class="slide"> Automate the boring parts of your job with code so you can enjoy the awesome parts</li>
+</ul>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec2">Why python </h2>
+
+<p>
+<center><p><img src="fig/xkcd-python.png" align="bottom" ></p></center>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec3">Why python </h2>
+
+<p>
+Python is a general purpose programming language, and is used in web development, graphical user interfaces, IT automation, and SCIENTIFIC COMPUTING
+
+<p>
+<center><p><img src="fig/pythonapps.png" align="bottom" width=600></p></center>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec4">Python vs Matlab </h2>
+
+<p>
+Matlab is a powerful scientific computing language and software development package that is superior for many mathematical operations, specifically linear algebra, signal processing, and modeling dynamic systems(via Simulink). However, for many engineering applications is not worth the cost. Although many of the Matlab libraries  may be arguably better than comparable python libraries, they are closed source and cannot be modified or inspected by users. Also, sharing code with collaborators or publications requires other users to have licenses.
+
+<p>
+Python, on the other hand, is a general programming language so it is very good at many tasks, but was not designed exclusively for scientific computing
+
+<p>
+<center><p><img src="fig/pythonvsmatlab.png" align="bottom" width=800></p></center>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec5">Python vs Matlab </h2>
+
+<p>
+<b style="font-weight: bold">Python Positives</b>
+
+<ul>
+<p><li> being easy and fun to learn with great online forumns and open communities</li>
+<p><li> many libraries for scientific computing, server and desktop management and automation</li>
+<p><li> works great on Linux, Mac and Windows and easily integrates with other languages (fortran, C, java)</li>
+<p><li> scripts are easily integrated with other applications</li>
+<p><li> FREE, open-source and customizable. Every module/library can be modified</li>
+</ul>
+<p>
+
+<b style="font-weight: bold">Matlab Positives</b>
+
+<ul>
+<p><li> professional technical support</li>
+<p><li> fast(er) execution</li>
+<p><li> being straightforward for simple scientific calculations</li>
+</ul>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec6">Installation </h2>
+
+<p>
+To get started, choose the python distribution you want. I would recommend anaconda, which has most of the scientific packages that are needed in one installation, but more importantly, comes with a package manager called <code>conda</code>, which is a big help when installing and updating python packages (especially on Windows) and <a href="http://conda.pydata.org/docs/using/envs.html" target="_self">managing environments</a> if we want to use multiple versions of python.
+
+<ul>
+<p><li> <a href="https://www.continuum.io/downloads#34" target="_self">Anaconda</a> or <a href="http://conda.pydata.org/miniconda.html" target="_self">Miniconda</a> for Linux, Mac, and Windows</li>
+<p><li> <a href="http://www.pyzo.org/index.html" target="_self">pyzo</a> For Linux, Mac, and Windows</li>
+<p><li> <a href="http://winpython.sourceforge.net/" target="_self">winpython</a> for Windows</li>
+<p><li> <a href="http://python-xy.github.io/" target="_self">python(x,y)</a> for Windows</li>
+</ul>
+<p>
+
+Installing new packages and updating is easy. <code>conda</code> takes care of dependencies and version compatibility.
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># install a single library</span>
+conda install numpy
+
+<span style="color: #408080; font-style: italic"># update a single library</span>
+conda update numpy
+
+<span style="color: #408080; font-style: italic"># update all packages</span>
+conda update <span style="color: #666666">--</span><span style="color: #008000">all</span>
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec7">A Note on Versions </h2>
+
+<p>
+Python currently has 2 popular versions, 2x and 3x. 2x has a lot of legacy code still in use, but support is being phased out. Either version works, but I would recommend always trying to default to the latest release (v3.5).
+
+<p>
+Among many major changes, the two changes I find most troublesome is the print command and division.
+
+<p>
+<b style="font-weight: bold">print changes</b>
+<p>
+
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># v2.7</span>
+<span style="color: #008000; font-weight: bold">print</span> <span style="color: #BA2121">&quot;hello world&quot;</span>  <span style="color: #408080; font-style: italic"># hello world</span>
+
+<span style="color: #408080; font-style: italic"># v3.5</span>
+<span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&quot;hello world&quot;</span>)  <span style="color: #408080; font-style: italic"># hello world</span>
+</pre></div>
+<p>
+<b style="font-weight: bold">division changes</b>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic">#v2.7</span>
+<span style="color: #666666">7</span> <span style="color: #666666">/</span> <span style="color: #666666">4</span>
+<span style="color: #408080; font-style: italic"># 1</span>
+<span style="color: #666666">7</span> <span style="color: #666666">/</span> <span style="color: #666666">4.0</span>
+<span style="color: #408080; font-style: italic"># 1.75</span>
+<span style="color: #666666">7</span> <span style="color: #666666">//</span> <span style="color: #666666">4</span>
+<span style="color: #408080; font-style: italic"># 1</span>
+
+<span style="color: #408080; font-style: italic">#v3.5</span>
+<span style="color: #666666">7</span> <span style="color: #666666">/</span> <span style="color: #666666">4</span>
+<span style="color: #408080; font-style: italic"># 1.75</span>
+<span style="color: #666666">7</span> <span style="color: #666666">//</span> <span style="color: #666666">4</span>
+<span style="color: #408080; font-style: italic"># 1</span>
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec8">Development Environments </h2>
+
+<p>
+Python has many options for programming, and graphical user interface development. Many different integrated development environments (IDE), such as spyder. Although not a polished, spyder is similar to the Matlab interface. Browser based jupyter notebooks are a great way to write web-ready content or sharing calculations or plots
+
+<p>
+<center><p><img src="fig/jupyterspyder.png" align="bottom" width=800></p></center>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec9">First Program </h2>
+
+<p>
+Before we go any further, let's put together a simple python script and run it. First, open a text file and type
+
+<p>
+
+<!-- code=python (!bc pypro) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;hello world&#39;</span>)
+</pre></div>
+<p>
+save it as <code>hello.py</code>. Now, lets open a command window. In windows, my preferred way is to shift+right-click in a window and select <b style="font-weight: bold">open in terminal</b>. The other option is to run <code>cmd</code> from the start menu. Type the following and hit enter.
+
+<p>
+
+<!-- code=text (!bc sys) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">python hello.py
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">hello world
+</pre></div>
+<p>
+You should have seen your print statement printed to the console. If so, congratulations!, you have executed your first python program. Some other ways to run your program are through the ipython interpreter, which can be launched from your command line by running <code>ipython</code> or using the ipython install shortcut
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">In [<span style="color: #666666">1</span>]: run hello<span style="color: #666666">.</span>py
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">hello world
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec10">Help and Documentation </h2>
+
+<p>
+if help is ever needed, for example of the math module, in the ipython console, type
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">help(<span style="color: #008000; font-weight: bold">print</span>)
+<span style="color: #408080; font-style: italic">#or</span>
+<span style="color: #008000; font-weight: bold">print</span>?
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">Help on built-in function print in module builtins:
+
+print(...)
+    print(value, ..., sep=&#39; &#39;, end=&#39;\n&#39;, file=sys.stdout, flush=False)
+
+    Prints the values to a stream, or to sys.stdout by default.
+    Optional keyword arguments:
+    file:  a file-like object (stream); defaults to the current sys.stdout.
+    sep:   string inserted between values, default a space.
+    end:   string appended after the last value, default a newline.
+    flush: whether to forcibly flush the stream.
+</pre></div>
+<p>
+
+<p class="slide">
+
+For anything else, there is a handy company on the internet that is good at finding stuff.
+
+</p>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec11">Comments and Strings </h2>
+
+<p>
+Making notes or comments in code can be more important than the code itself. If the program is so obscure, hard to read, or confusing, it will not be enjoyable to use, or if it breaks, it will be terrible to repair. Comments should contain info about the command or variable and  can be on the same row as a command or be on a new line. Also, it is good practice to include a short description at the beginning of your functions called a <b style="font-weight: bold">docstring</b>. Using these can make documentation much easier. Oneline comments are simply prefixed with <code>#</code>, and strings can either be enclosed with <em>'single'</em> or <em>"double"</em> quotes.
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># this is a comment, it is not executed</span>
+<span style="color: #408080; font-style: italic"># every new line of a comment must have a #</span>
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #BA2121; font-style: italic">&#39;&#39;&#39;this is a single line docstring with single quotes&#39;&#39;&#39;</span>
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;this is a single line docstring with double quotes&quot;&quot;&quot;</span>
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #BA2121; font-style: italic">&#39;&#39;&#39;this is a multi-line string or comment enclosed</span>
+<span style="color: #BA2121; font-style: italic">with 3 single quotes. This is an easy way</span>
+<span style="color: #BA2121; font-style: italic">to create a multi-line comment, or a docstring at</span>
+<span style="color: #BA2121; font-style: italic">the beginning of your functions&#39;&#39;&#39;</span>
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec12">String Pitfalls </h2>
+
+<p>
+One troublesome feature of using a cross-platform language like python is dealing with the difference between operating systems. One frustrating difference is the filepath separators. Linux/MAC use the forwardslash <code>/</code>,and windows uses the backslash`\\`. In python, the backslash has a different function, it is an escape character, so the windows file paths need <code>C:\mydir</code> must be written as <code>C:\\mydir</code> or as a forward-slash <code>C:/mydir</code> in python
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;newline escape  </span><span style="color: #BB6622; font-weight: bold">\n</span><span style="color: #BA2121"> example with </span><span style="color: #BB6622; font-weight: bold">\n</span><span style="color: #BA2121"> another linebreak&#39;</span>)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">newline escape
+example with
+another
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;C:\myname\mydirectory</span><span style="color: #BB6622; font-weight: bold">\&#39;</span><span style="color: #BA2121">)</span>
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">SyntaxError: EOL while scanning string literal
+</pre></div>
+<p>
+One solution to this error is to use double quotes <code>\\</code>, in Windows
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># double slash escapes the first</span>
+<span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;C:</span><span style="color: #BB6622; font-weight: bold">\\</span><span style="color: #BA2121">myname</span><span style="color: #BB6622; font-weight: bold">\\</span><span style="color: #BA2121">mydirectory</span><span style="color: #BB6622; font-weight: bold">\\</span><span style="color: #BA2121">&#39;</span>)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">C:\\myname\\mydirectory\\
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec13">Printing </h2>
+
+<p>
+The simplest way to print a statement with some variables is to simple create groups of strings separated by commas and inserting variables in the middle. This is easy, but controlling output is difficult.
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># single line string</span>
+<span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;this is a string&#39;</span>)
+<span style="color: #408080; font-style: italic"># single line string with a line break</span>
+<span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;this is a </span><span style="color: #BB6622; font-weight: bold">\</span>
+<span style="color: #BA2121">       string&#39;</span>)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">this is a string
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># the simplest way to print</span>
+x <span style="color: #666666">=</span> <span style="color: #666666">1/3</span>
+<span style="color: #008000; font-weight: bold">print</span>(x,<span style="color: #BA2121">&#39; spam and &#39;</span>,<span style="color: #666666">3</span>,<span style="color: #BA2121">&#39; eggs&#39;</span>)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">0.3333333333333333  spam and  3  eggs
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># or force integers and floats to be a string and concatenate</span>
+<span style="color: #008000; font-weight: bold">print</span>(<span style="color: #008000">str</span>(x)<span style="color: #666666">+</span><span style="color: #BA2121">&#39; spam and &#39;</span><span style="color: #666666">+</span><span style="color: #008000">str</span>(<span style="color: #666666">3</span>)<span style="color: #666666">+</span><span style="color: #BA2121">&#39; eggs&#39;</span>)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">0.3333333333333333  spam and  3  eggs
+</pre></div>
+<p>
+
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic">#The legacy printing variables syntax follows a percent sign and the datatype</span>
+<span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;</span><span style="color: #BB6688; font-weight: bold">%i</span><span style="color: #BA2121"> spam and </span><span style="color: #BB6688; font-weight: bold">%f</span><span style="color: #BA2121"> </span><span style="color: #BB6688; font-weight: bold">%s</span><span style="color: #BA2121">&#39;</span> <span style="color: #666666">%</span> (<span style="color: #666666">5.0</span>, <span style="color: #666666">3</span>,<span style="color: #BA2121">&#39;eggs&#39;</span>) )
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">5 spam and 3.000000 eggs
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec14">Advanced Printing </h2>
+
+<p>
+The preferred method for printing is using the format dot operator. This format allows full control on how the information is displayed. The current syntax for printing variables uses the <code>.format</code> dot operator
+
+<p>
+
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># basic print with 2 variables</span>
+<span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;{} spam and {} {}&#39;</span><span style="color: #666666">.</span>format(<span style="color: #666666">5</span>,<span style="color: #666666">3</span>,<span style="color: #BA2121">&#39;eggs&#39;</span>))
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">5 spam and 3 eggs
+</pre></div>
+<p>
+
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># designating float data type</span>
+<span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;{:f} cans of {}&#39;</span><span style="color: #666666">.</span>format(<span style="color: #666666">1/3</span>, <span style="color: #BA2121">&#39;spam&#39;</span>))
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">0.333333 cans of spam
+</pre></div>
+<p>
+
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># scientific notation with 2 digits</span>
+<span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;{:.2e} cans of {}&#39;</span><span style="color: #666666">.</span>format(<span style="color: #666666">12345689</span>, <span style="color: #BA2121">&#39;spam&#39;</span>))
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">1.23e+07 cans of spam
+</pre></div>
+<p>
+
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># 2 digits and pad 6 places with zeros</span>
+<span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;{:06.2f} cans of {}&#39;</span><span style="color: #666666">.</span>format(<span style="color: #666666">3.141592653589793</span>, <span style="color: #BA2121">&#39;spam&#39;</span>))
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">003.14 cans of spam
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec15">Variables and Datatypes  </h2>
+
+<p>
+ Everything in python is an object, meaning a variable can be a simple text string to a huge nxm array of complex numbers and they all have properties specific to them.
+ Python has dynamic typing, or duck typing ("walks like a duck, sounds like a duck, must be a duck"). It takes a guess at what kind of data you are trying to store
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">x<span style="color: #666666">=1</span>
+<span style="color: #008000">type</span>(x)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">int
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">y<span style="color: #666666">=1.5</span>
+<span style="color: #008000">type</span>(y)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">float
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">y<span style="color: #666666">=</span><span style="color: #BA2121">&#39;spam&#39;</span>
+<span style="color: #008000">type</span>(y)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">string
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">z <span style="color: #666666">=</span> [<span style="color: #666666">1</span>,<span style="color: #666666">2</span>,<span style="color: #666666">3</span>,<span style="color: #666666">4</span>]
+<span style="color: #008000">type</span>(z)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">list
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec16">Lists and Arrays </h2>
+
+<p>
+Lists are a standard, python datatype for storing and processing strings and numbers. A list can contain different datatypes. Arrays are not a standard python datatype, but can be imported from the numerical python library, numpy. Arrays can only hold one type of data, but are optimized for numerics(see the section <a href="#sec:arrays">Arrays</a> for demo).
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># define a list with int and string datatype</span>
+z <span style="color: #666666">=</span> [<span style="color: #666666">1</span>,<span style="color: #666666">2</span>,<span style="color: #666666">3</span>,<span style="color: #666666">4</span>, <span style="color: #BA2121">&#39;five&#39;</span>]
+<span style="color: #408080; font-style: italic"># prints the list</span>
+z
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">[1,2,3,4, &#39;five&#39;]
+</pre></div>
+<p>
+Parts of a list can be sliced out of a list using the indices
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># return the first element of the list</span>
+z[<span style="color: #666666">0</span>]
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">1
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># return the last element of the list</span>
+z[<span style="color: #666666">-1</span>]
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">&#39;five&#39;
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># return the 3rd and 4th element of the list.</span>
+z[<span style="color: #666666">2</span>:<span style="color: #666666">5</span>]
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">[3,4,&#39;five&#39;]
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec17">More Lists </h2>
+
+<p>
+Since lists are so useful, lets do a few more examples.
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">mylist <span style="color: #666666">=</span> [[<span style="color: #666666">1</span>],[<span style="color: #666666">2</span>,<span style="color: #666666">3</span>],[<span style="color: #666666">4</span>,<span style="color: #666666">5</span>,<span style="color: #666666">6</span>]]
+<span style="color: #408080; font-style: italic"># extract second element of the list</span>
+mylist[<span style="color: #666666">1</span>]
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">[2,3]
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># add on to the end of a list</span>
+mylist<span style="color: #666666">.</span>append([<span style="color: #666666">0</span>,<span style="color: #666666">1</span>,<span style="color: #666666">2</span>])
+<span style="color: #408080; font-style: italic"># print list</span>
+mylist
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">[[1], [2, 3], [4, 5, 6], [0, 1, 2]]
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># delete element two</span>
+<span style="color: #008000; font-weight: bold">del</span> mylist[<span style="color: #666666">1</span>]
+<span style="color: #008000; font-weight: bold">print</span>(mylist)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">[[1], [4, 5, 6], [0, 1, 2]]
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># returns the len of the list</span>
+<span style="color: #008000">len</span>(mylist)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">3
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec18">List and Array Pitfalls </h2>
+
+<p>
+Reassigning lists can be dangerous business with unexpected results. If you are used to Matlab syntax, the following example is a reasonable way to create a copy of list x named y
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># create list x</span>
+x <span style="color: #666666">=</span> [<span style="color: #666666">1</span>,<span style="color: #666666">2</span>,<span style="color: #666666">3</span>]
+<span style="color: #408080; font-style: italic"># create another list y of the same values as x</span>
+y <span style="color: #666666">=</span> x
+<span style="color: #408080; font-style: italic"># reassigned the 2 list location with 7</span>
+x[<span style="color: #666666">1</span>] <span style="color: #666666">=</span> <span style="color: #666666">7</span>
+<span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;x =&#39;</span>,x)
+<span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;y =&#39;</span>,y)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">x = [1,7,3]
+y = [1,7,3]
+</pre></div>
+<p>
+
+<p class="slide">
+
+
+
+Notice anything strange? Changing x also changes y! If that is what you expected, then you are probably a computer scientist or something. Making this mistake can lead to weird behavior, so be careful.
+
+
+
+</p>
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># The correct way to create variable y</span>
+x <span style="color: #666666">=</span> [<span style="color: #666666">1</span>,<span style="color: #666666">2</span>,<span style="color: #666666">3</span>]
+y <span style="color: #666666">=</span> x<span style="color: #666666">.</span>copy()
+x[<span style="color: #666666">1</span>] <span style="color: #666666">=</span> <span style="color: #666666">7</span>
+<span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;x =&#39;</span>,x)
+<span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;y =&#39;</span>,y)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">x = [1,7,3]
+y = [1,2,3]
+</pre></div>
+<p>
+
+<p class="slide">
+
+That makes more sense, although it's a bit cumbersome. Oh well :(
+
+</p>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec19">Indentation and Conditionals </h2>
+
+<p>
+Unlike many other languages that use brackets to enclose commands, python uses the whitespace to control the program flow. For example, if statements, loops, and functions are indented 4 spaces to indicate what code is in the function. Once the indent is removed, the code is no longer in the function. This forces a clean, readable coding style. For boolean <b style="font-weight: bold">is</b> or <b style="font-weight: bold">==</b>, or binary <b style="font-weight: bold">0</b> , <b style="font-weight: bold">1</b> or logical <b style="font-weight: bold">True</b> or <b style="font-weight: bold">False</b> .
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># typical if-else. Can remove the else for just an if statement</span>
+x <span style="color: #666666">=</span> <span style="color: #008000">True</span>
+<span style="color: #008000; font-weight: bold">if</span> x:
+    <span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;x is true&#39;</span>)
+<span style="color: #008000; font-weight: bold">else</span>:
+    <span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;x is not true&#39;</span>)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">x is true
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># typical if-elif-else</span>
+x <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;maybe&#39;</span>
+<span style="color: #008000; font-weight: bold">if</span> x:
+    <span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;x is true&#39;</span>)
+<span style="color: #008000; font-weight: bold">elif</span> x<span style="color: #666666">==</span><span style="color: #BA2121">&#39;maybe&#39;</span>:
+    <span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;x is maybe true&#39;</span>)
+<span style="color: #008000; font-weight: bold">else</span>:
+    <span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;x is not true&#39;</span>)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">x is true
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># Python also has clean syntax for one-liners</span>
+x <span style="color: #666666">=</span> <span style="color: #666666">0</span>
+s <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;x is true&#39;</span> <span style="color: #008000; font-weight: bold">if</span> x <span style="color: #AA22FF; font-weight: bold">is</span> <span style="color: #008000">True</span> <span style="color: #008000; font-weight: bold">else</span> <span style="color: #BA2121">&#39;x is not true&#39;</span>
+<span style="color: #008000; font-weight: bold">print</span>(s)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">x is not true
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec20">Loops </h2>
+
+<p>
+Loops in python are a great way to iterate through a list, perform element-wise calculations, or for sorting data. Here are a few examples of  <b style="font-weight: bold">for</b> and <b style="font-weight: bold">while</b> loops. In python, it is preferred to loop through a list as compared to generating an index array, but both work fine.
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># typical for loop</span>
+x <span style="color: #666666">=</span> []
+<span style="color: #008000; font-weight: bold">for</span> i <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">range</span>(<span style="color: #666666">10</span>):
+    x<span style="color: #666666">.</span>append(i)
+<span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;x =&#39;</span>,x)
+</pre></div>
+<p>
+<!-- <iframe width="800" height="500" frameborder="0" src="http://pythontutor.com/iframe-embed.html#code=x%20%3D%20%5B%5D%0Afor%20i%20in%20range(10%29%3A%0A%20%20%20%20x.append(i%29%0Aprint('x%3D',x%29&codeDivHeight=400&codeDivWidth=350&cumulative=false&curInstr=23&heapPrimitives=false&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false"> </iframe> -->
+
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">x = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+</pre></div>
+<p>
+Notice the print statement in the previous code snippet. It is unindented from the for loop, indicating it is executed after the for-loop is complete. Below, is another example of a one-liner for loop, which is called a <b style="font-weight: bold">list comprehension</b>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">x <span style="color: #666666">=</span> [y <span style="color: #008000; font-weight: bold">for</span> y <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">range</span>(<span style="color: #666666">10</span>)]
+x
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+</pre></div>
+<p>
+A while loops requires a little more work, but is handy when the number of loops is unknown.
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">i <span style="color: #666666">=</span> <span style="color: #666666">0</span> ; x <span style="color: #666666">=</span> []
+<span style="color: #008000; font-weight: bold">while</span> i <span style="color: #666666">&lt;</span> <span style="color: #666666">10</span>:
+    x<span style="color: #666666">.</span>append(i)
+    i<span style="color: #666666">=</span>i<span style="color: #666666">+1</span>  <span style="color: #408080; font-style: italic"># i+=1</span>
+<span style="color: #008000; font-weight: bold">print</span>(x)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec21">Functions </h2>
+
+<p>
+The bread-and-butter of any language are creating custom user-defined functions. This compartmentalizes code to reusable chunks. Simple functions can be defined as a one-liner <em>lambda</em> function. This example creates a function <em>myfunc</em> with two inputs, <em>x</em> and <em>y</em> which looks like  <em>myfunc(x,y)</em>
+
+<p>
+
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># lambda functions are one-liner function definitions</span>
+myfunc <span style="color: #666666">=</span> <span style="color: #008000; font-weight: bold">lambda</span> x,y: x<span style="color: #666666">**2</span> <span style="color: #666666">/</span> y
+</pre></div>
+<p>
+For more complicated functions with docstrings, the following example performs the same calculation
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># another way to define a function with the docstring</span>
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">myfunc</span>(x,y):
+    <span style="color: #BA2121; font-style: italic">&#39;&#39;&#39;neat two variable function to do some math&#39;&#39;&#39;</span>
+    z <span style="color: #666666">=</span> x<span style="color: #666666">**2</span> <span style="color: #666666">/</span> y
+    <span style="color: #008000; font-weight: bold">return</span> z
+</pre></div>
+<p>
+Here is an example of calling the function
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">a <span style="color: #666666">=</span> myfunc(<span style="color: #666666">5</span>,<span style="color: #666666">3</span>)
+<span style="color: #008000; font-weight: bold">print</span>(a)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">8.333333333333334
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec22">Using Modules </h2>
+
+<p>
+Since python is a generic programming language, it does not have math operations built in, they must be imported from modules. Modules are simply a <b style="font-weight: bold">*.py</b> file that has lots of functions that can be used in any other script if it is imported. Imports are typically done at the beginning of a script, but can be done at anytime, as a long as it is before you call the function. The concept of namespace and reserved names is very important when naming variables and importing modules. Ensure you do not name variables or modules the same as any reserved names, such as <code>list</code>, <code>type</code>, <code>print</code>.
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># Least confusing way to import modules</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">numpy</span>
+numpy<span style="color: #666666">.</span>sin(numpy<span style="color: #666666">.</span>pi <span style="color: #666666">/</span> <span style="color: #666666">45</span>)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">0.069756473744125302
+</pre></div>
+<p>
+You can also import the entire module but as an alias, in this case <b style="font-weight: bold">np</b>. This is the preferred option because all the numpy functions are imported and available, but will not overwrite other functions with the same name.
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># Less confusing and convientient way to import a whole module</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">numpy</span> <span style="color: #008000; font-weight: bold">as</span> <span style="color: #0000FF; font-weight: bold">np</span>
+np<span style="color: #666666">.</span>sin(np<span style="color: #666666">.</span>pi<span style="color: #666666">/45</span>)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">0.069756473744125302
+</pre></div>
+<p>
+Individual functions can be imported which is safe, but can be laborious if many functions are required
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># safe but cumbersome way to import modules</span>
+<span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">numpy</span> <span style="color: #008000; font-weight: bold">import</span> sin, pi
+sin(pi<span style="color: #666666">/45</span>)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">0.069756473744125302
+</pre></div>
+<p>
+The easiest but riskiest method of module import is importing all functions directly into the main namespace. For complex programs, this can be dangerous unless you know every single module name in the numpy library, because you can overwrite other functions that you may have imported previous.
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># most convientient but most dangerous way to import modules</span>
+<span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">numpy</span> <span style="color: #008000; font-weight: bold">import</span> <span style="color: #666666">*</span>
+sin(pi<span style="color: #666666">/45</span>)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">0.069756473744125302
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec23">Creating Modules </h2>
+
+<p>
+For many calculations, importing existing modules like <code>numpy</code> or <code>scipy</code> is sufficient, but you may eventually need to define your own, custom module. Let's make a custom module. Open a text editor and enter the function we made earlier. Save it as <code>mymodule.py</code>
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># another way to define a function with the docstring</span>
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">myfunc</span>(x,y):
+    <span style="color: #BA2121; font-style: italic">&#39;&#39;&#39;neat two variable function to do some math&#39;&#39;&#39;</span>
+    z <span style="color: #666666">=</span> x<span style="color: #666666">**2</span> <span style="color: #666666">/</span> y
+    <span style="color: #008000; font-weight: bold">return</span> z
+
+<span style="color: #408080; font-style: italic"># to execute function, call it</span>
+myfunc(<span style="color: #666666">5</span>,<span style="color: #666666">3</span>)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">8.333333333333334
+</pre></div>
+<p>
+Save the file named as <code>mymodule.py</code>. Ensuring your console is in the same directory as your file, (<code>pwd</code> to check), lets first execute the function then import and use as a custom module.
+
+<p>
+The function is called in the script so we should see output when we run the file.
+
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">8.3333333
+</pre></div>
+<p>
+To import from a module and use the function, use the following code.
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">mymodule</span> <span style="color: #008000; font-weight: bold">import</span> myfunc
+myfunc(<span style="color: #666666">1</span>,<span style="color: #666666">2</span>)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">8.3333333
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec24">Basic Python Example </h2>
+
+<p>
+Let's wrap up our introductory tutorial by doing using a few of the examples together. All of these functions perform the same task, but use slightly different python syntax. We want all the numbers divisible by 5 up to our input y. The example shows how to do this using a for loop, while loop, list comprehension, and a numpy array. This example also shows that there are many ways to solve the same problem.
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">numpy</span> <span style="color: #008000; font-weight: bold">import</span> array
+
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">divby5_1</span>(y<span style="color: #666666">=100</span>):
+    <span style="color: #BA2121; font-style: italic">&#39;&#39;&#39;for loop with if conditional and modulo operator, %&#39;&#39;&#39;</span>
+    x <span style="color: #666666">=</span> []
+    <span style="color: #008000; font-weight: bold">for</span> k <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">range</span>(<span style="color: #666666">1</span>,y):
+        <span style="color: #008000; font-weight: bold">if</span> k<span style="color: #666666">%5</span> <span style="color: #666666">==</span> <span style="color: #666666">0</span>:
+            x<span style="color: #666666">.</span>append(k)
+    <span style="color: #008000; font-weight: bold">return</span> x
+
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">divby5_2</span>(y<span style="color: #666666">=100</span>):
+    <span style="color: #BA2121; font-style: italic">&#39;&#39;&#39;while loop with if conditional, and modulo operator, %&#39;&#39;&#39;</span>
+    x<span style="color: #666666">=</span>[] ; z<span style="color: #666666">=1</span>
+    <span style="color: #008000; font-weight: bold">while</span> z <span style="color: #666666">&lt;=</span> y:
+        <span style="color: #008000; font-weight: bold">if</span> k<span style="color: #666666">%5</span> <span style="color: #666666">==</span> <span style="color: #666666">0</span>:
+            x<span style="color: #666666">.</span>append(k)
+        z <span style="color: #666666">=</span> z <span style="color: #666666">+</span> <span style="color: #666666">1</span>  <span style="color: #408080; font-style: italic"># z+=1</span>
+    <span style="color: #008000; font-weight: bold">return</span> z
+
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">divby5_3</span>(y<span style="color: #666666">=100</span>):
+    <span style="color: #BA2121; font-style: italic">&#39;&#39;&#39; python list comprehension and modulo operator, %&#39;&#39;&#39;</span>
+    x <span style="color: #666666">=</span> [k <span style="color: #008000; font-weight: bold">for</span> k <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">range</span>(<span style="color: #666666">1</span>,y) <span style="color: #008000; font-weight: bold">if</span> k<span style="color: #666666">%5==0</span>]
+    <span style="color: #008000; font-weight: bold">return</span> x
+
+<span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">divby5_4</span>(y<span style="color: #666666">=100</span>):
+    <span style="color: #BA2121; font-style: italic">&#39;&#39;&#39;numpy logical indexing with modulo operator, %&#39;&#39;&#39;</span>
+    x <span style="color: #666666">=</span> array(<span style="color: #008000">range</span>(<span style="color: #666666">1</span>,y))
+    i <span style="color: #666666">=</span> x<span style="color: #666666">%5==0</span>    <span style="color: #408080; font-style: italic"># logical index array</span>
+    <span style="color: #008000; font-weight: bold">return</span> x[i]
+</pre></div>
+<p>
+Since we provided a default value in the function with <code>y=100</code>, we can call the function without an input like so
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">divby5_4()
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">array([ 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95])
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec25">Ipython Handy Hints </h2>
+
+<p>
+When using the command line, there are a few commands that are very handy. The first is the <code>cd</code> or change directory command is used to navigate directories.
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># change directory to mydir</span>
+cd mydir
+<span style="color: #408080; font-style: italic"># go up one directory towards the root</span>
+cd <span style="color: #666666">..</span>
+</pre></div>
+<p>
+Another handy command is <code>pwd</code>, or print working directory which is self-explanatory
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">pwd
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">C:/user/myproject
+</pre></div>
+<p>
+use <code>whos</code> to see variables in current console
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #666666">%</span>whos
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">Variable   Type                          Data/Info
+--------------------------------------------------
+a          float                         8.333333333333334
+array      builtin_function_or_method    &lt;built-in function array&gt;
+divby5_1   function                      &lt;function divby5_1 at 0x7f2ab8e10a60&gt;
+divby5_2   function                      &lt;function divby5_2 at 0x7f2ab8e10c80&gt;
+divby5_3   function                      &lt;function divby5_3 at 0x7f2ab80639d8&gt;
+divby5_4   function                      &lt;function divby5_4 at 0x7f2ab8042378&gt;
+i          int                           10
+myfunc     function                      &lt;function myfunc at 0x7f2ab8e7d598&gt;
+mylist     list                          n=4
+x          list                          n=10
+y          list                          n=3
+z          list                          n=5
+</pre></div>
+<p>
+If there are undesired variables, use the general <code>reset</code> command or specify varaible <code>del x</code> to clear variables in the current namespace. It is also helpful to try and keep scripts in functions to prevent your namespace from becoming cluttered
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># removes a single variable from namespace</span>
+<span style="color: #008000; font-weight: bold">del</span> x
+
+<span style="color: #408080; font-style: italic"># clears all variables from current namespace</span>
+<span style="color: #666666">%</span>reset
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec26">Numerical Python </h2>
+
+<p>
+Although python was not originally intended to be a numerical language, it's helpful community, simple syntax, and free, open-source codebase lend it to being a great academic and applied language for theoretical math to physics and engineering calculations.
+
+<p>
+<center><p><img src="fig/scipy.png" align="bottom" width=600></p></center>
+</section>
+
+
+<section class="slide">
+
+<h2 id="sec:arrays">Arrays</h2>
+
+<p>
+Numpy arrays are similar to lists, but can only contain one datatype, but capable of N-dimensional arrays(or matrices) . Arrays and are optimized for numerics and linear algebra. Arrays are around 30x faster than lists.
+
+<p>
+<em>Note</em> - numpy does have a matrix class which was designed for linear algebra, but it is recommended to use the array class to avoid confusion when performing calculations.
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># make sure to import the functions you need</span>
+<span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">numpy</span> <span style="color: #008000; font-weight: bold">import</span> array, arange, linspace, sin
+<span style="color: #408080; font-style: italic"># If you need more functions, import the whole module</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">numpy</span> <span style="color: #008000; font-weight: bold">as</span> <span style="color: #0000FF; font-weight: bold">np</span>
+
+<span style="color: #408080; font-style: italic"># using the range function to create a numpy array</span>
+x <span style="color: #666666">=</span> array(<span style="color: #008000">range</span>(<span style="color: #666666">10</span>))
+<span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;x = &#39;</span>,x, <span style="color: #BA2121">&#39;as a&#39;</span>,x<span style="color: #666666">.</span>dtype)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">x =  [0 1 2 3 4 5 6 7 8 9] as a int64
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># using numpy function arange</span>
+x <span style="color: #666666">=</span> arange(<span style="color: #666666">10</span>)
+<span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;x = &#39;</span>,x, <span style="color: #BA2121">&#39;as a&#39;</span>,x<span style="color: #666666">.</span>dtype)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">x =  [0 1 2 3 4 5 6 7 8 9] as a int64
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># numpy array</span>
+x <span style="color: #666666">=</span> linspace(<span style="color: #666666">0</span>,<span style="color: #666666">9</span>,<span style="color: #666666">10</span>)
+<span style="color: #008000; font-weight: bold">print</span>(<span style="color: #BA2121">&#39;x = &#39;</span>,x, <span style="color: #BA2121">&#39;as a&#39;</span>,x<span style="color: #666666">.</span>dtype)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">x =  [ 0.  1.  2.  3.  4.  5.  6.  7.  8.  9.] as a float64
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec28">Array Operations </h2>
+
+<p>
+Element-wise operations
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># element-wise array multiplcation</span>
+x<span style="color: #666666">*3</span>
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">array([  0.,   3.,   6.,   9.,  12.,  15.,  18.,  21.,  24.,  27.])
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># element-wise array exponentiation</span>
+x<span style="color: #666666">**2</span>
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">array([  0.,   1.,   4.,   9.,  16.,  25.,  36.,  49.,  64.,  81.])
+</pre></div>
+<p>
+<!-- element-wise array trigonometry functions -->
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">sin(x)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">array([ 0.        ,  0.84147098,  0.90929743,  0.14112001, -0.7568025 ,    -0.95892427, -0.2794155 ,  0.6569866 ,  0.98935825,  0.41211849])
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec29">Array Operations </h2>
+
+<p>
+Often, objects in python have many methods that can be performed on that data-type. To see what methods are available, a <code>.</code> can be typed to see what is available or the <code>dir()</code> function can be used
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># show all methods available for variable/object x</span>
+<span style="color: #008000; font-weight: bold">print</span>([k <span style="color: #008000; font-weight: bold">for</span> k <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">dir</span>(x) <span style="color: #008000; font-weight: bold">if</span> k[:<span style="color: #666666">2</span>] <span style="color: #666666">!=</span> <span style="color: #BA2121">&#39;__&#39;</span> ])
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">[&#39;T&#39;, &#39;all&#39;, &#39;any&#39;, &#39;argmax&#39;, &#39;argmin&#39;, &#39;argpartition&#39;, &#39;argsort&#39;,\ &#39;astype&#39;, &#39;base&#39;, &#39;byteswap&#39;, &#39;choose&#39;, &#39;clip&#39;, &#39;compress&#39;, &#39;conj&#39;,\ &#39;conjugate&#39;, &#39;copy&#39;, &#39;ctypes&#39;, &#39;cumprod&#39;, &#39;cumsum&#39;, &#39;data&#39;, &#39;diagonal&#39;,\ &#39;dot&#39;, &#39;dtype&#39;, &#39;dump&#39;, &#39;dumps&#39;, &#39;fill&#39;, &#39;flags&#39;, &#39;flat&#39;, &#39;flatten&#39;,\ &#39;getfield&#39;, &#39;imag&#39;, &#39;item&#39;, &#39;itemset&#39;, &#39;itemsize&#39;, &#39;max&#39;, &#39;mean&#39;, &#39;min&#39;,\ &#39;nbytes&#39;, &#39;ndim&#39;, &#39;newbyteorder&#39;, &#39;nonzero&#39;, &#39;partition&#39;, &#39;prod&#39;, &#39;ptp&#39;,\ &#39;put&#39;, &#39;ravel&#39;, &#39;real&#39;, &#39;repeat&#39;, &#39;reshape&#39;, &#39;resize&#39;, &#39;round&#39;,\ &#39;searchsorted&#39;, &#39;setfield&#39;, &#39;setflags&#39;, &#39;shape&#39;, &#39;size&#39;, &#39;sort&#39;,\ &#39;squeeze&#39;, &#39;std&#39;, &#39;strides&#39;, &#39;sum&#39;, &#39;swapaxes&#39;, &#39;take&#39;, &#39;tobytes&#39;,\ &#39;tofile&#39;, &#39;tolist&#39;, &#39;tostring&#39;, &#39;trace&#39;, &#39;transpose&#39;, &#39;var&#39;, &#39;view&#39;]
+</pre></div>
+<p>
+<!-- array methods -->
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># using method sum for variable x</span>
+x<span style="color: #666666">.</span>sum()
+<span style="color: #408080; font-style: italic"># also use the sum function from the numpy module</span>
+np<span style="color: #666666">.</span>sum(x)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">45
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec30">Logical Indexing </h2>
+
+<p>
+A powerful filtering technique in Matlab and python called logical indexing is a great way to perform calculations to specific numbers or filter data
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># logical indexing</span>
+<span style="color: #666666">3</span> <span style="color: #666666">&lt;</span> x
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">array([False, False, False, False,  True,  True,  True,  True,  True,  True], dtype=bool)
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># negate logical index</span>
+<span style="color: #666666">~</span>(<span style="color: #666666">3</span> <span style="color: #666666">&lt;</span> x)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">array([ True,  True,  True,  True, False, False, False, False, False, False], dtype=bool)
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># and logical index operator</span>
+(<span style="color: #666666">3</span> <span style="color: #666666">&lt;</span> x) <span style="color: #666666">&amp;</span> (x <span style="color: #666666">&lt;</span> <span style="color: #666666">5</span>)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">array([False, False, False, False,  True, False, False, False, False, False], dtype=bool)
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># or logical index operator</span>
+(<span style="color: #666666">3</span> <span style="color: #666666">&lt;</span> x) <span style="color: #666666">|</span> (x <span style="color: #666666">&lt;</span> <span style="color: #666666">5</span>)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">array([ True,  True,  True,  True,  True,  True,  True,  True,  True,  True], dtype=bool)
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># multiple and logical index operator</span>
+(<span style="color: #666666">3</span> <span style="color: #666666">&lt;</span> x) <span style="color: #666666">&amp;</span> (x <span style="color: #666666">&lt;</span> <span style="color: #666666">5</span>)
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">array([False, False, False, False,  True, False, False, False, False, False], dtype=bool)
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec31">Multi-Dimensional Arrays (matrices) </h2>
+
+<p>
+Numpy has both array classes and a matrix class. The array is a more general object, where the matrix class is specifically for linear algebra. Matrices are only 2-dimensional, which can limit functionality, where the array can be n-dimensional. All matrix operations can be performed on an array, so it is recommended to just use arrays to avoid confusion.
+
+<p>
+First, to define a 1x3 array
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">c <span style="color: #666666">=</span> array([[<span style="color: #666666">1</span>,<span style="color: #666666">2</span>,<span style="color: #666666">3</span>]])
+c
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">array([[1, 2, 3]])
+</pre></div>
+<p>
+Now the transpose does what we expected to a 3x1 array
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">c<span style="color: #666666">.</span>transpose()
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">array([[1],
+       [2],
+       [3]])
+</pre></div>
+<p>
+If we want to define a 3x1 array, we define the array like so
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">c <span style="color: #666666">=</span> array( [[<span style="color: #666666">1</span>],[<span style="color: #666666">2</span>],[<span style="color: #666666">3</span>]] )
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">array([[1],
+       [2],
+       [3]])
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec32">Matrix Pitfalls </h2>
+
+<p>
+Defining an array is simple but if you are used to Matlab syntax, there could be some confusion. In Matlab, every array(or vector) is at least a (1,1). In python, it is possible to define a (3,), which can be very frustrating if, for example you are interested in transposing your array from a row to a column. Lets take a look.
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #408080; font-style: italic"># create a 3 element array</span>
+c <span style="color: #666666">=</span> array([<span style="color: #666666">1</span>,<span style="color: #666666">2</span>,<span style="color: #666666">3</span>])
+c
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">array([1, 2, 3])
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">c<span style="color: #666666">.</span>transpose()
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">array([1, 2, 3])
+</pre></div>
+<p>
+That is not what I expected. I thought it would be a column array not, but no. Upon further inspection, welcome to the (3,) dimension array.
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">c<span style="color: #666666">.</span>shape
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">(3,)
+</pre></div>
+<p>
+This can be addressed in a few ways. The safest solution is to change how the arrays are defined.
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec33">Matrix Operations </h2>
+
+<p>
+lets creat some matrices (but recall use the array)
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">a <span style="color: #666666">=</span> array([[<span style="color: #666666">1</span>, <span style="color: #666666">2</span>], [<span style="color: #666666">3</span>, <span style="color: #666666">4</span>]])
+a
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">array([[1, 2],
+       [3, 4]])
+</pre></div>
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">b <span style="color: #666666">=</span> array([[<span style="color: #666666">1</span>, <span style="color: #666666">2</span>, <span style="color: #666666">4</span>],[<span style="color: #666666">5</span>, <span style="color: #666666">6</span>, <span style="color: #666666">7</span>] ])
+b
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">array([[1, 2, 4],
+       [5, 6, 7]])
+</pre></div>
+<p>
+To perform a matrix multiplication on an array, use the <code>@</code>
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">a @ b
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">array([[11, 14, 18],
+       [23, 30, 40]])
+</pre></div>
+<p>
+To perform element wise operation, use <code>*</code>
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">b <span style="color: #666666">*</span> <span style="color: #666666">27</span>
+</pre></div>
+<p>
+
+<!-- code=text typeset with pygments style "default" -->
+<div class="slide" class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%">array([[ 27,  54, 108],
+       [135, 162, 189]])
+</pre></div>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec34">Plotting </h2>
+
+<p>
+Finally, to wrap up this scientific computing tutorial, we end with plotting. Sometimes it is difficult to communicate a calculation or understand complex datasets. Graphs and Plots are such an important part of science and engineering that the python science stack comes with a powerful yet simple plotting packaged called <em>matplotlib</em>. Plotting can be just as complicated as the calculations, so here is a simple example to get started. Check out the <a href="http://matplotlib.org/gallery.html" target="_self">matplotlib gallery</a> for many more examples.
+
+<p>
+
+<!-- code=python (!bc python) typeset with pygments style "default" -->
+<div class="highlight" style="background: #f8f8f8"><pre style="line-height: 125%"><span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">numpy</span> <span style="color: #008000; font-weight: bold">import</span> <span style="color: #666666">*</span>
+<span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">matplotlib.pyplot</span> <span style="color: #008000; font-weight: bold">import</span> <span style="color: #666666">*</span>
+x <span style="color: #666666">=</span> linspace(<span style="color: #666666">-20</span>,<span style="color: #666666">20</span>,<span style="color: #666666">100</span>)
+plot(x,sin(x)<span style="color: #666666">/</span>x)
+title(<span style="color: #BA2121">&#39;y=sin(x)/x&#39;</span>)
+savefig(<span style="color: #BA2121">&#39;fig/matplotlib.png&#39;</span>)
+show()
+</pre></div>
+<p>
+<center><p><img src="fig/matplotlib.png" align="bottom" width=900></p></center>
+</section>
+
+
+<section class="slide">
+
+<h2 id="___sec35">Python in Engineering Summary </h2>
+
+<p>
+A brief introduction to the python programming language has been presented to demonstrate the capabilities of python for scientific computing applied to physics and engineering. If your curiosity got the better part of you, please check out the following links that I have found very useful in the (<a href="#sec:reflinks">References and Links</a>) section.
+</section>
+
+
+<section class="slide">
+
+<h2 id="sec:reflinks">References and Links</h2>
+
+<h3 id="___sec37">MATLAB vs Python  </h3>
+
+<p>
+Other comparisons of python versus MATLAB  <br />
+<a href="http://fperez.org/py4science/warts.html" target="_self"><tt>http://fperez.org/py4science/warts.html</tt></a> <br />
+<a href="http://www.pyzo.org/whypython.html" target="_self"><tt>http://www.pyzo.org/whypython.html</tt></a> <br />
+<a href="http://www.pyzo.org/python_vs_matlab.html" target="_self"><tt>http://www.pyzo.org/python_vs_matlab.html</tt></a> <br />
+<a href="https://www.mathworks.com/products/matlab/matlab-vs-python.html#comparison_table" target="_self"><tt>https://www.mathworks.com/products/matlab/matlab-vs-python.html#comparison_table</tt></a> <br />
+<a href="https://docs.scipy.org/doc/numpy-dev/user/numpy-for-matlab-users.html" target="_self"><tt>https://docs.scipy.org/doc/numpy-dev/user/numpy-for-matlab-users.html</tt></a> <br />
+
+<h3 id="___sec38">Python Syntax Cheatsheets </h3>
+
+<p>
+<a href="https://damontallen.github.io/IPython-quick-ref-sheets/" target="_self">ipython-chetasheet</a> <br />
+<a href="http://conda.pydata.org/docs/using/cheatsheet.html" target="_self">conda-chetasheet</a> <br />
+<a href="http://mathesaurus.sourceforge.net/matlab-numpy.html" target="_self">python for matlab users</a> <br />
+</section>
+
+
+<section class="slide">
+
+<h3 id="___sec39">Python Engineering Books </h3>
+
+<p>
+<a href="http://www.apress.com/9781484205549" target="_self">Numerical Python - A Practical Techniques Approach for Industry</a> with <a href="http://www.apress.com/downloadable/download/sample/sample_id/1732/" target="_self">source code</a>  <br />
+<a href="http://www.springer.com/us/book/9783319195957#aboutBook" target="_self">Elementary Mechanics Using Python</a>   <br />
+<a href="http://hplgit.github.io/primer.html/doc/web/index.html" target="_self">A Primer on Scientific Programming With Python</a>  <br />
+<a href="http://codingthematrix.com/" target="_self">Coding the Matrix</a> <br />
+<a href="http://www.springer.com/us/book/9783540739159" target="_self">Python Scripting for Computational Science</a> <br />
+<a href="http://www.springer.com/us/book/9783662498866" target="_self">A Primer on Scientific Programming with Python</a>  with <a href="https://hplgit.github.io/primer.html/doc/pub/half/book.pdf" target="_self">partial free download</a> <br />
+<a href="http://www-personal.umich.edu/~mejn/computational-physics/" target="_self">Computation Physics</a> <br />
+
+<h3 id="___sec40">Python Engineering Library Documentation </h3>
+
+<p>
+Python has mature scientific computation packages, namely <a href="https://www.scipy.org/" target="_self">scipy</a> <br />
+
+<p>
+<b style="font-weight: bold">Scipy</b>.
+
+<p>
+<a href="http://scipy-cookbook.readthedocs.io/index.html" target="_self">Scipy Cookbook</a>  <br />
+<a href="http://www.davekuhlman.org/scipy_guide_01.html" target="_self">Scipy Guide</a>  <br />
+<a href="http://www.scipy-lectures.org/index.html" target="_self">Scipy Lectures</a>   <br />
+<a href="https://github.com/rojassergio/Learning-Scipy" target="_self">Learning Scipy</a>   <br />
+<a href="http://docs.scipy.org/doc/scipy/reference/tutorial/" target="_self">Scipy Tutorial</a>   <br />
+
+<p>
+<b style="font-weight: bold">Numpy</b>.
+
+<p>
+<a href="https://wiki.python.org/moin/NumericAndScientific" target="_self">Numpy</a>  <br />
+<a href="https://docs.scipy.org/doc/numpy-dev/contents.html" target="_self">Official Docs</a>  <br />
+<a href="https://docs.scipy.org/doc/numpy-dev/user/numpy-for-matlab-users.html" target="_self">Numpy for matlab users</a>  <br />
+<a href="https://github.com/rougier/numpy-100" target="_self">100 numpy examples</a>  <br />
+<a href="https://github.com/numpy/numpy/wiki/Numerical-software-on-Windows" target="_self">numpy on windows</a>  <br />
+
+<p>
+<b style="font-weight: bold">Sympy</b>.
+
+<p>
+<a href="http://docs.sympy.org/dev/tutorial/intro.html" target="_self">sympy tutorial</a> <br />
+<a href="http://www.sympy.org/en/features.html" target="_self">sympy features</a> <br />
+<a href="http://docs.sympy.org/dev/modules/physics/mechanics/" target="_self">sympy physics</a> <br />
+
+<p>
+<b style="font-weight: bold">Matplotlib</b>.
+
+<p>
+<a href="http://matplotlib.org/gallery.html" target="_self">matplotlib gallery</a> and <a href="https://github.com/rougier/matplotlib-tutorial" target="_self">matplotlib tutorial</a>  <br />
+<a href="http://central.scipy.org/item/84/1/simple-interactive-matplotlib-plots" target="_self">interactive matplotlib</a> <br />
+</section>
+
+
+<section class="slide">
+
+<h3 id="___sec41">General Python </h3>
+
+<p>
+<a href="http://docs.python-guide.org/en/latest/" target="_self">The Hitchhikers Guide to Python</a> <br />
+<a href="http://hplgit.github.io/bumpy/doc/pub/._basics000.html#table_of_contents" target="_self">A very basic introduction to scientific Python programming</a>  <br />
+
+<h3 id="___sec42">Python and Excel Spreadsheets </h3>
+
+<p>
+<a href="http://www.xlwings.org" target="_self">xlwings</a> <br />
+<a href="http://pandas.pydata.org" target="_self">pandas</a> <br />
+
+<h3 id="___sec43">Python Online Courses </h3>
+
+<p>
+<a href="https://github.com/jrjohansson/scientific-python-lectures" target="_self">scientific-python-lectures</a>  <br />
+<a href="http://openedx.seas.gwu.edu/courses/GW/MAE6286/2014_fall/about" target="_self">Practical Numerical Methods with Python</a> with <a href="https://github.com/numerical-mooc/numerical-mooc" target="_self">source code</a> <br />
+<a href="http://openedx.seas.gwu.edu/courses/GW/MAE6226/2014_spring/about" target="_self">Aerodynamics / Hydrodynamics with Python</a> <br />
+<a href="http://pages.physics.cornell.edu/~sethna/StatMech/ComputerExercises/PythonSoftware/" target="_self">Cornell</a>  <br />
+<a href="http://openedx.seas.gwu.edu/courses/GW/MAE6286/2014_fall/about" target="_self">Python numerical methods mooc</a>  <br />
+<a href="http://www-personal.umich.edu/~mejn/computational-physics/" target="_self">Computational Physics with Python</a> <br />
+<a href="http://cs.brown.edu/courses/cs053/current/index.htm" target="_self">Coding the Matrix</a> <br />
+<a href="http://interactivepython.org/runestone/static/thinkcspy/index.html" target="_self">How to Think Like a Computer Scientist</a> <br />
+
+<h3 id="___sec44">Programming Games </h3>
+
+<p>
+<a href="https://projecteuler.net/" target="_self">project euler</a> <br />
+<a href="https://checkio.org/" target="_self">checkio</a> <br />
+<a href="https://github.com/rougier/numpy-100/blob/master/100%20Numpy%20exercises.md" target="_self">Numeric Python exercises</a> <br />
+
+<p>
+<br />
+<br />
+</section>
+
+
+
+
+<footer>
+<!-- Here goes a footer -->
+</footer>
+
+<!-- Begin extension snippets. Add or remove as needed. -->
+
+<!-- deck.navigation snippet -->
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<!-- deck.status snippet
+<p class="deck-status">
+	<span class="deck-status-current"></span>
+	/
+	<span class="deck-status-total"></span>
+</p>
+-->
+
+<!-- deck.goto snippet
+<form action="." method="get" class="goto-form">
+	<label for="goto-slide">Go to slide:</label>
+	<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+	<datalist id="goto-datalist"></datalist>
+	<input type="submit" value="Go">
+</form>
+-->
+
+<!-- deck.hash snippet
+<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+-->
+
+<!-- End extension snippets. -->
+
+
+<!-- Required JS files. -->
+<script src="deck.js/jquery.min.js"></script>
+<script src="deck.js/core/deck.core.js"></script>
+
+<!-- Extension JS files. Add or remove as needed. -->
+<script src="deck.js/core/deck.core.js"></script>
+<script src="deck.js/extensions/hash/deck.hash.js"></script>
+<script src="deck.js/extensions/menu/deck.menu.js"></script>
+<script src="deck.js/extensions/goto/deck.goto.js"></script>
+<script src="deck.js/extensions/status/deck.status.js"></script>
+<script src="deck.js/extensions/navigation/deck.navigation.js"></script>
+<script src="deck.js/extensions/scale/deck.scale.js"></script>
+<script src="deck.js/extensions/notes/deck.notes.js"></script>
+
+<!-- From https://github.com/mikeharris100/deck.pointer.js -->
+<script src="deck.js/extensions/pointer/deck.pointer.js"></script>
+
+<!-- From https://github.com/stvnwrgs/presenterview
+<script type="text/javascript" src="deck.js/extensions/presenterview/deck.presenterview.js"></script> -->
+
+<!-- From https://github.com/nemec/deck.annotate.js
+<script type="text/javascript" src="deck.js/extensions/deck.annotate.js/deck.annotate.js"></script>
+-->
+
+
+<!-- Initialize the deck. You can put this in an external file if desired. -->
+<script>
+	$(function() {
+		$.deck('.slide');
+	});
+</script>
+
+
+</body>
+</html>
