@@ -103,9 +103,10 @@ label{chp:introtopython}
 ======= Introductory Tutorials =======
 label{sec:introtut}
 
-For a introduction to python for engineering computing, this is a slideshow for Getting Started with Python in Engineering
+For a introduction to python for engineering computing, this is a slideshow for Getting Started with Python in Engineering <linebreak>
 URL:"https://nagordon.github.io/mechpy/Getting_Started_with_Python_in_Engineering.deckslides.html"  <linebreak>
-or if you prefer a webpage, follow the link below
+
+or if you prefer a webpage, follow the link below <linebreak>
 URL:"https://nagordon.github.io/mechpy/Getting_Started_with_Python_in_Engineering.webpage.html"  <linebreak>
 
 ======= Engineering Tutorials =======

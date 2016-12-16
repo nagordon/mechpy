@@ -2073,7 +2073,7 @@ Python has mature scientific computation packages, namely <a href="https://www.s
 </div>  <!-- end container -->
 <!-- include javascript, jQuery *first* -->
 <script src="jquery.min.js"></script>
-<script src="bootstrap.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
 <!-- Bootstrap footer
 <footer>
