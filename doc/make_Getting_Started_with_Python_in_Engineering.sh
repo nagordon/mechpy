@@ -15,6 +15,9 @@ dofile='Getting_Started_with_Python_in_Engineering'
 ## create a styled html file
 #doconce format html $dofile --html_style=tactile-black
 doconce format html $dofile --html_style=bootswatch_journal
+doconce replace "http://netdna.bootstrapcdn.com/bootswatch/3.1.1/journal/bootstrap.min.css" "bootstrap.css" $dofile.html
+doconce replace "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"          "jquery.min.js" $dofile.html
+doconce replace "http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"        "bootstrap.js" $dofile.html
 mv $dofile.html $dofile.webpage.html
 
 ## creaet html files
