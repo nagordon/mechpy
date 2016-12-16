@@ -11752,7 +11752,7 @@ div#notebook {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <hr>
-<h1 id="Mechpy">Mechpy<a class="anchor-link" href="#Mechpy">&#182;</a></h1><p>a mechanical engineer's toolbox</p>
+<h1 id="Mechpy-Tutorials">Mechpy Tutorials<a class="anchor-link" href="#Mechpy-Tutorials">&#182;</a></h1><p>a mechanical engineering toolbox</p>
 <p>source code - <a href="https://github.com/nagordon/mechpy">https://github.com/nagordon/mechpy</a><br>
 documentation - <a href="https://nagordon.github.io/mechpy/web/">https://nagordon.github.io/mechpy/web/</a></p>
 <hr>
@@ -11827,10 +11827,10 @@ documentation - <a href="https://nagordon.github.io/mechpy/web/">https://nagordo
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cd</span> <span class="n">Desktop</span><span class="o">/</span><span class="n">mechpy</span><span class="o">/</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cd</span> <span class="o">../</span>
 </pre></div>
 
 </div>
@@ -11843,7 +11843,7 @@ documentation - <a href="https://nagordon.github.io/mechpy/web/">https://nagordo
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>/home/neal/Desktop/mechpy
+<pre>U:\Engineering Department\Gordon_Neal\Documents\eng_toolbox\mechpy
 </pre>
 </div>
 </div>
@@ -11854,7 +11854,7 @@ documentation - <a href="https://nagordon.github.io/mechpy/web/">https://nagordo
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">mechpy.math</span> <span class="k">import</span> <span class="n">T3rot</span><span class="p">,</span> <span class="n">T6rot</span>
@@ -11868,7 +11868,7 @@ documentation - <a href="https://nagordon.github.io/mechpy/web/">https://nagordo
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">importlib</span>
@@ -11883,7 +11883,7 @@ documentation - <a href="https://nagordon.github.io/mechpy/web/">https://nagordo
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[9]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[6]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -11898,7 +11898,7 @@ documentation - <a href="https://nagordon.github.io/mechpy/web/">https://nagordo
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">mechpy.math</span> <span class="k">import</span> <span class="n">T2rot</span>
@@ -11913,7 +11913,7 @@ documentation - <a href="https://nagordon.github.io/mechpy/web/">https://nagordo
 <div class="output">
 
 
-<div class="output_area"><div class="prompt output_prompt">Out[10]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[7]:</div>
 
 
 <div class="output_text output_subarea output_execute_result">
@@ -11929,130 +11929,7 @@ documentation - <a href="https://nagordon.github.io/mechpy/web/">https://nagordo
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.html.widgets</span> <span class="k">import</span> <span class="o">*</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
-<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,]</span>
-<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">xy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">11.1</span><span class="p">,</span><span class="mf">11.1</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mf">11.1</span><span class="p">,</span><span class="mf">11.1</span><span class="p">])</span>
-<span class="n">xyR</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">T2rot</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span><span class="n">xy</span><span class="p">)</span>
-<span class="c1">#plt.plot(xyR[0,:],xyR[1,:])</span>
-<span class="k">def</span> <span class="nf">rot2</span><span class="p">(</span><span class="n">th</span><span class="p">,</span> <span class="n">xt</span><span class="p">,</span><span class="n">yt</span><span class="p">,</span><span class="n">zt</span><span class="p">):</span>
-    <span class="n">xyR</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">T2rot</span><span class="p">(</span><span class="n">th</span><span class="p">),</span><span class="n">xy</span><span class="o">*</span><span class="n">zt</span><span class="p">)</span>
-    <span class="n">xyR</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span><span class="o">+=</span><span class="n">xt</span>
-    <span class="n">xyR</span><span class="p">[</span><span class="mi">1</span><span class="p">,:]</span><span class="o">+=</span><span class="n">yt</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xyR</span><span class="p">[</span><span class="mi">0</span><span class="p">,:],</span><span class="n">xyR</span><span class="p">[</span><span class="mi">1</span><span class="p">,:])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;square&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="o">-</span><span class="mf">11.1</span><span class="p">,</span><span class="mf">11.1</span><span class="p">])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="o">-</span><span class="mf">11.1</span><span class="p">,</span><span class="mf">11.1</span><span class="p">])</span>    
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="n">interact</span><span class="p">(</span><span class="n">rot2</span><span class="p">,</span> <span class="n">th</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">90</span><span class="p">),</span> <span class="n">yt</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">xt</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">zt</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">1</span><span class="p">));</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-"
->
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">T6rot</span><span class="p">(</span><span class="mi">45</span><span class="p">,</span><span class="mi">45</span><span class="p">,</span><span class="mi">45</span><span class="p">))</span>
@@ -18515,90 +18392,6 @@ WGUwGAwGg8Fg1FpYsMpgMBgMBoPBqLWwYJXBYDAYDAaDUWv5P1zIM+dKuCB2AAAAAElFTkSuQmCC
 
 </div>
 
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Composite-Plates">Composite Plates<a class="anchor-link" href="#Composite-Plates">&#182;</a></h2><p><a href="#Mechpy">index</a></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="AeroComBAT-composite-mechanics">AeroComBAT composite mechanics<a class="anchor-link" href="#AeroComBAT-composite-mechanics">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-</div>
 </div>
 </div>
 

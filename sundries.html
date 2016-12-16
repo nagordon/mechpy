@@ -11746,14 +11746,35 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+<h1 id="Mechpy-Tutorials">Mechpy Tutorials<a class="anchor-link" href="#Mechpy-Tutorials">&#182;</a></h1><p>a mechanical engineering toolbox</p>
+<p>source code - <a href="https://github.com/nagordon/mechpy">https://github.com/nagordon/mechpy</a><br>
+documentation - <a href="https://nagordon.github.io/mechpy/web/">https://nagordon.github.io/mechpy/web/</a></p>
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Convert-a-string-of-numbers-to-a-list-or-array">Convert a string of numbers to a list or array<a class="anchor-link" href="#Convert-a-string-of-numbers-to-a-list-or-array">&#182;</a></h2>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-
 <span class="n">y</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;62606.53409</span>
 <span class="s1">59989.34659</span>
 <span class="s1">62848.01136</span>
@@ -11789,9 +11810,18 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Ascii-Plot">Ascii Plot<a class="anchor-link" href="#Ascii-Plot">&#182;</a></h2>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sympy</span> <span class="k">import</span> <span class="n">symbols</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">pi</span><span class="p">,</span> <span class="n">cos</span>
@@ -11839,9 +11869,18 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="another-example-of-an-Ascii-Plot">another example of an Ascii Plot<a class="anchor-link" href="#another-example-of-an-Ascii-Plot">&#182;</a></h2>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># This is the same example as in the scitools.aplotter doc string</span>
@@ -11866,42 +11905,6 @@ div#notebook {
 <span class="c1"># Store plot in a string</span>
 <span class="n">p</span> <span class="o">=</span> <span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="nb">str</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">ImportError</span>                               Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-7-e350e6c4c118&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">      5</span> <span class="ansi-red-fg">#y = np.exp(-0.5*x**2)*np.cos(np.pi*x)</span>
-<span class="ansi-green-intense-fg ansi-bold">      6</span> y<span class="ansi-blue-fg">=</span>np<span class="ansi-blue-fg">.</span>exp<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">-</span>x<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">*</span>np<span class="ansi-blue-fg">.</span>cos<span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">2</span><span class="ansi-blue-fg">*</span>np<span class="ansi-blue-fg">.</span>pi<span class="ansi-blue-fg">*</span>x<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">----&gt; 7</span><span class="ansi-red-fg"> </span><span class="ansi-green-fg">from</span> scitools<span class="ansi-blue-fg">.</span>aplotter <span class="ansi-green-fg">import</span> plot
-<span class="ansi-green-intense-fg ansi-bold">      8</span> plot<span class="ansi-blue-fg">(</span>x<span class="ansi-blue-fg">,</span> y<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">      9</span> 
-
-<span class="ansi-red-fg">ImportError</span>: No module named &#39;scitools&#39;</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 
 </div>
