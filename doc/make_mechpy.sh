@@ -44,21 +44,33 @@ source activate py27
 ## updating github pages
 #mv *.html web
 
+## make the Getting started with python files
+bash make_Getting_Started_with_Python_in_Engineering.sh
+
+# make a copy of mechpy documentation
 cp mechpy.do.txt index.do.txt
 
+# generate html files of all the tutorials and move to doc folder
+for i in ../tutorials/*.ipynb; do
+    jupyter nbconvert --to html $i
+done
+mv ../tutorials/*.html .
+
+# insert links into mechpy.do.txt to the engineering tutorials
+for i in ../tutorials/*.ipynb; do
+    #dest="/nas100/backups/servers/z/zebra/mysql.tgz"
+    ## get file name i.e. basename such as mysql.tgz
+    htmltutorial="${i##*/}"
+    ## display filename
+    doconce replace "## insert engineering tutorial here" "URL:\""${htmltutorial%.*}.html"\" <linebreak>"$'\n'"## insert engineering tutorial here" index.do.txt
+done
+
 ## create a variable of the doconce file
-#dofile='mechpy.do.txt'
 doconce format html index --html_style=bootswatch_journal
 doconce replace "http://netdna.bootstrapcdn.com/bootswatch/3.1.1/journal/bootstrap.min.css" "bootstrap.css" index.html
 doconce replace "http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"          "jquery.min.js" index.html
 doconce replace "http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"        "bootstrap.js" index.html
 rm index.do.txt
-
-for i in ../tutorials/*.ipynb; do
-    jupyter nbconvert --to html $i
-done
-
-mv ../tutorials/*.html .
 
 cd ..
 
@@ -69,5 +81,4 @@ rm doc/*.html
 ### add all master branch files
 git add --all
 git commit -m 'auto add changes to master branch and updated documentation'
-
 git push --all origin
