@@ -181,6 +181,7 @@ pause
 Because it's there and everyone uses it
 "Automate the boring stuff, python excel scripting":"https://automatetheboringstuff.com/chapter12/" <linebreak>
 "Use python intsead of VBA with xlwings":"http://xlwings.org/" <linebreak>
+"Or with pandas, use xlsxwriter":"http://xlsxwriter.readthedocs.io/index.html" <linebreak>
 "openpyxl":"https://openpyxl.readthedocs.io/en/default/" <linebreak>
 "or just develop directly with Windows COM":"http://shop.oreilly.com/product/9781565926219.do"
 
