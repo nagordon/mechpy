@@ -44,6 +44,23 @@ source activate py27
 ## updating github pages
 #mv *.html web
 
+
+### make a pdf
+dofile='Getting_Started_with_Python_in_Engineering'
+rm -f *.aux
+doconce format pdflatex $dofile #--latex_code_style=vrb --latex_title_layout=std
+ptex2tex $dofile.p.tex
+pdflatex -shell-escape $dofile.tex
+pdflatex -shell-escape $dofile.tex
+mv $dofile.pdf $dofile.simple.pdf
+doconce clean
+# remove all the files that are generated during doconce make
+rm *.toc *.log *.aux *.out *.idx *.bbl *.blg *.gz
+# removes the trash directory
+rm -R Trash
+
+
+
 ## make the Getting started with python files
 bash make_Getting_Started_with_Python_in_Engineering.sh
 
