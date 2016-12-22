@@ -46,6 +46,7 @@ import matplotlib as mpl
 mpl.rcParams['figure.figsize'] = (8,5)
 mpl.rcParams['font.size'] = 14
 mpl.rcParams['legend.fontsize'] = 14
+mpl.use('Qt5Agg') 
 
 # inline plotting
 from IPython import get_ipython
@@ -446,7 +447,7 @@ def make_quasi(n0=4,n45=4):
     return plyangle
 
 #@xw.func
-def laminate_calcs(NM,ek,plyangle,plymatindex,materials,plots):
+def laminate_calcs(NM,ek,plyangle,plymatindex,materials,zoffset,plots):
     '''
     code to compute composite properties, applied mechanical and thermal loads
     and stress and strain
@@ -568,9 +569,9 @@ def laminate_calcs(NM,ek,plyangle,plymatindex,materials,plots):
     # laminate stiffness matrix
     ABD = zeros((6,6))
     ABD[0:3,0:3] = A
-    ABD[0:3,3:6] = B
-    ABD[3:6,0:3] = B
-    ABD[3:6,3:6] = D
+    ABD[0:3,3:6] = B + zoffset*A
+    ABD[3:6,0:3] = B + zoffset*A
+    ABD[3:6,3:6] = D + 2*zoffset*B + zoffset**2*A
  
     # laminatee compliance
     abcd = inv(ABD)
@@ -994,6 +995,9 @@ def laminate_calcs(NM,ek,plyangle,plymatindex,materials,plots):
     # Plotting
     #==========================================================================
     if plots:
+        
+        windowwidth = 800
+        windowheight = 450
         zplot = zeros(2*nply)
         for i,k in enumerate(range(0,2*nply,2)):  # = nply
             zplot[k:k+2] = z[i:i+2]  
@@ -1032,7 +1036,7 @@ def laminate_calcs(NM,ek,plyangle,plymatindex,materials,plots):
     
         leg = legend(fancybox=True) ; leg.get_frame().set_alpha(0.3)     
         tight_layout() 
-        mngr = plt.get_current_fig_manager() ; mngr.window.setGeometry(30,50,800, 700)
+        mngr = plt.get_current_fig_manager() ; mngr.window.setGeometry(25,50,windowwidth,windowheight)
         f1.show()             
         #plt.savefig('global-stresses-strains.png')    
         
@@ -1072,7 +1076,7 @@ def laminate_calcs(NM,ek,plyangle,plymatindex,materials,plots):
         
         leg = legend(fancybox=True) ; leg.get_frame().set_alpha(0.3)     
         tight_layout() 
-        mngr = plt.get_current_fig_manager() ; mngr.window.setGeometry(850,50,800, 700)
+        mngr = plt.get_current_fig_manager() ; mngr.window.setGeometry(windowwidth+50,50,windowwidth,windowheight)
         f2.show()             
         #plt.savefig('local-stresses-strains.png')          
     
@@ -1091,7 +1095,7 @@ def laminate_calcs(NM,ek,plyangle,plymatindex,materials,plots):
             ax.set_title('Failure Index, fail if > 1')
         #leg = legend(fancybox=True) ; leg.get_frame().set_alpha(0.3)   
         tight_layout() 
-        #mngr = plt.get_current_fig_manager() ; mngr.window.setGeometry(850,50,800, 500)
+        mngr = plt.get_current_fig_manager() ; mngr.window.setGeometry(25,windowheight+100,windowwidth,windowheight)
         f2.show()
         #plt.savefig('local-stresses-strains.png')
       
@@ -1116,6 +1120,7 @@ def laminate_calcs(NM,ek,plyangle,plymatindex,materials,plots):
         ax.set_zlabel('warpage,in')
         #ax.set_zlim(-0.01, 0.04)
         #mngr = plt.get_current_fig_manager() ; mngr.window.setGeometry(450,550,600, 450)
+        mngr = plt.get_current_fig_manager() ; mngr.window.setGeometry(windowwidth+50,windowheight+100,windowwidth,windowheight)
         plt.show()
         #plt.savefig('plate-warpage')   
         
@@ -1539,7 +1544,8 @@ if __name__=='__main__':
              plyangle=   [0,90,90,0], 
              plymatindex=[0, 0, 0,0],
              materials = ['graphite-polymer_SI'],
-             plots=0)	
+             zoffset=0,
+             plots=1)	
 	
 #    # reload modules    
 #    import importlib ; importlib.reload   
