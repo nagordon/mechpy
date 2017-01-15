@@ -44,11 +44,6 @@ source activate py27
 ## updating github pages
 #mv *.html web
 
-### make a pdf
-dofile='Getting_Started_with_Python_in_Engineering'
-doconce format pdflatex $dofile --latex_code_style=pyg --latex_title_layout=std
-pandoc $dofile.md --latex-engine=xelatex -o $dofile.pdf
-doconce clean
 
 ## make the Getting started with python files
 bash make_Getting_Started_with_Python_in_Engineering.sh
@@ -83,6 +78,9 @@ cd ..
 ghp-import doc -m "updated doc webpage on gh-pages branch" #-p    ##-p is a push
 
 rm doc/*.html
+
+# removes the trash directory
+rm -R Trash
 
 ### add all master branch files
 git add --all
