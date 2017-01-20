@@ -258,6 +258,9 @@ def failure_envelope():
 def material_plots():
     '''
     plotting composite properties
+    
+    Sf(E1,E2,nu12,G12)
+    
     '''
 #    plt.rcParams['figure.figsize'] = (10, 8)
 #    plt.rcParams['font.size'] = 14
@@ -265,20 +268,19 @@ def material_plots():
 
 
     plt.close('all')
-    materials = ['T300_5208']
+    materials = ['Carbon_cloth_AGP3705H']
     mat = import_matprops(materials)
-    S = S6f(mat[materials[0]].E1,
+    S = Sf(mat[materials[0]].E1,
             mat[materials[0]].E2,
             mat[materials[0]].nu12,
-            mat[materials[0]].nu23,
             mat[materials[0]].G12 )
     C = inv(S)
     plyangle = arange(-90, 90.1, 0.1)
 
-    C11 = [(inv(T61(th)) @ C @ T62(th))[0,0] for th in plyangle]
-    C22 = [(inv(T61(th)) @ C @ T62(th))[1,1] for th in plyangle]
-    C44 = [(inv(T61(th)) @ C @ T62(th))[3,3] for th in plyangle]
-    C66 = [(inv(T61(th)) @ C @ T62(th))[5,5] for th in plyangle]
+    C11 = [(inv(T1(th)) @ C @ T2(th))[0,0] for th in plyangle]
+    C22 = [(inv(T1(th)) @ C @ T2(th))[1,1] for th in plyangle]
+    C33 = [(inv(T1(th)) @ C @ T2(th))[2,2] for th in plyangle]
+    C12 = [(inv(T1(th)) @ C @ T2(th))[0,1] for th in plyangle]
 
     Exbar = zeros(len(plyangle))
     Eybar = zeros(len(plyangle))
@@ -333,7 +335,7 @@ def material_plots():
 
     # Plotting
     figure()#, figsize=(10,8))
-    plot(plyangle, C11, plyangle, C22, plyangle, C44, plyangle, C66)
+    plot(plyangle, C11, plyangle, C22, plyangle, C33, plyangle, C12)
     legend(['$\overline{C}_{11}$','$\overline{C}_{22}$', '$\overline{C}_{44}$', '$\overline{C}_{66}$'])
     title('Transversly Isotropic Stiffness properties of carbon fiber T300_5208')
     xlabel("$\Theta$")
@@ -793,10 +795,10 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
         f66 = 1/F12**2
         f12 = -0.5*sqrt(f11*f22)
         #TW = f1*s1 + f2*s2 + f11*s1**2 + f22*s2**2 + f66*s12**2 + 2*f12*s1*s2
-        # polynomial to solve
-        lam1 = f11*s1**2 + f22*s2**2 + f66*s12**2 + 2*f12*s1*s2
+        # polynomial to solve. Added a machine epsilon to avoid divide by zero errors
+        lam1 = f11*s1**2 + f22*s2**2 + f66*s12**2 + 2*f12*s1*s2 + 1e-16
         lam2 = f1*s1 + f2*s2
-        lam3 = -1
+        lam3 = -1 
         # smallest positive root
         roots = array([(-lam2+sqrt(lam2**2-4*lam1*lam3)) / (2*lam1) ,
                        (-lam2-sqrt(lam2**2-4*lam1*lam3)) / (2*lam1)] )
@@ -812,7 +814,7 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
     MS_TW = SR_TW-1   # margin of safety
 
     # strength ratio for max stress, if < 1, then fail, SR = 1/FI
-    SR_MS = 1/FI_MS
+    SR_MS = 1/(FI_MS+1e-16)
     # margin of safety based on max stress criteria
     MS_MS = SR_MS-1
 
@@ -934,12 +936,19 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
     #==========================================================================
 
 
-
+    #==========================================================================
+    # principal lamainte stresses
+    #==========================================================================
+    sigma_principal_laminate = np.linalg.eig(array([[sigma_laminate[0,0],sigma_laminate[2,0],0],
+                                                   [sigma_laminate[2,0],sigma_laminate[1,0],0],
+                                                   [0,0,0]]))[0]
+    
     #==========================================================================
     # Printing Results
     #==========================================================================
     print('--------------- laminate1 Stress analysis of fibers----------')
-    print('plyangles'); print(plyangle)
+    print('(z-) plyangles (z+)'); print(plyangle)
+    print('(z-) plymatindex (z+)'); print(plymatindex)
     print('ply layers') ; print(z)
     print('Applied Loads'); print(NM)
     print('ABD=');print(ABD)
@@ -947,14 +956,11 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
     print('Ey=   {:.2f}'.format(Eybar) )
     print('nuxy= {:.2f}'.format(nuxybar) )
     print('Gxy=  {:.2f}'.format(Gxybar) )
-    print('epsilon_laminate')
-    print(epsilon_laminate)
-    print('sigma_laminate')
-    print(sigma_laminate)
-    print('NMbarapp')
-    print(NMbarapp)
-    print('sigma')
-    print(sigma)
+    print('epsilon_laminate') ; print(epsilon_laminate)
+    print('sigma_laminate') ; print(sigma_laminate)
+    print('sigma_principal_laminate') ; print(sigma_principal_laminate)
+    print('NMbarapp') ; print(NMbarapp)
+    print('sigma') ; print(sigma)
 
     print('Max Stress Percent Margin of Safety, failure < 0, minimum = {:.4f}'.format( MS_MS.min().min() ) )
     print(MS_MS)
@@ -1519,12 +1525,7 @@ class laminate(object):
         return mat
 
 
-
-if __name__=='__main__':
-
-    #material_plots()
-    #plate()
-
+def my_laminate_with_loading():
     # loads lbs/in
     Nx  = 1500
     Ny  = 0
@@ -1548,6 +1549,14 @@ if __name__=='__main__':
              SF=1.0,
              plots=0)
 
+    
+if __name__=='__main__':
+
+    #material_plots()
+    #plate()
+
+    my_laminate_with_loading()
+    
     
 #    # reload modules
 #    import importlib ; importlib.reload
