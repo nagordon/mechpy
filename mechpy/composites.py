@@ -255,7 +255,7 @@ def failure_envelope():
         ylabel('$\sigma_2,ksi$')
         title('failure envelope with Max-Stress Criteria')
 
-def material_plots():
+def material_plots(materials = ['Carbon_cloth_AGP3705H']):
     '''
     plotting composite properties
     
@@ -268,7 +268,9 @@ def material_plots():
 
 
     plt.close('all')
+    
     materials = ['Carbon_cloth_AGP3705H']
+    
     mat = import_matprops(materials)
     S = Sf(mat[materials[0]].E1,
             mat[materials[0]].E2,
@@ -942,7 +944,11 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
     sigma_principal_laminate = np.linalg.eig(array([[sigma_laminate[0,0],sigma_laminate[2,0],0],
                                                    [sigma_laminate[2,0],sigma_laminate[1,0],0],
                                                    [0,0,0]]))[0]
-    
+    tauxy_p = sigma_laminate[2,0]
+    sigmax_p = sigma_laminate[0,0]
+    sigmay_p = sigma_laminate[1,0]
+    thetap = 0.5 * np.arctan( 2*tauxy_p / ((sigmax_p-sigmay_p+1e-16))) * 180/np.pi
+                  
     #==========================================================================
     # Printing Results
     #==========================================================================
@@ -959,6 +965,7 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
     print('epsilon_laminate') ; print(epsilon_laminate)
     print('sigma_laminate') ; print(sigma_laminate)
     print('sigma_principal_laminate') ; print(sigma_principal_laminate)
+    print('principal_angle = {:.2f} deg'.format(thetap))
     print('NMbarapp') ; print(NMbarapp)
     print('sigma') ; print(sigma)
 
