@@ -33,6 +33,7 @@ import numpy as np
 np.set_printoptions(precision=3, linewidth=200)#, threshold=np.inf)
 
 import scipy
+#from scipy.spatial import ConvexHull
 #np.set_printoptions(formatter={'float': lambda x: "{:.2f}".format(x)})
 
 import pandas as pd
@@ -895,7 +896,14 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
     SR_MS = 1/(FI_MS+1e-16)
     # margin of safety based on max stress criteria
     MS_MS = SR_MS-1
-    MS_min = np.minimum(MS_MS.min().min(), MS_TW.min() )
+    
+    # minimum margin of safety for Max stress failure
+    MS_min = MS_MS.min().min()
+    
+    # minimum margin of safety of both Tsai-Wu and Max Stress
+    #MS_min = np.minimum(MS_MS.min().min(), MS_TW.min() )
+    
+    
     # find critial values for all failure criteria
     #MS_MS = MS_MS[~np.isinf(MS_MS)] # remove inf
     #MS_TW = MS_TW[~np.isinf(MS_TW)] # remove inf
@@ -1560,7 +1568,7 @@ class laminate(object):
 
 
 
-def failure_envelope_laminate(Nx,Ny,Nxy,Mx,My,Mxy,q0):
+def failure_envelope_laminate(Nx,Ny,Nxy,Mx,My,Mxy,q0,mymat):
     '''
     find the miniumu margin give load conditions
     '''
@@ -1568,9 +1576,9 @@ def failure_envelope_laminate(Nx,Ny,Nxy,Mx,My,Mxy,q0):
     MS_min = laminate_calcs(NM=[Nx,Ny,Nxy,Mx,My,Mxy],
                              ek=[0,0,0,0,0,0],
                              q0=q0,
-                             plyangle=   [45,0,45,0],
+                             plyangle=   [0,45,45,0],
                              plymatindex=[0,0,0,0],
-                             materials = ['Carbon_cloth_AGP3705H'],
+                             materials = mymat,
                              platedim=[10,10],
                              zoffset=0,
                              SF=1.0,
@@ -1588,13 +1596,13 @@ def plot_single_max_failure_loads():
     loadnamelist = ['Nx','Ny','Nxy','Mx','My','Mxy','q0']
     laminate_min_list = []
     
-    laminate_min_list.append(lambda N: failure_envelope_laminate(N,0,0,0,0,0,0))
-    laminate_min_list.append(lambda N: failure_envelope_laminate(0,N,0,0,0,0,0))
-    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,N,0,0,0,0))
-    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,0,N,0,0,0))
-    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,0,0,N,0,0))
-    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,0,0,0,N,0))
-    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,0,0,0,0,N))
+    laminate_min_list.append(lambda N: failure_envelope_laminate(N,0,0,0,0,0,0,['Carbon_cloth_AGP3705H']))
+    laminate_min_list.append(lambda N: failure_envelope_laminate(0,N,0,0,0,0,0,['Carbon_cloth_AGP3705H']))
+    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,N,0,0,0,0,['Carbon_cloth_AGP3705H']))
+    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,0,N,0,0,0,['Carbon_cloth_AGP3705H']))
+    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,0,0,N,0,0,['Carbon_cloth_AGP3705H']))
+    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,0,0,0,N,0,['Carbon_cloth_AGP3705H']))
+    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,0,0,0,0,N,['Carbon_cloth_AGP3705H']))
     
     envelope_loads = []
     for loadname,laminate_min in zip(loadnamelist,laminate_min_list):
@@ -1613,42 +1621,57 @@ def plot_single_max_failure_loads():
         print(k)
     return envelope_loads
 
-def plot_Nx_Nxy_failure_envelope():
+def plot_Nx_Nxy_failure_envelope(mymat):
     '''
-    INCOMPLETE
+    TODO: Current calculation is stupid using random points to plot. fix it 
+            by use FI, failure index instead of margin to generate a 
+            linear relationship and envelope
+    
     loops through and tries to find a load that is close to 0 and then 
     attempts to find the root (ie margin=0)
     '''
-    #laminate_min = lambda N: failure_envelope_laminate(N,0,0,0,0,0,0)
+
+    Nx_env,Nxy_env  = [], []
     
-    loadnamelist = ['Nx','Nxy']
-    laminate_min_list = []
+    laminate_min = lambda N: failure_envelope_laminate(N,0,0,0,0,0,0,mymat)
+    for guess in arange(1,10000,20):
+        MS = laminate_min(guess)
+        if MS < 0:
+            ymin_1 = scipy.optimize.newton(laminate_min, guess)
+            ymin_2 = scipy.optimize.newton(laminate_min, -guess)
+            Nx_env.extend([ymin_1,ymin_2])
+            Nxy_env.extend([0,0])
+            break    
     
-    laminate_min_list.append(lambda N: failure_envelope_laminate(N,0,0,0,0,0,0))
-    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,N,0,0,0,0))
+    laminate_min = lambda N: failure_envelope_laminate(0,0,N,0,0,0,0,mymat)
+    for guess in arange(1,10000,20):
+        MS = laminate_min(guess)
+        if MS < 0:
+            ymin_1 = scipy.optimize.newton(laminate_min, guess)
+            ymin_2 = scipy.optimize.newton(laminate_min, -guess)
+            Nxy_env.extend([ymin_1,ymin_2])
+            Nx_env.extend([0,0])
+            break 
+
+    laminate_min_Nx_Nxy_func = lambda Nx,Nxy: failure_envelope_laminate(Nx,0,Nxy,0,0,0,0,mymat)
+
+    for Nx_r in np.random.randint(Nx_env[1]*2,Nx_env[0]*1.5, 100):
+        for Nxy_r in np.random.randint(Nxy_env[3]*2,Nxy_env[2]*1.5, 50):
+            MS = laminate_min_Nx_Nxy_func(Nx_r, Nxy_r)
+            if MS >=0:
+                Nx_env.append(Nx_r)
+                Nxy_env.append(Nxy_r)
     
-    envelope_loads = []
-    Nx_env = []
-    Nxy_env = []
-    
-    for loadname, laminate_min in zip(loadnamelist,laminate_min_list):
-        # arange(1,--10000,-20)
-        # arange(1,10000,20)
-        for guess in arange(1,10000,20):
-            MS = laminate_min(guess)
-            if MS < 0:
-                ymin_1 = scipy.optimize.newton(laminate_min, guess)
-                ymin_2 = scipy.optimize.newton(laminate_min, -guess)
-                Nx_env.append(ymin_1)
-                Nxy_env.append(ymin_2)
-                envelope_loads.append('{} = {:.1f} , {:.1f}'.format(loadname,ymin_1, ymin_2))
-                break
-    
-    print('------------- enveloped loads -----------------')
-    for k in envelope_loads:
-        print(k)
+    points = array([ [x,xy] for x,xy in zip(Nx_env, Nxy_env)])
+    hull = scipy.spatial.ConvexHull(points)
+    plot(points[:,0], points[:,1], 'o')
+    for simplex in hull.simplices:
+        plot(points[simplex, 0], points[simplex, 1], 'k-') 
+    xlabel('Nx, lb/in')
+    ylabel('Nxy, lb/in')
+    title('Failure envelope')
         
-    
+        
 
 def my_laminate_with_loading():
     # loads lbs/in
@@ -1686,7 +1709,7 @@ if __name__=='__main__':
     #material_plots()
     #plate()
 
-    my_laminate_with_loading()
+    plot_Nx_Nxy_failure_envelope(['Carbon_cloth_AGP3705H'])
     #plot_single_max_failure_loads()
     
 #    # reload modules
