@@ -6,9 +6,12 @@ Module for composite material analysis
 Hyer-Stress Analysis of Fiber-Reinforced Composite Materials
 Herakovich-Mechanics of Fibrous Composites
 Daniel-Engineering Mechanics of Composite Materials
+Kollar-Mechanics of COmposite Structures
 TODO:
+    
  * transverse shear stress reddy pg 136 or daniel pg 139
- * include pressure, and line loads (Qx,Qy) for combined loading 
+ * include line loads (Qx,Qy) for combined loading 
+ * calculate capability of panel based on margin
  
 '''
 #==============================================================================
@@ -29,6 +32,7 @@ import numpy as np
 #np.set_printoptions(suppress=False,precision=2)   # suppress scientific notation
 np.set_printoptions(precision=3, linewidth=200)#, threshold=np.inf)
 
+import scipy
 #np.set_printoptions(formatter={'float': lambda x: "{:.2f}".format(x)})
 
 import pandas as pd
@@ -64,6 +68,8 @@ except:
 
 from IPython.display import display
 
+
+plt.close('all')
 #==============================================================================
 # Functions
 #==============================================================================
@@ -620,11 +626,81 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
 #    stress_laminate = Nxyz/H
     # --------------------------------------------------------
 
+    #==========================================================================
+    # Pressure Load
+    #==========================================================================
+    #==========================================================================
+    # pressure displacement and moments
+    #==========================================================================
+    D11,D12,D22,D66 = D[0,0], D[0,1], D[1,1], D[2,2]
+    B11 = B[0,0]
+    A11, A12 = A[0,0], A[0,1]
+    
+    # reddy pg 247 Navier  displacement solution for a simply supported plate
+    s = b_length/a_width
+    x = a_width/2
+    y = b_length/2
+
+    # 5.2.8, reddy, or hyer 13.123
+    terms = 5
+    w0 = 0
+    for m in range(1,terms,2):
+        for n in range(1,terms,2):
+            dmn = pi**4/b_length**4 * (D11*m**4*s**4 + 2*(D12 + 2*D66)*m**2*n**2*s**2 + D22*n**4)
+            alpha = m*pi/a_width
+            beta = n*pi/b_length
+            # for uniformly distributed loads, m,n = 1,3,5,...
+            Qmn = 16*q0/(pi**2*m*n)
+            Wmn = Qmn/dmn
+            w0 += Wmn * sin(alpha*x) * sin(beta*y)
+    w0_simplesupport = w0
+
+    # 5.2.12a, reddy
+    # mid span moments
+    Mxq=Myq=Mxyq=0
+    for m in range(1,terms,2):
+        for n in range(1,terms,2):
+            dmn = pi**4/b_length**4 * (D11*m**4*s**4 + 2*(D12 + 2*D66)*m**2*n**2*s**2 + D22*n**4)
+            alpha = m*pi/a_width
+            beta = n*pi/b_length
+            # for uniformly distributed loads, m,n = 1,3,5,...
+            Qmn = 16*q0/(pi**2*m*n)
+            Wmn = Qmn/dmn
+            Mxq += (D11*alpha**2 + D12*beta**2 ) * Wmn * sin(m*pi*x/a_width) * sin(n*pi*y/b_length)
+            Myq += (D12*alpha**2 + D22*beta**2 ) * Wmn * sin(m*pi*x/a_width) * sin(n*pi*y/b_length)
+            Mxyq += alpha*beta*D66 * Wmn * cos(m*pi*x/a_width) * cos(n*pi*y/b_length)
+    Mxyq = -2*Mxyq
+    NMq = [[0],[0],[0],[Mxq],[Myq],[Mxyq]]
+    # hyer, x-pin-pin, y-free-free plate reaction forces, pg 619
+    # Forces and Moments across the width of the plate
+    A11R = A11*(1-B11**2/(A11*D11))
+    D11R = D11*(1-B11**2/(A11*D11))
+    Nxq0 = lambda x: B11/D11 * q0 * a_width**2 /12
+    Nyq0 = lambda x: B11 * A12*q0 * a_width**2 / (D11*A11R*12) * (6*(x/a_width)**2-1/2)
+    Nxyq0 = lambda x: 0
+    Mxq0 = lambda x: q0 * a_width**2/8 * (1-4*(x/a_width)**2)
+    Myq0 = lambda x: D12 * q0 * a_width**2 / (D11R*8) * ((1-2*B11**2/(3*A11*D11))-(4*(x/a_width)**2))
+    Mxyq0 = lambda x: 0
+    
+    
+    
+    # clamped plate 5.4.11, reddy 
+    #w0_clamped = ( 49 * q0*a_width**4 * (x/a_width - (x/a_width)**2 )**2 * (y/b_length - (y/b_length)**2)**2) / (8 * (7*D11+4*(D12 + 2*D66)*s**2 + 7*D22*s**4) )
+
+    # reddy, 5.4.12
+    w0_clamped = 0.00342 * (q0*a_width**4) / (D11+0.5714*(D12+2*D66)*s**2+D22*s**4)
+    
+    # reddy, 5.4.15
+    #w0_clamped = 0.00348 * (q0*a_width**4) / (D11*b_length**4+0.6047*(D12+2*D66)*s**2+D22*s**4)
+    
+    # reddy 5.4.15, for isotropic D11=D
+    w0_clamped_isotropic = 0.00134*q0*a_width**4/D11    
+
 
     #==========================================================================
-    #  Applied Loads
+    #  Applied Loads and pressure loads
     #==========================================================================
-    NMbarapptotal = NMbarapp + ABD @ epsilonbarapp
+    NMbarapptotal = NMbarapp + NMq + ABD @ epsilonbarapp
 
     #==========================================================================
     # Thermal Loads
@@ -830,7 +906,7 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
     #==========================================================================
     ''' Buckling of Clamped plates under shear load, reddy, 5.6.17'''
 
-    D11,D12,D22,D66 = D[0,0], D[0,1], D[1,1], D[2,2]
+    
     k11 = 537.181*D11/a_width**4 + 324.829*(D12+2*D66)/(a_width**2*b_length**2) + 537.181*D22/b_length**4
     k12 = 23.107/(a_width*b_length)
     k22 = 3791.532*D11/a_width**4 + 4227.255*(D12+2*D66)/(a_width**2*b_length**2) + 3791.532*D22/b_length**4
@@ -880,59 +956,8 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
                                                 FI_Nx_buckling,
                                                 FI_Nxy_buckling] )
 
-    MS_min_buckling = 1/FI_combinedload_simplesupport_buckle-1
-
-
-    #==========================================================================
-    # displacement
-    #==========================================================================
-    # reddy pg 247 Navier  displacement solution for a simply supported plate
-    s = b_length/a_width
-    x = a_width/2
-    y = b_length/2
-
-    # 5.2.8, reddy, or hyer 13.123
-    terms = 5
-    w0 = 0
-    for m in range(1,terms,2):
-        for n in range(1,terms,2):
-            dmn = pi**4/b_length**4 * (D11*m**4*s**4 + 2*(D12 + 2*D66)*m**2*n**2*s**2 + D22*n**4)
-            alpha = m*pi/a_width
-            beta = n*pi/b_length
-            # for uniformly distributed loads, m,n = 1,3,5,...
-            Qmn = 16*q0/(pi**2*m*n)
-            Wmn = Qmn/dmn
-            w0 += Wmn * sin(alpha*x) * sin(beta*y)
-    w0_simplesupport = w0
-
-    # 5.2.12a, reddy
-    # mid span moments
-    Mxx=Myy=Mxy=0
-    for m in range(1,terms,2):
-        for n in range(1,terms,2):
-            dmn = pi**4/b_length**4 * (D11*m**4*s**4 + 2*(D12 + 2*D66)*m**2*n**2*s**2 + D22*n**4)
-            alpha = m*pi/a_width
-            beta = n*pi/b_length
-            # for uniformly distributed loads, m,n = 1,3,5,...
-            Qmn = 16*q0/(pi**2*m*n)
-            Wmn = Qmn/dmn
-            Mxx += (D11*alpha**2 + D12*beta**2 ) * Wmn * sin(m*pi*x/a_width) * sin(n*pi*y/b_length)
-            Myy += (D12*alpha**2 + D22*beta**2 ) * Wmn * sin(m*pi*x/a_width) * sin(n*pi*y/b_length)
-            Mxy += alpha*beta*D66 * Wmn * cos(m*pi*x/a_width) * cos(n*pi*y/b_length)
-    Mxy = -2*Mxy
-
-
-    # clamped plate 5.4.11, reddy 
-    #w0_clamped = ( 49 * q0*a_width**4 * (x/a_width - (x/a_width)**2 )**2 * (y/b_length - (y/b_length)**2)**2) / (8 * (7*D11+4*(D12 + 2*D66)*s**2 + 7*D22*s**4) )
-
-    # reddy, 5.4.12
-    w0_clamped = 0.00342 * (q0*a_width**4) / (D11+0.5714*(D12+2*D66)*s**2+D22*s**4)
+    MS_min_buckling = 1/(FI_combinedload_simplesupport_buckle+1e-16)-1
     
-    # reddy, 5.4.15
-    #w0_clamped = 0.00348 * (q0*a_width**4) / (D11*b_length**4+0.6047*(D12+2*D66)*s**2+D22*s**4)
-    
-    # reddy 5.4.15, for isotropic D11=D
-    w0_clamped_isotropic = 0.00134*q0*a_width**4/D11
     #==========================================================================
     # Facesheet Wrinkling
     #==========================================================================
@@ -989,8 +1014,9 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
 #    print(FI_combinedload_simplesupport_buckle)
     print('buckling combined loads and simple support MS = {:.4f}\n'.format((MS_min_buckling)))
 
-    print('Mx_midspan = {:.2f}'.format(Mxx) )
-    print('My_midspan = {:.2f}'.format(Myy) ) 
+    print('Mx_midspan = {:.2f}'.format(Mxq) )
+    print('My_midspan = {:.2f}'.format(Myq) ) 
+    print('Mxy_midspan = {:.2f}'.format(Mxyq) )    
     print('w0_simplesupport =    {:.6f}'.format(w0_simplesupport) )    
     print('w0_clamped =          {:.6f}'.format(w0_clamped) )
     print('w0_clamped_isotropic= {:.6f}'.format(w0_clamped_isotropic) )
@@ -1131,7 +1157,7 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
         plt.show()
         #plt.savefig('plate-warpage')
 
-        return MS_min
+    return MS_min
 
 
 
@@ -1532,17 +1558,114 @@ class laminate(object):
         return mat
 
 
+
+
+def failure_envelope_laminate(Nx,Ny,Nxy,Mx,My,Mxy,q0):
+    '''
+    find the miniumu margin give load conditions
+    '''
+    # create a 45 carbon cloth panel with a 0.5 inch rohacell core
+    MS_min = laminate_calcs(NM=[Nx,Ny,Nxy,Mx,My,Mxy],
+                             ek=[0,0,0,0,0,0],
+                             q0=q0,
+                             plyangle=   [45,0,45,0],
+                             plymatindex=[0,0,0,0],
+                             materials = ['Carbon_cloth_AGP3705H'],
+                             platedim=[10,10],
+                             zoffset=0,
+                             SF=1.0,
+                             plots=0)
+    return MS_min
+
+def plot_single_max_failure_loads():
+    '''
+    loops through and tries to find a load that is close to 0 and then 
+    attempts to find the root (ie margin=0)
+    '''
+    #laminate_min = lambda N: failure_envelope_laminate(N,0,0,0,0,0,0)
+    
+    loadnamelist = ['Nx','Ny','Nxy','Mx','My','Mxy','q0']
+    laminate_min_list = []
+    
+    laminate_min_list.append(lambda N: failure_envelope_laminate(N,0,0,0,0,0,0))
+    laminate_min_list.append(lambda N: failure_envelope_laminate(0,N,0,0,0,0,0))
+    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,N,0,0,0,0))
+    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,0,N,0,0,0))
+    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,0,0,N,0,0))
+    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,0,0,0,N,0))
+    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,0,0,0,0,N))
+    
+    envelope_loads = []
+    for loadname,laminate_min in zip(loadnamelist,laminate_min_list):
+        # arange(1,--10000,-20)
+        # arange(1,10000,20)
+        for guess in arange(1,10000,20):
+            MS = laminate_min(guess)
+            if MS < 0:
+                ymin_1 = scipy.optimize.newton(laminate_min, guess)
+                ymin_2 = scipy.optimize.newton(laminate_min, -guess)
+                envelope_loads.append('{} = {:.1f} , {:.1f}'.format(loadname,ymin_1, ymin_2))
+                break
+    
+    print('------------- enveloped loads -----------------')
+    for k in envelope_loads:
+        print(k)
+    return envelope_loads
+
+def plot_Nx_Nxy_failure_envelope():
+    '''
+    INCOMPLETE
+    loops through and tries to find a load that is close to 0 and then 
+    attempts to find the root (ie margin=0)
+    '''
+    #laminate_min = lambda N: failure_envelope_laminate(N,0,0,0,0,0,0)
+    
+    loadnamelist = ['Nx','Nxy']
+    laminate_min_list = []
+    
+    laminate_min_list.append(lambda N: failure_envelope_laminate(N,0,0,0,0,0,0))
+    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,N,0,0,0,0))
+    
+    envelope_loads = []
+    Nx_env = []
+    Nxy_env = []
+    
+    for loadname, laminate_min in zip(loadnamelist,laminate_min_list):
+        # arange(1,--10000,-20)
+        # arange(1,10000,20)
+        for guess in arange(1,10000,20):
+            MS = laminate_min(guess)
+            if MS < 0:
+                ymin_1 = scipy.optimize.newton(laminate_min, guess)
+                ymin_2 = scipy.optimize.newton(laminate_min, -guess)
+                Nx_env.append(ymin_1)
+                Nxy_env.append(ymin_2)
+                envelope_loads.append('{} = {:.1f} , {:.1f}'.format(loadname,ymin_1, ymin_2))
+                break
+    
+    print('------------- enveloped loads -----------------')
+    for k in envelope_loads:
+        print(k)
+        
+    
+
 def my_laminate_with_loading():
     # loads lbs/in
-    Nx  = 1500
+    Nx  = 2500
     Ny  = 0
-    Nxy = 1500
+    Nxy = 0
     Mx  = 0
     My  = 0
     Mxy = 0
-    q0 = 15 # pressure
+    q0 =  0 # pressure
+    # Qx = 0
+    # Qy = 0
     a_width = 40
-    b_length = 40
+    b_length = 35
+    
+    ## sandwich lamiante
+    # plyangle=   [45,45,0, 45,45],
+    # plymatindex=[0, 0, 1, 0, 0],    
     
     # create a 45 carbon cloth panel with a 0.5 inch rohacell core
     laminate_calcs(NM=[Nx,Ny,Nxy,Mx,My,Mxy],
@@ -1556,14 +1679,13 @@ def my_laminate_with_loading():
              SF=1.0,
              plots=0)
 
-    
 if __name__=='__main__':
 
     #material_plots()
     #plate()
 
-    my_laminate_with_loading()
-    
+    #my_laminate_with_loading()
+    plot_single_max_failure_loads()
     
 #    # reload modules
 #    import importlib ; importlib.reload
