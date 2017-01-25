@@ -464,7 +464,7 @@ def make_quasi(n0=4,n45=4):
     return plyangle
 
 #@xw.func
-def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,plots):
+def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,plots,prints):
     '''
     code to compute composite properties, applied mechanical and thermal loads
     and stress and strain
@@ -895,7 +895,7 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
     SR_MS = 1/(FI_MS+1e-16)
     # margin of safety based on max stress criteria
     MS_MS = SR_MS-1
-
+    MS_min = np.minimum(MS_MS.min().min(), MS_TW.min() )
     # find critial values for all failure criteria
     #MS_MS = MS_MS[~np.isinf(MS_MS)] # remove inf
     #MS_TW = MS_TW[~np.isinf(MS_TW)] # remove inf
@@ -977,49 +977,49 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
     #==========================================================================
     # Printing Results
     #==========================================================================
-    print('--------------- laminate1 Stress analysis of fibers----------')
-    print('(z-) plyangles (z+)'); print(plyangle)
-    print('(z-) plymatindex (z+)'); print(plymatindex)
-    print('ply layers') ; print(z)
-    print('Applied Loads'); print(NM)
-    print('ABD=');print(ABD)
-    print('Ex=   {:.2f}'.format(Exbar) )
-    print('Ey=   {:.2f}'.format(Eybar) )
-    print('nuxy= {:.2f}'.format(nuxybar) )
-    print('Gxy=  {:.2f}'.format(Gxybar) )
-    print('epsilon_laminate') ; print(epsilon_laminate)
-    print('sigma_laminate') ; print(sigma_laminate)
-    print('sigma_principal_laminate') ; print(sigma_principal_laminate)
-    print('principal_angle = {:.2f} deg'.format(thetap))
-    print('NMbarapp') ; print(NMbarapp)
-    print('sigma') ; print(sigma)
-
-    print('Max Stress Percent Margin of Safety, failure < 0, minimum = {:.4f}'.format( MS_MS.min().min() ) )
-    print(MS_MS)
-    print('Tsai-Wu Percent Margin of Safety, failure < 0, minimum = {:.4f}'.format(MS_TW.min()))
-    print(MS_TW)
-    MS_min = np.minimum(MS_MS.min().min(), MS_TW.min() )
-    print('\nminimum strength margin = {:.4f}'.format(  MS_min ))
+    if prints:
+        print('--------------- laminate1 Stress analysis of fibers----------')
+        print('(z-) plyangles (z+)'); print(plyangle)
+        print('(z-) plymatindex (z+)'); print(plymatindex)
+        print('ply layers') ; print(z)
+        print('Applied Loads'); print(NM)
+        print('ABD=');print(ABD)
+        print('Ex=   {:.2f}'.format(Exbar) )
+        print('Ey=   {:.2f}'.format(Eybar) )
+        print('nuxy= {:.2f}'.format(nuxybar) )
+        print('Gxy=  {:.2f}'.format(Gxybar) )
+        print('epsilon_laminate') ; print(epsilon_laminate)
+        print('sigma_laminate') ; print(sigma_laminate)
+        print('sigma_principal_laminate') ; print(sigma_principal_laminate)
+        print('principal_angle = {:.2f} deg'.format(thetap))
+        print('NMbarapp') ; print(NMbarapp)
+        print('sigma') ; print(sigma)
     
-
-#    print('Buckling failure index (fail>1) for clamped edges')
-#    print(FI_clamped_shear_buckling)
-#    print('---- Individual Buckling Failure Index (fail>1) combined loads and simple support -----')
-#    print('FI_Nxy0 = {:.2f}'.format(FI_Nxy0_buckling) )
-#    print('FI_Nx0  = {:.2f}'.format(FI_Nx0_buckling) )
-#    print('---- Interactive Buckling Failure Index (fail>1) combined loads and simple support -----')
-#    print('FI_Nx   = {:.2f}'.format(FI_Nx_buckling) )
-#    print('FI_Nxy  = {:.2f}'.format(FI_Nxy_buckling) )
-#    print('---- Buckling Failure Index (fail>1) combined loads and simple support -----')
-#    print(FI_combinedload_simplesupport_buckle)
-    print('buckling combined loads and simple support MS = {:.4f}\n'.format((MS_min_buckling)))
-
-    print('Mx_midspan = {:.2f}'.format(Mxq) )
-    print('My_midspan = {:.2f}'.format(Myq) ) 
-    print('Mxy_midspan = {:.2f}'.format(Mxyq) )    
-    print('w0_simplesupport =    {:.6f}'.format(w0_simplesupport) )    
-    print('w0_clamped =          {:.6f}'.format(w0_clamped) )
-    print('w0_clamped_isotropic= {:.6f}'.format(w0_clamped_isotropic) )
+        print('Max Stress Percent Margin of Safety, failure < 0, minimum = {:.4f}'.format( MS_MS.min().min() ) )
+        print(MS_MS)
+        print('Tsai-Wu Percent Margin of Safety, failure < 0, minimum = {:.4f}'.format(MS_TW.min()))
+        print(MS_TW)
+        print('\nminimum strength margin = {:.4f}'.format(  MS_min ))
+        
+    
+    #    print('Buckling failure index (fail>1) for clamped edges')
+    #    print(FI_clamped_shear_buckling)
+    #    print('---- Individual Buckling Failure Index (fail>1) combined loads and simple support -----')
+    #    print('FI_Nxy0 = {:.2f}'.format(FI_Nxy0_buckling) )
+    #    print('FI_Nx0  = {:.2f}'.format(FI_Nx0_buckling) )
+    #    print('---- Interactive Buckling Failure Index (fail>1) combined loads and simple support -----')
+    #    print('FI_Nx   = {:.2f}'.format(FI_Nx_buckling) )
+    #    print('FI_Nxy  = {:.2f}'.format(FI_Nxy_buckling) )
+    #    print('---- Buckling Failure Index (fail>1) combined loads and simple support -----')
+    #    print(FI_combinedload_simplesupport_buckle)
+        print('buckling combined loads and simple support MS = {:.4f}\n'.format((MS_min_buckling)))
+    
+        print('Mx_midspan = {:.2f}'.format(Mxq) )
+        print('My_midspan = {:.2f}'.format(Myq) ) 
+        print('Mxy_midspan = {:.2f}'.format(Mxyq) )    
+        print('w0_simplesupport =    {:.6f}'.format(w0_simplesupport) )    
+        print('w0_clamped =          {:.6f}'.format(w0_clamped) )
+        print('w0_clamped_isotropic= {:.6f}'.format(w0_clamped_isotropic) )
     
     #display(sp.Matrix(sigmabar))
 
@@ -1574,7 +1574,8 @@ def failure_envelope_laminate(Nx,Ny,Nxy,Mx,My,Mxy,q0):
                              platedim=[10,10],
                              zoffset=0,
                              SF=1.0,
-                             plots=0)
+                             plots=0,
+                             prints=0)
     return MS_min
 
 def plot_single_max_failure_loads():
@@ -1677,15 +1678,16 @@ def my_laminate_with_loading():
              platedim=[a_width,b_length],
              zoffset=0,
              SF=1.0,
-             plots=0)
+             plots=0,
+             prints=1)
 
 if __name__=='__main__':
 
     #material_plots()
     #plate()
 
-    #my_laminate_with_loading()
-    plot_single_max_failure_loads()
+    my_laminate_with_loading()
+    #plot_single_max_failure_loads()
     
 #    # reload modules
 #    import importlib ; importlib.reload
