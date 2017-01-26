@@ -7,6 +7,9 @@ Hyer-Stress Analysis of Fiber-Reinforced Composite Materials
 Herakovich-Mechanics of Fibrous Composites
 Daniel-Engineering Mechanics of Composite Materials
 Kollar-Mechanics of COmposite Structures
+NASA- Basic Mechancis of Lamianted Composites
+    https://ntrs.nasa.gov/archive/nasa/casi.ntrs.nasa.gov/19950009349.pdf
+    
 TODO:
     
  * transverse shear stress reddy pg 136 or daniel pg 139
@@ -615,6 +618,13 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
     nuxybar = -a[0,1]/a[0,0]
     nuyxbar = -a[0,1]/a[1,1]
 
+    # TODO: validate results, does not appear to be correct
+    # strain centers, pg 72, NASA-Basic mechanics of lamianted composites
+    z_eps0_x  = -B[0,0] / D[0,0]
+    z_eps0_y  = -B[0,1] / D[0,1]
+    z_eps0_xy = -B[0,2] / D[0,2]
+    z_sc = -B[2,2]/D[2,2] # shear center
+    
     # --------------------- Double Check ---------------------
 #    # Laminate compliance matrix
 #    LamComp = array([ [1/Exbar,       -nuyxbar/Eybar,  etasxbar/Gxybar],
@@ -990,6 +1000,13 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
         print('(z-) plyangles (z+)'); print(plyangle)
         print('(z-) plymatindex (z+)'); print(plymatindex)
         print('ply layers') ; print(z)
+        print('lamiante thickness, H = {:.4f}'.format(H))
+        
+        #print('x- zero strain laminate center, z_eps0_x  = {:.4f}'.format(z_eps0_x))
+        #print('y- zero strain laminate center, z_eps0_y  = {:.4f}'.format(z_eps0_y))
+        #print('xy-zero strain laminate center, z_eps0_xy = {:.4f}'.format(z_eps0_xy))       
+        #print('shear center laminate center, z_sc = {:.4f}'.format(z_sc))  
+        
         print('Applied Loads'); print(NM)
         print('ABD=');print(ABD)
         print('Ex=   {:.2f}'.format(Exbar) )
@@ -1009,7 +1026,6 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
         print(MS_TW)
         print('\nminimum strength margin = {:.4f}'.format(  MS_min ))
         
-    
     #    print('Buckling failure index (fail>1) for clamped edges')
     #    print(FI_clamped_shear_buckling)
     #    print('---- Individual Buckling Failure Index (fail>1) combined loads and simple support -----')
@@ -1021,7 +1037,7 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
     #    print('---- Buckling Failure Index (fail>1) combined loads and simple support -----')
     #    print(FI_combinedload_simplesupport_buckle)
         print('buckling combined loads and simple support MS = {:.4f}\n'.format((MS_min_buckling)))
-    
+        print('')
         print('Mx_midspan = {:.2f}'.format(Mxq) )
         print('My_midspan = {:.2f}'.format(Myq) ) 
         print('Mxy_midspan = {:.2f}'.format(Mxyq) )    
@@ -1675,10 +1691,10 @@ def plot_Nx_Nxy_failure_envelope(mymat):
 
 def my_laminate_with_loading():
     # loads lbs/in
-    Nx  = 2500
+    Nx  = 0
     Ny  = 0
     Nxy = 0
-    Mx  = 0
+    Mx  = 1
     My  = 0
     Mxy = 0
     q0 =  0 # pressure
@@ -1695,8 +1711,8 @@ def my_laminate_with_loading():
     laminate_calcs(NM=[Nx,Ny,Nxy,Mx,My,Mxy],
              ek=[0,0,0,0,0,0],
              q0=q0,
-             plyangle=   [45,45,0, 45,45],
-             plymatindex=[0, 0, 1, 0, 0],
+             plyangle=   [0,0,0, 45,45,45],
+             plymatindex=[0, 0,0,0,0,0],
              materials = ['Carbon_cloth_AGP3705H','rohacell2lb'],
              platedim=[a_width,b_length],
              zoffset=0,
@@ -1706,10 +1722,12 @@ def my_laminate_with_loading():
 
 if __name__=='__main__':
 
+    
+    my_laminate_with_loading()
     #material_plots()
     #plate()
 
-    plot_Nx_Nxy_failure_envelope(['Carbon_cloth_AGP3705H'])
+    #plot_Nx_Nxy_failure_envelope(['Carbon_cloth_AGP3705H'])
     #plot_single_max_failure_loads()
     
 #    # reload modules
