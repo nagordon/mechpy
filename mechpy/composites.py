@@ -279,7 +279,7 @@ def material_plots(materials = ['Carbon_cloth_AGP3705H']):
 
     plt.close('all')
     
-    materials = ['Carbon_cloth_AGP3705H']
+    #materials = ['Carbon_cloth_AGP3705H']
     
     mat = import_matprops(materials)
     S = Sf(mat[materials[0]].E1,
@@ -360,7 +360,7 @@ def material_plots(materials = ['Carbon_cloth_AGP3705H']):
     plot(plyangle, Gxybar, label = r"Modulus: $G_{xy}$")
     title("Constitutive Properties in various angles")
     xlabel("$\Theta$")
-    ylabel("modulus, GPa")
+    ylabel("modulus, psi")
     legend()
     grid()
 
@@ -549,7 +549,7 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
     # Import Material Properties
     #==========================================================================
     mat  = import_matprops(materials)
-    #mat  = import_matprops('T300_5208')  # Herakovich
+    #mat  = import_matprops(['E-Glass Epoxy cloth','rohacell2lb'])  # Herakovich
     alphaf = lambda mat: array([[mat.alpha1], [mat.alpha2], [0]])
 
     ''' to get ply material info, use as follows
@@ -620,10 +620,11 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
 
     # TODO: validate results, does not appear to be correct
     # strain centers, pg 72, NASA-Basic mechanics of lamianted composites
-    z_eps0_x  = -B[0,0] / D[0,0]
-    z_eps0_y  = -B[0,1] / D[0,1]
-    z_eps0_xy = -B[0,2] / D[0,2]
-    z_sc = -B[2,2]/D[2,2] # shear center
+    # added divide by zero epsilon
+    z_eps0_x  = -B[0,0] / (D[0,0] + 1e-16)
+    z_eps0_y  = -B[0,1] / (D[0,1] + 1e-16)
+    z_eps0_xy = -B[0,2] / (D[0,2] + 1e-16)
+    z_sc = -B[2,2] / (D[2,2] +1e-16) # shear center
     
     # --------------------- Double Check ---------------------
 #    # Laminate compliance matrix
@@ -877,7 +878,7 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
 
         # inhomogeneous Tsai-Wu criterion # from Daniel
         # http://www2.mae.ufl.edu/haftka/composites/mcdaniel-nonhomogenous.pdf
-        f1 =  1/F1t + 1/F1c
+        f1 =  1/F1t + 1/F1c 
         f2 =  1/F2t + 1/F2c
         f11 = -1/(F1t*F1c)
         f22 = -1/(F2t*F2c)
@@ -886,7 +887,7 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
         #TW = f1*s1 + f2*s2 + f11*s1**2 + f22*s2**2 + f66*s12**2 + 2*f12*s1*s2
         # polynomial to solve. Added a machine epsilon to avoid divide by zero errors
         lam1 = f11*s1**2 + f22*s2**2 + f66*s12**2 + 2*f12*s1*s2 + 1e-16
-        lam2 = f1*s1 + f2*s2
+        lam2 = f1*s1 + f2*s2 + 1e-16
         lam3 = -1 
         # smallest positive root
         roots = array([(-lam2+sqrt(lam2**2-4*lam1*lam3)) / (2*lam1) ,
@@ -929,9 +930,10 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
     k12 = 23.107/(a_width*b_length)
     k22 = 3791.532*D11/a_width**4 + 4227.255*(D12+2*D66)/(a_width**2*b_length**2) + 3791.532*D22/b_length**4
     Nxycrit0 = 1/k12*np.sqrt(k11*k22)
-    FI_clamped_shear_buckling = (Nxy_*SF) / Nxycrit0  # failure if > 1
+    FI_clamped_shear_buckling = (abs(Nxy_)*SF) / Nxycrit0  # failure if > 1
 
-    '''Kassapoglous pg 1126,137
+    MS_clamped_shear_buckling = 1/(FI_clamped_shear_buckling+1e-16)-1
+    '''Kassapoglous pg 126,137
 
     simply supported plate buckling, assumes Nx>0 is compression
 
@@ -1026,8 +1028,8 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
         print(MS_TW)
         print('\nminimum strength margin = {:.4f}'.format(  MS_min ))
         
-    #    print('Buckling failure index (fail>1) for clamped edges')
-    #    print(FI_clamped_shear_buckling)
+        print('Buckling MS for Nxy only for clamped edges = {:.4f}\n'.format(MS_clamped_shear_buckling))
+
     #    print('---- Individual Buckling Failure Index (fail>1) combined loads and simple support -----')
     #    print('FI_Nxy0 = {:.2f}'.format(FI_Nxy0_buckling) )
     #    print('FI_Nx0  = {:.2f}'.format(FI_Nx0_buckling) )
@@ -1037,7 +1039,6 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
     #    print('---- Buckling Failure Index (fail>1) combined loads and simple support -----')
     #    print(FI_combinedload_simplesupport_buckle)
         print('buckling combined loads and simple support MS = {:.4f}\n'.format((MS_min_buckling)))
-        print('')
         print('Mx_midspan = {:.2f}'.format(Mxq) )
         print('My_midspan = {:.2f}'.format(Myq) ) 
         print('Mxy_midspan = {:.2f}'.format(Mxyq) )    
@@ -1691,17 +1692,17 @@ def plot_Nx_Nxy_failure_envelope(mymat):
 
 def my_laminate_with_loading():
     # loads lbs/in
-    Nx  = 0
+    Nx  = -43
     Ny  = 0
     Nxy = 0
-    Mx  = 1
+    Mx  = 0
     My  = 0
     Mxy = 0
     q0 =  0 # pressure
     # Qx = 0
     # Qy = 0
-    a_width = 40
-    b_length = 35
+    a_width = 50
+    b_length = 3.14*6.75
     
     ## sandwich lamiante
     # plyangle=   [45,45,0, 45,45],
@@ -1711,12 +1712,12 @@ def my_laminate_with_loading():
     laminate_calcs(NM=[Nx,Ny,Nxy,Mx,My,Mxy],
              ek=[0,0,0,0,0,0],
              q0=q0,
-             plyangle=   [0,0,0, 45,45,45],
-             plymatindex=[0, 0,0,0,0,0],
-             materials = ['Carbon_cloth_AGP3705H','rohacell2lb'],
+             plyangle=   [45],
+             plymatindex=[0],
+             materials = ['E-Glass Epoxy cloth'],
              platedim=[a_width,b_length],
              zoffset=0,
-             SF=1.0,
+             SF=2.0,
              plots=0,
              prints=1)
 
@@ -1724,7 +1725,7 @@ if __name__=='__main__':
 
     
     my_laminate_with_loading()
-    #material_plots()
+    material_plots(['E-Glass Epoxy cloth'])
     #plate()
 
     #plot_Nx_Nxy_failure_envelope(['Carbon_cloth_AGP3705H'])
