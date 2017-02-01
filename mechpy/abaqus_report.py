@@ -38,11 +38,11 @@ def abaqus_cmd(mycmd):
     try:
         retcode = subprocess.call(mycmd,shell=True)
         if retcode < 0:
-            print >>sys.stderr, mycmd+"...failed during execution", -retcode
+            print('>>' + sys.stderr, mycmd+"...failed during execution", -retcode)
         else:
-            print >>sys.stderr, mycmd
+            print('>>' + sys.stderr, mycmd)
     except OSError as e:
-        print >>sys.stderr, mycmd+"...failed at execution", e
+        print('>>' + sys.stderr, mycmd+"...failed at execution", e)
 
 def insert_img(f='', o='',c='', v='', imtype='png', left=0, top=0, height=1):
     # o='STH',c='', v='Back',
@@ -195,7 +195,7 @@ def field_plot(y):
 
     df_y = pd.read_csv(y,names=[y],delimiter=',')
     #print df
-    print y
+    print(y)
     plt.figure(1, figsize=(10,6))
     plt.plot(df_y)
     plt.xlabel('strain')
@@ -242,7 +242,7 @@ def get_rpts(odbname):
     for rptname in rptnames:
         df = read_rpt(rptname)
         #df['S.Mises'].plot()
-        print df.head(2)
+        print(df.head(2))
 
 def image_resize(picnames=[]):
     """ This program does not use this but may be needed

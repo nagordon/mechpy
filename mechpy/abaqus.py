@@ -664,7 +664,7 @@ class AbaqusReportTool(object):
         for o in dict_o_c:
             for c in dict_o_c[o]:
                 for v in list_v:
-                    print o,c,v
+                    print(o,c,v)
                     self.VP_edit(s, f, o, c, csys, setsKeyword ,v ,ON, ON, 0, 0)
                     self.png_save()
                     if v == 'Iso2':
@@ -705,7 +705,7 @@ class AbaqusReportTool(object):
         for o in dict_o_c:
             for c in dict_o_c[o]:
                 for v in list_v:
-                    print o,c,v
+                    print(o,c,v)
                     self.VP_edit(s, f, o, c, csys, setsKeyword ,v ,ON, ON, 0, 0)
                     self.png_save()
                     if v == 'Iso2':
@@ -733,7 +733,7 @@ def beamExample():
     else:
         os.mkdir('beamExample')
         os.chdir('beamExample')
-    print 'beamExample created'
+    print('beamExample created')
     abaqus_cmd('abaqus fetch job=beamExample')
     abaqus_cmd('abaqus cae noGUI=beamExample.py')
     # moves back one directory
@@ -901,11 +901,11 @@ def abaqus_cmd(mycmd):
     try:
         retcode = subprocess.call(mycmd,shell=True)
         if retcode < 0:
-            print >>sys.stderr, mycmd+"...failed during execution", -retcode
+            print('>>' +sys.stderr, mycmd+"...failed during execution", -retcode)
         else:
-            print >>sys.stderr, mycmd+"...success"
+            print('>>' + sys.stderr, mycmd+"...success")
     except OSError as e:
-        print >>sys.stderr, mycmd+"...failed at execution", e
+        print('>>' + sys.stderr, mycmd+"...failed at execution", e)
 
 ############################ Static Variables ###########################
 myOutputPosition = {'E':INTEGRATION_POINT,
