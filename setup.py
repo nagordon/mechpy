@@ -7,6 +7,8 @@ setup(
     author='Neal Gordon',
     author_email='nealagordon@gmail.com',
     packages=['mechpy'],
+	package_data={'': ['compositematerials.csv']},
+	include_package_data=True,
     license="The MIT License (MIT)",
     long_description=open('README.md').read(),
     url='https://github.com/nagordon/mechpy',

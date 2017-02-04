@@ -36,7 +36,7 @@ import numpy as np
 np.set_printoptions(precision=3, linewidth=200)#, threshold=np.inf)
 
 import scipy
-#from scipy.spatial import ConvexHull
+from scipy.spatial import ConvexHull
 #np.set_printoptions(formatter={'float': lambda x: "{:.2f}".format(x)})
 
 import pandas as pd
@@ -72,6 +72,7 @@ except:
 
 from IPython.display import display
 
+import os
 
 plt.close('all')
 #==============================================================================
@@ -84,7 +85,8 @@ def import_matprops(mymaterial=['T300_5208','AL_7075']):
     import material properties
     '''
 
-    matprops = pd.read_csv('./compositematerials.csv', index_col=0)
+    matprops = pd.read_csv(os.path.join(os.path.dirname(__file__), "compositematerials.csv"), index_col=0)
+    
 
     if mymaterial==[] or mymaterial=='':
         print(matprops.columns.tolist())
@@ -276,19 +278,31 @@ def material_plots(materials = ['Carbon_cloth_AGP3705H']):
 #    plt.rcParams['font.size'] = 14
 #    plt.rcParams['legend.fontsize'] = 14
 
+                 
+    plyangle = arange(-45, 45.1, 0.1)
+    h = 1      # lamina thickness
+    
+    layupname='[0]'
+    mat = import_matprops(materials)
+    Ex = mat[materials[0]].E1
+    Ey = mat[materials[0]].E2
+    nuxy = mat[materials[0]].nu12
+    Gxy = mat[materials[0]].G12    
+             
 
+#    layupname = '[0, 45, 45, 0]'
+#    Ex=   2890983.38
+#    Ey=   2844063.06
+#    nuxy= 0.27
+#    Gxy=  1129326.25
+#    h = 0.0600   
+    
     plt.close('all')
     
-    #materials = ['Carbon_cloth_AGP3705H']
-    
-    mat = import_matprops(materials)
-    S = Sf(mat[materials[0]].E1,
-            mat[materials[0]].E2,
-            mat[materials[0]].nu12,
-            mat[materials[0]].G12 )
-    C = inv(S)
-    plyangle = arange(-90, 90.1, 0.1)
+    S = Sf(Ex,Ey,nuxy,Gxy)
 
+    C = inv(S)
+    
     C11 = [(inv(T1(th)) @ C @ T2(th))[0,0] for th in plyangle]
     C22 = [(inv(T1(th)) @ C @ T2(th))[1,1] for th in plyangle]
     C33 = [(inv(T1(th)) @ C @ T2(th))[2,2] for th in plyangle]
@@ -298,11 +312,7 @@ def material_plots(materials = ['Carbon_cloth_AGP3705H']):
     Eybar = zeros(len(plyangle))
     Gxybar = zeros(len(plyangle))
 
-    h = 1      # lamina thickness
-    Q = Qf(mat[materials[0]].E1,
-           mat[materials[0]].E2,
-           mat[materials[0]].nu12,
-           mat[materials[0]].G12)
+    Q = Qf(Ex,Ey,nuxy,Gxy)
 
     Qbar = zeros((len(plyangle),3,3))
     for i,th in enumerate(plyangle):
@@ -343,7 +353,6 @@ def material_plots(materials = ['Carbon_cloth_AGP3705H']):
     for i,th in enumerate(plyangle):
         #s_12[:,i] = np.transpose(T1(th) @ s_xy)[0]   # local stresses
         s_12[:,[i]] = T1(th) @ s_xy
-
 
     # Plotting
     figure()#, figsize=(10,8))
@@ -392,6 +401,23 @@ def material_plots(materials = ['Carbon_cloth_AGP3705H']):
     xlabel("$\Theta$")
     ylabel('Q')
     grid()
+
+    titlename = 'Laminate Properties varying angle for {} {}'.format(materials[0], layupname)
+    #df = pd.DataFrame({'plyangle':plyangle, 'Exbar':Exbar, 'Eybar':Eybar,'Gxybar':Gxybar})
+    #print(df)
+    #df.to_csv(titlename+'.csv')
+    
+    plt.figure(figsize=(9,6))
+    plot(plyangle, Exbar, label = r"Modulus: $E_x$")
+    plot(plyangle, Eybar, label = r"Modulus: $E_y$")
+    plot(plyangle, Gxybar, label = r"Modulus: $G_{xy}$")
+    title(titlename)
+    xlabel("$\Theta$")
+    ylabel("modulus, psi")
+    legend(loc='best')
+    grid()
+    
+    #plt.savefig(titlename+'.png')
 
     show()
 
@@ -848,9 +874,11 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
     #==========================================================================
     # Strength Failure Calculations
     #==========================================================================
-    SR_MS = zeros((3,2*nply))
-    FI_MS = zeros((3,2*nply))
-    SR_TW = zeros((nply))
+    # Strength Ratio
+    STRENGTHRATIO_MAXSTRESS = zeros((3,2*nply))
+    # Failure Index
+    FAILUREINDEX_MAXSTRESS = zeros((3,2*nply))
+    STRENGTHRATIO_TSAIWU = zeros((nply))
     for i,k in enumerate(range(0,2*nply,2)):
 
         # stress
@@ -864,9 +892,9 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
         F12 = mat[materials[plymatindex[i]]].F12
 
         # Max Stress failure index ,failure if > 1, then fail, FI = 1/SR
-        FI_MS[0,k:k+2] = (s1*SF)  / F1
-        FI_MS[1,k:k+2] = (s2*SF)  / F2
-        FI_MS[2,k:k+2] = (s12*SF) / F12
+        FAILUREINDEX_MAXSTRESS[0,k:k+2] = s1  / F1
+        FAILUREINDEX_MAXSTRESS[1,k:k+2] = s2  / F2
+        FAILUREINDEX_MAXSTRESS[2,k:k+2] = s12 / F12
 
 
         # Tsai Wu, failure occures when > 1
@@ -892,32 +920,37 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
         # smallest positive root
         roots = array([(-lam2+sqrt(lam2**2-4*lam1*lam3)) / (2*lam1) ,
                        (-lam2-sqrt(lam2**2-4*lam1*lam3)) / (2*lam1)] )
-        SR_TW[i] = roots[roots>=0].min()  # strength ratio
+        STRENGTHRATIO_TSAIWU[i] = roots[roots>=0].min()  # strength ratio
 
 #        f1 =  1/F1t - 1/F1c
 #        f2 =  1/F2t - 1/F2c
 #        f11 = 1/(F1t*F1c)
 #        f22 = 1/(F2t*F2c)
 #        f66 = 1/F12**2
-#        SR_TW[i] =  2 / (f1*s2 + f2*s2 + sqrt((f1*s1+f2*s2)**2+4*(f11*s1**2+f22*s2**2+f66*s12**2)))
+#        STRENGTHRATIO_TSAIWU[i] =  2 / (f1*s2 + f2*s2 + sqrt((f1*s1+f2*s2)**2+4*(f11*s1**2+f22*s2**2+f66*s12**2)))
 
-    MS_TW = SR_TW-1   # margin of safety
+    ### Apply safety factors
+    FAILUREINDEX_MAXSTRESS = FAILUREINDEX_MAXSTRESS * SF
+    STRENGTHRATIO_TSAIWU = STRENGTHRATIO_TSAIWU / SF
+    
+    ### 
+    MARGINSAFETY_TSAIWU = STRENGTHRATIO_TSAIWU-1   # margin of safety
 
     # strength ratio for max stress, if < 1, then fail, SR = 1/FI
-    SR_MS = 1/(FI_MS+1e-16)
+    STRENGTHRATIO_MAXSTRESS = 1/(FAILUREINDEX_MAXSTRESS+1e-16)
     # margin of safety based on max stress criteria
-    MS_MS = SR_MS-1
+    MARGINSAFETY_MAXSTRESS = STRENGTHRATIO_MAXSTRESS-1
     
     # minimum margin of safety for Max stress failure
-    MS_min = MS_MS.min().min()
+    MARGINSAFETY_MAXSTRESS_min = MARGINSAFETY_MAXSTRESS.min().min()
+    FAILUREINDEX_MAXSTRESS_max = FAILUREINDEX_MAXSTRESS.max().max()
     
     # minimum margin of safety of both Tsai-Wu and Max Stress
-    #MS_min = np.minimum(MS_MS.min().min(), MS_TW.min() )
-    
+    #MARGINSAFETY_MAXSTRESS_min = np.minimum(MARGINSAFETY_MAXSTRESS.min().min(), MARGINSAFETY_TSAIWU.min() )
     
     # find critial values for all failure criteria
-    #MS_MS = MS_MS[~np.isinf(MS_MS)] # remove inf
-    #MS_TW = MS_TW[~np.isinf(MS_TW)] # remove inf
+    #MARGINSAFETY_MAXSTRESS = MARGINSAFETY_MAXSTRESS[~np.isinf(MARGINSAFETY_MAXSTRESS)] # remove inf
+    #MARGINSAFETY_TSAIWU = MARGINSAFETY_TSAIWU[~np.isinf(MARGINSAFETY_TSAIWU)] # remove inf
 
 
     #==========================================================================
@@ -1022,13 +1055,16 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
         print('NMbarapp') ; print(NMbarapp)
         print('sigma') ; print(sigma)
     
-        print('Max Stress Percent Margin of Safety, failure < 0, minimum = {:.4f}'.format( MS_MS.min().min() ) )
-        print(MS_MS)
-        print('Tsai-Wu Percent Margin of Safety, failure < 0, minimum = {:.4f}'.format(MS_TW.min()))
-        print(MS_TW)
-        print('\nminimum strength margin = {:.4f}'.format(  MS_min ))
+        print('\nMax Stress Percent Margin of Safety, failure < 0, minimum = {:.4f}'.format( MARGINSAFETY_MAXSTRESS_min ) )
+        print(MARGINSAFETY_MAXSTRESS)
         
-        print('Buckling MS for Nxy only for clamped edges = {:.4f}\n'.format(MS_clamped_shear_buckling))
+        print('\nTsai-Wu Percent Margin of Safety, failure < 0, minimum = {:.4f}'.format(MARGINSAFETY_TSAIWU.min()))
+        print(MARGINSAFETY_TSAIWU)
+        
+        print('\nmaximum failure index = {:.4f}'.format(  FAILUREINDEX_MAXSTRESS_max ))      
+        print(FAILUREINDEX_MAXSTRESS)
+        
+        print('\nBuckling MS for Nxy only for clamped edges = {:.4f}\n'.format(MS_clamped_shear_buckling))
 
     #    print('---- Individual Buckling Failure Index (fail>1) combined loads and simple support -----')
     #    print('FI_Nxy0 = {:.2f}'.format(FI_Nxy0_buckling) )
@@ -1148,7 +1184,7 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
             ax.set_xlabel(stresslabel[i])
             #ax.set_title(' Ply Strain at $\epsilon=%f$' % (epsxapp*100))
             ax.ticklabel_format(axis='x', style='sci', scilimits=(1,4))  # scilimits=(-2,2))
-            ax.plot(FI_MS[i,:],     zplot, color='blue', lw=mylw, label='total')
+            ax.plot(FAILUREINDEX_MAXSTRESS[i,:],     zplot, color='blue', lw=mylw, label='total')
             ax.grid(True)
             ax.set_title('Failure Index, fail if > 1')
         #leg = legend(fancybox=True) ; leg.get_frame().set_alpha(0.3)
@@ -1182,7 +1218,7 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
         plt.show()
         #plt.savefig('plate-warpage')
 
-    return MS_min
+    return MARGINSAFETY_MAXSTRESS_min, FAILUREINDEX_MAXSTRESS_max
 
 
 
@@ -1560,7 +1596,7 @@ class laminate(object):
     # method
     def available_materials(self):
         '''show the materials available in the library'''
-        matprops = pd.read_csv('./compositematerials.csv', index_col=0)
+        matprops = pd.read_csv(os.path.join(os.path.dirname(__file__), "compositematerials.csv"), index_col=0)
         print('---available materials---')
         for k in matprops.columns.tolist():
             print(k)
@@ -1571,8 +1607,7 @@ class laminate(object):
         '''
         import material properties
         '''
-
-        matprops = pd.read_csv('./compositematerials.csv', index_col=0)
+        matprops = pd.read_csv(os.path.join(os.path.dirname(__file__), "compositematerials.csv"), index_col=0)
 
         if mymaterial==[] or mymaterial=='':
             print(matprops.columns.tolist())
@@ -1585,114 +1620,143 @@ class laminate(object):
 
 
 
-def failure_envelope_laminate(Nx,Ny,Nxy,Mx,My,Mxy,q0,mymat):
+def failure_envelope_laminate(Nx,Ny,Nxy,Mx,My,Mxy,q0,mymat,layup):
     '''
     find the miniumu margin give load conditions
     '''
     # create a 45 carbon cloth panel with a 0.5 inch rohacell core
-    MS_min = laminate_calcs(NM=[Nx,Ny,Nxy,Mx,My,Mxy],
+    
+    _, FAILUREINDEX_MAXSTRESS_max = laminate_calcs(NM=[Nx,Ny,Nxy,Mx,My,Mxy],
                              ek=[0,0,0,0,0,0],
                              q0=q0,
-                             plyangle=   [0,45,45,0],
+                             plyangle=   layup,
                              plymatindex=[0,0,0,0],
-                             materials = mymat,
+                             materials = [mymat],
                              platedim=[10,10],
                              zoffset=0,
                              SF=1.0,
                              plots=0,
                              prints=0)
-    return MS_min
+    return FAILUREINDEX_MAXSTRESS_max
 
-def plot_single_max_failure_loads():
+
+def plot_single_max_failure_loads(mymat='E-Glass Epoxy cloth', mylayup=[0,45,45,0] ):
     '''
     loops through and tries to find a load that is close to 0 and then 
     attempts to find the root (ie margin=0)
+    
+    older version used newton method for root finding
+    scipy.optimize.newton(laminate_min, guess)
+    
+    TODO: Current calculation is stupid using random points to plot. fix it 
+            by use FI, failure index instead of margin to generate a 
+            linear relationship and envelope    
     '''
     #laminate_min = lambda N: failure_envelope_laminate(N,0,0,0,0,0,0)
     
     loadnamelist = ['Nx','Ny','Nxy','Mx','My','Mxy','q0']
     laminate_min_list = []
     
-    laminate_min_list.append(lambda N: failure_envelope_laminate(N,0,0,0,0,0,0,['Carbon_cloth_AGP3705H']))
-    laminate_min_list.append(lambda N: failure_envelope_laminate(0,N,0,0,0,0,0,['Carbon_cloth_AGP3705H']))
-    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,N,0,0,0,0,['Carbon_cloth_AGP3705H']))
-    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,0,N,0,0,0,['Carbon_cloth_AGP3705H']))
-    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,0,0,N,0,0,['Carbon_cloth_AGP3705H']))
-    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,0,0,0,N,0,['Carbon_cloth_AGP3705H']))
-    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,0,0,0,0,N,['Carbon_cloth_AGP3705H']))
+    laminate_min_list.append(lambda N: failure_envelope_laminate(N,0,0,0,0,0,0,mymat,mylayup))
+    laminate_min_list.append(lambda N: failure_envelope_laminate(0,N,0,0,0,0,0,mymat,mylayup))
+    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,N,0,0,0,0,mymat,mylayup))
+    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,0,N,0,0,0,mymat,mylayup))
+    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,0,0,N,0,0,mymat,mylayup))
+    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,0,0,0,N,0,mymat,mylayup))
+    laminate_min_list.append(lambda N: failure_envelope_laminate(0,0,0,0,0,0,N,mymat,mylayup))
     
     envelope_loads = []
-    for loadname,laminate_min in zip(loadnamelist,laminate_min_list):
-        # arange(1,--10000,-20)
-        # arange(1,10000,20)
-        for guess in arange(1,10000,20):
-            MS = laminate_min(guess)
-            if MS < 0:
-                ymin_1 = scipy.optimize.newton(laminate_min, guess)
-                ymin_2 = scipy.optimize.newton(laminate_min, -guess)
-                envelope_loads.append('{} = {:.1f} , {:.1f}'.format(loadname,ymin_1, ymin_2))
-                break
+    N_t = array([0,1])
+    N_c = array([0,-1])
     
-    print('------------- enveloped loads -----------------')
+    for loadname,laminate_min in zip(loadnamelist,laminate_min_list):
+
+        # tension
+        FI = [laminate_min(N) for N in N_t]
+        m = (FI[1]-FI[0]) / (N_t[1] - N_t[0])
+        b = FI[1]-m*N_t[1]
+        N_crit_t = (1-b) / m
+                 
+        # compression
+        FI = [laminate_min(N) for N in N_c]
+        m = (FI[1]-FI[0]) / (N_c[1] - N_c[0])
+        b = FI[1]-m*N_c[1]
+        N_crit_c = (1-b) / m                    
+                  
+        envelope_loads.append('{} = {:.1f} , {:.1f}'.format(loadname,N_crit_t, N_crit_c))
+
+    print('------------- enveloped loads for {} {} -----------------'.format(mylayup, mymat))
     for k in envelope_loads:
         print(k)
-    return envelope_loads
-
-def plot_Nx_Nxy_failure_envelope(mymat):
-    '''
-    TODO: Current calculation is stupid using random points to plot. fix it 
-            by use FI, failure index instead of margin to generate a 
-            linear relationship and envelope
     
-    loops through and tries to find a load that is close to 0 and then 
-    attempts to find the root (ie margin=0)
-    '''
-
-    Nx_env,Nxy_env  = [], []
+    # plot envelope
+    Nx_env = []
+    Nxy_env = []
+    laminate_min = lambda N: failure_envelope_laminate(N,0,0,0,0,0,0,mymat,mylayup)
+    # compression
+    FI = [laminate_min(N) for N in N_c]
+    m = (FI[1]-FI[0]) / (N_c[1] - N_c[0])
+    b = FI[1]-m*N_c[1]
+    Nx_env.append( (1-b) / m  )
+    Nxy_env.append( 0  )
+    # tension
+    FI = [laminate_min(N) for N in N_t]
+    m = (FI[1]-FI[0]) / (N_t[1] - N_t[0])
+    b = FI[1]-m*N_t[1]
+    Nx_env.append( (1-b) / m )
+    Nxy_env.append( 0  )
     
-    laminate_min = lambda N: failure_envelope_laminate(N,0,0,0,0,0,0,mymat)
-    for guess in arange(1,10000,20):
-        MS = laminate_min(guess)
-        if MS < 0:
-            ymin_1 = scipy.optimize.newton(laminate_min, guess)
-            ymin_2 = scipy.optimize.newton(laminate_min, -guess)
-            Nx_env.extend([ymin_1,ymin_2])
-            Nxy_env.extend([0,0])
-            break    
     
-    laminate_min = lambda N: failure_envelope_laminate(0,0,N,0,0,0,0,mymat)
-    for guess in arange(1,10000,20):
-        MS = laminate_min(guess)
-        if MS < 0:
-            ymin_1 = scipy.optimize.newton(laminate_min, guess)
-            ymin_2 = scipy.optimize.newton(laminate_min, -guess)
-            Nxy_env.extend([ymin_1,ymin_2])
-            Nx_env.extend([0,0])
-            break 
+    laminate_min = lambda N: failure_envelope_laminate(0,0,N,0,0,0,0,mymat,mylayup)
+    # compression
+    FI = [laminate_min(N) for N in N_c]
+    m = (FI[1]-FI[0]) / (N_c[1] - N_c[0])
+    b = FI[1]-m*N_c[1]
+    Nxy_env.append( (1-b) / m  )   
+    Nx_env.append( 0  )
+    # tension
+    FI = [laminate_min(N) for N in N_t]
+    m = (FI[1]-FI[0]) / (N_t[1] - N_t[0])
+    b = FI[1]-m*N_t[1]
+    Nxy_env.append( (1-b) / m )   
+    Nx_env.append( 0  )
 
-    laminate_min_Nx_Nxy_func = lambda Nx,Nxy: failure_envelope_laminate(Nx,0,Nxy,0,0,0,0,mymat)
+    laminate_min_Nx_Nxy_func = lambda Nx,Nxy: failure_envelope_laminate(Nx,0,Nxy,0,0,0,0,mymat,mylayup)
 
-    for Nx_r in np.random.randint(Nx_env[1]*2,Nx_env[0]*1.5, 100):
-        for Nxy_r in np.random.randint(Nxy_env[3]*2,Nxy_env[2]*1.5, 50):
-            MS = laminate_min_Nx_Nxy_func(Nx_r, Nxy_r)
-            if MS >=0:
-                Nx_env.append(Nx_r)
-                Nxy_env.append(Nxy_r)
+    n = 500
+    f = 1.25   # < 1
+#    arr1 = np.random.randint(Nx_env[0]-abs(Nx_env[0]*f),Nx_env[0]+abs(Nx_env[0])*f,n)
+#    arr2 = np.random.randint(Nx_env[1]-abs(Nx_env[1]*f),Nx_env[1]+abs(Nx_env[1])*f,n)
+#    Nx_r = np.concatenate((arr1, arr2))
+#    
+#    arr1 = np.random.randint(Nxy_env[2]-abs(Nxy_env[2])*f,Nxy_env[2]+abs(Nxy_env[2])*f,n)
+#    arr2 = np.random.randint(Nxy_env[3]-abs(Nxy_env[3])*f,Nxy_env[3]+abs(Nxy_env[3])*f,n)
+#    Nxy_r = np.concatenate((arr1, arr2))    
+    
+    Nx_r = np.random.randint(Nx_env[0]*f,Nx_env[1]*f, n)
+    Nxy_r = np.random.randint(Nxy_env[2]*f,Nxy_env[3]*f, n)
+    for Nx_ri, Nxy_ri in zip(Nx_r, Nxy_r):
+        FI = laminate_min_Nx_Nxy_func(Nx_ri, Nxy_ri)
+        if FI < 1:
+            Nx_env.append(Nx_ri)
+            Nxy_env.append(Nxy_ri)
     
     points = array([ [x,xy] for x,xy in zip(Nx_env, Nxy_env)])
+    
     hull = scipy.spatial.ConvexHull(points)
-    plot(points[:,0], points[:,1], 'o')
+    plot(points[:,0], points[:,1], 'bo')
     for simplex in hull.simplices:
         plot(points[simplex, 0], points[simplex, 1], 'k-') 
     xlabel('Nx, lb/in')
     ylabel('Nxy, lb/in')
     title('Failure envelope')
-        
-        
+    
+    return envelope_loads
+
 
 def my_laminate_with_loading():
     # loads lbs/in
-    Nx  = -43
+    Nx  = 50
     Ny  = 0
     Nxy = 0
     Mx  = 0
@@ -1712,9 +1776,9 @@ def my_laminate_with_loading():
     laminate_calcs(NM=[Nx,Ny,Nxy,Mx,My,Mxy],
              ek=[0,0,0,0,0,0],
              q0=q0,
-             plyangle=   [45],
-             plymatindex=[0],
-             materials = ['E-Glass Epoxy cloth'],
+             plyangle=   [60,0,-60],
+             plymatindex=[0,0,0],
+             materials = ['E-Glass Epoxy fabric M10E-3783'],
              platedim=[a_width,b_length],
              zoffset=0,
              SF=2.0,
@@ -1724,8 +1788,10 @@ def my_laminate_with_loading():
 if __name__=='__main__':
 
     
+    #plot_single_max_failure_loads()
+    #plot_failure_index()
     my_laminate_with_loading()
-    material_plots(['E-Glass Epoxy cloth'])
+    #material_plots(['E-Glass Epoxy fabric M10E-3783'])
     #plate()
 
     #plot_Nx_Nxy_failure_envelope(['Carbon_cloth_AGP3705H'])
