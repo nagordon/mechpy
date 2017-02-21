@@ -1,5 +1,8 @@
 #!/bin/bash
 
+## if script is not working after editing on windows, try running
+# dos2unix make_mechpy.sh
+
 ## activate conda env for python 2.7
 source activate py27
 

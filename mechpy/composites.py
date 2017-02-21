@@ -1130,7 +1130,12 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
 
         leg = legend(fancybox=True) ; leg.get_frame().set_alpha(0.3)
         tight_layout()
-        mngr = plt.get_current_fig_manager() ; mngr.window.setGeometry(25,50,windowwidth,windowheight)
+        
+        try:
+            mngr = plt.get_current_fig_manager()
+            mngr.window.setGeometry(25,50,windowwidth,windowheight)
+        except:
+            pass
         f1.show()
         #plt.savefig('global-stresses-strains.png')
 
@@ -1170,7 +1175,11 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
 
         leg = legend(fancybox=True) ; leg.get_frame().set_alpha(0.3)
         tight_layout()
-        mngr = plt.get_current_fig_manager() ; mngr.window.setGeometry(windowwidth+50,50,windowwidth,windowheight)
+        try:
+            mngr = plt.get_current_fig_manager()
+            mngr.window.setGeometry(windowwidth+50,50,windowwidth,windowheight)
+        except:
+            pass
         f2.show()
         #plt.savefig('local-stresses-strains.png')
 
@@ -1189,7 +1198,11 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
             ax.set_title('Failure Index, fail if > 1')
         #leg = legend(fancybox=True) ; leg.get_frame().set_alpha(0.3)
         tight_layout()
-        mngr = plt.get_current_fig_manager() ; mngr.window.setGeometry(25,windowheight+100,windowwidth,windowheight)
+        try:
+            mngr = plt.get_current_fig_manager() 
+            mngr.window.setGeometry(25,windowheight+100,windowwidth,windowheight)
+        except:
+            pass
         f2.show()
         #plt.savefig('local-stresses-strains.png')
 
@@ -1214,7 +1227,11 @@ def laminate_calcs(NM,ek,q0,plyangle,plymatindex,materials,platedim, zoffset,SF,
         ax.set_zlabel('warpage,in')
         #ax.set_zlim(-0.01, 0.04)
         #mngr = plt.get_current_fig_manager() ; mngr.window.setGeometry(450,550,600, 450)
-        mngr = plt.get_current_fig_manager() ; mngr.window.setGeometry(windowwidth+50,windowheight+100,windowwidth,windowheight)
+        try:
+            mngr = plt.get_current_fig_manager() 
+            mngr.window.setGeometry(windowwidth+50,windowheight+100,windowwidth,windowheight)
+        except:
+            pass
         plt.show()
         #plt.savefig('plate-warpage')
 
@@ -1640,7 +1657,7 @@ def failure_envelope_laminate(Nx,Ny,Nxy,Mx,My,Mxy,q0,mymat,layup):
     return FAILUREINDEX_MAXSTRESS_max
 
 
-def plot_single_max_failure_loads(mymat='E-Glass Epoxy cloth', mylayup=[0,45,45,0] ):
+def plot_single_max_failure_loads(mymat='E-Glass Epoxy fabric M10E-3783', mylayup=[0,45,45,0] ):
     '''
     loops through and tries to find a load that is close to 0 and then 
     attempts to find the root (ie margin=0)
@@ -1768,7 +1785,7 @@ def my_laminate_with_loading():
     a_width = 50
     b_length = 3.14*6.75
     
-    ## sandwich lamiante
+    ## sandwich laminate
     # plyangle=   [45,45,0, 45,45],
     # plymatindex=[0, 0, 1, 0, 0],    
     
@@ -1776,9 +1793,9 @@ def my_laminate_with_loading():
     laminate_calcs(NM=[Nx,Ny,Nxy,Mx,My,Mxy],
              ek=[0,0,0,0,0,0],
              q0=q0,
-             plyangle=   [60,0,-60],
-             plymatindex=[0,0,0],
-             materials = ['E-Glass Epoxy fabric M10E-3783'],
+             plyangle=   [0,60,-60,-60,60,0],
+             plymatindex=[0,0,0,0,0,0],
+             materials = ['E-Glass Epoxy Uni'],
              platedim=[a_width,b_length],
              zoffset=0,
              SF=2.0,
