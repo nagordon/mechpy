@@ -11751,7 +11751,15 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Composite-Plate-Mechanics-with-Python">Composite Plate Mechanics with Python<a class="anchor-link" href="#Composite-Plate-Mechanics-with-Python">&#182;</a></h1><p>reference: hyer page 584. 617</p>
+<hr>
+<h1 id="Mechpy-Tutorials">Mechpy Tutorials<a class="anchor-link" href="#Mechpy-Tutorials">&#182;</a></h1><p>a mechanical engineering toolbox</p>
+<p>source code - <a href="https://github.com/nagordon/mechpy">https://github.com/nagordon/mechpy</a><br>
+documentation - <a href="https://nagordon.github.io/mechpy/web/">https://nagordon.github.io/mechpy/web/</a></p>
+<hr>
+<p>Neal Gordon<br>
+2017-02-20</p>
+<hr>
+<h2 id="Composite-Plate-Mechanics-with-Python">Composite Plate Mechanics with Python<a class="anchor-link" href="#Composite-Plate-Mechanics-with-Python">&#182;</a></h2><p>reference: hyer page 584. 617</p>
 <p>The motivation behind this talk is to explore the capability of python as a scientific computation tool as well as solve a typical calcuation that could either be done by hand, or coded. I find coding to be a convient way to learn challenging mathmatics because I can easily replicate my work in the future when I can't remember the details of the calcuation or, if there are any errors, they can typically be easily fixed and the other calcuations re-ran without a lot of duplcation of effort.</p>
 <p>Composite mechanics can be very iterative by nature and is easiest to employ linear algebra to find displacements, strains and stresses of composites. Coding solutions is also handy when visualizations are required.</p>
 <p>For this example, we are interested in calcuating the stress critical ply in a simple asymteric composite plate with a pressure load applied. We can chooose a variety of boundary conditions of our plate, but this solution is limited to 2 dimensional displacements, x and z. If we are interested in 3 dimensional displacements, the problem becomes much more challenging as partial differentiation of the governing equations gives us a PDE, which is more challenging to solve.</p>

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+## if script is not working after editing on windows, try running
+# dos2unix make_mechpy.sh
+
 ## activate conda env for python 2.7
 source activate py27
 
@@ -44,6 +47,7 @@ source activate py27
 ## updating github pages
 #mv *.html web
 
+
 ## make the Getting started with python files
 bash make_Getting_Started_with_Python_in_Engineering.sh
 
@@ -77,6 +81,9 @@ cd ..
 ghp-import doc -m "updated doc webpage on gh-pages branch" #-p    ##-p is a push
 
 rm doc/*.html
+
+# removes the trash directory
+rm -R Trash
 
 ### add all master branch files
 git add --all

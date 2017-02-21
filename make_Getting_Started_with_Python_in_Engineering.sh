@@ -26,6 +26,15 @@ mv $dofile.html $dofile.webpage.html
 #doconce format html $dofile --pygments_html_style=autumn --keep_pygments_html_bg SLIDE_TYPE=deck SLIDE_THEME=swiss
 #doconce slides_html $dofile deck --html_slide_theme=swiss
 
+### make a pdf from markdown
+#dofile='Getting_Started_with_Python_in_Engineering'
+#doconce format pdflatex $dofile --latex_code_style=pyg --latex_title_layout=std
+#pandoc $dofile.md --latex-engine=xelatex -o $dofile.pdf
+
+####create tex file
+doconce format pdflatex $dofile --latex_code_style=vrb --latex_title_layout=std  --latex_section_headings=blue --latex_colored_table_rows=blue --no_abort --device=screen --latex_preamble=customization.tex
+pdflatex -shell-escape -interaction=batchmode $dofile.tex
+
 #jupyter nbconvert "Getting_Started_with_Python_in_Engineering.ipynb" --to slides --post serve
 
 ## create reveal html slides
@@ -36,3 +45,9 @@ mv $dofile.html $dofile.webpage.html
 doconce format html $dofile --pygments_html_style=default --keep_pygments_html_bg SLIDE_TYPE=deck SLIDE_THEME=swiss
 doconce slides_html $dofile deck --html_slide_theme=swiss
 mv $dofile.html $dofile.deckslides.html
+
+# removes the trash directory
+rm -R Trash
+
+# remove all the files that are generated during doconce make
+rm *.toc *.log *.aux *.out *.idx *.bbl *.blg *.gz

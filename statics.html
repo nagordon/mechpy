@@ -11751,7 +11751,15 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Mechpy">Mechpy<a class="anchor-link" href="#Mechpy">&#182;</a></h1><h2 id="statics">statics<a class="anchor-link" href="#statics">&#182;</a></h2><ul>
+<hr>
+<h1 id="Mechpy-Tutorials">Mechpy Tutorials<a class="anchor-link" href="#Mechpy-Tutorials">&#182;</a></h1><p>a mechanical engineering toolbox</p>
+<p>source code - <a href="https://github.com/nagordon/mechpy">https://github.com/nagordon/mechpy</a><br>
+documentation - <a href="https://nagordon.github.io/mechpy/web/">https://nagordon.github.io/mechpy/web/</a></p>
+<hr>
+<p>Neal Gordon<br>
+2017-02-20</p>
+<hr>
+<h2 id="statics">statics<a class="anchor-link" href="#statics">&#182;</a></h2><ul>
 <li><a href="#Statics-Example-1">Example 1: A simple supported beam with shear-bending plots</a></li>
 <li><a href="#Statics-Example-2">Example 2: Vector calculation method to calculate 3-D moments</a></li>
 <li><a href="#Distributed-Loads-Calculations">Distributed Loads Calculations</a></li>
@@ -11774,18 +11782,18 @@ div#notebook {
 <div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># setup </span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sp</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># setup </span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">sympy</span> <span class="kn">as</span> <span class="nn">sp</span>
 <span class="kn">import</span> <span class="nn">scipy</span>
-<span class="kn">from</span> <span class="nn">pprint</span> <span class="k">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
 <span class="n">sp</span><span class="o">.</span><span class="n">init_printing</span><span class="p">(</span><span class="n">use_latex</span><span class="o">=</span><span class="s1">&#39;mathjax&#39;</span><span class="p">)</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>  <span class="c1"># (width, height)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">14</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;legend.fontsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">16</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">patches</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">patches</span>
 
 <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">)</span>  <span class="c1"># seperate window</span>
 <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">magic</span><span class="p">(</span><span class="s1">&#39;matplotlib inline&#39;</span><span class="p">)</span> <span class="c1"># inline plotting</span>
@@ -11874,8 +11882,8 @@ $$</p>
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span> <span class="p">;</span> <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">)</span>  <span class="c1"># change to root from the examples folder</span>
-<span class="kn">from</span> <span class="nn">mechpy.statics</span> <span class="k">import</span> <span class="n">simple_support</span><span class="p">,</span> <span class="n">moment_calc</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="kn">import</span> <span class="nn">os</span> <span class="p">;</span> <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">)</span>  <span class="c1"># change to root from the examples folder</span>
+<span class="kn">from</span> <span class="nn">mechpy.statics</span> <span class="kn">import</span> <span class="n">simple_support</span><span class="p">,</span> <span class="n">moment_calc</span>
 </pre></div>
 
 </div>
@@ -11888,7 +11896,7 @@ $$</p>
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">simple_support</span><span class="p">()</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">simple_support</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -12543,7 +12551,7 @@ $</p>
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">moment_calc</span><span class="p">()</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">moment_calc</span><span class="p">()</span>
 </pre></div>
 
 </div>
@@ -13567,7 +13575,7 @@ $$
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
 <span class="n">w</span> <span class="o">=</span> <span class="mi">60</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="c1"># N/m</span>
 <span class="n">sp</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">));</span>
 </pre></div>
@@ -13822,7 +13830,7 @@ xeQcNUmSpIIyqEmSJBWUQU2SJKmgDGqSJEkFZVCTJEkqKIOaJElSQRnUJEmSCsqgJkmSVFD/H6W4
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">w</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">w</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -13851,7 +13859,7 @@ $$240$$
 <div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">Integral</span><span class="p">(</span><span class="n">w</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">Integral</span><span class="p">(</span><span class="n">w</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -13880,7 +13888,7 @@ $$\int_{0}^{2} 60 x^{2}\, dx$$
 <div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -13909,7 +13917,7 @@ $$20 x^{3}$$
 <div class="prompt input_prompt">In&nbsp;[8]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">w</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">w</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -13938,7 +13946,7 @@ $$160$$
 <div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">Integral</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">w</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">Integral</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">w</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -13967,7 +13975,7 @@ $$\int_{0}^{2} 60 x^{3}\, dx$$
 <div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">w</span><span class="o">*</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -13996,7 +14004,7 @@ $$15 x^{4}$$
 <div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">w</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">sp</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">w</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -14025,9 +14033,9 @@ $$240$$
 <div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">FR</span><span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">w</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)))</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="n">FR</span><span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">w</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)))</span>
 <span class="n">xbar</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">integrate</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">w</span><span class="p">,(</span><span class="n">x</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">)))</span><span class="o">/</span><span class="n">FR</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;center of load of an exponential distributed load is </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">xbar</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;center of load of an exponential distributed load is </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">xbar</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -14054,16 +14062,16 @@ $$240$$
 <div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#hibbler pg 346</span>
+<div class=" highlight hl-ipython2"><pre><span></span><span class="c1">#hibbler pg 346</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
 <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>    <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span> <span class="p">,</span> <span class="mf">5.25</span><span class="p">])</span>
 <span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">13.5</span><span class="p">,</span> <span class="mi">0</span> <span class="p">,</span><span class="mf">6.376</span><span class="p">])</span>
 <span class="n">M</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">cross</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="n">F</span><span class="p">)</span>
 
 <span class="c1"># moments </span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;M_x = </span><span class="si">%f</span><span class="s1"> </span><span class="se">\n</span><span class="s1">M_y = </span><span class="si">%f</span><span class="s1"> </span><span class="se">\n</span><span class="s1">M_z = </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">M</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;M_x = </span><span class="si">%f</span><span class="s1"> </span><span class="se">\n</span><span class="s1">M_y = </span><span class="si">%f</span><span class="s1"> </span><span class="se">\n</span><span class="s1">M_z = </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">M</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">))</span>
 </pre></div>
 
 </div>

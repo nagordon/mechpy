@@ -114,16 +114,15 @@ label{chp:mechtut}
 
 Here you will find engineering tutorials on popular activities in engineering computing. The notebooks for these can also be found in mechpy/tutorials
 
+URL:"Composite_Materials_Quasi-Isotropic_Study.html" <linebreak>
 URL:"Composite_Plate_Mechanics_with_Python_Example.html" <linebreak>
 URL:"Composite_Plate_Mechanics_with_Python_Theory.html" <linebreak>
 URL:"composites.html" <linebreak>
-URL:"Curve_fitting_with_python.html" <linebreak>
+URL:"Curve_fitting_and_Optimization_with_python.html" <linebreak>
 URL:"design.html" <linebreak>
-URL:"dynamics.html" <linebreak>
 URL:"fem.html" <linebreak>
 URL:"math.html" <linebreak>
 URL:"plotting.html" <linebreak>
-URL:"python_optimzation_tutorial.html" <linebreak>
 URL:"solids.html" <linebreak>
 URL:"Solving_Differential_Equations_with_Python_mechanical_vibrations.html" <linebreak>
 URL:"statics.html" <linebreak>
@@ -196,6 +195,7 @@ pause
 Because it's there and everyone uses it
 "Automate the boring stuff, python excel scripting":"https://automatetheboringstuff.com/chapter12/" <linebreak>
 "Use python intsead of VBA with xlwings":"http://xlwings.org/" <linebreak>
+"Or with pandas, use xlsxwriter":"http://xlsxwriter.readthedocs.io/index.html" <linebreak>
 "openpyxl":"https://openpyxl.readthedocs.io/en/default/" <linebreak>
 "or just develop directly with Windows COM":"http://shop.oreilly.com/product/9781565926219.do"
 
@@ -582,10 +582,8 @@ Niu - Airframe Stress Analysis and Sizing <linebreak>
 !split
 ======= Links =======
 
-===== Composites References =====
-http://www.doitpoms.ac.uk/tlplib/fibre_composites/
 
-===== Python Engineering Classes =====
+===== Python Online Engineering Classes =====
 "scientific-python-lectures":"https://github.com/jrjohansson/scientific-python-lectures"  <linebreak>
 "Practical Numerical Methods with Python":"http://openedx.seas.gwu.edu/courses/GW/MAE6286/2014_fall/about" with "source code":"https://github.com/numerical-mooc/numerical-mooc" <linebreak>
 "Aerodynamics / Hydrodynamics with Python":"http://openedx.seas.gwu.edu/courses/GW/MAE6226/2014_spring/about" <linebreak>
@@ -629,6 +627,7 @@ __Sympy.__
 "sympy physics":"http://docs.sympy.org/dev/modules/physics/mechanics/" <linebreak>
 
 __Matplotlib.__
+
 "matplotlib gallery":"http://matplotlib.org/gallery.html" and "matplotlib tutorial":"https://github.com/rougier/matplotlib-tutorial"  <linebreak>
 "interactive matplotlib":"http://central.scipy.org/item/84/1/simple-interactive-matplotlib-plots"  <linebreak>
 
@@ -644,13 +643,11 @@ __Matplotlib.__
 "sympy classical mechanics":"http://docs.sympy.org/latest/modules/physics/mechanics/index.html"  <linebreak>
 "pygear":"http://sourceforge.net/projects/pygear/"   <linebreak>
 "AeroComBAT":"https://github.com/bennames/AeroComBAT-Project"
-URL:"https://github.com/nagordon/ME701  "  <linebreak>
-URL:"https://github.com/nagordon/mcgill_mech_530_selimb  "  <linebreak>
 URL:"https://github.com/elainecraigie/MechanicsOfCompositesProject_ECraigie  "   <linebreak>
 
 === FEM / Math ===
 "pynastran":"https://github.com/SteveDoyle2/pynastran/wiki/GUI"   <linebreak>
-"grid solvers":"http://pyamg.org/" with "example""https://code.google.com/p/pyamg/wiki/Examples"   <linebreak>
+"grid solvers":"http://pyamg.org/" with "example":"https://code.google.com/p/pyamg/wiki/Examples"   <linebreak>
 "ode solver":"http://hplgit.github.io/odespy/doc/web/index.html  "   <linebreak>
 "differential equations demo":"http://arachnoid.com/IPython/differential_equations.html"   <linebreak>
 "DiffyQ":"http://www.usna.edu/Users/math/wdj/_files/documents/teach/sm212/DiffyQ/des-book-2009-11-24.pdf"   <linebreak>
@@ -683,7 +680,7 @@ URL:"https://github.com/elainecraigie/MechanicsOfCompositesProject_ECraigie  "  
 === Plotting and Visualization ===
 "bumpy":"http://hplgit.github.io/bumpy/doc/pub/._bumpy010.html#app:resources   "  <linebreak>
 "pygame physics":"http://www.petercollingridge.co.uk/pygame-physics-simulation"  <linebreak>
-"Pymunk visualization":"http://www.pymunk.org/en/latest/readme.html" and URL:"http://chipmunk-physics.net/"
+"Pymunk visualization":"http://www.pymunk.org/en/latest/readme.html" and "here":"http://chipmunk-physics.net/" <linebreak>
 "vpython":"http://vpython.org/"  <linebreak>
 
 
