@@ -114,6 +114,20 @@ label{chp:mechtut}
 
 Here you will find engineering tutorials on popular activities in engineering computing. The notebooks for these can also be found in mechpy/tutorials
 
+URL:"Composite_Materials_Quasi-Isotropic_Study.html" <linebreak>
+URL:"Composite_Plate_Mechanics_with_Python_Example.html" <linebreak>
+URL:"Composite_Plate_Mechanics_with_Python_Theory.html" <linebreak>
+URL:"composites.html" <linebreak>
+URL:"Curve_fitting_and_Optimization_with_python.html" <linebreak>
+URL:"design.html" <linebreak>
+URL:"fem.html" <linebreak>
+URL:"math.html" <linebreak>
+URL:"plotting.html" <linebreak>
+URL:"solids.html" <linebreak>
+URL:"Solving_Differential_Equations_with_Python_mechanical_vibrations.html" <linebreak>
+URL:"statics.html" <linebreak>
+URL:"sundries.html" <linebreak>
+URL:"testing.html" <linebreak>
 ## insert engineering tutorial here
 
 ======= Advanced Tutorials =======

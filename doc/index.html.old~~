@@ -320,7 +320,21 @@ or if you prefer a webpage, follow the link below <br />
 Here you will find engineering tutorials on popular activities in engineering computing. The notebooks for these can also be found in mechpy/tutorials
 
 <p>
-URL:"Composite
+<a href="Composite_Materials_Quasi-Isotropic_Study.html" target="_self"><tt>Composite_Materials_Quasi-Isotropic_Study.html</tt></a> <br />
+<a href="Composite_Plate_Mechanics_with_Python_Example.html" target="_self"><tt>Composite_Plate_Mechanics_with_Python_Example.html</tt></a> <br />
+<a href="Composite_Plate_Mechanics_with_Python_Theory.html" target="_self"><tt>Composite_Plate_Mechanics_with_Python_Theory.html</tt></a> <br />
+<a href="composites.html" target="_self"><tt>composites.html</tt></a> <br />
+<a href="Curve_fitting_and_Optimization_with_python.html" target="_self"><tt>Curve_fitting_and_Optimization_with_python.html</tt></a> <br />
+<a href="design.html" target="_self"><tt>design.html</tt></a> <br />
+<a href="fem.html" target="_self"><tt>fem.html</tt></a> <br />
+<a href="math.html" target="_self"><tt>math.html</tt></a> <br />
+<a href="plotting.html" target="_self"><tt>plotting.html</tt></a> <br />
+<a href="solids.html" target="_self"><tt>solids.html</tt></a> <br />
+<a href="Solving_Differential_Equations_with_Python_mechanical_vibrations.html" target="_self"><tt>Solving_Differential_Equations_with_Python_mechanical_vibrations.html</tt></a> <br />
+<a href="statics.html" target="_self"><tt>statics.html</tt></a> <br />
+<a href="sundries.html" target="_self"><tt>sundries.html</tt></a> <br />
+<a href="testing.html" target="_self"><tt>testing.html</tt></a> <br />
+<a href="units.html" target="_self"><tt>units.html</tt></a> <br />
 
 <h1 id="___sec7">Advanced Tutorials </h1>
 
